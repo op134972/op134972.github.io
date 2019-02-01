@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,算法分析,散列表,分离链接散列,平方探测法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法分析（JAVA描述）（第五章 散列） 个人笔记，如有错误，恳请批评指正。 理想的散列表数据结构只不过是一个包含一些项（item）的具有固定大小的数组。组成：关键字+数据域。表的大小称为tablesize，通常的习惯是让表从0-tablesize-1变化。 散列表（hash table）5.2 散列函数 （hash function）散列函数的作用是根据key和tablesize返回存">
+<meta name="keywords" content="数据结构,算法分析,散列表,分离链接散列,平方探测法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法分析（JAVA描述）（第五章 散列）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第五章 散列）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="数据结构与算法分析（JAVA描述）（第五章 散列） 个人笔记，如有错误，恳请批评指正。 理想的散列表数据结构只不过是一个包含一些项（item）的具有固定大小的数组。组成：关键字+数据域。表的大小称为tablesize，通常的习惯是让表从0-tablesize-1变化。 散列表（hash table）5.2 散列函数 （hash function）散列函数的作用是根据key和tablesize返回存">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/518936687285377768.jpg">
+<meta property="og:updated_time" content="2017-03-30T14:38:55.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构与算法分析（JAVA描述）（第五章 散列）">
+<meta name="twitter:description" content="数据结构与算法分析（JAVA描述）（第五章 散列） 个人笔记，如有错误，恳请批评指正。 理想的散列表数据结构只不过是一个包含一些项（item）的具有固定大小的数组。组成：关键字+数据域。表的大小称为tablesize，通常的习惯是让表从0-tablesize-1变化。 散列表（hash table）5.2 散列函数 （hash function）散列函数的作用是根据key和tablesize返回存">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/518936687285377768.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第五章 散列）/">
+
+
+
+
+
+  <title>数据结构与算法分析（JAVA描述）（第五章 散列） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第五章 散列）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构与算法分析（JAVA描述）（第五章 散列）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据结构与算法分析（JAVA描述）（第五章-散列）"><a href="#数据结构与算法分析（JAVA描述）（第五章-散列）" class="headerlink" title="数据结构与算法分析（JAVA描述）（第五章 散列）"></a>数据结构与算法分析（JAVA描述）（第五章 散列）</h1><hr>
+<p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<p>理想的散列表数据结构只不过是一个包含一些项（item）的具有固定大小的数组。组成：关键字+数据域。表的大小称为tablesize，通常的习惯是让表从0-tablesize-1变化。</p>
+<h2 id="散列表（hash-table）"><a href="#散列表（hash-table）" class="headerlink" title="散列表（hash table）"></a>散列表（hash table）</h2><h3 id="5-2-散列函数-（hash-function）"><a href="#5-2-散列函数-（hash-function）" class="headerlink" title="5.2 散列函数 （hash function）"></a>5.2 散列函数 （hash function）</h3><p>散列函数的作用是根据key和tablesize返回存储的位置，均匀的分布于散列表中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(String key,<span class="keyword">int</span> tableSize)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> hashVal = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;key.length();i++)</span><br><span class="line">		hashVal = <span class="number">37</span>*hashVal+key.charAt(i);</span><br><span class="line">	</span><br><span class="line">	hashVal %= tableSize;</span><br><span class="line">	<span class="keyword">if</span>(hashVal&lt;<span class="number">0</span>)</span><br><span class="line">		hashVal += tableSize;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> hashVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决散列函数（即存储地址）相同引起的冲突有两种方法：分离链接法和开放定址法。</p>
+<h3 id="5-3-分离链接法（separate-chaining）"><a href="#5-3-分离链接法（separate-chaining）" class="headerlink" title="5.3 分离链接法（separate chaining）"></a>5.3 分离链接法（separate chaining）</h3><p>链表结构存储相同散列函数值的数据，新元素插入到链表的前端。表的大小即为list的个数。<br>装填因子是指：散列表的元素个数/表的大小。改因子影响了散列表的平均查找代价。<br>实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeparateChainingHashTable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_TABLE_SIZE = <span class="number">101</span>;</span><br><span class="line">	<span class="keyword">private</span> List&lt;T&gt;[] theLists;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> currentSize;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SeparateChainingHashTable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(DEFAULT_TABLE_SIZE);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SeparateChainingHashTable</span><span class="params">(<span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">		theLists = <span class="keyword">new</span> LinkedList[size];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;theLists.length;i++)</span><br><span class="line">			theLists[i] = <span class="keyword">new</span> LinkedList&lt;T&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> currentSize;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		List&lt;T&gt; whichList = theLists[myhash(element)];</span><br><span class="line">		<span class="keyword">if</span>(!whichList.contains(element))</span><br><span class="line">			whichList.add(element);</span><br><span class="line">		<span class="keyword">if</span>(++currentSize&gt;theLists.length)<span class="comment">//装填因子&gt;1了</span></span><br><span class="line">			rehash();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"存入的hash位置是："</span>+myhash(element));</span><br><span class="line">		System.out.println(<span class="string">"当前size为"</span>+currentSize);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		List&lt;T&gt; whichList = theLists[myhash(element)];</span><br><span class="line">		<span class="keyword">if</span>(whichList.contains(element))&#123;</span><br><span class="line">			whichList.remove(element);</span><br><span class="line">			currentSize--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makeEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//保留之前的size，只清除数据</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;theLists.length;i++)</span><br><span class="line">			theLists[i].clear();</span><br><span class="line">		currentSize = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		List&lt;T&gt; whichList = theLists[myhash(element)];</span><br><span class="line">		<span class="keyword">return</span> whichList.contains(element);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 再散列</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">rehash</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"rehash方法调用了"</span>);</span><br><span class="line">		List&lt;T&gt;[] oldLists = theLists;</span><br><span class="line">		theLists = <span class="keyword">new</span> List[theLists.length*<span class="number">2</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;theLists.length;i++)</span><br><span class="line">			theLists[i] = <span class="keyword">new</span> LinkedList&lt;T&gt;();</span><br><span class="line">		currentSize = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j&lt;oldLists.length;j++)&#123;</span><br><span class="line">			<span class="keyword">for</span> (T t : oldLists[j]) &#123;</span><br><span class="line">				insert(t);<span class="comment">//因为size改变，不能简单的复制关键值，重新进行insert操作。</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 确定地址</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> element</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">myhash</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> hashVal = element.hashCode();</span><br><span class="line">		hashVal %= theLists.length;</span><br><span class="line">		<span class="keyword">if</span>(hashVal&lt;<span class="number">0</span>)</span><br><span class="line">			hashVal += theLists.length;</span><br><span class="line">		<span class="keyword">return</span> hashVal;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SeparateChainingHashTable&lt;Integer&gt; hashTable = <span class="keyword">new</span> SeparateChainingHashTable&lt;Integer&gt;(<span class="number">101</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">			hashTable.insert(j);</span><br><span class="line">		&#125;</span><br><span class="line">		hashTable.makeEmpty();</span><br><span class="line">		System.out.println(hashTable.size());</span><br><span class="line">		System.out.println(hashTable.theLists.length);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-4-不用链表的散列表"><a href="#5-4-不用链表的散列表" class="headerlink" title="5.4 不用链表的散列表"></a>5.4 不用链表的散列表</h3><p>不用链表，当hash冲突时，尝试另外的存储单元，知道找到空的为止，此种方法要使用的表要比分离链接散列的表大，一般来说，对于不使用分离链接的散列表来说，其装填因子应该低于0.5。这样的表称为<strong>探测散列表（probing hash table）</strong>。</p>
+<h4 id="5-4-1-线性探测法"><a href="#5-4-1-线性探测法" class="headerlink" title="5.4.1 线性探测法"></a>5.4.1 线性探测法</h4><p>产生一次聚集的问题（primary clustering），散列到区块的任何关键字都需要多次试选单元才能够解决冲突，然后该关键字被添加到相应的区块中。</p>
+<h4 id="5-4-2-平方探测法"><a href="#5-4-2-平方探测法" class="headerlink" title="5.4.2 平方探测法"></a>5.4.2 平方探测法</h4><p><strong>定理5.1</strong>：如果使用<strong>平方探测</strong>，且标的大小是<strong>素数</strong>，当表至少有一半是空时，总能够插入一个新的元素。此定理用于确定rehash的时机。<br>实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuadraticProbingHashTable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_TABLE_SIZE = <span class="number">101</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> currentSize;</span><br><span class="line">	<span class="keyword">private</span> HashEntry&lt;T&gt;[] array;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 嵌套类,自定义的表格单元</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HashEntry</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">		<span class="keyword">public</span> T element;</span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">boolean</span> isActive;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">HashEntry</span><span class="params">(T element)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>(element,<span class="keyword">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">HashEntry</span><span class="params">(T element, <span class="keyword">boolean</span> isActive)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.element = element;</span><br><span class="line">			<span class="keyword">this</span>.isActive = isActive;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">QuadraticProbingHashTable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(DEFAULT_TABLE_SIZE);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">QuadraticProbingHashTable</span><span class="params">(<span class="keyword">int</span> size)</span></span>&#123;</span><br><span class="line">		array = <span class="keyword">new</span> HashEntry[size];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> currentSize;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makeEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		currentSize = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;array.length;i++)</span><br><span class="line">			array[i] = <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> currentPos = findPos(element);</span><br><span class="line">		<span class="keyword">return</span> isActive(currentPos);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 实施对冲突的解决</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> element</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">findPos</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> offset = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> currentPos = myhash(element);</span><br><span class="line">		<span class="keyword">while</span>(array[currentPos] != <span class="keyword">null</span> &amp;&amp; !array[currentPos].element.equals(element))&#123;<span class="comment">//探测</span></span><br><span class="line">			currentPos += offset;<span class="comment">//计算i探测的指针位置 offset为第i次的步长</span></span><br><span class="line">			offset += <span class="number">2</span>;</span><br><span class="line">			<span class="comment">/*</span></span><br><span class="line"><span class="comment">			 * +1	1</span></span><br><span class="line"><span class="comment">			 * +3	4</span></span><br><span class="line"><span class="comment">			 * +5	9</span></span><br><span class="line"><span class="comment">			 * +7	16</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			<span class="keyword">if</span>(currentPos&gt;=array.length)</span><br><span class="line">				currentPos %= array.length;</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">return</span> currentPos;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> currentPos = findPos(element);</span><br><span class="line">		<span class="keyword">if</span>(isActive(currentPos))</span><br><span class="line">			<span class="keyword">return</span>;<span class="comment">//不做任何操作，说明该位置有数，并且元素和插入元素重复</span></span><br><span class="line">		array[currentPos] = <span class="keyword">new</span> HashEntry&lt;T&gt;(element);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(++currentSize&gt;array.length/<span class="number">2</span>)<span class="comment">//根据定理，过半则探测不到，进行rehash</span></span><br><span class="line">			rehash();</span><br><span class="line">		System.out.println(<span class="string">"插入的元素是"</span>+element);</span><br><span class="line">		System.out.println(<span class="string">"currentPos"</span>+currentPos);</span><br><span class="line">		System.out.println(<span class="string">"currentSize:"</span>+size());</span><br><span class="line">		System.out.println(<span class="string">"======================="</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> currentPos= findPos(element);</span><br><span class="line">		<span class="keyword">if</span>(isActive(currentPos))&#123;</span><br><span class="line">			currentSize--;</span><br><span class="line">			array[currentPos].isActive = <span class="keyword">false</span>;<span class="comment">//element会被覆盖</span></span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"remove的元素"</span>+element);</span><br><span class="line">		System.out.println(<span class="string">"currentPos"</span>+currentPos);</span><br><span class="line">		System.out.println(<span class="string">"currentSize"</span>+size());</span><br><span class="line">		System.out.println(<span class="string">"++++++++++++++++++++++++"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">rehash</span><span class="params">()</span></span>&#123;</span><br><span class="line">		HashEntry&lt;T&gt;[] oldArray = array;</span><br><span class="line">		array = <span class="keyword">new</span> HashEntry[array.length*<span class="number">2</span>];</span><br><span class="line">		currentSize = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (HashEntry&lt;T&gt; entry : oldArray) &#123;</span><br><span class="line">			<span class="keyword">if</span>(entry!=<span class="keyword">null</span>&amp;&amp;entry.isActive)<span class="comment">//判空和判Active</span></span><br><span class="line">				insert(entry.element);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isActive</span><span class="params">(<span class="keyword">int</span> currentPos)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> array[currentPos] !=<span class="keyword">null</span> &amp;&amp; array[currentPos].isActive;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">myhash</span><span class="params">(T element)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> hashVal = element.hashCode();</span><br><span class="line">		hashVal %= array.length;</span><br><span class="line">		<span class="keyword">if</span>(hashVal&lt;<span class="number">0</span>)</span><br><span class="line">			hashVal += array.length;</span><br><span class="line">		<span class="keyword">return</span> hashVal;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	*test</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		QuadraticProbingHashTable&lt;Integer&gt; hashTable = <span class="keyword">new</span> QuadraticProbingHashTable&lt;Integer&gt;(<span class="number">101</span>);</span><br><span class="line">		System.out.println(hashTable.size());</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">101</span>;i++)&#123;</span><br><span class="line">			hashTable.insert(i);</span><br><span class="line">			hashTable.remove(i);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(hashTable.size());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>remove时不能直接将HashEntry=null</strong>，原因是之前插入过数据的HashEntry除非再次插入一样的数据，不能插入别的数据，否则会引起混乱。<br><img src="http://oli0whb3w.bkt.clouddn.com/518936687285377768.jpg" alt="enter image description here"></p>
+<p>虽然平方探测排除了一次聚集，但是散列到同一位置上的那些元素将探测相同的备选单元。这叫做二次聚集（secondary clustering）。</p>
+<h4 id="5-4-3-双散列"><a href="#5-4-3-双散列" class="headerlink" title="5.4.3 双散列"></a>5.4.3 双散列</h4><h3 id="5-5-再散列"><a href="#5-5-再散列" class="headerlink" title="5.5 再散列"></a>5.5 再散列</h3><p>对于使用平方探测的开放地址散列法，如果散列表填的太满，那么操作的运行时间消耗过长，且插入可能会失败。解决办法是及时拓容。及再散列（rehashing）。</p>
+<h3 id="5-6-标准库中的散列表"><a href="#5-6-标准库中的散列表" class="headerlink" title="5.6 标准库中的散列表"></a>5.6 标准库中的散列表</h3><p>标准库包括set和map的散列表的实现，即Hashset类和Hashmap类。Hashset中的项必须提供equals方法和hashcode方法，Hashset和Hashmap通常是用分离链接散列实现的。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>散列表可以以常数平均时间实现insert和查找操作。当使用散列表时注意注入装填因子这样的细节特别重要，否则时间界将不再有效。当关键字不是短的串或整数时，仔细选择散列函数也是特别重要的。<br>对于分离链接散列法，虽然装填因子不很大时性能并不明显降低，但是装填因子还是应该接近于1。对于探测散列算法，除非不可避免，否则装填因子不应该超过0.5。<br>二叉查找树也可以用来实现insert和contains运算，支持那些需要序从而功能更强大的程序。使用散列表不可能找到最值元素，除非明确的知道字符串，否则散列表也不可能有效地查找到他。二叉查找树可以迅速的找到在一定范围内的所有项；散列表做不到。<br>另一方面，散列的最坏情况一般来自于实现的错误，而有序的输入却是二叉查找树的噩梦。平衡查找树的代价很高，因此，如果不需要有序的信息以及对输入是否有序存有怀疑，就应该选择散列这种数据结构。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/算法分析/" rel="tag"># 算法分析</a>
+          
+            <a href="/tags/散列表/" rel="tag"># 散列表</a>
+          
+            <a href="/tags/分离链接散列/" rel="tag"># 分离链接散列</a>
+          
+            <a href="/tags/平方探测法/" rel="tag"># 平方探测法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/数据结构与算法分析（JAVA描述）（第四章  树）/" rel="next" title="数据结构与算法分析（JAVA描述）（第四章  树）">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法分析（JAVA描述）（第四章  树）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/数据结构与算法分析（JAVA描述）（第一章）/" rel="prev" title="数据结构与算法分析（JAVA描述）（第一章）">
+                数据结构与算法分析（JAVA描述）（第一章） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构与算法分析（JAVA描述）（第五章-散列）"><span class="nav-number">1.</span> <span class="nav-text">数据结构与算法分析（JAVA描述）（第五章 散列）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#散列表（hash-table）"><span class="nav-number">1.1.</span> <span class="nav-text">散列表（hash table）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-散列函数-（hash-function）"><span class="nav-number">1.1.1.</span> <span class="nav-text">5.2 散列函数 （hash function）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-分离链接法（separate-chaining）"><span class="nav-number">1.1.2.</span> <span class="nav-text">5.3 分离链接法（separate chaining）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-不用链表的散列表"><span class="nav-number">1.1.3.</span> <span class="nav-text">5.4 不用链表的散列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-线性探测法"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">5.4.1 线性探测法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-平方探测法"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">5.4.2 平方探测法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-3-双散列"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">5.4.3 双散列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-再散列"><span class="nav-number">1.1.4.</span> <span class="nav-text">5.5 再散列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-标准库中的散列表"><span class="nav-number">1.1.5.</span> <span class="nav-text">5.6 标准库中的散列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.6.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

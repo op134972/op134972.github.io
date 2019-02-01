@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Servlet,Session,Cookie,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔记整理（8）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  Servlet编程servlet对象是单例的，一个项目里面有且仅有一个。 servlet直接传递数据    方式1：response.sendRedirect(“/servlet2?name=jack”);12345678910111213&amp;lt;?xml version=”1.0” encoding=”">
+<meta name="keywords" content="Java,Servlet,Session,Cookie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记整理（8）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/笔记整理（8）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="笔记整理（8）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  Servlet编程servlet对象是单例的，一个项目里面有且仅有一个。 servlet直接传递数据    方式1：response.sendRedirect(“/servlet2?name=jack”);12345678910111213&amp;lt;?xml version=”1.0” encoding=”">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/aefafaefafafa.png">
+<meta property="og:updated_time" content="2017-03-23T08:40:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔记整理（8）">
+<meta name="twitter:description" content="笔记整理（8）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  Servlet编程servlet对象是单例的，一个项目里面有且仅有一个。 servlet直接传递数据    方式1：response.sendRedirect(“/servlet2?name=jack”);12345678910111213&amp;lt;?xml version=”1.0” encoding=”">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/aefafaefafafa.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/笔记整理（8）/">
+
+
+
+
+
+  <title>笔记整理（8） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/笔记整理（8）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">笔记整理（8）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/笔记整理/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记整理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="笔记整理（8）"><a href="#笔记整理（8）" class="headerlink" title="笔记整理（8）"></a>笔记整理（8）</h1><p><em>整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。</em></p>
+<hr>
+<h3 id="Servlet编程"><a href="#Servlet编程" class="headerlink" title="Servlet编程"></a>Servlet编程</h3><p>servlet对象是<strong>单例</strong>的，一个项目里面有且仅有一个。</p>
+<p>servlet直接传递数据<br>    方式1：response.sendRedirect(“/servlet2?name=jack”);<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span>&gt;</span>xml约束<span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br><span class="line"></span><br><span class="line">servlet的配置：</span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span> servlet内部名称，可以自定义</span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>包名+类名<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">servlet的映射配置：</span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>与配置name保持一致<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/+(访问名)<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>servlet接口——–GenericServlet实现（实现了init，service等方法）——–HttpServlet继承——–MyServlet继承！（init方法在GenericServlet类中实现，它是HttpServlet类的超类！！，service方法在HttpServlet中实现！）</p>
+<h4 id="Servlet的执行过程"><a href="#Servlet的执行过程" class="headerlink" title="Servlet的执行过程"></a>Servlet的执行过程</h4><p>servlet其实是一个实现了HttpServlet接口的Java类。交给tomcat服务器运行。</p>
+<ol>
+<li>编写servlet类，实现HttpServlet接口。</li>
+<li>将servlet的class字节码放入到tomcat的对应项目的WEB-INF/classes目录下。</li>
+<li>在web.xml中配置servlet，<strong>tomcat会在启动的时候将每个项目的web.xml文件加载进内存</strong>。</li>
+<li>通过URL访问这个servlet。</li>
+</ol>
+<p>tomcat对URL的解析：如：<a href="http://localhost:8080/myproject/hello" target="_blank" rel="noopener">http://localhost:8080/myproject/hello</a></p>
+<ol>
+<li>截取URL的字符串，得到需要访问的资源的名称。<code>/hello</code></li>
+<li>在<code>myproject</code>项目文件的web.xml文件中搜索匹配<code>url-pattern</code>。</li>
+<li>获取到<code>servlet-class</code>的内容。即web.xml中的配置：<code>cn.ustb.servlet.HelloServlet</code></li>
+<li>创建HelloServlet对象（<strong>单例</strong>），然后调用HelloServlet类中的方法。（通过反射创建对象）</li>
+<li>把内容返回给浏览器用户。</li>
+</ol>
+<h4 id="web-xml中的url-pattern配置"><a href="#web-xml中的url-pattern配置" class="headerlink" title="web.xml中的url-pattern配置"></a>web.xml中的url-pattern配置</h4><ul>
+<li>通配符<br><code>/*</code>或者<code>*.action</code>不能共用。即<code>/ustb/*.action</code>是非法的。</li>
+</ul>
+<ol>
+<li>要么以斜杠开头，要么<em>号开头<br> 非法的url-pattern: /ustb/</em>.html</li>
+<li>当多个url-pattern同时被匹配的情况下<br> 2.1  精确匹配优先（长的最像的那个优先被匹配）<br> 2.2  以后缀名结尾的url-pattern的优先级最低的</li>
+</ol>
+<ul>
+<li>缺省路径<br><code>&lt;url-pattern&gt;/&lt;/url-pattern&gt;</code>,在tomcat内部被一个缺省Servlet(DefaultServlet)匹配，用于处理所有项目中的静态网页。原则：先动态，再静态<br>如：localhost:8080/myproject/hello.html<br>1）搜索myproject下面的web.xml文件信息。搜索是否存在匹配的<code>&lt;url-pattern&gt;</code><br>2）匹配到对应的<code>url-pattern,</code>执行对应的Servlet程序。<br>3）如果没有匹配的url-pattern，就把这个请求交给tomcat服务器的<code>DefaultServlet</code>处理。<br>4）DefaultServlet会在myproject的根目录下搜索是否存在一个名称叫hello.html的文件。<br>5）如果找到次文件， 那么DefaultServlet读取该文件内容返回给用户。<br>6）如果找不到次文件， 那么就给用户返回一个404状态码+404错误页面。</li>
+</ul>
+<h4 id="Servlet的生命周期"><a href="#Servlet的生命周期" class="headerlink" title="Servlet的生命周期"></a>Servlet的生命周期</h4><p>servlet对象由服务器创建，第一次访问就会创建该对象（和单例不矛盾）。</p>
+<h5 id="Sevlet的四个重要的生命周期方法"><a href="#Sevlet的四个重要的生命周期方法" class="headerlink" title="Sevlet的四个重要的生命周期方法"></a>Sevlet的四个重要的生命周期方法</h5><p>构造方法： 创建servlet对象时调用，只调用1次，证明了sevlet是单例的。<br>init方法：　创建完对象之后调用。只调用1次。该方法用于初始化对象。<br>service方法： 在每次请求时调用，调用n次。该方法入口方法，我们的逻辑代码在这里被调用。<br>destory方法：在servlet对象销毁之后调用。只调用1次。<strong>重新部署网站或者停止服务器</strong>，servlet对象就会销毁了。</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/aefafaefafafa.png" alt="enter image description here"></p>
+<h4 id="Servlet的线程并发问题"><a href="#Servlet的线程并发问题" class="headerlink" title="Servlet的线程并发问题"></a>Servlet的线程并发问题</h4><h5 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h5><p>servlet在tomcat服务器中，是<strong>单实例多线程</strong>的</p>
+<h5 id="开发线程安全的servlet建议"><a href="#开发线程安全的servlet建议" class="headerlink" title="开发线程安全的servlet建议"></a>开发线程安全的servlet建议</h5><ol>
+<li>尽量不要使用成员变量，或者静态成员变量。</li>
+<li>必须要使用成员变量，要么给使用了成员变量的代码块加同步锁，加锁的代码块的范围尽量缩小，因为有可能影响程序并发效率。</li>
+</ol>
+<h4 id="Servlet的自动加载机制（解决第一次访问创建servlet慢的问题）"><a href="#Servlet的自动加载机制（解决第一次访问创建servlet慢的问题）" class="headerlink" title="Servlet的自动加载机制（解决第一次访问创建servlet慢的问题）"></a>Servlet的自动加载机制（解决第一次访问创建servlet慢的问题）</h4><h5 id="引入-1"><a href="#引入-1" class="headerlink" title="引入"></a>引入</h5><p>默认情况servlet对象是在第一次访问的时候创建。如果在这个servlet的<code>构造方法</code>或者<code>init方法</code>执行比较多的逻辑，那么第一次访问servlet的用户体验就不好！</p>
+<p>那么能不能改变创建servlet的机制？  可以的，可以让servlet在服务器启动的时候自动加载。</p>
+<h5 id="自动加载的配置"><a href="#自动加载的配置" class="headerlink" title="自动加载的配置"></a>自动加载的配置</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>LifeDemo<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>gz.itcast.c_life.LifeDemo<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 这个配置可以让servlet在tomcat服务器启动的时候自动创建servlet对象 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意：<br>配置在servlet配置中而非servlet映射配置。<br>load-on-startup中的整数值越大，创建的优先级越低！</p>
+<h4 id="Servlet的init方法"><a href="#Servlet的init方法" class="headerlink" title="Servlet的init方法"></a>Servlet的init方法</h4><h5 id="两个init方法作用"><a href="#两个init方法作用" class="headerlink" title="两个init方法作用"></a>两个init方法作用</h5><p><code>init(ServletConfig)</code> 这个有参数的init方法的作用就是Servlet的其中一个重要的生命周期方法。这个方法<strong>一定会被tomcat服务器调用</strong>。</p>
+<p><code>init()</code>: 这个无参的init方法的作用就是为了<strong>提供给开发者方便去覆盖</strong>，覆盖这个方法，可以在此方法编写初始化的逻辑。这个方法才是<strong>真的给开发者做初始化逻辑的方法</strong>。</p>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><p>Servlet开发中涉及的对象：<br>    HttpservletRequest对象： 请求对象<br>    HttpServletResponse对象： 响应对象<br>    ServletConfig对象： servlet配置对象<br>    ServletContext对象： servlet的上下文对象</p>
+<h4 id="ServletConfig对象-（一个网站一个项目有多个-与servlet对应）"><a href="#ServletConfig对象-（一个网站一个项目有多个-与servlet对应）" class="headerlink" title="ServletConfig对象    （一个网站一个项目有多个,与servlet对应）"></a>ServletConfig对象    （一个网站一个项目有多个,与servlet对应）</h4><h5 id="引入-2"><a href="#引入-2" class="headerlink" title="引入"></a>引入</h5><p>servletconfig是配置对象，主要把servlet的初始化参数封装到这个对象中。一个网站中可能会存在多个ServletConfig对象，一个ServletConfig对象就封装了一个servlet的配置信息。</p>
+<h5 id="配置初始化参数"><a href="#配置初始化参数" class="headerlink" title="配置初始化参数"></a>配置初始化参数</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ConfigDemo<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>gz.itcast.f_config.ConfigDemo<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- servlet的初始化参数 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>path<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>e:/aaa.txt<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>获取config对象：<br>    ServletConfig servletConfig = getServletConfig();<br>在servlet中获取初始化参数：<br>    config.getInitParameter(“name”);  根据参数名称获取参数值<br>    config.getInitParameterNames();   获取所有参数名称</p>
+<h4 id="ServletContext对象（一个网站一个项目就一个，与project对应）"><a href="#ServletContext对象（一个网站一个项目就一个，与project对应）" class="headerlink" title="ServletContext对象（一个网站一个项目就一个，与project对应）"></a>ServletContext对象（一个网站一个项目就一个，与project对应）</h4><h5 id="引入-3"><a href="#引入-3" class="headerlink" title="引入"></a>引入</h5><p>ServletContext对象叫servlet上下文对象。 一个网站只会创建一个ServletContext对象。代表的是整个网站的环境信息。</p>
+<h5 id="获取ServletContext对象"><a href="#获取ServletContext对象" class="headerlink" title="获取ServletContext对象"></a>获取ServletContext对象</h5><p>this.getServletConfig().getServletContext();  通过ServletConfig对象来获取到ServletContext对象的！！</p>
+<p><code>ServletContext对象</code>：<strong>启动的时候创建</strong><br><code>ServletConfig对象</code>：<strong>调用init方法之前创建的</strong>，<strong>在ServletContext对象创建之后</strong><br>                <strong>将context对象封装进config对象中，并提供对外获取的方法getServletContext()，以简化数据传输、</strong><br>简化方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">伪代码：</span><br><span class="line">			</span><br><span class="line">public ServletCofig&#123;</span><br><span class="line">	ServletContext context;</span><br><span class="line">	public ServletConfig(context)&#123;</span><br><span class="line">		this.context=context;</span><br><span class="line">	&#125;</span><br><span class="line">	public ServetContxt getServletContext()&#123;</span><br><span class="line">		return context;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ServletConfig config = new ServletConfig(context);</span><br><span class="line">public MyServlet extends HttpSevlet&#123;</span><br><span class="line"></span><br><span class="line">	publlic init(ServletConfig config)&#123;</span><br><span class="line">		SevletContext context= config. getServletContext();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="ServletContext的5大作用"><a href="#ServletContext的5大作用" class="headerlink" title="ServletContext的5大作用"></a>ServletContext的5大作用</h4><ol>
+<li>获取web应用的上下文路径。<br><code>java.lang.String    -----    ServletContext.getContextPath()</code><br>简化版本：<code>request.getContextPath();</code></li>
+<li>获取全局参数<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.<span class="function">String 			<span class="title">getInitParameter</span><span class="params">(java.lang.String name)</span>  	</span></span><br><span class="line"><span class="function">java.util.Enumeration		 <span class="title">getInitParameterNames</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>设置全局参数</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">version</span>=<span class="string">"2.5"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee </span></span></span><br><span class="line"><span class="tag"><span class="string">	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 配置web应用全局的参数 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>AAA<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>AAA's value<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>BBB<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>BBB's value<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>CCC<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>CCC's value<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>注意：<br>全局参数对当前web应用下的所有servlet都有效的！</p>
+<ol start="3">
+<li>和域对象相关的</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>					<span class="title">setAttribute</span><span class="params">(java.lang.String name, java.lang.Object object)</span>  </span></span><br><span class="line"><span class="function">java lang.Object 		<span class="title">getAttribute</span><span class="params">(java.lang.String name)</span>  </span></span><br><span class="line"><span class="function"><span class="keyword">void</span>					<span class="title">removeAttribute</span><span class="params">(java.lang.String name)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>什么是域对象</strong>？<br>域对象在不同的资源之间来共享数据。保存数据，获取数据。全局参数只能保存String类型数据，而域对象可以保存任何类型数据。域对象相当于一个容器，存储数据在不同的资源之间共享。     将数据封装到域对象中，在一个项目的不同资源中传递。利用set  get remove attribute方法操作数据，其数据是唯一的。比起全局参数，其数据类型更广泛。</p>
+<p>ServletContext就是我们学习的第一个域对象。<br>                    Servlet三个域对象：<br>                            <strong>ServletContext</strong><br>                            <strong>HttpServletRequest</strong><br>                            <strong>HttpSession</strong></p>
+<ol start="4">
+<li>请求转发的<pre><code>`RquestDispatcher             getRequestDispatcher(java.lang.String path) `
+简化：
+`request.getRequestDispatcher(path);`
+</code></pre></li>
+</ol>
+<pre><code>在servlet跳转页面：
+请求重定向：
+    1）地址栏会发送改变，变成重定向到的地址。
+    2）可以跳转到项目内的资源，也可以跳转项目外的资源。（浏览器行为/代表从当前站点的根目录开始）
+    3）浏览器向服务器发出两次请求，那么就不能使用请求来作为域对象来共享数据。
+
+请求转发：
+    1）地址栏不会改变。
+    2）只能跳转到项目内的资源，不能跳转到项目外的资源（服务器行为/代表从当前项目的根目标开始）
+    3）浏览器向服务器发出一次请求，那么可以使用请求作为域对象共享数据。
+</code></pre><ol start="5">
+<li>读取web项目的资源文件</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.lang.<span class="function">String    <span class="title">getRealPath</span><span class="params">(java.lang.String path)</span>  <span class="comment">//获取资源文件的绝对路径</span></span></span><br><span class="line"><span class="function">java.io.InputStream    <span class="title">getResourceAsStream</span><span class="params">(java.lang.String path)</span>  <span class="comment">//获取资源，返回输入流</span></span></span><br><span class="line"><span class="function">java.net.URL    <span class="title">getResource</span><span class="params">(java.lang.String path)</span><span class="comment">//获取资源，返回URL对象</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>相对路径：</strong><br>当前路径相对于java命令运行的目录。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 相对路径：</span></span><br><span class="line"><span class="comment">		 * 	   当前路径相对于java命令运行的目录</span></span><br><span class="line"><span class="comment">		 * 结论：</span></span><br><span class="line"><span class="comment">		 * 在web项目中，java命令运行的目录就是在tomcat的bin目录。在web项目，不能使用相对路径</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		FileInputStream in = new FileInputStream("./src/news.properties");</span></span><br><span class="line"><span class="comment">		//1)使用Properteis对象</span></span><br><span class="line"><span class="comment">		Properties prop = new Properties();</span></span><br><span class="line"><span class="comment">		//2)使用load方法加载properties文件</span></span><br><span class="line"><span class="comment">		prop.load(in);</span></span><br><span class="line"><span class="comment">		//3)通过getProperty（）获取内容</span></span><br><span class="line"><span class="comment">		System.out.println(prop.getProperty("name"));</span></span><br><span class="line"><span class="comment">		System.out.println(prop.getProperty("password"));</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 1)getRealPath()  获取资源文件的真实路径</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="comment">/*String path = this.getServletContext().getRealPath("/WEB-INF/classes/news.properties");</span></span><br><span class="line"><span class="comment">		System.out.println(path);*/</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 2)getResourceAsStream() 获取资源文件的输入流</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		InputStream in = <span class="keyword">this</span>.getServletContext().getResourceAsStream(<span class="string">"/WEB-INF/classes/news.properties"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 3)getResource() 获取资源文件的URL</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="comment">//URL url = this.getServletContext().getResource("/WEB-INF/classes/news.properties");</span></span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//FileInputStream in = new FileInputStream(new File(path));</span></span><br><span class="line">		<span class="comment">//1)使用Properteis对象</span></span><br><span class="line">		Properties prop = <span class="keyword">new</span> Properties();</span><br><span class="line">		<span class="comment">//2)使用load方法加载properties文件</span></span><br><span class="line">		prop.load(in);</span><br><span class="line">		<span class="comment">//3)通过getProperty（）获取内容</span></span><br><span class="line">		System.out.println(prop.getProperty(<span class="string">"name"</span>));</span><br><span class="line">		System.out.println(prop.getProperty(<span class="string">"password"</span>));</span><br></pre></td></tr></table></figure></p>
+<h4 id="Servlet总结"><a href="#Servlet总结" class="headerlink" title="Servlet总结"></a>Servlet总结</h4><pre><code>Servlet编程：
+    1）servlet编写
+    2）servlet的映射路径（精确匹配  模糊匹配 缺省路径？？？）
+    3）servlet的生命周期（构造方法，init方法，service方法，destroy方法）
+    4）多线程并发问题（单实例多线程，servlet使用成员变量，同步锁解决）
+    5）自动加载（load-on-startup） + 两个init方法的区别
+    6）ServletConfig对象：读取初始化参数
+            &lt;servlet&gt;
+
+                &lt;init-param&gt;
+                    &lt;param-name&gt;&lt;/param-name&gt;
+                    &lt;param-value&gt;&lt;/param-value&gt;
+                &lt;init-param&gt;
+            &lt;servlet&gt;
+    7）ServetContext对象（重点）
+            5大作用：
+                1）读取web上下文路径（1）
+                2）读取全局参数（2）
+                3）作为域对象使用（3）
+                4）可以转发页面（1）
+                5）读取web资源文件（3）
+</code></pre><h3 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h3><h4 id="会话管理技术"><a href="#会话管理技术" class="headerlink" title="会话管理技术"></a>会话管理技术</h4><p>Cookie技术：保存在浏览器端<br>Session技术：保存在服务器端</p>
+<h4 id="Cookie技术"><a href="#Cookie技术" class="headerlink" title="Cookie技术"></a>Cookie技术</h4><h5 id="Cookie技术的使用"><a href="#Cookie技术的使用" class="headerlink" title="Cookie技术的使用"></a>Cookie技术的使用</h5><p>Cookie对象：<code>import javax.servlet.http.Cookie;</code></p>
+<pre><code>1）创建Cookie对象，用于存储会话数据
+    new Cookie(java.lang.String name, java.lang.String value)
+2）修改Cookie对象
+    void         setPath(java.lang.String uri)//设置作用项目  
+    void        setMaxAge(int expiry)  
+    void     setValue(java.lang.String newValue)  
+3）把cookie数据发送给浏览器保存
+    response.addCookie(cookie);
+4）浏览器带着cookie访问服务器，服务器接收cookie信息
+        request.getCookies();
+</code></pre><h5 id="Cookie技术的原理"><a href="#Cookie技术的原理" class="headerlink" title="Cookie技术的原理"></a>Cookie技术的原理</h5><pre><code>1）服务器创建Cookie对象，保存会话数据，把Cookie数据发送给浏览器
+            response.addCookie(cookie);     (响应头：set-cookie: name=jacky)
+2)浏览器获取cookie数据，保存在浏览器缓存区，然后在下次访问服务器时携带cookie数据
+            (请求头： cookie: name=jacky)
+3)服务器获取浏览器发送的cookie数据
+            request.getCookies();
+</code></pre><h5 id="Cookie细节"><a href="#Cookie细节" class="headerlink" title="Cookie细节"></a>Cookie细节</h5><pre><code>1）cookie的数据类型一定是字符串，如果要发送中文，必须先对中文进行URL加密才可以发送。
+2）setPath（path）： 修改cookie所在的有效路径。什么是有效路径？ 如果把该cookie设置到某个有效路径下，然后当浏览器访问这个有效路径的时候，才会携带cookie数据给服务器。
+3）    setMaxAge(整数) ： 设置cookie的有效时间
+     正整数： 表示超过了正整数的数值的时间，cookie就会丢失！！（cookie保存浏览器的缓存                                                                                目录）单位：秒
+      负整数： 表示如果浏览器关闭了，cookie就会丢失！（cookie保存浏览器内存） 
+       0    ：  表示删除同名的cookie    
+4）cookie可以有多个，但是浏览器一般只允许存放300个Cookie，每个站点最多存放20个Cookie，每个Cookie的大小限制为4KB。
+</code></pre><h4 id="Session技术"><a href="#Session技术" class="headerlink" title="Session技术"></a>Session技术</h4><h5 id="引入-4"><a href="#引入-4" class="headerlink" title="引入"></a>引入</h5><pre><code>Cookie特点：
+        1）会话数据放在浏览器端
+        2）数据类型只能string，而且有大小限制的
+        3）相对数据存放不安全。
+
+Session特点:
+        1）会话数据放在服务器端（服务器内存），占用服务器资源
+        2）数据类型任意类型，没有大小限制的。
+        3）相对安全
+</code></pre><h5 id="Session使用步骤"><a href="#Session使用步骤" class="headerlink" title="Session使用步骤"></a>Session使用步骤</h5><pre><code>HttpSession对象：
+        1）创建HttpSession对象，用于保存会话数据
+                session = request.getSession();   创建或获取session对象
+        2）修改HttpSession对象
+                void setMaxInactiveInterval(int interval)  设置session对象的有效时间
+                void invalidate()   手动销毁session对象
+        3）保存会话数据(作为域对象)
+                session.setAttribute(&quot;name&quot;,Object);  保存数据
+                session.getAttribute(&quot;name&quot;)   获取数据
+                session.removeAttribute(&quot;name&quot;) 删除数据
+</code></pre><h5 id="Session原理"><a href="#Session原理" class="headerlink" title="Session原理"></a>Session原理</h5><p>问题： 服务器怎么区分不同的浏览器会话？<br>前提：    可以从session对象取出数据必须是存放数据的session对象！！！</p>
+<pre><code>1）浏览器1-窗口1(001)：  
+    //1)创建HttpSession对象
+    HttpSession session = request.getSession();  给session对象分配001
+    //2)保存会话数据
+    session.setAttribute(&quot;name&quot;, &quot;jacky&quot;);
+
+2）浏览器1-窗口2(001)：
+    //1)得到session对象
+    HttpSession session = request.getSession();   搜索001的session对象
+    //2）获取会话数据
+    String name =  (String)session.getAttribute(&quot;name&quot;);     可以得到！！
+
+3）浏览器2（没有标记或不是001）
+    //1)得到session对象
+    HttpSession session = request.getSession();
+    //2）获取会话数据
+    String name =  (String)session.getAttribute(&quot;name&quot;);    不可以得到！
+
+4）新的浏览器1（没有标记或不是001）关闭浏览器，JSESSIONID消失。
+    //1)得到session对象
+    HttpSession session = request.getSession();
+    //2）获取会话数据
+    String name =  (String)session.getAttribute(&quot;name&quot;);     不可以得到！！
+</code></pre><p>1）服务器创建Session对象，服务器会给这个session对象分配一个唯一的标记<strong>JSESSIONID</strong><br>2）把<strong>JSESSIONID</strong>作为<strong>Cookie</strong>发送给浏览器（<strong>JSESSIONID的Cookie</strong>）<br>3）浏览器得到<strong>JSESSIONID</strong>保存下来，在下次访问时携带这个<strong>JSESSIONID</strong>去访问服务器<br>4）服务器得到<strong>JSESSIONID</strong>，在服务器内存中搜索是否存在指定<strong>JSSESSINOID</strong>的session对象，<br>5）如果找到，则返回这个session对象<br>6）如果找不到，可能直接返回null，或者再创建新的session对象。<br>            HttpSession session = request.getSession();</p>
+<p>结论： 通过<strong>JSESSIONID</strong>在服务器中查询对应的session对象。</p>
+<h5 id="Session-API"><a href="#Session-API" class="headerlink" title="Session　API"></a>Session　API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HttpSession接口</span><br><span class="line">		<span class="number">1</span>）创建或得到Session对象</span><br><span class="line">			<span class="function">HttpSession  <span class="title">getSession</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">			HttpSession  <span class="title">getSession</span><span class="params">(<span class="keyword">boolean</span> create)</span>  </span></span><br><span class="line"><span class="function">		2）session对象操作会话数据（域对象）</span></span><br><span class="line"><span class="function">			<span class="keyword">void</span>  <span class="title">setAttribute</span><span class="params">(java.lang.String name, java.lang.Object value)</span> 保存数据</span></span><br><span class="line"><span class="function">			java.lang.Object  <span class="title">getAttribute</span><span class="params">(java.lang.String name)</span>  得到数据</span></span><br><span class="line"><span class="function">			<span class="keyword">void</span>  <span class="title">removeAttribute</span><span class="params">(java.lang.String name)</span>   清除数据</span></span><br><span class="line"><span class="function">		3）设置session对象</span></span><br><span class="line"><span class="function">			Void  <span class="title">setMaxInactiveInterval</span><span class="params">(<span class="keyword">int</span> interval)</span>  设置session有效时长，单位：s</span></span><br><span class="line"><span class="function">			java.lang.String  <span class="title">getId</span><span class="params">()</span> 得到session对象编号</span></span><br><span class="line"><span class="function">			<span class="keyword">void</span>  <span class="title">invalidate</span><span class="params">()</span>  销毁session对象</span></span><br></pre></td></tr></table></figure>
+<h5 id="Session细节"><a href="#Session细节" class="headerlink" title="Session细节"></a>Session细节</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）setMaxInactiveInterval（秒数）: 设置session对象的有效时间</span><br><span class="line">					问题：session在什么销毁？</span><br><span class="line">					注意：不是浏览器关闭，session对象就销毁！！！</span><br><span class="line">					默认情况： 等待<span class="number">30</span>分钟空闲时间，session对象才会销毁。</span><br><span class="line">&lt;!-- 设置全局的session对象的过期时间 （分钟）--&gt;</span><br><span class="line">	&lt;session-config&gt;</span><br><span class="line">		&lt;session-timeout&gt;1&lt;/session-timeout&gt;</span><br><span class="line">	&lt;/session-config&gt;</span><br><span class="line">			</span><br><span class="line"><span class="number">2</span>）可以让JSESSIONID不会随着浏览器关闭而丢失！！！！</span><br><span class="line">					</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 设置JSESSIONID的时间，不会随着浏览器关闭而丢失！</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	Cookie c = <span class="keyword">new</span> Cookie(<span class="string">"JSESSIONID"</span>,session.getId());</span><br><span class="line">	c.setMaxAge(<span class="number">1</span>*<span class="number">30</span>*<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>);<span class="comment">//1个月</span></span><br><span class="line">	response.addCookie(c);</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）直接手动销毁sessino对象</span><br><span class="line">	invalidate（）；</span><br><span class="line">	</span><br><span class="line"><span class="number">4</span>）创建或得到session对象</span><br><span class="line">	request.getSession() / request.getSession(<span class="keyword">true</span>): 创建或得到session对象，查询session对象，如果没有session对象，则	创建新的session对象</span><br><span class="line">	request.getSession(<span class="keyword">false</span>)          得到session对象。 查询session对象，如果session对象不存在，直接返回<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
+          
+            <a href="/tags/Session/" rel="tag"># Session</a>
+          
+            <a href="/tags/Cookie/" rel="tag"># Cookie</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/笔记整理（7）/" rel="next" title="笔记整理（7）">
+                <i class="fa fa-chevron-left"></i> 笔记整理（7）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/笔记整理（9）/" rel="prev" title="笔记整理（9）">
+                笔记整理（9） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记整理（8）"><span class="nav-number">1.</span> <span class="nav-text">笔记整理（8）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet编程"><span class="nav-number">1.0.1.</span> <span class="nav-text">Servlet编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet的执行过程"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">Servlet的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml中的url-pattern配置"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">web.xml中的url-pattern配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet的生命周期"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">Servlet的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Sevlet的四个重要的生命周期方法"><span class="nav-number">1.0.1.3.1.</span> <span class="nav-text">Sevlet的四个重要的生命周期方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet的线程并发问题"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">Servlet的线程并发问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引入"><span class="nav-number">1.0.1.4.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发线程安全的servlet建议"><span class="nav-number">1.0.1.4.2.</span> <span class="nav-text">开发线程安全的servlet建议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet的自动加载机制（解决第一次访问创建servlet慢的问题）"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">Servlet的自动加载机制（解决第一次访问创建servlet慢的问题）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-1"><span class="nav-number">1.0.1.5.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动加载的配置"><span class="nav-number">1.0.1.5.2.</span> <span class="nav-text">自动加载的配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet的init方法"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">Servlet的init方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#两个init方法作用"><span class="nav-number">1.0.1.6.1.</span> <span class="nav-text">两个init方法作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-number">1.0.1.6.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletConfig对象-（一个网站一个项目有多个-与servlet对应）"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">ServletConfig对象    （一个网站一个项目有多个,与servlet对应）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-2"><span class="nav-number">1.0.1.7.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置初始化参数"><span class="nav-number">1.0.1.7.2.</span> <span class="nav-text">配置初始化参数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletContext对象（一个网站一个项目就一个，与project对应）"><span class="nav-number">1.0.1.8.</span> <span class="nav-text">ServletContext对象（一个网站一个项目就一个，与project对应）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-3"><span class="nav-number">1.0.1.8.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取ServletContext对象"><span class="nav-number">1.0.1.8.2.</span> <span class="nav-text">获取ServletContext对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletContext的5大作用"><span class="nav-number">1.0.1.9.</span> <span class="nav-text">ServletContext的5大作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet总结"><span class="nav-number">1.0.1.10.</span> <span class="nav-text">Servlet总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#会话管理"><span class="nav-number">1.0.2.</span> <span class="nav-text">会话管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#会话管理技术"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">会话管理技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie技术"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">Cookie技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie技术的使用"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">Cookie技术的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie技术的原理"><span class="nav-number">1.0.2.2.2.</span> <span class="nav-text">Cookie技术的原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie细节"><span class="nav-number">1.0.2.2.3.</span> <span class="nav-text">Cookie细节</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Session技术"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">Session技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-4"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Session使用步骤"><span class="nav-number">1.0.2.3.2.</span> <span class="nav-text">Session使用步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Session原理"><span class="nav-number">1.0.2.3.3.</span> <span class="nav-text">Session原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Session-API"><span class="nav-number">1.0.2.3.4.</span> <span class="nav-text">Session　API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Session细节"><span class="nav-number">1.0.2.3.5.</span> <span class="nav-text">Session细节</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

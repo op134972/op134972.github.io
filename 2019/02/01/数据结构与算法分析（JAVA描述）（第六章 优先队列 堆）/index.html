@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,算法分析,二叉堆,二项队列,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）堆，二叉堆，二项队列个人笔记，如有错误，恳请批评指正。 优先队列（priority queue）， 6.3 二叉堆（binary heap）两个性质：结构性、堆序性。 6.3.1 结构性质堆是一棵被完全填满的二叉树，有可能的例外是最底层，底层的元素从左到右填入，这样的结构称为完全二叉树（complete binary tree）。一个堆结构">
+<meta name="keywords" content="数据结构,算法分析,二叉堆,二项队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）堆，二叉堆，二项队列个人笔记，如有错误，恳请批评指正。 优先队列（priority queue）， 6.3 二叉堆（binary heap）两个性质：结构性、堆序性。 6.3.1 结构性质堆是一棵被完全填满的二叉树，有可能的例外是最底层，底层的元素从左到右填入，这样的结构称为完全二叉树（complete binary tree）。一个堆结构">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/wanquanercha.JPG">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/shuzu.JPG">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/724490169086517647.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/adqqdqdq.JPG">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/ajfawhfjawlf.JPG">
+<meta property="og:updated_time" content="2017-03-30T14:36:31.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）">
+<meta name="twitter:description" content="数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）堆，二叉堆，二项队列个人笔记，如有错误，恳请批评指正。 优先队列（priority queue）， 6.3 二叉堆（binary heap）两个性质：结构性、堆序性。 6.3.1 结构性质堆是一棵被完全填满的二叉树，有可能的例外是最底层，底层的元素从左到右填入，这样的结构称为完全二叉树（complete binary tree）。一个堆结构">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/wanquanercha.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）/">
+
+
+
+
+
+  <title>数据结构与算法分析（JAVA描述）（第六章 优先队列 堆） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据结构与算法分析（JAVA描述）（第六章-优先队列-堆）"><a href="#数据结构与算法分析（JAVA描述）（第六章-优先队列-堆）" class="headerlink" title="数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）"></a>数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）</h1><h2 id="堆，二叉堆，二项队列"><a href="#堆，二叉堆，二项队列" class="headerlink" title="堆，二叉堆，二项队列"></a>堆，二叉堆，二项队列</h2><p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<p><strong>优先队列（priority queue）</strong>，</p>
+<h3 id="6-3-二叉堆（binary-heap）"><a href="#6-3-二叉堆（binary-heap）" class="headerlink" title="6.3 二叉堆（binary heap）"></a>6.3 二叉堆（binary heap）</h3><p>两个性质：结构性、堆序性。</p>
+<h4 id="6-3-1-结构性质"><a href="#6-3-1-结构性质" class="headerlink" title="6.3.1 结构性质"></a>6.3.1 结构性质</h4><p>堆是一棵被完全填满的二叉树，有可能的例外是最底层，底层的元素从左到右填入，这样的结构称为完全二叉树（complete binary tree）。<br><img src="http://oli0whb3w.bkt.clouddn.com/wanquanercha.JPG" alt="enter image description here"><br><img src="http://oli0whb3w.bkt.clouddn.com/shuzu.JPG" alt="enter image description here"><br>一个堆结构的框架将由一个（Comparable）数组和一个代表当前堆大小的整数组成。</p>
+<h4 id="6-3-2-堆序性质"><a href="#6-3-2-堆序性质" class="headerlink" title="6.3.2 堆序性质"></a>6.3.2 堆序性质</h4><p>堆序性质（heap-order property）。最小的元素在根上，任意节点小于他的所有后裔</p>
+<h4 id="6-3-3-基本操作"><a href="#6-3-3-基本操作" class="headerlink" title="6.3.3 基本操作"></a>6.3.3 基本操作</h4><p>insert：使用的策略为上滤（percolate up），空穴上冒。<br>deleteMin：删除一个元素时，在根处建立一个空穴，堆中的最后一个元素X必须移动到该堆的某个地方，具体的做法是将X置入沿着从根开始包含最小儿子的一条路径上的一个正确位置。空穴下滤（percolate down）；</p>
+<p>二叉堆的数组实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryHeap</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt;&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> currentSize;<span class="comment">//堆元素个数</span></span><br><span class="line">	<span class="keyword">private</span> T[] array;<span class="comment">//数组堆</span></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">BinaryHeap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(DEFAULT_CAPACITY);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">BinaryHeap</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">		array = (T[]) <span class="keyword">new</span> Comparable[capacity];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 添加数组的构造方法</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> items</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">BinaryHeap</span><span class="params">(T[] items)</span> </span>&#123;</span><br><span class="line">		currentSize = items.length;</span><br><span class="line">		array = (T[]) <span class="keyword">new</span> Comparable[(currentSize+<span class="number">2</span>)*<span class="number">11</span>/<span class="number">10</span>];</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (T t : items) </span><br><span class="line">			array[i++] = t;</span><br><span class="line">		buildHeap();<span class="comment">//buildHeap</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 构建二叉堆结构</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">buildHeap</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = currentSize/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--)<span class="comment">//从下往上下滤，建立二叉堆</span></span><br><span class="line">			percolateDown(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 上滤</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> element</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T element)</span></span>&#123;<span class="comment">//重复元素也会插入</span></span><br><span class="line">		<span class="keyword">if</span>(currentSize == array.length-<span class="number">1</span>)</span><br><span class="line">			enlargeArray(array.length*<span class="number">2</span>+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">int</span> hole = ++currentSize;<span class="comment">//空穴位置</span></span><br><span class="line">		<span class="comment">//空穴元素和父节点元素比较，父节点小，则交换;array[0]是必要赋值的，不然会nullException报错，hole/2得到父节点位置</span></span><br><span class="line">		<span class="keyword">for</span>(array[<span class="number">0</span>] = element;element.compareTo(array[hole/<span class="number">2</span>])&lt;<span class="number">0</span>;hole /= <span class="number">2</span>)</span><br><span class="line">			array[hole] = array[hole/<span class="number">2</span>];</span><br><span class="line">		array[hole] = element;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">findMin</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(isEmpty())</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">		<span class="keyword">return</span> array[<span class="number">1</span>];</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">deleteMin</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(isEmpty())</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">		T min = findMin();</span><br><span class="line">		array[<span class="number">1</span>] = array[currentSize--];<span class="comment">//将最后的元素先赋值到根，在进行判断，下滤</span></span><br><span class="line">		percolateDown(<span class="number">1</span>);<span class="comment">//1表示从1位置开始下滤，即空穴的位置</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> min;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">percolateDown</span><span class="params">(<span class="keyword">int</span> hole)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> child;<span class="comment">//儿子的位置</span></span><br><span class="line">		<span class="comment">//child = hole*2得到左儿子的位置，要确保只有一个儿子的情况此时 child = child+1</span></span><br><span class="line">		T temp = array[hole];</span><br><span class="line">		<span class="keyword">for</span>(;hole * <span class="number">2</span> &lt;= currentSize;hole = child)&#123;</span><br><span class="line">			child = hole * <span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>(child != currentSize&amp;&amp; array[child+<span class="number">1</span>].compareTo(array[child])&lt;<span class="number">0</span>)<span class="comment">//判断没有右儿子的情况</span></span><br><span class="line">				child++;</span><br><span class="line">			<span class="keyword">if</span>(array[child].compareTo(temp)&lt;<span class="number">0</span>)</span><br><span class="line">				array[hole] = array[child];</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		array[hole] = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 扩大Array</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> newSize</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">enlargeArray</span><span class="params">(<span class="keyword">int</span> newSize)</span></span>&#123;</span><br><span class="line">		T[] newArray = (T[]) <span class="keyword">new</span> Comparable[newSize];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;array.length;i++)</span><br><span class="line">			newArray[i] = array[i];</span><br><span class="line">		array = newArray;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> currentSize == <span class="number">0</span>;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makeEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		currentSize = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> length = array.length;</span><br><span class="line">		array = (T[]) <span class="keyword">new</span> Object[length];</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * test</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		BinaryHeap&lt;Integer&gt; binaryHeap = <span class="keyword">new</span> BinaryHeap&lt;Integer&gt;(<span class="number">5</span>);</span><br><span class="line">		binaryHeap.insert(<span class="number">10</span>);</span><br><span class="line">		binaryHeap.insert(<span class="number">13</span>);</span><br><span class="line">		binaryHeap.insert(<span class="number">15</span>);</span><br><span class="line">		binaryHeap.insert(<span class="number">16</span>);</span><br><span class="line">		binaryHeap.insert(<span class="number">9</span>);</span><br><span class="line">		binaryHeap.insert(<span class="number">9</span>);</span><br><span class="line">		System.out.println(binaryHeap.currentSize);</span><br><span class="line">		System.out.println(binaryHeap.deleteMin());</span><br><span class="line">		System.out.println(binaryHeap.deleteMin());</span><br><span class="line">		System.out.println(binaryHeap.deleteMin());</span><br><span class="line">		System.out.println(binaryHeap.deleteMin());</span><br><span class="line">		System.out.println(<span class="string">"++++++++++++++++++++++++++++++++++++++++"</span>);</span><br><span class="line">		</span><br><span class="line">		Integer[] arr = &#123;<span class="number">21</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">47</span>,<span class="number">65</span>,<span class="number">1236</span>,<span class="number">6</span>,<span class="number">3</span>&#125;;</span><br><span class="line">		BinaryHeap&lt;Integer&gt; b2 = <span class="keyword">new</span> BinaryHeap&lt;Integer&gt;(arr);</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">		System.out.println(b2.deleteMin());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>下滤图解</strong></p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/724490169086517647.jpg" alt="ssss"></p>
+<p>堆的缺点：<br>除了不能实施find操作外，堆实现最明显的缺点是：将两个堆合并成一个堆是困难的操作，这种附加的操作叫做合并（merge）。</p>
+<h4 id="6-8-1-二项队列结构"><a href="#6-8-1-二项队列结构" class="headerlink" title="6.8.1 二项队列结构"></a>6.8.1 二项队列结构</h4><p>二项队列（binomial    queue）：不是一棵队列的树，而是队列的树的集合，称为森林（forest）。每一棵堆序树都是有约束的形式，叫做二项树（binomial    tree）,每个高度<strong>至多</strong>存在一棵二项树。高度为0的二项树是一棵单节点树。高度为K的二项树由两个高度为K-1的二项树附接而成。</p>
+<p>高度为K的二项树恰好有2^k个节点。</p>
+<ul>
+<li>insert实际就是特殊情形的合并，因为我们只要创建一棵单节点树并执行一次合并即可。这种操作的最坏情形运行时间也是O(LogN)。</li>
+<li>deleteMin可以通过首先找出一棵具有最小根的二项树来完成。<br><img src="http://oli0whb3w.bkt.clouddn.com/adqqdqdq.JPG" alt="enter image description here"><br><img src="http://oli0whb3w.bkt.clouddn.com/ajfawhfjawlf.JPG" alt="enter image description here"></li>
+</ul>
+<h4 id="6-8-3-二项队列的实现"><a href="#6-8-3-二项队列的实现" class="headerlink" title="6.8.3 二项队列的实现"></a>6.8.3 二项队列的实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.ustb.chapter6;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinomialQueue</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&gt; </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> currentSize;</span><br><span class="line">	<span class="keyword">private</span> Node&lt;T&gt;[] theTrees;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_TREES = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">BinomialQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		theTrees = <span class="keyword">new</span> Node[DEFAULT_TREES];</span><br><span class="line">		makeEmpty();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">BinomialQueue</span><span class="params">(T item)</span> </span>&#123;</span><br><span class="line">		currentSize = <span class="number">1</span>;</span><br><span class="line">		theTrees = <span class="keyword">new</span> Node[<span class="number">1</span>];</span><br><span class="line">		theTrees[<span class="number">0</span>] = <span class="keyword">new</span> Node(item, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(BinomialQueue&lt;T&gt; rhs)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span> == rhs)</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		currentSize += rhs.currentSize;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (currentSize &gt; capacity()) &#123;</span><br><span class="line">			<span class="keyword">int</span> newTreeNum = Math.max(theTrees.length, rhs.theTrees.length) + <span class="number">1</span>;</span><br><span class="line">			expandCapacity(newTreeNum);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Node&lt;T&gt; carry = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>; j &lt;= currentSize; i++, j *= <span class="number">2</span>) &#123;</span><br><span class="line">			Node&lt;T&gt; t1 = theTrees[i];</span><br><span class="line">			Node&lt;T&gt; t2 = i &lt; rhs.theTrees.length ? rhs.theTrees[i] : <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">int</span> whichCase = t1 == <span class="keyword">null</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">			whichCase += t2 == <span class="keyword">null</span> ? <span class="number">0</span> : <span class="number">2</span>;</span><br><span class="line">			whichCase += carry == <span class="keyword">null</span> ? <span class="number">0</span> : <span class="number">4</span>;</span><br><span class="line">			<span class="keyword">switch</span> (whichCase) &#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">0</span>: <span class="comment">/* No trees */</span></span><br><span class="line">			<span class="keyword">case</span> <span class="number">1</span>: <span class="comment">/* Only this */</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">2</span>: <span class="comment">/* Only rhs */</span></span><br><span class="line">				theTrees[i] = t2;</span><br><span class="line">				rhs.theTrees[i] = <span class="keyword">null</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">4</span>: <span class="comment">/* Only carry */</span></span><br><span class="line">				theTrees[i] = carry;</span><br><span class="line">				carry = <span class="keyword">null</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">3</span>: <span class="comment">/* this and rhs */</span></span><br><span class="line">				carry = combineTrees(t1, t2);</span><br><span class="line">				theTrees[i] = rhs.theTrees[i] = <span class="keyword">null</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">5</span>: <span class="comment">/* this and carry */</span></span><br><span class="line">				carry = combineTrees(t1, carry);</span><br><span class="line">				theTrees[i] = <span class="keyword">null</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">6</span>: <span class="comment">/* rhs and carry */</span></span><br><span class="line">				carry = combineTrees(t2, carry);</span><br><span class="line">				rhs.theTrees[i] = <span class="keyword">null</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">7</span>: <span class="comment">/* All three */</span></span><br><span class="line">				theTrees[i] = carry;</span><br><span class="line">				carry = combineTrees(t1, t2);</span><br><span class="line">				rhs.theTrees[i] = <span class="keyword">null</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; rhs.theTrees.length; k++)</span><br><span class="line">			rhs.theTrees[k] = <span class="keyword">null</span>;</span><br><span class="line">		rhs.currentSize = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(T element)</span> </span>&#123;</span><br><span class="line">		merge(<span class="keyword">new</span> BinomialQueue&lt;T&gt;(element));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">findMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (isEmpty())</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> theTrees[findMinIndex()].element;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">deleteMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> minIndex = findMinIndex();</span><br><span class="line">		T minItem = theTrees[minIndex].element;</span><br><span class="line"></span><br><span class="line">		Node&lt;T&gt; deletedTree = theTrees[minIndex].leftChild;</span><br><span class="line"></span><br><span class="line">		BinomialQueue&lt;T&gt; deletedQueue = <span class="keyword">new</span> BinomialQueue&lt;T&gt;();</span><br><span class="line">		deletedQueue.expandCapacity(minIndex + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">		deletedQueue.currentSize = (<span class="number">1</span> &lt;&lt; minIndex) - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = minIndex - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">			deletedQueue.theTrees[j] = deletedTree;</span><br><span class="line">			deletedTree = deletedTree.rightSibling;</span><br><span class="line">			deletedQueue.theTrees[j].rightSibling = <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		theTrees[minIndex] = <span class="keyword">null</span>;</span><br><span class="line">		currentSize -= deletedQueue.currentSize + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">		merge(deletedQueue);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> minItem;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> currentSize == <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makeEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		currentSize = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; theTrees.length; i++) &#123;</span><br><span class="line">			theTrees[i] = <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (<span class="number">1</span> &lt;&lt; theTrees.length) - <span class="number">1</span>;<span class="comment">// 返回节点数 高度为k的节点数为2^k</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">findMinIndex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		<span class="keyword">int</span> minIndex;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; theTrees[i] == <span class="keyword">null</span>; i++)</span><br><span class="line">			;</span><br><span class="line">		<span class="keyword">for</span> (minIndex = i; i &lt; theTrees.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (theTrees[i] != <span class="keyword">null</span></span><br><span class="line">					&amp;&amp; theTrees[i].element</span><br><span class="line">							.compareTo(theTrees[minIndex].element) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">				minIndex = i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> minIndex;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">expandCapacity</span><span class="params">(<span class="keyword">int</span> newCapacity)</span> </span>&#123;</span><br><span class="line">		Node&lt;T&gt;[] old = theTrees;</span><br><span class="line">		<span class="keyword">int</span> oldTreeNum = old.length;</span><br><span class="line">		theTrees = <span class="keyword">new</span> Node[newCapacity];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; oldTreeNum; i++)</span><br><span class="line">			theTrees[i] = old[i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = oldTreeNum; i &lt; newCapacity; i++)</span><br><span class="line">			theTrees[i] = <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> Node&lt;T&gt; <span class="title">combineTrees</span><span class="params">(Node&lt;T&gt; t1, Node&lt;T&gt; t2)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (t1.element.compareTo(t2.element) &gt; <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> combineTrees(t2, t1);</span><br><span class="line">		t2.rightSibling = t1.leftChild;</span><br><span class="line">		t1.leftChild = t2;</span><br><span class="line">		<span class="keyword">return</span> t1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 节点类</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> &lt;T&gt;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">		<span class="keyword">public</span> T element;</span><br><span class="line">		<span class="keyword">private</span> Node&lt;T&gt; leftChild;</span><br><span class="line">		<span class="keyword">private</span> Node&lt;T&gt; rightSibling;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T element)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>(element, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T element, Node&lt;T&gt; leftChild, Node&lt;T&gt; rightChild)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.element = element;</span><br><span class="line">			<span class="keyword">this</span>.leftChild = leftChild;</span><br><span class="line">			<span class="keyword">this</span>.rightSibling = rightChild;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> numItems = <span class="number">10000</span>;</span><br><span class="line">		BinomialQueue&lt;Integer&gt; h = <span class="keyword">new</span> BinomialQueue&lt;Integer&gt;();</span><br><span class="line">		BinomialQueue&lt;Integer&gt; h1 = <span class="keyword">new</span> BinomialQueue&lt;Integer&gt;();</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">37</span>;</span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">"Starting check."</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">37</span>; i != <span class="number">0</span>; i = (i + <span class="number">37</span>) % numItems)</span><br><span class="line">			<span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">				h1.insert(i);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				h.insert(i);</span><br><span class="line"></span><br><span class="line">		h.merge(h1);</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; numItems; i++)</span><br><span class="line">			<span class="keyword">if</span> (h.deleteMin() != i)</span><br><span class="line">				System.out.println(<span class="string">"Oops! "</span> + i);</span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">"Check done."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体分析链接：<a href="http://www.cnblogs.com/hapjin/p/5468817.html" target="_blank" rel="noopener">http://www.cnblogs.com/hapjin/p/5468817.html</a><br><a href="http://blog.csdn.net/PacosonSWJTU/article/details/50563228" target="_blank" rel="noopener">http://blog.csdn.net/PacosonSWJTU/article/details/50563228</a></p>
+<h3 id="6-9-标准库的优先列表"><a href="#6-9-标准库的优先列表" class="headerlink" title="6.9 标准库的优先列表"></a>6.9 标准库的优先列表</h3><p>JDK 1.5 之后出现的PriorityQueue支持了优先队列。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>学习了ADT优先队列的各种实现方法和用途，标准的二叉堆实现具有简单和快速的有点，它不需要链，只需要常量的附加空间，且有效地支持优先队列的操作。<br>二项队列指出了一个简单的想法如何能够用来达到好的时间界。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/算法分析/" rel="tag"># 算法分析</a>
+          
+            <a href="/tags/二叉堆/" rel="tag"># 二叉堆</a>
+          
+            <a href="/tags/二项队列/" rel="tag"># 二项队列</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/数据结构与算法分析（JAVA描述）（第二章 算法分析）/" rel="next" title="数据结构与算法分析（JAVA描述）（第二章 算法分析）">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法分析（JAVA描述）（第二章 算法分析）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/数据结构与算法分析（JAVA描述）（第七章 排序）/" rel="prev" title="数据结构与算法分析（JAVA描述）（第七章 排序）">
+                数据结构与算法分析（JAVA描述）（第七章 排序） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构与算法分析（JAVA描述）（第六章-优先队列-堆）"><span class="nav-number">1.</span> <span class="nav-text">数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆，二叉堆，二项队列"><span class="nav-number">1.1.</span> <span class="nav-text">堆，二叉堆，二项队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-二叉堆（binary-heap）"><span class="nav-number">1.1.1.</span> <span class="nav-text">6.3 二叉堆（binary heap）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-1-结构性质"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">6.3.1 结构性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-2-堆序性质"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">6.3.2 堆序性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-3-基本操作"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">6.3.3 基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-8-1-二项队列结构"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">6.8.1 二项队列结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-8-3-二项队列的实现"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">6.8.3 二项队列的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-9-标准库的优先列表"><span class="nav-number">1.1.2.</span> <span class="nav-text">6.9 标准库的优先列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

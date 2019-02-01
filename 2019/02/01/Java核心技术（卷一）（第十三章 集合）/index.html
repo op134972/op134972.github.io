@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,核心技术,集合,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java核心技术（卷一）（第十三章 集合） 个人笔记，如有错误，恳请批评指正。 Java中的队列队列通常由两种实现方式：一种是使用循环数组，另一种是使用链表。在Java中，如果需要使用一个循环数组队列，就可以使用ArrayDeque。如果需要使用一个链表队列，就直接使用LInkedList这个类实现了Queue接口。 循环数组要比链表的效率更高，然而，循环数组是一个有界集合，即容量有限，如果程序中">
+<meta name="keywords" content="Java,核心技术,集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术（卷一）（第十三章 集合）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/Java核心技术（卷一）（第十三章 集合）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="Java核心技术（卷一）（第十三章 集合） 个人笔记，如有错误，恳请批评指正。 Java中的队列队列通常由两种实现方式：一种是使用循环数组，另一种是使用链表。在Java中，如果需要使用一个循环数组队列，就可以使用ArrayDeque。如果需要使用一个链表队列，就直接使用LInkedList这个类实现了Queue接口。 循环数组要比链表的效率更高，然而，循环数组是一个有界集合，即容量有限，如果程序中">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-04-11T14:51:49.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java核心技术（卷一）（第十三章 集合）">
+<meta name="twitter:description" content="Java核心技术（卷一）（第十三章 集合） 个人笔记，如有错误，恳请批评指正。 Java中的队列队列通常由两种实现方式：一种是使用循环数组，另一种是使用链表。在Java中，如果需要使用一个循环数组队列，就可以使用ArrayDeque。如果需要使用一个链表队列，就直接使用LInkedList这个类实现了Queue接口。 循环数组要比链表的效率更高，然而，循环数组是一个有界集合，即容量有限，如果程序中">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/Java核心技术（卷一）（第十三章 集合）/">
+
+
+
+
+
+  <title>Java核心技术（卷一）（第十三章 集合） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/Java核心技术（卷一）（第十三章 集合）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java核心技术（卷一）（第十三章 集合）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Java核心技术/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java核心技术（卷一）（第十三章-集合）"><a href="#Java核心技术（卷一）（第十三章-集合）" class="headerlink" title="Java核心技术（卷一）（第十三章 集合）"></a>Java核心技术（卷一）（第十三章 集合）</h1><hr>
+<p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h4 id="Java中的队列"><a href="#Java中的队列" class="headerlink" title="Java中的队列"></a>Java中的队列</h4><p>队列通常由两种实现方式：一种是使用循环数组，另一种是使用链表。<br>在Java中，如果需要使用一个循环数组队列，就可以使用ArrayDeque。如果需要使用一个链表队列，就直接使用LInkedList这个类实现了Queue接口。</p>
+<p>循环数组要比链表的效率更高，然而，循环数组是一个有界集合，即<strong>容量有限</strong>，如果程序中要手机的对象数量没有上限，就最好使用链表来实现。</p>
+<p>API中的<strong>AbstractQueue</strong>是为了让用户更好地实现自己的队列类设计的，实现之比实现Queue更好。</p>
+<h4 id="13-1-2-Java类库中的集合接口和迭代器接口"><a href="#13-1-2-Java类库中的集合接口和迭代器接口" class="headerlink" title="13.1.2 Java类库中的集合接口和迭代器接口"></a>13.1.2 Java类库中的集合接口和迭代器接口</h4><p>增强for循环，底层利用了Iterator。因此，增强for循环可以在任何实现了Iterable接口的对象一起工作，Iterable接口只包含一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterable</span></span>&#123;</span><br><span class="line">	<span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Collection接口中扩展了此接口，因此，<strong>对任何标准类库中的任何集合都可以使用增强for循环</strong>。</p>
+<h4 id="Iterator中的remove方法"><a href="#Iterator中的remove方法" class="headerlink" title="Iterator中的remove方法"></a>Iterator中的remove方法</h4><p>next方法和remove方法具有相互依赖型，调用remove之前没有调用next是不合法的。</p>
+<h5 id="remove是指删除最后遍历的元素"><a href="#remove是指删除最后遍历的元素" class="headerlink" title="remove是指删除最后遍历的元素"></a>remove是指删除最后遍历的元素</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">it.next();</span><br><span class="line">it.remove();<span class="comment">//OK</span></span><br><span class="line"></span><br><span class="line">it.next();</span><br><span class="line">it.remove();</span><br><span class="line">it.remove();<span class="comment">//IllegalStateException</span></span><br></pre></td></tr></table></figure>
+<h4 id="集合中也是值传递"><a href="#集合中也是值传递" class="headerlink" title="集合中也是值传递"></a>集合中也是值传递</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo4</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Emp&gt; l = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		l.add(<span class="keyword">new</span> Emp(<span class="string">"origin name"</span>,<span class="number">110</span>));</span><br><span class="line">		Emp emp = l.get(<span class="number">0</span>);</span><br><span class="line">		emp.setName(<span class="string">"new Name"</span>);</span><br><span class="line">		System.out.println(l.get(<span class="number">0</span>).getName());<span class="comment">//origin or new ?new Name 。说明集合中也是值传递，传的是存储的内存地址，引用的同一对象，可以改变状态。</span></span><br><span class="line">		</span><br><span class="line">		l.add(<span class="keyword">new</span> Emp(<span class="string">"second name"</span>,<span class="number">110</span>));</span><br><span class="line">		Emp emp2 = l.get(<span class="number">1</span>);</span><br><span class="line">		emp2 = <span class="keyword">new</span> Emp(<span class="string">"new Object"</span>,<span class="number">220</span>);</span><br><span class="line">		System.out.println(l.get(<span class="number">1</span>).getName());<span class="comment">//second name or new Object?second name!不能指向 新的对象，即不能改变引用</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Java库中的具体集合"><a href="#Java库中的具体集合" class="headerlink" title="Java库中的具体集合"></a>Java库中的具体集合</h4><p>核心技术卷一P568</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">集合类型</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ArrayList</td>
+<td style="text-align:right">一种可以动态增长和缩减的索引序列</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedList</td>
+<td style="text-align:right">一种可以在任何位置进行高效插入和删除操作的有序序列</td>
+</tr>
+<tr>
+<td style="text-align:left">ArrayDeque</td>
+<td style="text-align:right">一种用循环数组实现的双端队列</td>
+</tr>
+<tr>
+<td style="text-align:left">HashSet</td>
+<td style="text-align:right">一种没有重复元素的无序集合</td>
+</tr>
+<tr>
+<td style="text-align:left">TreeSet</td>
+<td style="text-align:right">一种有序集合</td>
+</tr>
+<tr>
+<td style="text-align:left">EnumSet</td>
+<td style="text-align:right">一种包含枚举类型值的集合</td>
+</tr>
+<tr>
+<td style="text-align:left">PriorityQueue</td>
+<td style="text-align:right">一种允许高效删除最小元素的集合</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedHashSet</td>
+<td style="text-align:right">一种可以记住元素插入次序的集合</td>
+</tr>
+<tr>
+<td style="text-align:left">HashMap</td>
+<td style="text-align:right">一种存储键值关联的数据结构</td>
+</tr>
+<tr>
+<td style="text-align:left">TreeMap</td>
+<td style="text-align:right">一种键值有序排列的映射表</td>
+</tr>
+</tbody>
+</table>
+<h4 id="13-2-1-链表"><a href="#13-2-1-链表" class="headerlink" title="13.2.1 链表"></a>13.2.1 链表</h4><p>链表是一个有序集合（ordered collection），每个对象的位置都十分重要，<code>LinkedList.add</code>方法将对象添加到链表的尾部，由于迭代器是描述集合中位置的，因此这种依赖位置的add方法将由迭代器负责。只有对自然有序的集合使用迭代器添加元素才有实际意义，因此在Iterator中没有add，set；在ListIterator中才有。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ListIterator</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasPrevious</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">previous</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">nextIndex</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">previousIndex</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(E e)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与<code>Collection.add</code>不同，这个方法不返回boolean类型的值，它假定添加操作<strong>总会</strong>改变链表。</p>
+<p>如果链表有n个元素，就有n+1个位置可以添加新元素。add方法只依赖于迭代器的位置，而remove方法依赖于迭代器的状态。</p>
+<p>ListIterator.set方法用一个新元素取代调用next或previous方法返回的上一个元素。如果在next或previous上次调用之后列表结构被修改了，将抛出一个<code>IllegalStateException</code>异常。</p>
+<p>LinkedList根本不适合做任何缓存信息的操作，换言之，<code>LinkedList.get(Index)</code>的操作是低效的。实际上，get方法还做了一点小优化，如果index&gt;size/2，则从尾部开始搜索。</p>
+<h4 id="13-2-2-动态数组列表"><a href="#13-2-2-动态数组列表" class="headerlink" title="13.2.2 动态数组列表"></a>13.2.2 动态数组列表</h4><p>vector是同步安全的，效率低下，这是ArrayList取代它的原因。在不需要同步的时候使用ArrayList。</p>
+<h4 id="13-2-3-散列表Hash-table"><a href="#13-2-3-散列表Hash-table" class="headerlink" title="13.2.3 散列表Hash table"></a>13.2.3 散列表Hash table</h4><p>HashSet的初始大小为16，装填因子是0.75。</p>
+<p>注意：自己实现hashCode方法必须和equals方法兼容，即equals为true，hashCode必须相等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The default initial capacity - MUST be a power of two.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The maximum capacity, used if a higher value is implicitly specified</span></span><br><span class="line"><span class="comment">     * by either of the constructors with arguments.</span></span><br><span class="line"><span class="comment">     * MUST be a power of two &lt;= 1&lt;&lt;30.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The load factor used when none specified in constructor.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="HashSet-API"><a href="#HashSet-API" class="headerlink" title="HashSet API"></a>HashSet API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashSet();<span class="comment">//构造一个空散列表</span></span><br><span class="line">HashSet(Collection&lt;? extends E&gt; elements);<span class="comment">//构造一个散列表，并将集合中的所有元素添加到此散列表中。</span></span><br><span class="line">HashSet(<span class="keyword">int</span> initialCapacity);</span><br><span class="line">HashSet(<span class="keyword">int</span> initialCapacity,<span class="keyword">float</span> loadFactor);<span class="comment">//指定初始大小和装填因子</span></span><br></pre></td></tr></table></figure>
+<p>equals()和hashCode()的定义必须兼容。equals默认比较的也是内存地址，而内存地址的获取与hashcode有关，所以改写equals的同时需要与hashCode兼容。</p>
+<h4 id="13-2-4-树集"><a href="#13-2-4-树集" class="headerlink" title="13.2.4 树集"></a>13.2.4 树集</h4><p>树集与散列集相比，更加有序，树集是一个<strong>有序集合</strong>（Sorted Collction），该有序是指插入元素具备的自然顺序，不是插入顺序。将一个元素添加到树集比添加到散列表中<strong>要慢</strong>，但是，与数组和链表相比还是<strong>快很多</strong>。由于是二叉树，呈现对数级的消耗。树集相对于散列表的优点是遍历时是有序遍历的。</p>
+<p>与TreeSet一样，一个优先队列即可以保存实现了COmparable接口的对象，也可以保存在构造器中提供比较器的对象。</p>
+<p>HashSet与TreeSet选择时，如果不需要对数据进行排序，就没必要选用TreeSet、</p>
+<h4 id="13-2-6-队列与双端队列"><a href="#13-2-6-队列与双端队列" class="headerlink" title="13.2.6 队列与双端队列"></a>13.2.6 队列与双端队列</h4><p>ArrayDeque和LinkedList都实现了双端队列结构，并且在必要时候可以进行扩容。</p>
+<h4 id="13-2-7-优先级队列"><a href="#13-2-7-优先级队列" class="headerlink" title="13.2.7 优先级队列"></a>13.2.7 优先级队列</h4><p>优先级队列（priority queue）中的元素可以按照任意的顺序插入，却总按照排序的顺序进行检索。采用的二叉堆（binary heap）的数据结构，堆是一个可以自我调整的二叉树，对树执行添加和删除操作，可以让最小的元素移动到根，而不必花费必要的时间进行排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo5</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		PriorityQueue&lt;String&gt; s = <span class="keyword">new</span> PriorityQueue&lt;String&gt;();</span><br><span class="line">		s.add(<span class="string">"a"</span>);</span><br><span class="line">		s.add(<span class="string">"c"</span>);</span><br><span class="line">		s.add(<span class="string">"d"</span>);</span><br><span class="line">		s.add(<span class="string">"b"</span>);</span><br><span class="line">		<span class="keyword">for</span> (String string : s) &#123;</span><br><span class="line">			System.out.println(string);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span>(!s.isEmpty())</span><br><span class="line">			System.out.println(s.remove());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PriorityQueue API</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue();</span><br><span class="line">PriorityQueue(<span class="keyword">int</span> initialCapacity);</span><br><span class="line">PriorityQueue(<span class="keyword">int</span> initialCapacity,Comparator&lt;? <span class="keyword">super</span> E&gt; c);<span class="comment">//构造一个优先队列，并用指定的比较器对元素进行排序。</span></span><br></pre></td></tr></table></figure>
+<h4 id="13-2-8-映射表"><a href="#13-2-8-映射表" class="headerlink" title="13.2.8 映射表"></a>13.2.8 映射表</h4><p>HashMap和TreeMap 类比于HashSet和TreeSet，TreeMap键有序，但是插入效率低于HashMap。</p>
+<p>集合框架没有包括映射表，Map和Collection是一级。但是可以通过<code>entrySet()</code>获取映射表的视图，即<code>Set&lt;Map.Entry&lt;K,V&gt;&gt;</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Set&lt;K&gt; <span class="title">keySet</span><span class="params">()</span></span>;<span class="comment">//返回的既不是HashSet也不是TreeSet，只是实现了Set接口的某个其他类的对象。里面封装着键值。</span></span><br><span class="line"><span class="function">Collection&lt;V&gt; <span class="title">values</span><span class="params">()</span></span>;<span class="comment">//封装了values</span></span><br><span class="line">Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet();<span class="comment">//封装了内部类Entry，定义了getKey\getValue\setValue方法</span></span><br></pre></td></tr></table></figure>
+<h5 id="java-util-Map-Entry-lt-K-V-gt"><a href="#java-util-Map-Entry-lt-K-V-gt" class="headerlink" title="java.util.Map.Entry&lt;K,V&gt;"></a>java.util.Map.Entry&lt;K,V&gt;</h5><p>getKey\getValue\setValue</p>
+<p>Set与Collection接口是一样的，只是其方法的行为有着更加严谨的定义。因为键值不可重复</p>
+<ul>
+<li>集的add方法拒绝添加重复的元素。</li>
+<li>集的equals方法定义两个集相等的条件是元素相同，插入顺序不必要相同。</li>
+<li>hashCode方法定义应该保证具有相同元素的集将会拥有相同的散列码。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo7</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Integer&gt; l1 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">		l1.add(<span class="number">1</span>);</span><br><span class="line">		l1.add(<span class="number">2</span>);</span><br><span class="line">		l1.add(<span class="number">3</span>);</span><br><span class="line">		List&lt;Integer&gt; l2 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">		l2.add(<span class="number">1</span>);</span><br><span class="line">		l2.add(<span class="number">3</span>);</span><br><span class="line">		l2.add(<span class="number">2</span>);</span><br><span class="line">		System.out.println(l1.equals(l2));<span class="comment">//false,对应位置元素相同</span></span><br><span class="line">		System.out.println(l1.hashCode());</span><br><span class="line">		System.out.println(l2.hashCode());<span class="comment">//散列码不一样</span></span><br><span class="line">		</span><br><span class="line">		Set&lt;Integer&gt; s1 = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">		s1.add(<span class="number">1</span>);</span><br><span class="line">		s1.add(<span class="number">2</span>);</span><br><span class="line">		s1.add(<span class="number">3</span>);</span><br><span class="line">		Set&lt;Integer&gt; s2 = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">		s2.add(<span class="number">1</span>);</span><br><span class="line">		s2.add(<span class="number">3</span>);</span><br><span class="line">		s2.add(<span class="number">2</span>);</span><br><span class="line">		System.out.println(s2.equals(s1));<span class="comment">//true,元素相同，对应位置不一定相同，即对顺序没有要求</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(s1.hashCode());</span><br><span class="line">		System.out.println(s2.hashCode());<span class="comment">//相同元素的set的散列码相同</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="13-3-集合框架"><a href="#13-3-集合框架" class="headerlink" title="13.3 集合框架"></a>13.3 集合框架</h3><p>JDK1.4引入了RandomAccess<strong>标记接口</strong>，目的是用来判断集合是否支持<strong>高效的</strong>随机访问，<strong>ArrayList和Vector</strong>都实现了该接口。说明其get（index）方法访问数据是高效的。</p>
+<p><strong>Set接口与Collection接口是一样的，只是其方法的行为更加严谨。Set的add方法拒绝添加重复的元素，Set的equals方法定义两个Set相等的条件是所包含的元素相同但顺序不比要相同，Set的hashCode方法自然就要保证相等的Set其散列码值也一致。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Collection&lt;Integer&gt; c1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">	Collection&lt;Integer&gt; c2 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">	Set&lt;Integer&gt; s1 = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">	Set&lt;Integer&gt; s2 = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">	c1.add(<span class="number">1</span>);c1.add(<span class="number">2</span>);c1.add(<span class="number">3</span>);c2.add(<span class="number">2</span>);c2.add(<span class="number">1</span>);c2.add(<span class="number">3</span>);</span><br><span class="line">	s1.add(<span class="number">1</span>);s1.add(<span class="number">3</span>);s1.add(<span class="number">2</span>);s1.add(<span class="number">4</span>);s2.add(<span class="number">2</span>);s2.add(<span class="number">1</span>);</span><br><span class="line">	s2.add(<span class="number">3</span>);s2.add(<span class="number">4</span>);</span><br><span class="line">	</span><br><span class="line">	System.out.println(c1.equals(c2));<span class="comment">//false</span></span><br><span class="line">	System.out.println(s1.equals(s2));<span class="comment">//true</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="13-3-1-视图与包装器"><a href="#13-3-1-视图与包装器" class="headerlink" title="13.3.1 视图与包装器"></a>13.3.1 视图与包装器</h4><p>视图：保持对原集合的控制。只用来展示集合中的元素。</p>
+<h5 id="1、轻量级集包装器"><a href="#1、轻量级集包装器" class="headerlink" title="1、轻量级集包装器"></a>1、轻量级集包装器</h5><p><strong>关于asList方法</strong><br>asList方法返回的对象不是ArrayList，而是一个<strong>视图</strong>对象，带有访问底层数组的get和set方法。任何改变数组的<strong>大小</strong>的所有方法（包括迭代器相关的add和remove方法）都会抛出Unsupported OperationException的异常。</p>
+<p>视图是不可修改的，任何改变视图size的操作都会影响到原集合。抛出异常、</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Integer[] arr = &#123;<span class="number">2</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">6</span>&#125;;</span><br><span class="line">		List&lt;Integer&gt; intList = Arrays.asList(arr);</span><br><span class="line">		Iterator&lt;Integer&gt; iterator = intList.iterator();</span><br><span class="line">		iterator.next();</span><br><span class="line">		iterator.remove();<span class="comment">//java.lang.UnsupportedOperationException</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="源码：有新的ArrayList内部视图类"><a href="#源码：有新的ArrayList内部视图类" class="headerlink" title="源码：有新的ArrayList内部视图类"></a>源码：有新的ArrayList内部视图类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SafeVarargs</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">asList</span><span class="params">(T... a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;(a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@serial</span> include</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">RandomAccess</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">2764017481108945198L</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> E[] a;</span><br><span class="line"></span><br><span class="line">        ArrayList(E[] array) &#123;</span><br><span class="line">            <span class="keyword">if</span> (array==<span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">            a = array;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a.length;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Object[] toArray() &#123;</span><br><span class="line">            <span class="keyword">return</span> a.clone();<span class="comment">//避免破坏封装性</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; T[] toArray(T[] a) &#123;</span><br><span class="line">            <span class="keyword">int</span> size = size();</span><br><span class="line">            <span class="keyword">if</span> (a.length &lt; size)</span><br><span class="line">                <span class="keyword">return</span> Arrays.copyOf(<span class="keyword">this</span>.a, size,</span><br><span class="line">                                     (Class&lt;? extends T[]&gt;) a.getClass());</span><br><span class="line">            System.arraycopy(<span class="keyword">this</span>.a, <span class="number">0</span>, a, <span class="number">0</span>, size);</span><br><span class="line">            <span class="keyword">if</span> (a.length &gt; size)</span><br><span class="line">                a[size] = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">return</span> a;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a[index];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">            E oldValue = a[index];</span><br><span class="line">            a[index] = element;</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (o==<span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;a.length; i++)</span><br><span class="line">                    <span class="keyword">if</span> (a[i]==<span class="keyword">null</span>)</span><br><span class="line">                        <span class="keyword">return</span> i;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;a.length; i++)</span><br><span class="line">                    <span class="keyword">if</span> (o.equals(a[i]))</span><br><span class="line">                        <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> indexOf(o) != -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="关于Collecitons-nCopies方法"><a href="#关于Collecitons-nCopies方法" class="headerlink" title="关于Collecitons.nCopies方法"></a>关于Collecitons.nCopies方法</h5><p><code>Collections.nCopies(n,anObject);</code>返回一个实现了List接口的不可修改的对象。<br><code>Collections.singleton(Object obj)</code>返回一个视图对象，该对象实现了set接口。该方法的好处是<strong>返回的对象实现了一个不可修改的单元素集</strong>，而不需要付出建立数据结构的开销。singletonList和singletonMap方法类似。</p>
+<h5 id="子范围"><a href="#子范围" class="headerlink" title="子范围"></a>子范围</h5><p>subList返回的包头不包尾的也是视图，这种是子范围视图，<strong>对该视图进行clear会影响到原集合</strong>。</p>
+<p>subList返回的子范围的任何操作将会影响到整个列表中！例如：子列表中的clear操作将会使源列表的元素被清除。</p>
+<h5 id="不可修改的视图"><a href="#不可修改的视图" class="headerlink" title="不可修改的视图"></a>不可修改的视图</h5><p>返回的视图对现有集合增加了一个运行时检查，当发现视图试图修改集合时，抛出异常。但是源集合可以自己对自己进行修改。</p>
+<p>Collections的某些方法用于产生集合的不可修改视图（unmodifiable views）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Collection&lt;T&gt; <span class="title">unmodifiableCollection</span><span class="params">(Collection&lt;? extends T&gt; c)</span> </span>&#123;&#125;</span><br><span class="line">unmodifiableList();</span><br><span class="line">unmodifiableSet();</span><br><span class="line">unmodifiableSortedSet();</span><br><span class="line">unmodifiableMap();</span><br><span class="line">unmodifiableSortedMap();</span><br></pre></td></tr></table></figure>
+<p>将传入的集合封装成一个不可修改的视图，如果发现视图修改，则抛出一个UnsupportOperation的异常，并且将集合保持为未修改的状态。</p>
+<p>不可修改视图并不是集合本身不可修改，仍然可以通过集合的原始引用对集合进行修改。</p>
+<p>由于视图只是包装了接口而不是实际的集合对象，所以只能访问接口中定义的方法，例如LinkedList类中的addFirst，不是List接口的方法，不能通过不可修改视图进行访问。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//源码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Set&lt;T&gt; <span class="title">unmodifiableSet</span><span class="params">(Set&lt;? extends T&gt; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> UnmodifiableSet&lt;&gt;(s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@serial</span> include</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UnmodifiableSet</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">UnmodifiableCollection</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">                                 <span class="keyword">implements</span> <span class="title">Set</span>&lt;<span class="title">E</span>&gt;, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">9215047833775013803L</span>;</span><br><span class="line"></span><br><span class="line">        UnmodifiableSet(Set&lt;? extends E&gt; s)     &#123;<span class="keyword">super</span>(s);&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;<span class="keyword">return</span> o == <span class="keyword">this</span> || c.equals(o);&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span>           </span>&#123;<span class="keyword">return</span> c.hashCode();&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="同步视图"><a href="#同步视图" class="headerlink" title="同步视图"></a>同步视图</h5><p>Java中，利用视图机制保证常规集合的线程安全，而不是实现线程安全的集合，<code>Collections.synchronized***();</code>方法可对任何集合装换成具有同步访问方法的集合。</p>
+<h5 id="检查视图"><a href="#检查视图" class="headerlink" title="检查视图"></a>检查视图</h5><p>包装一个具有检查类型机制的视图，对泛型类型发生问题时提供调试支持。<code>Collections.checkedList();</code><br>详见P602。</p>
+<h4 id="13-3-2-批操作"><a href="#13-3-2-批操作" class="headerlink" title="13.3.2 批操作"></a>13.3.2 批操作</h4><p>指Set的removeAll、retainAll操作。对于Map，也可<code>keySet().removeAll()</code>。</p>
+<h4 id="13-3-3-集合与数组之间的转换"><a href="#13-3-3-集合与数组之间的转换" class="headerlink" title="13.3.3 集合与数组之间的转换"></a>13.3.3 集合与数组之间的转换</h4><ul>
+<li>数组转集合：利用Arrays.adList的包装器。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String[] arr = &#123;<span class="string">"aaa"</span>,<span class="string">"bbb"</span>&#125;;</span><br><span class="line">		List&lt;String&gt; list  = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(arr));</span><br><span class="line">		list.remove(<span class="number">0</span>);<span class="comment">//remove不会抛出UnsupportedOperationException的异常</span></span><br><span class="line">		System.out.println(list);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>集合转数组：list.toArray(new String[]);</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//集合转数组</span></span><br><span class="line">Object[] array = list.toArray();</span><br><span class="line"><span class="comment">//String[] strArr = (String[]) array;//java.lang.ClassCastException</span></span><br><span class="line"></span><br><span class="line">String[] strArr = list.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);<span class="comment">//可指定大小和类型，不用强转</span></span><br></pre></td></tr></table></figure>
+<h3 id="13-4-算法"><a href="#13-4-算法" class="headerlink" title="13.4 算法"></a>13.4 算法</h3><h4 id="13-4-1-排序与混排"><a href="#13-4-1-排序与混排" class="headerlink" title="13.4.1 排序与混排"></a>13.4.1 排序与混排</h4><p>Java中的Collections.sort()底层使用了数组的归并排序。即先转化集合为数组，排好序以后在复制回以前的集合。</p>
+<p>归并排序相较于快速排序，速度慢，但是<strong>稳定</strong>，它不需要交换相同的元素。</p>
+<p>排序传递的列表必须是可修改的，不必要是可改变大小的。</p>
+<p>混排：<code>Collections.shuffle(List);</code>，随机的打乱列表中元素的顺序。//每次都不一样。</p>
+<h4 id="13-4-2-二分查找"><a href="#13-4-2-二分查找" class="headerlink" title="13.4.2 二分查找"></a>13.4.2 二分查找</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(List&lt;? extends Comparable&lt;? <span class="keyword">super</span> T&gt;&gt; list, T key)</span> </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(List&lt;? extends T&gt; list, T key, Comparator&lt;? <span class="keyword">super</span> T&gt; c)</span> </span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>若查找的元素不存在返回的是负数i，不一定是-1！  这是可以插入-i-1到列表中正确的位置。</p>
+<p>另外，只有采取随机访问，二分查找才有意义，如果必须利用<strong>迭代</strong>一次次的遍历链表的一般元素来找到中间元素的位置，二分查找就失去了它的优势，因此，如果传入的是LinkedList链表，它将自动转换成线性查找。</p>
+<h3 id="13-5-遗留的集合"><a href="#13-5-遗留的集合" class="headerlink" title="13.5 遗留的集合"></a>13.5 遗留的集合</h3><h4 id="13-5-1-Hashtable"><a href="#13-5-1-Hashtable" class="headerlink" title="13.5.1 Hashtable"></a>13.5.1 Hashtable</h4><p>与HashMap的作用是一样的，但是Hashtable（并非HashTable）是线程同步的。如果同步性没有要求，应该尽量使用HashMap。</p>
+<h4 id="13-5-3-属性映射表"><a href="#13-5-3-属性映射表" class="headerlink" title="13.5.3 属性映射表"></a>13.5.3 属性映射表</h4><p>属性映射表（property map）十一个类型非常特殊的映射表结构，其特性是：</p>
+<ul>
+<li>键与值都是字符串。</li>
+<li>表可以保存到一个文件中，也可以从文件中加载</li>
+<li>使用一个默认的辅助表。</li>
+</ul>
+<p>实现属性映射表的Java平台类称为Properties类。<br>load、store方法。</p>
+<h4 id="13-5-4-栈"><a href="#13-5-4-栈" class="headerlink" title="13.5.4 栈"></a>13.5.4 栈</h4><p>Stack类，push、pop、peek</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/核心技术/" rel="tag"># 核心技术</a>
+          
+            <a href="/tags/集合/" rel="tag"># 集合</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/Java核心技术（卷一）（第十二章 泛型程序设计）/" rel="next" title="Java核心技术（卷一）（第十二章 泛型程序设计）">
+                <i class="fa fa-chevron-left"></i> Java核心技术（卷一）（第十二章 泛型程序设计）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/Java核心技术（卷一）（第十四章 线程）/" rel="prev" title="Java核心技术（卷一）（第十四章 线程）">
+                Java核心技术（卷一）（第十四章 线程） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java核心技术（卷一）（第十三章-集合）"><span class="nav-number">1.</span> <span class="nav-text">Java核心技术（卷一）（第十三章 集合）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java中的队列"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Java中的队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-1-2-Java类库中的集合接口和迭代器接口"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">13.1.2 Java类库中的集合接口和迭代器接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator中的remove方法"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">Iterator中的remove方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#remove是指删除最后遍历的元素"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">remove是指删除最后遍历的元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合中也是值传递"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">集合中也是值传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java库中的具体集合"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">Java库中的具体集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-1-链表"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">13.2.1 链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-2-动态数组列表"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">13.2.2 动态数组列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-3-散列表Hash-table"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">13.2.3 散列表Hash table</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HashSet-API"><span class="nav-number">1.0.0.8.1.</span> <span class="nav-text">HashSet API</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-4-树集"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">13.2.4 树集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-6-队列与双端队列"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">13.2.6 队列与双端队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-7-优先级队列"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">13.2.7 优先级队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-8-映射表"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">13.2.8 映射表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#java-util-Map-Entry-lt-K-V-gt"><span class="nav-number">1.0.0.12.1.</span> <span class="nav-text">java.util.Map.Entry&lt;K,V&gt;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-集合框架"><span class="nav-number">1.0.1.</span> <span class="nav-text">13.3 集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#13-3-1-视图与包装器"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">13.3.1 视图与包装器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、轻量级集包装器"><span class="nav-number">1.0.1.1.1.</span> <span class="nav-text">1、轻量级集包装器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#源码：有新的ArrayList内部视图类"><span class="nav-number">1.0.1.1.2.</span> <span class="nav-text">源码：有新的ArrayList内部视图类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关于Collecitons-nCopies方法"><span class="nav-number">1.0.1.1.3.</span> <span class="nav-text">关于Collecitons.nCopies方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#子范围"><span class="nav-number">1.0.1.1.4.</span> <span class="nav-text">子范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不可修改的视图"><span class="nav-number">1.0.1.1.5.</span> <span class="nav-text">不可修改的视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步视图"><span class="nav-number">1.0.1.1.6.</span> <span class="nav-text">同步视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#检查视图"><span class="nav-number">1.0.1.1.7.</span> <span class="nav-text">检查视图</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-3-2-批操作"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">13.3.2 批操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-3-3-集合与数组之间的转换"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">13.3.3 集合与数组之间的转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-4-算法"><span class="nav-number">1.0.2.</span> <span class="nav-text">13.4 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#13-4-1-排序与混排"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">13.4.1 排序与混排</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-4-2-二分查找"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">13.4.2 二分查找</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-5-遗留的集合"><span class="nav-number">1.0.3.</span> <span class="nav-text">13.5 遗留的集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-1-Hashtable"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">13.5.1 Hashtable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-3-属性映射表"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">13.5.3 属性映射表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-4-栈"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">13.5.4 栈</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linux学习（1） 个人笔记，如有错误，恳请批评指正。 一些常识 操作系统主要用于管理与驱动硬件，因此必须要能够管理内存、管理设备、负责进程管理以及系统调用等。 UNIX的前身是由Bell实验室的Ken Thompson利用汇编语言写成的，后来在1971-1973年由Dennis Ritchie以C程序语言进行改写，才称为UNIX。 1977年由Bill Joy释放出BSD（Berkeley S">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习（1）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/Linux学习（1）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="Linux学习（1） 个人笔记，如有错误，恳请批评指正。 一些常识 操作系统主要用于管理与驱动硬件，因此必须要能够管理内存、管理设备、负责进程管理以及系统调用等。 UNIX的前身是由Bell实验室的Ken Thompson利用汇编语言写成的，后来在1971-1973年由Dennis Ritchie以C程序语言进行改写，才称为UNIX。 1977年由Bill Joy释放出BSD（Berkeley S">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/fdasfafafwe.JPG">
+<meta property="og:updated_time" content="2017-03-19T08:01:03.399Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习（1）">
+<meta name="twitter:description" content="Linux学习（1） 个人笔记，如有错误，恳请批评指正。 一些常识 操作系统主要用于管理与驱动硬件，因此必须要能够管理内存、管理设备、负责进程管理以及系统调用等。 UNIX的前身是由Bell实验室的Ken Thompson利用汇编语言写成的，后来在1971-1973年由Dennis Ritchie以C程序语言进行改写，才称为UNIX。 1977年由Bill Joy释放出BSD（Berkeley S">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/fdasfafafwe.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/Linux学习（1）/">
+
+
+
+
+
+  <title>Linux学习（1） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/Linux学习（1）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习（1）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/系统/" itemprop="url" rel="index">
+                    <span itemprop="name">系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux学习（1）"><a href="#Linux学习（1）" class="headerlink" title="Linux学习（1）"></a>Linux学习（1）</h1><hr>
+<p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h3 id="一些常识"><a href="#一些常识" class="headerlink" title="一些常识"></a>一些常识</h3><ul>
+<li>操作系统主要用于管理与驱动硬件，因此必须要能够管理内存、管理设备、负责进程管理以及系统调用等。</li>
+<li>UNIX的前身是由Bell实验室的Ken Thompson利用汇编语言写成的，后来在1971-1973年由Dennis Ritchie以C程序语言进行改写，才称为UNIX。</li>
+<li>1977年由Bill Joy释放出BSD（Berkeley Software Distribution），这些称为UNIX like的操作系统。</li>
+<li>1984年，由Andrew Tannenbaum制作出了Minix操作系统，改系统提供源码以及软件。</li>
+<li>1984年由Richard Stallman提倡GNU项目，倡导自由软件（Free Software），强调其软件可以自由地复制、取得、修改与再发行，并规范出GPL授权模式，任何GPL软件均不可单纯仅销售其软件，也不可修改软件授权。</li>
+<li>1991年由芬兰人Linus Torvalds开发出Linux操作系统。简而言之，其成功的地方在于Minix（UNIX）、GNU、Internet、POSIX及虚拟团队的产生。</li>
+<li>Linux最底层的数据为内核（Kernel）。</li>
+<li>Linux内核版本命名方式，稳定的偶数版本，适合家用和商业版本；开发中版本的技术版，适合开发功能的环境。</li>
+</ul>
+<h3 id="学习Linux需要注意的几点："><a href="#学习Linux需要注意的几点：" class="headerlink" title="学习Linux需要注意的几点："></a>学习Linux需要注意的几点：</h3><ul>
+<li>计算机概论及硬件相关知识</li>
+<li>常见的命令</li>
+<li>Linux操作系统的基础技能</li>
+<li>务必学会vi文本编辑器</li>
+<li>shell与shell脚本的学习，包括“正则表达式”、“管道命令”、“数据流重定向”</li>
+<li>网络基础的学习</li>
+</ul>
+<h4 id="各硬件设备在Linux中的文件名"><a href="#各硬件设备在Linux中的文件名" class="headerlink" title="各硬件设备在Linux中的文件名"></a>各硬件设备在Linux中的文件名</h4><p>在Linux系统中，每个设备都被当成一个文件来对待。<br><img src="http://oli0whb3w.bkt.clouddn.com/fdasfafafwe.JPG" alt="enter image description here"></p>
+<h4 id="磁盘分区的选择"><a href="#磁盘分区的选择" class="headerlink" title="磁盘分区的选择"></a>磁盘分区的选择</h4><p>挂载：文件系统与目录树的关系，所谓挂载，就是利用一个目录当成进入点，将磁盘分区的数据放置在该目录下；也就是说，进入该目录就可以读取该分区的数据，进入的站点称为挂载点。</p>
+<h3 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h3><p>虚拟机安装<br>原料：Ubuntu Kylin的ISO、VMware或VirtualBox<br>优点：一条龙服务，安全简单<br>缺点：用户体验差，隔靴搔痒</p>
+<p>Wubi安装<br>原料：Ubuntu Kylin的ISO、wubi.exe<br>优点：即点即用，默认Windows开机引导<br>缺点：易死机，待机和网络易出问题</p>
+<p>U盘安装<br>原料：Ubuntu Kylin的ISO、UltraISO、EasyBCD、U盘(&gt;=2G)<br>优点：简单安全，正牌双系统<br>缺点：默认Ubuntu开机引导</p>
+<h3 id="Linux-Ubuntu虚拟机"><a href="#Linux-Ubuntu虚拟机" class="headerlink" title="Linux Ubuntu虚拟机"></a>Linux Ubuntu虚拟机</h3><p>命令交互：CTRL+ALT+F1~F6<br>图形交互：CTRL+ALT+F7<br>root默认关闭，sudo passwd root设置密码并开启。</p>
+<h3 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">1：linux基础简介</span><br><span class="line">		1：操作系统（Operating System）</span><br><span class="line">			1：操作系统是管理计算机硬件与软件资源的程序</span><br><span class="line">			2：典型操作系统</span><br><span class="line">				1：UNIX、LINUX、Mac OS X、Windows iOS、Android、MS-DOS</span><br><span class="line">			3：操作方式</span><br><span class="line">				1：命令行界面(Command Line Interface CLI)</span><br><span class="line">					1：用户通过键盘输入指令，计算机接收到指令后，予以执行。</span><br><span class="line">					2：优点</span><br><span class="line">						1：节约计算机系统的资源</span><br><span class="line">						2：操作速度快（记住命令）</span><br><span class="line">					3：常见</span><br><span class="line">						1：DOS、UNIX、LINUX</span><br><span class="line">				2：图形用户界面(Graphical User Interface，简称 GUI)</span><br><span class="line">					1：采用图形方式显示的计算机操作</span><br><span class="line">					2：优点</span><br><span class="line">						1：操作简单</span><br><span class="line">						2：用户友好</span><br><span class="line">					3：缺点</span><br><span class="line">						1：比图形命令界面消耗资源</span><br><span class="line">					4：常见</span><br><span class="line">						1：WINDOWS、Mac OS</span><br><span class="line">		2：UNIX与MINIX</span><br><span class="line">			1：UNIX</span><br><span class="line">				1：1969年由贝尔实验室的肯.汤普逊、丹尼斯.里奇带领下开发出UNIX</span><br><span class="line">					1：肯.汤普逊：UNIX之父</span><br><span class="line">					2：丹尼斯.里奇：C语言之父</span><br><span class="line">				2：之前使用汇编语言B语言，1973年用两人改用C语言（高级语言）重写</span><br><span class="line">			2：MINIX</span><br><span class="line">				1：贝尔实验室收回版权并且规定“不可对学生提供源码”。</span><br><span class="line">				2：Andrew S. Tanenbaum（谭帮宁）教授为了授课，在不参考UNIX源码下写出了MINIX</span><br><span class="line">					1：计算机网络、现代操作系统作者，MINIX之父。</span><br><span class="line">		3：LINUX</span><br><span class="line">			1：1991年，芬兰人林纳斯.托瓦兹在赫尔辛基大学自己动手写了操作系统，就是LINUX内核（Linux </span><br><span class="line"></span><br><span class="line">kernel）。</span><br><span class="line">			2：吉祥物企鹅。</span><br><span class="line">			2：Linux加入GNU并遵循公共版权许可证 （GPL）。	</span><br><span class="line">		4：GNU（“GNU&apos;s Not Unix”）</span><br><span class="line">			1：理查德.斯托曼博士1983 年启动建立一个完全相容于UNIX的自由软件环境</span><br><span class="line">				1：自由软件</span><br><span class="line">					1：赋予用户复制、研究、修改和散布该软件的权利，并提供源码供用户自由使用	</span><br><span class="line">			2：核心的操作系统内核发展受挫，于是采用Linux kernel，应用在GNU系统中</span><br><span class="line">		5：GPL（General Public License 通用公共许可证）</span><br><span class="line">			1：为了避免GNU开发的软件被其他人利用成为专利软件</span><br><span class="line">			2：Copyleft（专利软件是Copyright）</span><br><span class="line">			3：目的要让GNU永远是免费和公开的</span><br><span class="line">		6：Linux简介</span><br><span class="line">			1：Linux是一种自由和开放源码的类UNIX操作系统</span><br><span class="line">			2：LINUX特点</span><br><span class="line">				1：开放性，多用户，多任务，丰富的网络功能，可靠的系统安全，良好的可移植性，</span><br><span class="line">				   良好的用户界面（命令界面，图形界面等），出色的速度性能</span><br><span class="line">			3：LINUX组成</span><br><span class="line">				1：内核</span><br><span class="line">				2：Shell</span><br><span class="line">				3：文件系统</span><br><span class="line">				4：应用程序</span><br><span class="line">			4：LINUX版本</span><br><span class="line">				1：LINUX内核（Linux kernel）</span><br><span class="line">					1：系统的心脏</span><br><span class="line">				2：发行版本（Distribution）</span><br><span class="line">					1：厂商将Linux系统内核与应用软件和文档包装起来，并提供一些安装界面和系统设定管理工具的一个软件包的集合</span><br><span class="line">					2：常见</span><br><span class="line">						RedHat Linux，Debian，Ubuntu, Novell/SuSE Linux</span><br><span class="line">		7：Ubuntu</span><br><span class="line">			1：Ubuntu版本由发布的年份和月份组成最新的版本为Ubuntu 16.04</span><br><span class="line">		        	查看Ubuntu版本cat /etc/issue 或者 sudo lsb_release -a</span><br><span class="line">	2：Linux系统安装</span><br><span class="line">		1：下载iso系统镜像文件刻录光盘，一步步安装。</span><br><span class="line">			1：该步骤和安装windows系统一样，傻瓜式安装</span><br><span class="line">		2：Vmware虚拟机安装</span><br><span class="line">			1：虚拟机（Virtual Machine）是一个软件，可以模拟出具有完整硬件系统功能的、运行在一个完全隔</span><br><span class="line"></span><br><span class="line">离环境中的完整计算机系统。</span><br><span class="line">			2：安装参看安装文档。</span><br><span class="line">			3：注意：安装完虚拟机后，进入网上邻居—）》属性—》》 禁用 VMware Network Adapter VMnet1 和 </span><br><span class="line">VMware Network Adapter VMnet8</span><br><span class="line">		3：使用VMware安装Ubuntu</span><br><span class="line">			1：参看安装文档。</span><br><span class="line">				1：设置用户名和密码，用户名不能设置为root</span><br><span class="line">	3：Linux的命令行与图形界面切换</span><br><span class="line">		1：命令行界面</span><br><span class="line">			1：在图形化界面中打开命令行窗口</span><br><span class="line">				应用程序-》附件-》终端			</span><br><span class="line">			2：切换到纯命令行是使用Ctrl加Alt加F1~F6：</span><br><span class="line">				注意： 使用ctrl+alt 和Vmware软件有冲突，需要修改VMware的快捷键</span><br><span class="line">				（在VMware左上角edit-&gt;preferences-&gt;hot keys，将ctrl+alt 修改为ctrl+shift+alt）</span><br><span class="line">				1.Ctrl+Alt+F1  切换到控制台1（tty1）</span><br><span class="line">				2.Ctrl+Alt+F2  切换到控制台2（tty2）</span><br><span class="line">				3.Ctrl+Alt+F3  切换到控制台3（tty3）</span><br><span class="line">				4.Ctrl+Alt+F4  切换到控制台4（tty4）</span><br><span class="line">				5.Ctrl+Alt+F5  切换到控制台5（tty5）</span><br><span class="line">				6.Ctrl+Alt+F6  切换到控制台6（tty6）</span><br><span class="line">			3: 使用who命令查看当前已经登录的用户</span><br><span class="line">				</span><br><span class="line">		</span><br><span class="line">		2：图形用户界面(Graphical User Interface，简称 GUI)</span><br><span class="line">			2：ctrl+alt+f7切换到图形用户界面</span><br><span class="line">	4: 普通用户与超级管理员</span><br><span class="line">		1:显示“$”标识表示是普通用户</span><br><span class="line">			例如： 进入linux系统，控制台出现：wch@ubuntu:~$ </span><br><span class="line">			 ~用户的根目录</span><br><span class="line">		2:显示“#”标识表示是超级管理员：</span><br><span class="line">		3：切换用户</span><br><span class="line">			切换用户（使用su命令切换用户）：</span><br><span class="line">			当从普通用户切换到root用户（超级管理员）或其他用户时，需要输入目标用户的密码。</span><br><span class="line">			当从root用户切换到普通用户时，不需要输入密码。</span><br><span class="line">	5：Linux目录结构</span><br><span class="line">		1：Linux所有内容是以文件形式进行管理</span><br><span class="line">		2：/ 根目录</span><br><span class="line">			1：bin （binaries） 存放二进制可执行文件(ls,cat,mkdir等)</span><br><span class="line">			2：boot 存放用于系统引导时使用的各种文件</span><br><span class="line">			3：dev (devices) 用于存放设备文件</span><br><span class="line">				dev是device的简写，就是“设备”的意思。Linux把每个硬件也看作是一个文件</span><br><span class="line">			4：etc  存放系统配置文件的目录</span><br><span class="line">				1：例如安装jdk配置环境变量</span><br><span class="line">			5：home 存放所有用户文件的根目录</span><br><span class="line">				1：用户登录系统后默认所在的目录</span><br><span class="line">			6：mnt  系统管理员安装临时文件系统的安装点</span><br><span class="line">				例如：挂载光驱。</span><br><span class="line">			7：opt  额外安装的可选应用程序包所放置的位置</span><br><span class="line">				例如：我们可以安装自定义程序1：安装eclipse，安装tomcat</span><br><span class="line">			8：root  超级用户目录</span><br><span class="line">				1：管理员</span><br><span class="line">			9：sbin (super user binaries) 存放二进制可执行文件，只有root才能访问</span><br><span class="line">			10：usr (unix shared resources) 用于存放系统应用程序，有些类似windows的Program Files</span><br><span class="line">				 例如：软件中心下载的软件默认安装在usr/bin中。</span><br><span class="line">				 我们也可以将jdk安装在此目录中。</span><br><span class="line">			图形化界面查看</span><br><span class="line">				Places -Documents-File System (/ 根目录)</span><br><span class="line">			11: var(variable)用于存放运行时需要改变数据的文件</span><br></pre></td></tr></table></figure>
+<h3 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h3><h4 id="Linux基本命令"><a href="#Linux基本命令" class="headerlink" title="Linux基本命令"></a>Linux基本命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">Linux的常用命令：</span><br><span class="line">	1.注销、关机、重启命令</span><br><span class="line">		注销：logout或exit（要login才能有logout，否则是exit）</span><br><span class="line">		关机：halt或shutdown -h now（要是root用户或是有授权才可以）（now还可以用时间点12：00和时间段3（min）代替）</span><br><span class="line">		重启：reboot或shutdown -r now（要是root用户或是有授权才可以）</span><br><span class="line">	2：Linux的基本命令</span><br><span class="line">		1：ls 显示文件和目录列表 　</span><br><span class="line">			1： -l 列出文件的详细信息</span><br><span class="line">			2： -a 列出当前目录所有文件，包含隐藏文件（可组合如 -la）</span><br><span class="line">		2：mkdir 创建目录 　（ 删除？rmdir  非空） </span><br><span class="line">			1：-p 父目录不存在情况下先生成父目录</span><br><span class="line">		3：cd 切换目录</span><br><span class="line">		   cd.. 退回</span><br><span class="line">		   cd ../XXX上级目录的子目录</span><br><span class="line">		4：touch 生成一个空白的普通文件	</span><br><span class="line">		   touch a.txt</span><br><span class="line">		5：echo 生成一个带内容文件     </span><br><span class="line">			1：echo &quot;abcd&quot;&gt;a.txt  &gt;表示覆盖  &gt;&gt;表示追加</span><br><span class="line">		6：cat、more 显示文本文件内容</span><br><span class="line">		   cat 直接跳到末尾</span><br><span class="line">		   more 从头看，space进行翻页</span><br><span class="line">		7：cp 复制文件或目录</span><br><span class="line">			1：cp a.txt /home/wch/abc/ddd</span><br><span class="line">		8：rm 删除文件</span><br><span class="line">			1：rm a.txt</span><br><span class="line">			2：rm -rf abc</span><br><span class="line">			   -f  force   强制删除（什么都不问）</span><br><span class="line">			   -i  删除之前询问   输入y表示删除，默认不删除</span><br><span class="line">			   -d  删除空白的目录</span><br><span class="line">			   -r 或者-R或者--recursive  递归的删除一个文件夹，即用于删除非空文件夹。</span><br><span class="line">		9：mv 移动文件或目录、文件   假若剪切的文件存放在同一目录中，则替换就可重命名</span><br><span class="line">			1：mv  aaa bbb 将aaa改名为bbb</span><br><span class="line">			2：mv bbb /home/abc/ccc</span><br><span class="line">		10：find 在文件系统中查找指定的文件</span><br><span class="line">			1：find  -name  文件名</span><br><span class="line">		11：wc 统计文本文档的行数，字数，字符数 </span><br><span class="line">			1：wc a.txt</span><br><span class="line">			num1 num2 num3分别表示行数 单词数 字符数</span><br><span class="line">		12：grep 在指定的文本文件中查找指定的字符串</span><br><span class="line">			1：grep aa a.txt</span><br><span class="line">		13：pwd 显示当前工作目录的绝对路径</span><br><span class="line">			</span><br><span class="line">		14：ln 建立链接文件（***）</span><br><span class="line">			默认是硬链接，好比复制，但是两个文件会同步，软连接也会同步，但是软连接的文件不会占用空间，相当于快捷方式。</span><br><span class="line">			1：ln -s /home/familyA/house/roomB   /home/roomB </span><br><span class="line">				1：当访问一个目录较深的文件，可以建立链接文件。</span><br><span class="line">				2： 遇到 Permission denied（权限拒绝）说明wch用户没有权利做这件事</span><br><span class="line">					1：使用sudo 可以借用root的权限，输入wch的密码</span><br><span class="line">				3：在home下就可以直接访问roomB的文件</span><br><span class="line">				4：例如安装jdk路径需要配置环境变量，如果路径较长书写麻烦可以配置连接文件</span><br><span class="line">			第一，ln命令会保持每一处链接文件的同步性，也就是说，不论你改动了哪一处，其它的文件都会发生</span><br><span class="line">相同的变化；</span><br><span class="line">			第二，ln的链接又软链接和硬链接两种，软链接就是ln –s ** **，它只会在你选定的位置上生成一个</span><br><span class="line">文件的镜像，不会占用磁盘空间。</span><br><span class="line">			硬链接ln ** **，没有参数-s， 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链</span><br><span class="line">接还是硬链接，文件都保持同步变化。</span><br><span class="line">　			如果你用ls察看一个目录时，发现有的文件后面有一个@的符号，那就是一个用ln命令生成的文件，用ls </span><br><span class="line">–l命令去察看，就可以看到显示的link的路径了。	</span><br><span class="line">		15：more、less 分页显示文本文件内容 </span><br><span class="line">			1：查看配置文件时，很长需要分页处理</span><br><span class="line">			2：more（一页一页翻）</span><br><span class="line">				1：空格键向下翻页</span><br><span class="line">				2：Enter键向下滚动一行</span><br><span class="line">				3：:f 显示出文件名及当前的行数</span><br><span class="line">				4：	q 离开more</span><br><span class="line">				5： b 往回翻</span><br><span class="line">			3：less（一页一页翻）</span><br><span class="line">				1：空格 向下翻一页</span><br><span class="line">				2：PageDown 向下翻一页</span><br><span class="line">				3：PageUp 向上翻一页</span><br><span class="line">				4：q 离开</span><br><span class="line">		16：head,tail分别显示文件开头和结尾内容</span><br><span class="line">		17：man 命令帮助信息查询 manual：手册</span><br><span class="line">			1：man ls</span><br><span class="line">		18：管道（***）将|之前命令的输出作为|之后命令的输入</span><br><span class="line">			1：  cat /etc/passwd | wc -l</span><br><span class="line">				使用cat命令显示passwd文件中的内容，但是并没有显示在屏幕上，而是通过管道“|” 接受，</span><br><span class="line"></span><br><span class="line">wc命令从管道中取出内容进行统计，然后显示结果</span><br><span class="line">				这个输出时该文件有多少行（多少个用户）</span><br><span class="line">		19：重定向</span><br><span class="line">			1：&gt;</span><br><span class="line">				cat /etc/passwd&gt;/home/wch/a.txt</span><br><span class="line">				echo &quot;hello java&quot;&gt;a.txt  （覆盖上一个a.txt）</span><br><span class="line">			2：&gt;&gt;</span><br><span class="line">			  1：追加，不会覆盖</span><br><span class="line">				cat /etc/passwd&gt;&gt;/home/wch/a.txt </span><br><span class="line">				echo &quot;---------&quot;&gt;&gt;a.txt   </span><br><span class="line"></span><br><span class="line">		20:su 切换用户</span><br><span class="line">			su root需要输入root用户的密码  root切换其他用户不需要密码</span><br><span class="line">		21：passwd  修改密码，root操作</span><br><span class="line">		sudo passwd root</span><br></pre></td></tr></table></figure>
+<h4 id="Linux系统命令"><a href="#Linux系统命令" class="headerlink" title="Linux系统命令"></a>Linux系统命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">3：Linux系统命令</span><br><span class="line">	1：stat 显示指定文件的相关信息 </span><br><span class="line">		1：stat familyA</span><br><span class="line">			access 进入</span><br><span class="line">			Modify 修改</span><br><span class="line">			Change 改变</span><br><span class="line">			access time是文档最后一次被读取的时间。因此阅读一个文档会更新它的access时间，</span><br><span class="line">                               但它的modify时间和change时间并没有变化。cat、more 、less、grep、tail、head这些命令都会修改文件的access时间。</span><br><span class="line">                               change time是文档的索引节点(inode)发生了改变(比如位置、用户属性、组属性等)；</span><br><span class="line">                               modify time是文本本身的内容发生了变化。[文档的modify时间也叫时间戳(timestamp)</span><br><span class="line">	2：who、显示在线登录用户 </span><br><span class="line">		1：想要知道当前有多少用户登录系统。</span><br><span class="line">		2：who</span><br><span class="line">			1：显示2个一个是命令行，一个是图形界面的只有一个wch</span><br><span class="line">	3：whoami 显示用户自己的身份 </span><br><span class="line">	4：hostname 显示主机名称 </span><br><span class="line">		1：hostname</span><br><span class="line">		2：hostname -i 显示主机IP</span><br><span class="line">	5：uname 显示系统信息 </span><br><span class="line">		1：uname -a 显示全部信息 </span><br><span class="line">		Linux ubuntu 2.6.35-22-generic #33-Ubuntu SMP Sun Sep 19 20:34:50 UTC 2010 i686 GNU/Linux</span><br><span class="line">	6：top 显示当前系统中耗费资源最多的进程 动态显示过程，实时监控 3s刷新一次</span><br><span class="line">		1：类似于windows的任务管理器</span><br><span class="line">		2：主要看 cpu mem command</span><br><span class="line">		3；ctrl+c 退出，或者q</span><br><span class="line">	7：ps 显示瞬间进程状态 快照</span><br><span class="line">		1：ps -aux  显示所有瞬间进程状态</span><br><span class="line">	8：du 显示指定的文件（目录）已使用的磁盘空间的总量 </span><br><span class="line">		1：du</span><br><span class="line">		2：du familyA  （以K为单位）</span><br><span class="line">		3：du -h familyA </span><br><span class="line">	9：df 显示文件系统磁盘空间的使用情况 disk free </span><br><span class="line">		1：df -h </span><br><span class="line">	10：free 显示当前内存和交换空间的使用情况 	</span><br><span class="line">	11：ifconfig 显示网络接口信息 </span><br><span class="line">		1：windows 是ipconfig</span><br><span class="line">		ipv4:32位 2^32个地址数</span><br><span class="line">		ipv6:128位 是v4的2^96倍</span><br><span class="line">	</span><br><span class="line">	设置虚拟机的ip地址：</span><br><span class="line">		设置vmware的连接方式：</span><br><span class="line">	主机与虚拟机之间的关系：</span><br><span class="line">		1、桥接模式：虚拟机独立IP</span><br><span class="line">		2、共享模式（NAT模式）</span><br><span class="line">		3、仅主机模式</span><br><span class="line"></span><br><span class="line">	12：ping 测试网络的连通性 </span><br><span class="line">	13：clear 清屏 windows是cls</span><br><span class="line">	14：kill 杀死一个进程</span><br><span class="line">	15：关机/重启命令 </span><br><span class="line">		1：shutdown 命令可以安全的关闭Linux系统，shutdown命令必须有超级用户才能执行。shutdown命令执行后会以广播的形式通知正在系统中工作的所有用户，</span><br><span class="line">			1：shutdown  -h now  （关机不重启）</span><br><span class="line">			2：shutdown  -r now  （关机重启）</span><br><span class="line">			3：shutdown  now （关机）</span><br><span class="line">			4：shutdown  15:22</span><br><span class="line">		2：halt 关机后关闭电源 </span><br><span class="line">		3：reboot 重新启动</span><br><span class="line"></span><br><span class="line">	16：useradd</span><br><span class="line">	查看用户：sudo cat /etc/passwd</span><br><span class="line"></span><br><span class="line">	wch:x:1000:1000:ubuntu,,,:/home/wch:/bin/bash</span><br><span class="line">	- wch: 用户名</span><br><span class="line">	- x:密码，已加密，存放在/etc/shadow</span><br><span class="line">	- 1000：账号id，userId</span><br><span class="line">	- 1000：组id，group id</span><br><span class="line">	- ubuntu,,,:账号描述</span><br><span class="line">	- /home/wch:该账号存放的默认位置</span><br><span class="line">	</span><br><span class="line">	创建用户：useradd wch2 -d /home/wch2 -s /bin/bash</span><br><span class="line">		-d 指定该用户的home路径</span><br><span class="line">		-s 该用户的shell解析方式</span><br><span class="line">	步骤：1、创建/home/wch2的目录</span><br><span class="line">		 2、执行useradd命令</span><br><span class="line">		 3、用passwd设置密码</span><br><span class="line">		 4、su切换用户</span><br><span class="line">		</span><br><span class="line">4：备份压缩命令</span><br><span class="line">	1：tar</span><br><span class="line">		</span><br><span class="line">	tar -cxzjvf &lt;打包后的文件&gt; &lt;欲打包的目录&gt;</span><br><span class="line">		-c：创建的一个归档文件，即打包文件夹</span><br><span class="line">		-x：拆包，与-c相反</span><br><span class="line">		-z：以gzip格式压缩，默认倍数6倍（0~9）</span><br><span class="line">		-j：以bzip格式压缩</span><br><span class="line">		-v：显示打包或者拆包的文件信息</span><br><span class="line">		-f：后面紧接一个归档文件</span><br><span class="line">	1:打包</span><br><span class="line">		1：tar -cvf familyA.tar familyA （tar -cvf 保存路径/包名 打包目录）</span><br><span class="line">	2：拆包</span><br><span class="line">		1：tar -xvf /home/wch/familyA.tar </span><br><span class="line">		</span><br><span class="line">	2：gzip 命令</span><br><span class="line">		gzip 压缩（解压）文件，压缩文件后缀为gz </span><br><span class="line">		1：压缩</span><br><span class="line">			1：把/home/wch目录下的familyA目录下所有文件压缩成.gz文件</span><br><span class="line">				1：gzip只能压缩文件，目录（文件夹不能处理），需要使用tar对文件夹打包</span><br><span class="line">				1：gzip familyA.tar 进行压缩</span><br><span class="line"></span><br><span class="line">		2：查看压缩文件</span><br><span class="line">			1：gzip -l familyA.tar.gz 查看压缩包详细信息</span><br><span class="line">				1：compressed 压缩后大小</span><br><span class="line">				2：uncompressed 原始大小</span><br><span class="line">				3：ratio  压缩比</span><br><span class="line">				4：uncompressed_name  原始文件名</span><br><span class="line">		3：解压</span><br><span class="line">			1：gzip -d familyA.tar.gz   显示文件名和压缩比</span><br><span class="line">		4：压缩比</span><br><span class="line">			1：高压缩（速度稍慢）</span><br><span class="line">				gzip -9 familyA.tar 高压缩比</span><br><span class="line">				gzip -l familyA.tar.gz </span><br><span class="line">			2：低压缩比（速度快）</span><br><span class="line">				gzip -d familyA.tar.gz （解压）</span><br><span class="line">				gzip -1 familyA.tar 低压缩比</span><br><span class="line">				gzip -l familyA.tar.gz</span><br><span class="line">			3：默认是6</span><br><span class="line">	3：bzip2 命令</span><br><span class="line">		bzip2 压缩（解压）文件或目录，压缩文件后缀为bz2 </span><br><span class="line">		1：压缩</span><br><span class="line">			1：把/home/wch目录下的familyA目录下所有文件压缩成.bz2文件</span><br><span class="line">				1：bzip2 -z familyA.tar 压缩需加上参数-z</span><br><span class="line">		2：解压缩</span><br><span class="line">			1：bzip2 -d familyA.tar.bz2 </span><br><span class="line">	4：tar命令压缩和解压</span><br><span class="line">		1：将整个/home/wch/familyA目录下的文件全部打包成为/home/wch/familyA.tar</span><br><span class="line">			1：仅打包，不压缩</span><br><span class="line">				1：tar -cvf familyA.tar familyA</span><br><span class="line">			2：打包后，以gzip压缩</span><br><span class="line">				1：tar -zcvf familyA.tar.gz familyA</span><br><span class="line">				拆包</span><br><span class="line">				sudo tar -zxvf familyA.tar.gz</span><br><span class="line">			3：打包后，以bzip2压缩</span><br><span class="line">				1：tar -jcvf familyA.tar.bz2 familyA</span><br><span class="line">				拆包</span><br><span class="line">				sudo tar -jxvf familyA.tar.bz2</span><br></pre></td></tr></table></figure>
+<h4 id="linux-ls-al-的各段含义"><a href="#linux-ls-al-的各段含义" class="headerlink" title="linux ls -al 的各段含义"></a>linux ls -al 的各段含义</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">linux drwxr-xr-x </span><br><span class="line">第一位表示文件类型。d是目录文件，l是链接文件，-是普通文件，p是管道</span><br><span class="line">第2-4位表示这个文件的属主拥有的权限，r是读，w是写，x是执行。</span><br><span class="line">第5-7位表示和这个文件属主所在同一个组的用户所具有的权限。</span><br><span class="line">第8-10位表示其他用户所具有的权限。</span><br><span class="line"></span><br><span class="line">如：</span><br><span class="line">wch@ubuntu:~/Desktop$ ls -la</span><br><span class="line">total 20</span><br><span class="line">drwxr-xr-x  3 wch wch 4096 Mar 13 19:38 .</span><br><span class="line">drwxr-xr-x 15 wch wch 4096 Mar 13 19:49 ..</span><br><span class="line">-rw-rw-r--  2 wch wch    9 Mar 13 19:12 aaa</span><br><span class="line">-rwxrw-rw-  1 wch wch   24 Mar 13 21:57 a.txt</span><br><span class="line">lrwxrwxrwx  1 wch wch   17 Mar 13 19:11 bbb -&gt; ./java/j2ee/z.txt</span><br><span class="line">-rw-rw-r--  1 wch wch    0 Mar 13 19:37 bbbbbbbb.txt</span><br><span class="line">drwxrwxr-x  5 wch wch 4096 Mar 13 18:41 java</span><br><span class="line"></span><br><span class="line">linux ls -al 的各段含义</span><br><span class="line">第1字段:  文件属性字段</span><br><span class="line">文件属性字段总共有10个字母组成,第一个字母表示文件类型,如果这个字母是一个减号”-”,则说明该文件是一个普通文件.字母”d”表示该文件是一个目录,字母”d”,是dirtectory(目录)的缩写.</span><br><span class="line">请注意,一个目录或者说一个文件夹是一个特殊文件,这个特殊文件存放的是其他文件和文件夹的相关信息.</span><br><span class="line"></span><br><span class="line">第2字段</span><br><span class="line">文件硬链接数或目录子目录数</span><br><span class="line"></span><br><span class="line">第3字段:</span><br><span class="line">文件拥有者</span><br><span class="line"></span><br><span class="line">第4字段:</span><br><span class="line">文件拥有者所在的组</span><br><span class="line"></span><br><span class="line">第5字段:</span><br><span class="line">文件文件大小(以字节为单位)</span><br><span class="line"></span><br><span class="line">第6字段:</span><br><span class="line">文件创建月份</span><br><span class="line"></span><br><span class="line">第7字段:</span><br><span class="line">文件创建日期</span><br><span class="line"></span><br><span class="line">第8字段:</span><br><span class="line">文件创建时间</span><br><span class="line"></span><br><span class="line">第9字段:</span><br><span class="line">文件名 (如果是一个符号链接,那么会有一个 “-&gt;” 箭头符号,后面根一个它指向的文件)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/JDK的安装及环境变量的配置/" rel="next" title="JDK的安装及环境变量的配置">
+                <i class="fa fa-chevron-left"></i> JDK的安装及环境变量的配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/Linux学习（2）/" rel="prev" title="Linux学习（2）">
+                Linux学习（2） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux学习（1）"><span class="nav-number">1.</span> <span class="nav-text">Linux学习（1）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些常识"><span class="nav-number">1.0.1.</span> <span class="nav-text">一些常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习Linux需要注意的几点："><span class="nav-number">1.0.2.</span> <span class="nav-text">学习Linux需要注意的几点：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#各硬件设备在Linux中的文件名"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">各硬件设备在Linux中的文件名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘分区的选择"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">磁盘分区的选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装方式"><span class="nav-number">1.0.3.</span> <span class="nav-text">安装方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Ubuntu虚拟机"><span class="nav-number">1.0.4.</span> <span class="nav-text">Linux Ubuntu虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分"><span class="nav-number">1.0.5.</span> <span class="nav-text">第一部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二部分"><span class="nav-number">1.0.6.</span> <span class="nav-text">第二部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux基本命令"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">Linux基本命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux系统命令"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">Linux系统命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux-ls-al-的各段含义"><span class="nav-number">1.0.6.3.</span> <span class="nav-text">linux ls -al 的各段含义</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

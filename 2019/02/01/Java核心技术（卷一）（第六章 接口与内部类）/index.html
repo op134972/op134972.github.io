@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,核心技术,接口,内部类,克隆,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java核心技术（卷一）（第六章 接口与内部类）接口、内部类、对象克隆、代理、接口与回调个人笔记，如有错误，恳请批评指正。 6.1 接口 接口不是类，而是对类的一组需求描述，这些类要遵从接口描述的统一格式定义。 接口中所有的方法自动属于public，不必特殊声明。 在接口中还可以定义常量，也可以定义变量。但是不能有实例域，也不能在接口中实现方法。可以将接口看成是没有实例域的抽象类，但是两者还是有一">
+<meta name="keywords" content="Java,核心技术,接口,内部类,克隆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术（卷一）（第六章 接口与内部类）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/Java核心技术（卷一）（第六章 接口与内部类）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="Java核心技术（卷一）（第六章 接口与内部类）接口、内部类、对象克隆、代理、接口与回调个人笔记，如有错误，恳请批评指正。 6.1 接口 接口不是类，而是对类的一组需求描述，这些类要遵从接口描述的统一格式定义。 接口中所有的方法自动属于public，不必特殊声明。 在接口中还可以定义常量，也可以定义变量。但是不能有实例域，也不能在接口中实现方法。可以将接口看成是没有实例域的抽象类，但是两者还是有一">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-03-19T07:49:56.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java核心技术（卷一）（第六章 接口与内部类）">
+<meta name="twitter:description" content="Java核心技术（卷一）（第六章 接口与内部类）接口、内部类、对象克隆、代理、接口与回调个人笔记，如有错误，恳请批评指正。 6.1 接口 接口不是类，而是对类的一组需求描述，这些类要遵从接口描述的统一格式定义。 接口中所有的方法自动属于public，不必特殊声明。 在接口中还可以定义常量，也可以定义变量。但是不能有实例域，也不能在接口中实现方法。可以将接口看成是没有实例域的抽象类，但是两者还是有一">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/Java核心技术（卷一）（第六章 接口与内部类）/">
+
+
+
+
+
+  <title>Java核心技术（卷一）（第六章 接口与内部类） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/Java核心技术（卷一）（第六章 接口与内部类）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java核心技术（卷一）（第六章 接口与内部类）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Java核心技术/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java核心技术（卷一）（第六章-接口与内部类）"><a href="#Java核心技术（卷一）（第六章-接口与内部类）" class="headerlink" title="Java核心技术（卷一）（第六章 接口与内部类）"></a>Java核心技术（卷一）（第六章 接口与内部类）</h1><h2 id="接口、内部类、对象克隆、代理、接口与回调"><a href="#接口、内部类、对象克隆、代理、接口与回调" class="headerlink" title="接口、内部类、对象克隆、代理、接口与回调"></a>接口、内部类、对象克隆、代理、接口与回调</h2><p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h3 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h3><ul>
+<li>接口不是类，而是对类的一组需求描述，这些类要遵从接口描述的统一格式定义。</li>
+<li>接口中所有的方法自动属于public，不必特殊声明。</li>
+<li>在接口中还可以定义常量，也可以定义变量。但是不能有实例域，也不能在接口中实现方法。可以将接口看成是没有实例域的抽象类，但是两者还是有一定区别的。</li>
+<li>语言标准规定：compareTo方法中，如果调换了参数，结果的符号也需要调换。</li>
+<li>可以使用instanceof检查一个对象是否实现了某个特定的接口。</li>
+<li>接口可以用作拓展，即interface1 extends interface2；</li>
+<li>虽然接口中不能包含实例域或<strong>静态方法</strong>，但却可以定义常量，与接口中的方法都自动设置成public一样，接口中的域将被自动设置成public static final；</li>
+<li>有些接口只定义了常量，却没有定义方法，实现该接口的类自动继承了这些常量。</li>
+</ul>
+<h4 id="6-1-2-接口与抽象类"><a href="#6-1-2-接口与抽象类" class="headerlink" title="6.1.2 接口与抽象类"></a>6.1.2 接口与抽象类</h4><ul>
+<li>接口和抽象类是两个不同的概念，尽管两者有很多相似性。使用抽象类表示通用属性存在这样一个问题，Java只提供单继承，如果需要拓展别的类就不行了。而可以通过多实现来实现多个接口。</li>
+</ul>
+<h3 id="6-2-对象克隆"><a href="#6-2-对象克隆" class="headerlink" title="6.2 对象克隆"></a>6.2 对象克隆</h3><ul>
+<li>当拷贝一个对象时，拷贝对象与原对象引用同一个对象，任一改变将对另一方产生影响。要实现各自互不影响，可以用clone。</li>
+<li>浅克隆的步骤：被克隆的类实现Cloneable接口，并重写clone方法，<strong>改protected为public。</strong>protected访问权限：同包或子类访问，<strong>但是</strong>，不能在一个子类中访问另一个子类的protected方法，尽管这两个子类继承自同一父类。浅克隆不会克隆对象中的对象，<strong>也不会调用构造方法。</strong></li>
+<li>Cloneable接口的出现与接口的正常使用没有任何关系。Cloneable只是一个<strong>标记接口</strong>，并没有任何方法。clone方法继承自Object。如果一个对象需要clone，但没有实现cloneable接口，就会出现一个已检查异常（cheched exception）。</li>
+<li>引用：<a href="http://www.cnblogs.com/Qian123/p/5710533.html" target="_blank" rel="noopener">http://www.cnblogs.com/Qian123/p/5710533.html</a></li>
+</ul>
+<p><strong>关于String为什么是不变的</strong>？引用<a href="http://blog.csdn.net/renfufei/article/details/16808775" target="_blank" rel="noopener">http://blog.csdn.net/renfufei/article/details/16808775</a></p>
+<ol>
+<li>字符串常量池的需要。<br>字符串常量池(String pool, String intern pool, String保留池) 是Java堆内存中一个特殊的存储区域, 当创建一个String对象时,假如此字符串值已经存在于常量池中,则不会创建一个新的对象,而是引用已经存在的对象。假若字符串对象允许改变,那么将会导致各种逻辑错误,比如改变一个对象会影响到另一个独立对象. 严格来说，这种常量池的思想,是一种优化手段。</li>
+<li>允许String缓存hashCode</li>
+<li>安全性</li>
+</ol>
+<h3 id="6-3-接口与回调"><a href="#6-3-接口与回调" class="headerlink" title="6.3 接口与回调"></a>6.3 接口与回调</h3><ul>
+<li>回调（callback）是一种常见的程序设计模式，在这种模式中，可以指出某个特定事件发生时应采取的动作。</li>
+<li>java.swing包中有一个Timer类，可以使用它在到达给定的时间间隔时发出通告，传入(delay,actionListener)。</li>
+</ul>
+<h3 id="6-4-内部类"><a href="#6-4-内部类" class="headerlink" title="6.4 内部类"></a>6.4 内部类</h3><ul>
+<li>内部类（inner class）的优势：<ul>
+<li>内部类方法可以访问该类定义所在的作用域中的数据，包括私有的数据。</li>
+<li>内部类可以对同一个包中的其他类隐藏起来。</li>
+<li>当想要编写一个回调函数且不想编写大量代码时，使用匿名（anonymous）内部类比较便捷。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>内部类的访问方式：</p>
+<ul>
+<li>在外部类提供一个方法创建内部类的对象进行访问。</li>
+<li><p>直接创建内部类的对象，其格式如下：</p>
+<ul>
+<li><p>外部类.内部类    变量名 = new 外部类（）.new 内部类（）；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OuterClass.InnerClass oi = new OuterClass().new InnerClass();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意：因为外部类的作用就是为了访问外部类的成员变量，所以必须要有外部类的对象才能生成内部类的对象。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>内部类中的变量访问形式：<ul>
+<li>内部类在没有同名成员变量和局部变量的情况下，则直接访问外部类的变量。</li>
+<li>若有同名，访问内部类本身的成员变量可以使用this，也可以直接访问。</li>
+<li>若有同名，访问外部类的成员变量需使用<strong>OutClassName.this.属性名</strong>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>静态内部类：<br>成员变量中一旦出现静态成员，该类也必须用static修饰。<br>此时创建对象的格式是：<br>外部类.内部类 变量名 = new 外部类.内部类（）；</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OuterClass.InnerClass oi = new OuterClass.InnerClass();</span><br></pre></td></tr></table></figure>
+</code></pre><p>注意：Out.In可以作为一个整体通过类名访问static，生不生成外部类对象都没关系。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>私有内部类：<br>若有一个内部类只希望被外部类访问，则可通过private修饰。相当于外部类的一个私有的成员变量。</li>
+</ul>
+<hr>
+<p>局部内部类：在一个类的方法内部定义一个类。<br>局部内部类只能在所在方法的内部通过创建访问，方法以外不知道他的存在。<br>局部类<strong>不能用public或private访问说明符声明</strong>，它的作用域被限定在声明这个局部类的块中。<br><strong>可在局部内部类直接访问方法外的变量（方法外的变量为全局变量，其生命周期和方法以及局部内部类一样长）</strong><br><strong>在方法内，内部类外的局部变量须加final才能在内部类中访问（因其：局部变量生命周期短，加final访问其复制品（不可修改））</strong></p>
+<hr>
+<ul>
+<li>匿名内部类（anonymous inner class）<ul>
+<li>匿名内部类可以实现一个接口，或者直接拓展一个类。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="关于final关键字"><a href="#关于final关键字" class="headerlink" title="关于final关键字"></a>关于final关键字</h4><p>final关键字可以应用于局部变量、实例变量和静态变量。在所有的这些情况下，他们的含义都是：在创建这个变量之后，只能够为之赋值一次，此后再也不能修改他们的值。</p>
+<h4 id="关于内部类的编译过程"><a href="#关于内部类的编译过程" class="headerlink" title="关于内部类的编译过程"></a>关于内部类的编译过程</h4><p>内部类是一种编译器现象，与虚拟机无关。编译器将会把内部类翻译成用$分隔外部类名与内部类名的常规类文件，而虚拟机对此却一无所知。<br>嵌套类分静态和非静态，非静态嵌套类称为内部类。</p>
+<h3 id="6-5-代理"><a href="#6-5-代理" class="headerlink" title="6.5 代理"></a>6.5 代理</h3><p>代理类可以在运行时创建全新的类，这样的代理类能够实现指定的接口。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/核心技术/" rel="tag"># 核心技术</a>
+          
+            <a href="/tags/接口/" rel="tag"># 接口</a>
+          
+            <a href="/tags/内部类/" rel="tag"># 内部类</a>
+          
+            <a href="/tags/克隆/" rel="tag"># 克隆</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/Java并发编程实战（1-5）/" rel="next" title="Java并发编程实战（1-5）">
+                <i class="fa fa-chevron-left"></i> Java并发编程实战（1-5）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/Java核心技术（卷一）（第十二章 泛型程序设计）/" rel="prev" title="Java核心技术（卷一）（第十二章 泛型程序设计）">
+                Java核心技术（卷一）（第十二章 泛型程序设计） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java核心技术（卷一）（第六章-接口与内部类）"><span class="nav-number">1.</span> <span class="nav-text">Java核心技术（卷一）（第六章 接口与内部类）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口、内部类、对象克隆、代理、接口与回调"><span class="nav-number">1.1.</span> <span class="nav-text">接口、内部类、对象克隆、代理、接口与回调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-接口"><span class="nav-number">1.1.1.</span> <span class="nav-text">6.1 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-2-接口与抽象类"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">6.1.2 接口与抽象类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-对象克隆"><span class="nav-number">1.1.2.</span> <span class="nav-text">6.2 对象克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-接口与回调"><span class="nav-number">1.1.3.</span> <span class="nav-text">6.3 接口与回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-内部类"><span class="nav-number">1.1.4.</span> <span class="nav-text">6.4 内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于final关键字"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">关于final关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于内部类的编译过程"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">关于内部类的编译过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-代理"><span class="nav-number">1.1.5.</span> <span class="nav-text">6.5 代理</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

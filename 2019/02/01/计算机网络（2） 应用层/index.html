@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTTP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算机网络（2） 应用层 2.1.1应用程序体系结构现代网络应用程序两种主流体系结构：客户-服务器结构和对等（P2P）体系结构。 客户-服务器体系结构：有一个总是打开的主称为服务器。客户之间不直接进行通信。服务器具有固定的、周知的地址。具有客户-服务器体系结构的非常著名的应用程序包括：Web、FTP、Telnet和电子邮件。 数据中心：配备了大量主机，用以创建强大的虚拟服务器。比如：Google在">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络（2） 应用层">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/计算机网络（2） 应用层/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="计算机网络（2） 应用层 2.1.1应用程序体系结构现代网络应用程序两种主流体系结构：客户-服务器结构和对等（P2P）体系结构。 客户-服务器体系结构：有一个总是打开的主称为服务器。客户之间不直接进行通信。服务器具有固定的、周知的地址。具有客户-服务器体系结构的非常著名的应用程序包括：Web、FTP、Telnet和电子邮件。 数据中心：配备了大量主机，用以创建强大的虚拟服务器。比如：Google在">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-04-03T13:09:10.139Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络（2） 应用层">
+<meta name="twitter:description" content="计算机网络（2） 应用层 2.1.1应用程序体系结构现代网络应用程序两种主流体系结构：客户-服务器结构和对等（P2P）体系结构。 客户-服务器体系结构：有一个总是打开的主称为服务器。客户之间不直接进行通信。服务器具有固定的、周知的地址。具有客户-服务器体系结构的非常著名的应用程序包括：Web、FTP、Telnet和电子邮件。 数据中心：配备了大量主机，用以创建强大的虚拟服务器。比如：Google在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/计算机网络（2） 应用层/">
+
+
+
+
+
+  <title>计算机网络（2） 应用层 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/计算机网络（2） 应用层/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络（2） 应用层</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算机网络（2）-应用层"><a href="#计算机网络（2）-应用层" class="headerlink" title="计算机网络（2） 应用层"></a>计算机网络（2） 应用层</h1><hr>
+<h4 id="2-1-1应用程序体系结构"><a href="#2-1-1应用程序体系结构" class="headerlink" title="2.1.1应用程序体系结构"></a>2.1.1应用程序体系结构</h4><p>现代网络应用程序两种主流体系结构：客户-服务器结构和对等（P2P）体系结构。</p>
+<p><strong>客户-服务器</strong>体系结构：有一个总是打开的主称为服务器。客户之间不直接进行通信。服务器具有固定的、周知的地址。<br>具有客户-服务器体系结构的非常著名的应用程序包括：<strong>Web、FTP、Telnet和电子邮件</strong>。</p>
+<p><strong>数据中心</strong>：配备了大量主机，用以创建强大的虚拟服务器。比如：Google在全球有50个数据中心，每个有上10万台主机。</p>
+<p><strong>P2P体系</strong>结构：对主机对位于数据中心的专用服务器有最小依赖（或者没有），应用程序在间断连接的主机之间进行直接通信，这些主机称为<strong>对等方</strong>。这种对等方通信不必经过专门的服务器，该体系被称为对等方到对等方的。个人理解，比如：uTorrent下载中，如果没人做种，下载速度将为零，用户的下载速度的和是其对等方上传速度的和。</p>
+<p>某些应用具有<strong>混合的体系</strong>结构，结合了客户-服务器和P2P的元素，例如：对于很多即时讯息应用，服务器被用于跟踪用户的IP地址，但用户到用户的报文在用户主机之间直接发送，无需通过中间服务器。</p>
+<p>P2P体系 结构最优的特性是其自扩展性，比如：用户在下载资源的同时也在上传资源，这就为系统增加了服务能力。<br>P2P应用面临的挑战：</p>
+<ul>
+<li>ISP友好：大多数ISP（包括DSL和电缆ISP）已经受制于“非对称”带宽应用，即下载比上传多得多。未来P2P应用需要设计针对ISP友好的模式。</li>
+<li>安全性：由于其高度分布和开放特性带来的风险。</li>
+<li>激励：说服用户提供上载、存储资源，即鼓励用户做种。</li>
+</ul>
+<h4 id="2-1-2-进程通信"><a href="#2-1-2-进程通信" class="headerlink" title="2.1.2 进程通信"></a>2.1.2 进程通信</h4><p>在操作系统的概念中，进行通信的实际上是进程而不是程序，一个程序可以被认为是运行在端系统上的一个程序。同一个端系统中的进程之间的通信机制由操作系统决定。不同端系统之间的进程通信通过跨越计算机网络<strong>交换报文</strong>。</p>
+<p><strong>1、客户和服务器进程</strong></p>
+<blockquote>
+<p>在给定的一对进程之间的通信会话场景中，发起通信的进程被称为客户，等待联系的进程是服务器。</p>
+</blockquote>
+<p><strong>2、进程与计算机网络之间的接口</strong><br>从一个进程发送的报文必须通过下面的网络，进程通过一个称为<strong>套接字（socket）</strong>的软件接口向网络发送报文和从网络接受报文。</p>
+<p>套接字是同一台主机内应用层和运输层之间的接口，也可称为<strong>应用程序和网络之间</strong>的应用程序编程接口（Application Programming Interface，API）。即可理解为：socket是应用程序和网络之间的应用程序编程接口。</p>
+<p>应用程序开发者可以控制套接字在应用层端的一切，但是对运输层端的套接字接口几乎没有控制权。开发者对运输层的控制仅限于：1、选择运输层协议。2、设定几个运输层参数：如最大缓存和最大报文段长度。</p>
+<p><strong>3、进程寻址</strong><br>接受报文的进程需要具备：1、主机地址。IP地址。2、主机中的进程标识符。端口号。<br>IP地址：定位主机。<br>端口号：定位进程（更具体的说，是接受套接字）。</p>
+<h4 id="2-1-3-可供应用程序使用的运输服务"><a href="#2-1-3-可供应用程序使用的运输服务" class="headerlink" title="2.1.3 可供应用程序使用的运输服务"></a>2.1.3 可供应用程序使用的运输服务</h4><p>运输层协议有多种，决定了对调用它的应用程序提供不同了服务。可从以下四个方面对应用程序要求进行分类：</p>
+<p><strong>1、可靠数据传输</strong><br>确保应用程序端发送的数据正确、完全的交付给该应用程序的另一端。成为可靠<strong>数据传输</strong>（reliable data transfer）。</p>
+<p>不可靠数据传输时，数据被<strong>容忍丢失的应用</strong>（loss-tolerant application）所接受。多媒体应用：如交谈式音频/视频，是这样的，能够承受一定量的数据丢失。</p>
+<p><strong>2、吞吐量</strong><br>确保最低吞吐量的服务，具有吞吐量要求的应用程序称为<strong>带宽敏感的应用</strong>（bandwidth-sensitive application）.</p>
+<p><strong>弹性应用</strong>（elastic application）能够根据情况或多或少的使用可供使用的吞吐量。如：电子邮件、文件传输以及Web传送。</p>
+<p><strong>3、定时</strong><br>针对于对时间有严格要求的应用提供的定式服务，即由发送方套接字到接收方套接字的时间不低于定时时间ms。</p>
+<p><strong>4、安全性</strong><br>运输协议能够为应用程序提供一种或多种安全性服务。如：加密/解密、数据完整性和端点鉴别。详见第八章。</p>
+<p><strong>2.1.4 因特网提供的运输服务</strong><br>选UDP还是TCP？根据引用程序的服务要求来定。<br>某些应用程序的服务要求：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">应用</th>
+<th style="text-align:right">数据丢失</th>
+<th style="text-align:center">带宽</th>
+<th style="text-align:center">时间敏感</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">文件传输</td>
+<td style="text-align:right">不能丢失</td>
+<td style="text-align:center">弹性</td>
+<td style="text-align:center">不</td>
+</tr>
+<tr>
+<td style="text-align:left">电子邮件</td>
+<td style="text-align:right">不能丢失</td>
+<td style="text-align:center">弹性</td>
+<td style="text-align:center">不</td>
+</tr>
+<tr>
+<td style="text-align:left">Web文档</td>
+<td style="text-align:right">不能丢失</td>
+<td style="text-align:center">弹性</td>
+<td style="text-align:center">不</td>
+</tr>
+<tr>
+<td style="text-align:left">视频/电话会议</td>
+<td style="text-align:right">容忍丢失</td>
+<td style="text-align:center">音频（几kb）/视频（10kb-5mb）</td>
+<td style="text-align:center">是，100ms</td>
+</tr>
+<tr>
+<td style="text-align:left">存储音频/视频</td>
+<td style="text-align:right">容忍丢失</td>
+<td style="text-align:center">同上</td>
+<td style="text-align:center">是，几秒</td>
+</tr>
+<tr>
+<td style="text-align:left">交互式游戏</td>
+<td style="text-align:right">容忍丢失</td>
+<td style="text-align:center">几kb-10kb</td>
+<td style="text-align:center">是，100ms</td>
+</tr>
+<tr>
+<td style="text-align:left">即使讯息</td>
+<td style="text-align:right">不能丢失</td>
+<td style="text-align:center">弹性</td>
+<td style="text-align:center">是</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1、TCP服务</strong><br><strong>面向连接和可靠数据传输服务。</strong><br>握手连接，全双工。没有字节的丢失和冗余。</p>
+<p><strong>拥塞控制服务</strong><br>抑制发送进程从而防止拥塞 ，对整个互联网的通畅有好处。并且可能限制多个TCP连接达到公平分享网络带宽的目的。</p>
+<p>单独的TCP和UDP并不安全，SSL作为TCP的加强，能够提供进程到进程之间的安全性服务。包括：加密、数据完整性和端点鉴别。</p>
+<p><strong>2、UDP服务</strong><br>轻量级的运输协议，提供最小服务。面向无连接的，没有握手机制。不可靠数据传送。，没有拥塞控制机制，发送端可以以任何速率向其下层注入数据。</p>
+<h4 id="2-1-5-应用层协议"><a href="#2-1-5-应用层协议" class="headerlink" title="2.1.5 应用层协议"></a>2.1.5 应用层协议</h4><p>应用层协议解决的问题：</p>
+<ul>
+<li>交换的报文类型：如请求报文和响应报文</li>
+<li>各种报文的语法，如字段语法。</li>
+<li>字段的语义：字段包含的信息。</li>
+<li>进程何时发送报文，对报文进行响应的规则。</li>
+</ul>
+<p>本书介绍了：HTTP、FTP、SMTP、DNS、P2P</p>
+<h3 id="2-2-Web和HTTP"><a href="#2-2-Web和HTTP" class="headerlink" title="2.2 Web和HTTP"></a>2.2 Web和HTTP</h3><p>HTTP，超文本传输协议。</p>
+<p>HTTP，无状态协议，服务器不保存关于客户的任何信息。</p>
+<h4 id="2-2-2-非持续连接和持续连接"><a href="#2-2-2-非持续连接和持续连接" class="headerlink" title="2.2.2 非持续连接和持续连接"></a>2.2.2 非持续连接和持续连接</h4><p>非持续连接：一个请求，一个连接。如果一个HTML中包含10的对象（1个HTML，9个jpg），需要连接10次。<br>持续连接：HTTP/1.1开始默认，<code>connection：close</code>即结束连接。</p>
+<p>往返时间（Round-Trip Time，RTT）：一个短分组从客户端到服务器再返回客户端所花费的时间。</p>
+<p>计算一次请求需花费多少RTT：</p>
+<ol>
+<li>建立连接，三次握手机制。前两次花费一个RTT。</li>
+<li>第三次发送请求报文，服务器响应，花费一个RTT。</li>
+<li>因此，总共花费2个RTT及响应传输时间。</li>
+</ol>
+<p>HTTP默认带流水线的持续连接。即一条连接经过一定时间间隔仍未使用，就断开连接。</p>
+<p>HTTP请求报文、响应报文就不再赘述了。</p>
+<h5 id="利用telnet查看响应报文"><a href="#利用telnet查看响应报文" class="headerlink" title="利用telnet查看响应报文"></a>利用telnet查看响应报文</h5><ol>
+<li>Xshell工具（cmd也可以，但是服务端是Linux系统，可能出现字符不兼容的情况）</li>
+<li>键入<code>telnet www.baidu.com 80</code>连接到服务器</li>
+<li>输入请求头，两次回车请求访问</li>
+<li>获取响应头</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">Host:www.baidu.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Mon, 03 Apr 2017 04:11:25 GMT</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 14613</span><br><span class="line">Last-Modified: Tue, 14 Mar 2017 07:30:00 GMT</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Set-Cookie: BAIDUID=C93C498512CB2AF9D8E5FDE7457A229C:FG=1; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com</span><br><span class="line">Set-Cookie: BIDUPSID=C93C498512CB2AF9D8E5FDE7457A229C; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com</span><br><span class="line">Set-Cookie: PSTM=1491192685; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com</span><br><span class="line">P3P: CP=&quot; OTI DSP COR IVA OUR IND COM &quot;</span><br><span class="line">Server: BWS/1.1</span><br><span class="line">X-UA-Compatible: IE=Edge,chrome=1</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-control: no-cache</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line"></span><br><span class="line">data...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HEAD / HTTP/1.1</span><br><span class="line">Host:www.baidu.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: bfe/1.0.8.18</span><br><span class="line">Date: Mon, 03 Apr 2017 04:10:02 GMT</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 277</span><br><span class="line">Last-Modified: Mon, 13 Jun 2016 02:50:03 GMT</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">ETag: &quot;575e1f5b-115&quot;</span><br><span class="line">Cache-Control: private, no-cache, no-store, proxy-revalidate, no-transform</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Accept-Ranges: bytes</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-4-关于Cookie"><a href="#2-2-4-关于Cookie" class="headerlink" title="2.2.4 关于Cookie"></a>2.2.4 关于Cookie</h4><p>cookie技术的四个组件：</p>
+<ol>
+<li>响应报文中的Cookie首部。</li>
+<li>请求报文中的Cookie首部。</li>
+<li>用户端保留一个Cookie文件，并有用户进行管理。</li>
+<li>服务端的后端数据库，保存用户的cookie和状态。</li>
+</ol>
+<h4 id="2-2-5-Web缓存"><a href="#2-2-5-Web缓存" class="headerlink" title="2.2.5 Web缓存"></a>2.2.5 Web缓存</h4><p>也称代理服务器。作用：1、大大减少对客户请求的响应时间。2、减少通信量（增加同一资源的复用性）。3、减小源服务端的负荷。</p>
+<p>流量强度：传输比特数传输速率（bit/s）的比。L/R。接近将导致时延很大。</p>
+<p>缓存服务器命中率，即10次请求有几次可以直接从缓存服务器返回。0-1之间。</p>
+<blockquote>
+<p>通过使用内容分发网络（Content Distribution<br>Network，CDN），缓存服务器正在发挥越来越重要的作用。CDN公司在因特网公司安装了很多地理上分散的缓存器，因而使大量流量本地化。（如Google的数据中心）</p>
+</blockquote>
+<h4 id="2-2-6-条件GET方法"><a href="#2-2-6-条件GET方法" class="headerlink" title="2.2.6 条件GET方法"></a>2.2.6 条件GET方法</h4><p><code>If-Modified-Since:</code>首部行，缓存器发送给源服务器。如果修改日期晚于指定日期，则从源服务器获取更新的资源，并更新缓存。值得注意的是：指定时间应该和缓存中的<code>Last-Modified相同</code>，即判断当前缓存是否是最新的。如果没更新，源服务器发送<code>304 NotModified</code>报文。</p>
+<h3 id="2-3-文件传输协议：FTP"><a href="#2-3-文件传输协议：FTP" class="headerlink" title="2.3 文件传输协议：FTP"></a>2.3 文件传输协议：FTP</h3><p>FTP使用两个并行的TCP连接来传输文件，一个是控制连接，一个是数据连接。</p>
+<p><strong>控制连接</strong><br>端口21，用于传输控制信息，如用户名、密码、改变远程目录以及存放（put）和获取（get）文件的命令。</p>
+<p><strong>数据连接</strong><br>端口20，实际数据的发送。</p>
+<p>称FTP的控制信息是<strong>带外传送</strong>（out-of-band），HTTP则是带内传送。也是相对于数据传输的连接而言的。</p>
+<p>对FTP传输而言，<strong>控制连接贯穿整个用户会话期间，但是对会话中的每一次文件传输都需要建立一个新的数据连接</strong>（即数据连接时非持续的）。</p>
+<p>FTP服务器<strong>必须在整个会话期间保留用户的状态</strong>，对每个用户会话的状态信息进行追踪，大大限制了同时维持的会话总数。而HTTP是无状态的，即它不必对用户状态进行追踪。</p>
+<p>FTP常见命令和回答：<br><strong>常见命令</strong></p>
+<ul>
+<li>USER username：用于向服务器发送用户名</li>
+<li>PASS password：发送口令</li>
+<li>LIST：请求远程目录列表，改列表经一个新建的且非持续性连接的数据连接发送的，不是在控制连接上传送。</li>
+<li>RETR filename：获取一个文件，将会开启数据连接，并发送。</li>
+<li>STOR filename：在当前目录存放文件</li>
+</ul>
+<p>每个命令对应一个回答。<br><strong>常见回答</strong></p>
+<ul>
+<li>331 Username OK，Password required</li>
+<li>125 Data connection already open;transfer starting（数据连接已经打开，开始传送）</li>
+<li>425 Can’t open data connection（无法打开数据连接）</li>
+<li>452 Error writing file（写文件差错）</li>
+</ul>
+<h3 id="2-4-因特网中的电子邮件"><a href="#2-4-因特网中的电子邮件" class="headerlink" title="2.4 因特网中的电子邮件"></a>2.4 因特网中的电子邮件</h3><p>关键组件：用户代理（客户端）、邮件服务器、SMTP（简单邮件传输协议）</p>
+<p>几个概念：</p>
+<ul>
+<li>邮箱：存在于邮件服务器中</li>
+<li>报文队列：发送的邮件队列。</li>
+</ul>
+<h4 id="2-4-1-SMTP"><a href="#2-4-1-SMTP" class="headerlink" title="2.4.1 SMTP"></a>2.4.1 SMTP</h4><p>SMTP一般不使用中间邮件服务器发送邮件，即两个邮件服务器直接相连。</p>
+<p>步骤：</p>
+<ol>
+<li>SMTP客户在端口25建立到服务器SMTP的TCP连接。（三次握手）</li>
+<li>连接建立，SMTP也要握手，执行的是某些应用层的握手，握手阶段，指向发送方和接收方的地址。</li>
+<li>握手结束，开始利用已经建立的TCP连接传输。</li>
+</ol>
+<p>SMTP用的持续连接，多个报文可以通过一个TCP连接。QUIT指令用于结束当前TCP连接。</p>
+<p>HELO、MAIL FROM、RCPT TO、DATA、QUIT（.表示一份邮件内容的结束。）<strong>这些都是SMTP握手协议的一部分</strong>。</p>
+<h4 id="2-4-2-与HTTP的对比"><a href="#2-4-2-与HTTP的对比" class="headerlink" title="2.4.2 与HTTP的对比"></a>2.4.2 与HTTP的对比</h4><p><strong>区别一</strong>：<br>HTTP：拉协议（pull protocol）<br>SMTP：推协议（push protocol）<br><strong>区别二</strong><br>SMTP要求每个报文使用7比特的ASCII码格式。<br><strong>区别三</strong><br>如何处理即包含文本和图片的文档？<br>HTTP，每个对象封装成一个响应报文。<br>SMTP，所有报文对象封装进一个报文中。</p>
+<h4 id="2-4-3-邮件报文格式和MIME"><a href="#2-4-3-邮件报文格式和MIME" class="headerlink" title="2.4.3 邮件报文格式和MIME"></a>2.4.3 邮件报文格式和MIME</h4><p>典型报文格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">From:op134972@163.com</span><br><span class="line">To:op134972@126.com</span><br><span class="line">Subject:I want to play a game.</span><br><span class="line"></span><br><span class="line">content </span><br><span class="line"></span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-4-邮件访问协议"><a href="#2-4-4-邮件访问协议" class="headerlink" title="2.4.4 邮件访问协议"></a>2.4.4 邮件访问协议</h4><p>流行的邮件访问协议，包括：<strong>第三版的邮局协议</strong>（Post Office Protocol-Version 3,POP3）、因特网邮件访问协议（Internet Mail Access Protocol，IMAP）<br><code>telnet pop3.163.com 110</code></p>
+<p><strong>基于Web的电子邮件</strong><br>用户代理（浏览器）到邮件服务器的传送用的HTTP协议而非（POP3、SMTP），而邮件服务器之间的传送依然用的是SMTP协议。</p>
+<h3 id="2-5-DNS：因特网的目录服务"><a href="#2-5-DNS：因特网的目录服务" class="headerlink" title="2.5 DNS：因特网的目录服务"></a>2.5 DNS：因特网的目录服务</h3><p>进行主机名到IP地址的目录转换服务。DNS（Domain Name System，DNS）</p>
+<p>DNS：<br>1、一个由分层的DNS服务器实现的分布式数据库<br>2、一个是的主机能够查询分布式数据库的应用层协议。</p>
+<p>DNS服务器通常是运行BIND软件的UNIX机器。DNS协议运行在UDP之上，使用53号端口。</p>
+<p>DNS为应用程序提供一种核心功能，将主机名转换为IP地址。并不直接与用户打交道。</p>
+<p>DNS通常由其他应用层协议所使用，如HTTP、SMTP、FTP等。</p>
+<p>工作原理：</p>
+<ol>
+<li>同一台主机运行着DNS应用的客户端。</li>
+<li>浏览器从URL提取域名，交给DNS客户端。</li>
+<li>DNS客户端利用UDP协议传送给DNS服务器，要求解析域名并返回。</li>
+<li>浏览器接受IP地址，访问指定IP指定端口的，建立一个TCP连接。</li>
+</ol>
+<p>DNS提供其余的重要服务：</p>
+<ul>
+<li>主机别名：即规范主机名和主机别名的转换。</li>
+<li>邮件服务器别名：邮件服务器别名和规范邮件服务器名的转换。</li>
+<li>负载分配：当一个繁忙域名有多个IP地址。一个IP地址集合与同一个规范主机名想联系。DNS数据库中存储着这些IP地址集合。当客户向DNS发送一个DNS请求时，整合IP地址集合对其响应，但在每次回答中循环这些地址次序，因为客户通常总是优先访问考前的IP，所以DNS就为这些冗余的Web服务器之间进行了循环分配负载。DNS的循环同样运用与邮件服务器，因此多个邮件服务器可以使用相同的别名。</li>
+</ul>
+<h4 id="2-5-2-DNS工作机理概述"><a href="#2-5-2-DNS工作机理概述" class="headerlink" title="2.5.2 DNS工作机理概述"></a>2.5.2 DNS工作机理概述</h4><p>DNS的实际实现是相当复杂的！<br>单一DNS服务器在当今没有可行性，运行集中式数据库完全没有可扩展能力。</p>
+<p>DNS服务器采取分布式的方案。</p>
+<p><strong>1、分布式、层次数据库</strong></p>
+<p>3种类型的DNS服务器：根DNS服务器、顶级域（Top-Level Domain，TLD）DNS服务器和权威DNS服务器。有点面向对象的意思。</p>
+<ul>
+<li>根服务器：全球13个，冗余服务器的网络，总共200多个服务器。</li>
+<li>顶级域服务器：com、org、net、edu、gov，国家顶级域名uk、fr、ca、jp。由不同的机构负责维护该服务器。</li>
+<li>权威DNS服务器：权威服务器维护着映射。域名对应的公司或机构可以维护自己的权威DNS服务器，或者支付费用将其映射存储在某个服务提供商的权威DNS服务器中。</li>
+</ul>
+<p><strong>本地DNS服务器</strong></p>
+<p>接入ISP（Internet Service Provider，因特网服务提供商）时，ISP提供一台本地DNS服务器，这台服务器的作用相当于代理，将DNS请求转发到DNS服务器层次结构中。可以在IPV4协议属性中查看DNS本地服务器地址。</p>
+<p>过程：</p>
+<ol>
+<li>发送DNS请求，本地DNS服务器接受。</li>
+<li>本地DNS发送DNS请求报文到根DNS服务器。</li>
+<li>根分析域名，返回顶级DNS服务器IP集。</li>
+<li>本地DNS向TLD服务器之一发送查询报文。TLD响应返回权威DNS服务器。</li>
+<li>本地DNS服务器向权威DNS服务器之一发送请求报文，权威DNS服务器响应IP地址。</li>
+<li>本地DNS接受到IP地址，返回给客户。</li>
+</ol>
+<p>该过程很繁琐，要经过4次请求和4次回答。<strong>DNS缓存</strong>应运而生。</p>
+<p>迭代查询：多次查询时，请求者是同一人，深度不变。<br>递归查询：多次查询时，请求者依次跟进，越来越深。</p>
+<p><strong>实践中，通常采用的是主机到本地DNS服务器采取查询（由本地DNS去查询），其余的查询是迭代（还是由本地DNS去查询）</strong>。</p>
+<p><strong>2、DNS缓存</strong><br>接受到回答报文的DNS服务器将回答的信息缓存到本地储存器中。下次被请求，即使本身不是权威DNS服务器，也能直接返回回答报文。缓存期一般设置为两天。这也许就是为什么访问热门网站网速很快的原因之一。DNS缓存能有效减少报文次数和时延。</p>
+<h4 id="2-5-3-DNS记录和报文"><a href="#2-5-3-DNS记录和报文" class="headerlink" title="2.5.3 DNS记录和报文"></a>2.5.3 DNS记录和报文</h4><p>共同实现DNS分布式数据库的所有DNS服务器存储了<strong>资源记录</strong>（Resource Record，RR），<strong>RR提供了主机名到IP地址的映射，每个回答报文包含了一条或多条资源记录。</strong></p>
+<p>资源记录格式：<br>（Name，Value，Type，TTL）</p>
+<p>TTL：过期时间。<br>Type：决定了Name和Value</p>
+<ul>
+<li>Type = A：Name = 主机名 ，Value = 对应IP地址。（<a href="http://www.baidu.com，192.162.22.10，A）" target="_blank" rel="noopener">www.baidu.com，192.162.22.10，A）</a></li>
+<li>Type = NS：Name = 域，Value = 权威DNS服务器的主机名，用于沿着查询链查询。</li>
+<li>Type = CNAME：Value = 别名为Name的规范主机名。向查询的主机提供一条查询主机名对应的规范的主机名。</li>
+<li>Type = MX：Value = 别名为Name的邮件服务器的规范主机名。MX记录允许邮件服务器主机名具有简单的别名。<strong>通过使用MX记录，一个公司的邮件服务器和其他服务器可以使用相同的别名，因为有MX对其进行区分了。</strong></li>
+</ul>
+<p>从浏览器访问<a href="http://www.baidu.com的工作过程：（理解可能有偏差）" target="_blank" rel="noopener">www.baidu.com的工作过程：（理解可能有偏差）</a></p>
+<ol>
+<li>浏览器向本地DNS服务器发送请求。</li>
+<li>本地DNS向根服务器发送请求，根服务器解析域名并返回TLD的IP地址。</li>
+<li>本地DNS向TLD发送请求，返回NS<strong>资源记录</strong>（包含权威服务器规范名）和A<strong>资源记录</strong>（包含权威服务器的IP）</li>
+<li>根据权威服务器的IP访问权威服务器，查询<a href="http://www.baidu.com的IP并返回。" target="_blank" rel="noopener">www.baidu.com的IP并返回。</a></li>
+<li>本地DNS返回IP给浏览器，浏览器根据IP地址建立TCP连接，进行访问。</li>
+</ol>
+<p><strong>DNS的脆弱性</strong><br>其实并不脆弱。<br>攻击方式：<br><strong>分布式拒绝服务</strong>（DDoS）带宽洪范攻击。</p>
+<ul>
+<li>针对根服务器</li>
+<li>针对顶级DNS服务器</li>
+<li>其余的攻击方式</li>
+</ul>
+<h3 id="2-6-P2P应用"><a href="#2-6-P2P应用" class="headerlink" title="2.6 P2P应用"></a>2.6 P2P应用</h3><p>每个对等方能够帮助服务器分发资源，强大其服务，即自扩展性很好。</p>
+<p><strong>2、BitTorrent</strong><br>块（chunk）：典型的块长度为256kb。用户上传和下载的最小单位。</p>
+<p>流行P2P协议。参与一个特定文件分发的所有对等方的集合被称为一个洪流（torrent），每个洪流有一个基础设施节点，称为追踪器（tracker）。当一个对等方加入洪流时，它向追踪器注册自己，并周期性的通知追踪器自己仍在洪流中。追踪器从洪流中选取子集用户相互连接，一个用户会与多个对等方建立TCP连接。下载资源的同时上传资源。其过程比较复杂。更详细的过程描述参见<strong>P101-P106</strong>。</p>
+<h3 id="2-7-TCP套接字编程"><a href="#2-7-TCP套接字编程" class="headerlink" title="2.7 TCP套接字编程"></a>2.7 TCP套接字编程</h3><p>在Java中，不同的通信规则需要定义不同的socket。<br>UDP：DatagramSocket  、 DatagramPacket<br>TCP：ServerSocket 、Socket</p>
+<h4 id="2-7-1-UDP套接字编程"><a href="#2-7-1-UDP套接字编程" class="headerlink" title="2.7.1 UDP套接字编程"></a>2.7.1 UDP套接字编程</h4><p><strong>UDPServer</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 服务器端，实现基于UDP的用户登陆</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UDPServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 接收客户端发送的数据</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 1.创建服务器端DatagramSocket，指定端口</span></span><br><span class="line">        DatagramSocket socket = <span class="keyword">new</span> DatagramSocket(<span class="number">8888</span>);<span class="comment">//如果主机只有一个IP 地址, 那么默认情况下, 服务器程序就与该IP 地址绑定,或者InetAddress.getByName("192.126.10.14")绑定ip地址</span></span><br><span class="line">        <span class="comment">// 2.创建数据报，用于接收客户端发送的数据</span></span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];<span class="comment">// 创建字节数组，指定接收的数据包的大小</span></span><br><span class="line">        DatagramPacket packet = <span class="keyword">new</span> DatagramPacket(data, data.length);</span><br><span class="line">        <span class="comment">// 3.接收客户端发送的数据</span></span><br><span class="line">        System.out.println(<span class="string">"****服务器端已经启动，等待客户端发送数据"</span>);</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i&lt;<span class="number">1</span>) &#123;<span class="comment">//链接一次就关闭</span></span><br><span class="line">        	i++;</span><br><span class="line">			socket.receive(packet);<span class="comment">// 此方法在接收到数据报之前会一直阻塞</span></span><br><span class="line">			<span class="comment">// 4.读取数据</span></span><br><span class="line">			String info = <span class="keyword">new</span> String(data, <span class="number">0</span>, packet.getLength());</span><br><span class="line">			System.out.println(<span class="string">"我是服务器，客户端说："</span> + info);</span><br><span class="line">			<span class="comment">/*</span></span><br><span class="line"><span class="comment">			 * 向客户端响应数据</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			<span class="comment">// 1.定义客户端的地址、端口号、数据</span></span><br><span class="line">			InetAddress address = packet.getAddress();</span><br><span class="line">			<span class="keyword">int</span> port = packet.getPort();</span><br><span class="line">			<span class="keyword">byte</span>[] data2 = <span class="string">"欢迎您!"</span>.getBytes();</span><br><span class="line">			<span class="comment">// 2.创建数据报，包含响应的数据信息</span></span><br><span class="line">			DatagramPacket packet2 = <span class="keyword">new</span> DatagramPacket(data2, data2.length,</span><br><span class="line">					address, port);</span><br><span class="line">			<span class="comment">// 3.响应客户端</span></span><br><span class="line">			socket.send(packet2);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 4.关闭资源</span></span><br><span class="line">        socket.close();</span><br><span class="line">        <span class="comment">//System.out.println("服务器已关闭");</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>UDPClient</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 客户端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UDPClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 向服务器端发送数据</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 1.定义服务器的地址、端口号、数据</span></span><br><span class="line">    	<span class="keyword">byte</span>[] ip = &#123;<span class="number">127</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>&#125;;<span class="comment">//也可getByName(localhost)</span></span><br><span class="line">        InetAddress address = InetAddress.getByAddress(ip);</span><br><span class="line">        System.out.println(address.getHostAddress());</span><br><span class="line">        System.out.println(address.getHostName());</span><br><span class="line">        <span class="keyword">int</span> port = <span class="number">8888</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="string">"用户名：admin;密码：123"</span>.getBytes();</span><br><span class="line">        <span class="comment">// 2.创建数据报，包含发送的数据信息</span></span><br><span class="line">        DatagramPacket packet = <span class="keyword">new</span> DatagramPacket(data, data.length, address, port);</span><br><span class="line">        <span class="comment">// 3.创建DatagramSocket对象</span></span><br><span class="line">        DatagramSocket socket = <span class="keyword">new</span> DatagramSocket();</span><br><span class="line">        <span class="comment">// 4.向服务器端发送数据报</span></span><br><span class="line">        socket.send(packet);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 接收服务器端响应的数据</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 1.创建数据报，用于接收服务器端响应的数据</span></span><br><span class="line">        <span class="keyword">byte</span>[] data2 = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        DatagramPacket packet2 = <span class="keyword">new</span> DatagramPacket(data2, data2.length);</span><br><span class="line">        <span class="comment">// 2.接收服务器响应的数据</span></span><br><span class="line">        socket.receive(packet2);</span><br><span class="line">        <span class="comment">// 3.读取数据</span></span><br><span class="line">        String reply = <span class="keyword">new</span> String(data2, <span class="number">0</span>, packet2.getLength());</span><br><span class="line">        <span class="comment">//System.out.println("我是客户端，服务器说：" + reply);</span></span><br><span class="line">        <span class="comment">// 4.关闭资源</span></span><br><span class="line">        socket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-7-2-TCP套接字编程"><a href="#2-7-2-TCP套接字编程" class="headerlink" title="2.7.2 TCP套接字编程"></a>2.7.2 TCP套接字编程</h4><p>可以参考：<a href="http://blog.csdn.net/qq_23473123/article/details/51461894" target="_blank" rel="noopener">http://blog.csdn.net/qq_23473123/article/details/51461894</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * TCP客户端</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Time</span> 2017-4-3 下午8:34:42 </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TCPClient</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//1、创建客户端Socket，指定服务器和端口</span></span><br><span class="line">			Socket socket = <span class="keyword">new</span> Socket(<span class="string">"localhost"</span>, <span class="number">5887</span>);</span><br><span class="line">			<span class="comment">//2、获取输出流，向服务端发送信息</span></span><br><span class="line">			OutputStream os = socket.getOutputStream();</span><br><span class="line">			os.write(<span class="string">"用户名：admin；密码123"</span>.getBytes());</span><br><span class="line">			os.flush();</span><br><span class="line">			socket.shutdownOutput();<span class="comment">//关闭输出流</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment">//3、获取输入流，读取响应信息</span></span><br><span class="line">			InputStream is = socket.getInputStream();</span><br><span class="line">			BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(is));</span><br><span class="line">			String msg = <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">while</span>((msg = br.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">				System.out.println(<span class="string">"客户端返回："</span>+msg);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//4、关闭资源</span></span><br><span class="line">			br.close();</span><br><span class="line">			is.close();</span><br><span class="line">			os.close();</span><br><span class="line">			socket.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 客户端</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Time</span> 2017-4-3 下午8:35:11 </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TCPServer</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">5887</span>);</span><br><span class="line">		Socket socket = <span class="keyword">null</span>;</span><br><span class="line">        System.out.println(<span class="string">"***服务器即将启动，等待客户端的连接***"</span>);</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;<span class="number">5</span>)&#123;</span><br><span class="line">        	socket = serverSocket.accept();</span><br><span class="line">        	<span class="comment">//开启线程</span></span><br><span class="line">        	TCPServerThread tst = <span class="keyword">new</span> TCPServerThread(socket);</span><br><span class="line">        	Thread thread = <span class="keyword">new</span> Thread(tst);</span><br><span class="line">        	<span class="comment">//启动线程</span></span><br><span class="line">        	thread.start();</span><br><span class="line">        	i++;</span><br><span class="line">        	System.out.println(<span class="string">"第"</span>+i+<span class="string">"位访客"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"服务端关闭了"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 服务器线程处理类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Time</span> 2017-4-3 下午8:33:10 </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TCPServerThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	Socket socket = <span class="keyword">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TCPServerThread</span><span class="params">(Socket socket)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.socket = socket;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		InputStream is = <span class="keyword">null</span>;</span><br><span class="line">		OutputStream os = <span class="keyword">null</span>;</span><br><span class="line">		OutputStreamWriter osw = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//1、获取客户端输入</span></span><br><span class="line">			is = socket.getInputStream();</span><br><span class="line">			System.out.println(<span class="string">"客户端说："</span>+<span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(is)).readLine());</span><br><span class="line">			System.out.println(<span class="string">"收到来自"</span>+socket.getInetAddress().getHostName()+<span class="string">"的连接"</span>);</span><br><span class="line">			System.out.println(<span class="string">"IP地址是"</span>+socket.getInetAddress().getHostAddress());</span><br><span class="line">			socket.shutdownInput();<span class="comment">//关闭socket输入流</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment">//2、获取输出流，写出响应</span></span><br><span class="line">			os = socket.getOutputStream();</span><br><span class="line">			osw = <span class="keyword">new</span> OutputStreamWriter(os);</span><br><span class="line">			osw.write(<span class="string">"欢迎访问本站"</span>);</span><br><span class="line">			osw.flush();</span><br><span class="line">			socket.shutdownOutput();<span class="comment">//关闭socket输出流</span></span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">finally</span>&#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				osw.close();</span><br><span class="line">				os.close();</span><br><span class="line">				is.close();</span><br><span class="line">				socket.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/计算机网络（1） 计算机网络和因特网/" rel="next" title="计算机网络（1） 计算机网络和因特网">
+                <i class="fa fa-chevron-left"></i> 计算机网络（1） 计算机网络和因特网
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/计算机网络（3） 运输层/" rel="prev" title="计算机网络（3） 运输层">
+                计算机网络（3） 运输层 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络（2）-应用层"><span class="nav-number">1.</span> <span class="nav-text">计算机网络（2） 应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1应用程序体系结构"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">2.1.1应用程序体系结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-进程通信"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.1.2 进程通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-可供应用程序使用的运输服务"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">2.1.3 可供应用程序使用的运输服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-5-应用层协议"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">2.1.5 应用层协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Web和HTTP"><span class="nav-number">1.0.1.</span> <span class="nav-text">2.2 Web和HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-非持续连接和持续连接"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">2.2.2 非持续连接和持续连接</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#利用telnet查看响应报文"><span class="nav-number">1.0.1.1.1.</span> <span class="nav-text">利用telnet查看响应报文</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-4-关于Cookie"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2.2.4 关于Cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-5-Web缓存"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">2.2.5 Web缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-6-条件GET方法"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">2.2.6 条件GET方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-文件传输协议：FTP"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.3 文件传输协议：FTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-因特网中的电子邮件"><span class="nav-number">1.0.3.</span> <span class="nav-text">2.4 因特网中的电子邮件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1-SMTP"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">2.4.1 SMTP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-与HTTP的对比"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2.4.2 与HTTP的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3-邮件报文格式和MIME"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">2.4.3 邮件报文格式和MIME</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-4-邮件访问协议"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">2.4.4 邮件访问协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-DNS：因特网的目录服务"><span class="nav-number">1.0.4.</span> <span class="nav-text">2.5 DNS：因特网的目录服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-2-DNS工作机理概述"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">2.5.2 DNS工作机理概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-3-DNS记录和报文"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">2.5.3 DNS记录和报文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-P2P应用"><span class="nav-number">1.0.5.</span> <span class="nav-text">2.6 P2P应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-TCP套接字编程"><span class="nav-number">1.0.6.</span> <span class="nav-text">2.7 TCP套接字编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-1-UDP套接字编程"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">2.7.1 UDP套接字编程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-2-TCP套接字编程"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">2.7.2 TCP套接字编程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#THE-END"><span class="nav-number">1.0.7.</span> <span class="nav-text">THE END</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

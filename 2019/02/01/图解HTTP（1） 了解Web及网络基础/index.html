@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTTP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="图解HTTP（1） 了解Web及网络基础整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  HTTP HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，完成从客户端到服务器端等一系列运作流程。协议是指规则的约定，可以说，Web是建立在HTTP协议上通信的。  HTTP /1.1是目前主流的HTTP协议版本   目前已提出的3想">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图解HTTP（1） 了解Web及网络基础">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/图解HTTP（1） 了解Web及网络基础/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="图解HTTP（1） 了解Web及网络基础整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  HTTP HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，完成从客户端到服务器端等一系列运作流程。协议是指规则的约定，可以说，Web是建立在HTTP协议上通信的。  HTTP /1.1是目前主流的HTTP协议版本   目前已提出的3想">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/1111234242wefsg.JPG">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/aaaadfwedwedwdw.JPG">
+<meta property="og:updated_time" content="2017-04-01T01:52:31.833Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图解HTTP（1） 了解Web及网络基础">
+<meta name="twitter:description" content="图解HTTP（1） 了解Web及网络基础整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  HTTP HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，完成从客户端到服务器端等一系列运作流程。协议是指规则的约定，可以说，Web是建立在HTTP协议上通信的。  HTTP /1.1是目前主流的HTTP协议版本   目前已提出的3想">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/1111234242wefsg.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/图解HTTP（1） 了解Web及网络基础/">
+
+
+
+
+
+  <title>图解HTTP（1） 了解Web及网络基础 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/图解HTTP（1） 了解Web及网络基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图解HTTP（1） 了解Web及网络基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/图解HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">图解HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="图解HTTP（1）-了解Web及网络基础"><a href="#图解HTTP（1）-了解Web及网络基础" class="headerlink" title="图解HTTP（1） 了解Web及网络基础"></a>图解HTTP（1） 了解Web及网络基础</h1><p><em>整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。</em></p>
+<hr>
+<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><ul>
+<li><p>HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，完成从客户端到服务器端等一系列运作流程。协议是指规则的约定，可以说，Web是建立在HTTP协议上通信的。</p>
+</li>
+<li><p>HTTP /1.1是目前主流的HTTP协议版本</p>
+</li>
+</ul>
+<p>目前已提出的3想WWW构建技术：</p>
+<ul>
+<li>把SGML（Standard Generalized Markup Language，标准通用标记语言）作为页面的文本标记语言的HTML（HyberText Markup Language，超文本标记语言）；</li>
+<li>作为文档传输协议的HTTP；</li>
+<li>指定文档所在地址的URL（Uniform Resource Locator，统一资源定位符）</li>
+</ul>
+<h3 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h3><p>通常使用的网络是在TCP/IP协议族的基础上运作的，而HTTP属于它内部的一个子集。</p>
+<p>TCP/IP协议族按层次分别分为以下4层：应用层、传输层、网络层和数据链路层。</p>
+<h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><p>应用层决定了向用户提供应用服务时通信的活动。</p>
+<p>TCP/IP协议族内预存了各类通用的引用服务：FTP（File Transfer Protocol，文件传输协议）和DNS（Domain Name System，域名系统）服务就处于该层。</p>
+<p>HTTP协议也处于该层。</p>
+<h4 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h4><p>传输层对上层应用层，提供处于网络连接中的两台电脑间的数据传输。</p>
+<p>传输层有两个性质不同的协议：TCP（Transmission Control Protocol，传输控制协议）和UDP（User Data Protocol，用户数据报协议）。</p>
+<h4 id="网络层（又名网络互连层）"><a href="#网络层（又名网络互连层）" class="headerlink" title="网络层（又名网络互连层）"></a>网络层（又名网络互连层）</h4><p>网络层用来处理在网络上流动的数据包。数据包是网络传输的最小数据单位。选择一条传输路线在不同的计算机之间进行网络传输。</p>
+<h4 id="链路层（又名数据链路层，网络接口层）"><a href="#链路层（又名数据链路层，网络接口层）" class="headerlink" title="链路层（又名数据链路层，网络接口层）"></a>链路层（又名数据链路层，网络接口层）</h4><p>用来处理连接网络的硬件部分。包括控制操作系统、硬件的设备驱动、NIC（NextWord InterFace Card，网络适配器，即网卡），及光纤等物理可见部分。硬件上的范畴均在链路层的作用范围之内。</p>
+<p><strong>利用TCP/Ip协议族进行网络通信时，会通过分层顺序与对方进行通信。发送端从应用层往下走，接收端则往应用层往上走。发送端时，没经过一层时必定会被打上一个该层所属的首部信息。反之，接收端在层与层传输数据时，每经过一层时会把对应的首部消去。</strong><br>这种把数据信息包装起来的做法称为<strong>封装</strong>（encapsulate）。</p>
+<h3 id="与HTTP关系密切的协议：IP、TCP和DNS"><a href="#与HTTP关系密切的协议：IP、TCP和DNS" class="headerlink" title="与HTTP关系密切的协议：IP、TCP和DNS"></a>与HTTP关系密切的协议：IP、TCP和DNS</h3><h4 id="负责传输的IP协议"><a href="#负责传输的IP协议" class="headerlink" title="负责传输的IP协议"></a>负责传输的IP协议</h4><p>IP协议：确保数据传输能传到正确的位置。包括：<strong>IP地址</strong>和<strong>MAC地址</strong>（Media Access Control Address）。</p>
+<p>IP地址：指定节点被分配到的地址。</p>
+<p>MAC地址：网卡所属的固定地址。</p>
+<h5 id="使用ARP协议凭借MAC地址进行通信"><a href="#使用ARP协议凭借MAC地址进行通信" class="headerlink" title="使用ARP协议凭借MAC地址进行通信"></a>使用ARP协议凭借MAC地址进行通信</h5><p>ARP：一种解析地址的协议，根据通信方的IP地址就可以反查出对应的MAC地址。</p>
+<h4 id="确保可靠性的TCP协议"><a href="#确保可靠性的TCP协议" class="headerlink" title="确保可靠性的TCP协议"></a>确保可靠性的TCP协议</h4><p>TCP位于传输层，提供可靠的字节流服务。<br>所谓字节流服务（Byte Stream Service），是指为了方便传输，将大块数据分割成以报文段（segment）为单位的数据包进行管理。</p>
+<h5 id="三次握手机制"><a href="#三次握手机制" class="headerlink" title="三次握手机制"></a>三次握手机制</h5><p>三次握手（Three-way handshaking），握手过程中使用了TCP的标志（flag）—-SYN（synchronized）和ACK（acknowledgment）。</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/1111234242wefsg.JPG" alt="enter image description here"></p>
+<h3 id="负责域名解析的DNS服务"><a href="#负责域名解析的DNS服务" class="headerlink" title="负责域名解析的DNS服务"></a>负责域名解析的DNS服务</h3><p>DNS（Domain Name System）服务是和HTTP协议一样位于应用层的协议，它提供域名到IP地址之间的解析服务。</p>
+<h3 id="各种协议与HTTP协议的关系"><a href="#各种协议与HTTP协议的关系" class="headerlink" title="各种协议与HTTP协议的关系"></a>各种协议与HTTP协议的关系</h3><p><img src="http://oli0whb3w.bkt.clouddn.com/aaaadfwedwedwdw.JPG" alt="enter image description here"></p>
+<h3 id="URL和URI"><a href="#URL和URI" class="headerlink" title="URL和URI"></a>URL和URI</h3><h4 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h4><p><strong>URI（Uniform Resource Identifdier）</strong>，有某个协议方法表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。</p>
+<p>采用HTTP协议时，协议方案就是http。除此以外，还以ftp、mailto、telnet、file等。标准的URI协议方案有30种左右。</p>
+<p>URI用字符串标识某一互联网资源，而URL表示资源的地点（互联网上所处的位置），课件URL是URI的子集。</p>
+<p>URI示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ftp://ftp.is.co.za/rfc/rfc1808.txt</span><br><span class="line">http://www.ietf.org/rfc/rfc2396.txt</span><br><span class="line">ldap://[2001:db8::7]/c=GB?objectClass?one</span><br><span class="line">mailto:John.Doe@example.com</span><br><span class="line">news:comp.infosystems.www.servers.unix</span><br><span class="line">tel:+1-816-555-1212</span><br><span class="line">telnet://192.0.2.16:80/</span><br><span class="line">urn:oasis:names:specification:docbook:dtd:xml:4.1.2</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/数据结构与算法分析（JAVA描述）（第一章）/" rel="next" title="数据结构与算法分析（JAVA描述）（第一章）">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法分析（JAVA描述）（第一章）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/图解HTTP（2） 简单的HTTP协议/" rel="prev" title="图解HTTP（2） 简单的HTTP协议">
+                图解HTTP（2） 简单的HTTP协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图解HTTP（1）-了解Web及网络基础"><span class="nav-number">1.</span> <span class="nav-text">图解HTTP（1） 了解Web及网络基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">1.0.1.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议族"><span class="nav-number">1.0.2.</span> <span class="nav-text">TCP/IP协议族</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用层"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传输层"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络层（又名网络互连层）"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">网络层（又名网络互连层）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链路层（又名数据链路层，网络接口层）"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">链路层（又名数据链路层，网络接口层）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与HTTP关系密切的协议：IP、TCP和DNS"><span class="nav-number">1.0.3.</span> <span class="nav-text">与HTTP关系密切的协议：IP、TCP和DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#负责传输的IP协议"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">负责传输的IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用ARP协议凭借MAC地址进行通信"><span class="nav-number">1.0.3.1.1.</span> <span class="nav-text">使用ARP协议凭借MAC地址进行通信</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确保可靠性的TCP协议"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">确保可靠性的TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#三次握手机制"><span class="nav-number">1.0.3.2.1.</span> <span class="nav-text">三次握手机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负责域名解析的DNS服务"><span class="nav-number">1.0.4.</span> <span class="nav-text">负责域名解析的DNS服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种协议与HTTP协议的关系"><span class="nav-number">1.0.5.</span> <span class="nav-text">各种协议与HTTP协议的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL和URI"><span class="nav-number">1.0.6.</span> <span class="nav-text">URL和URI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URI"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">URI</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

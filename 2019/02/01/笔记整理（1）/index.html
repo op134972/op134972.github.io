@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔记整理（1）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。   进制：42–十进制、042–八进制（0开头）、0x42–十六进制（0x开头）、0b10–二进制（0b开头） Java中的8中基本数据类型：  整数的数据类型：  byte（字节）：8位（bit）  ||   2^8 = 256   ||   -128~127（0算整数） short（短整型）：16位">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记整理（1）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/笔记整理（1）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="笔记整理（1）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。   进制：42–十进制、042–八进制（0开头）、0x42–十六进制（0x开头）、0b10–二进制（0b开头） Java中的8中基本数据类型：  整数的数据类型：  byte（字节）：8位（bit）  ||   2^8 = 256   ||   -128~127（0算整数） short（短整型）：16位">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/timfwwef.jpg">
+<meta property="og:updated_time" content="2017-03-19T07:51:30.250Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔记整理（1）">
+<meta name="twitter:description" content="笔记整理（1）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。   进制：42–十进制、042–八进制（0开头）、0x42–十六进制（0x开头）、0b10–二进制（0b开头） Java中的8中基本数据类型：  整数的数据类型：  byte（字节）：8位（bit）  ||   2^8 = 256   ||   -128~127（0算整数） short（短整型）：16位">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/timfwwef.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/笔记整理（1）/">
+
+
+
+
+
+  <title>笔记整理（1） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/笔记整理（1）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">笔记整理（1）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/笔记整理/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记整理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="笔记整理（1）"><a href="#笔记整理（1）" class="headerlink" title="笔记整理（1）"></a>笔记整理（1）</h1><p><em>整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。</em></p>
+<hr>
+<ul>
+<li>进制：42–十进制、042–八进制（0开头）、0x42–十六进制（0x开头）、0b10–二进制（0b开头）</li>
+<li><p>Java中的8中基本数据类型：</p>
+<ul>
+<li><p>整数的数据类型：</p>
+<ul>
+<li>byte（字节）：8位（bit）  ||   2^8 = 256   ||   -128~127（0算整数）</li>
+<li>short（短整型）：16位      ||   2^16</li>
+<li>int（整型）：32位              ||  2^32</li>
+<li>long（长整型）：64位<br>注：如果一个整数未加任何标记的时候，默认int，如果要变为long类型，需在其后加l。</li>
+</ul>
+</li>
+<li><p>小数的数据类型：</p>
+<ul>
+<li>float（单精度浮点型）：32bit      ||     7位小数</li>
+<li>double（双精度浮点型）：64bit    ||     15位小数<br>注：默认为double，转换成float，在后面加F。（case insensitive）</li>
+</ul>
+</li>
+<li><p>字符类型：</p>
+<ul>
+<li>char（字符）：16bit</li>
+</ul>
+</li>
+<li><p>布尔类型：</p>
+<ul>
+<li>boolean：8或32bit<br>声明数组占8bit，声明基本数据类型占32bit。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>static变量存入数据共享区。</p>
+</li>
+<li><p>单例设计模式：保证一个类在内存中只存在一个对象。</p>
+<ul>
+<li><p>饿汉单例模式：</p>
+<ol>
+<li>私有化构造函数</li>
+<li>声明本类的引用类型变量，并且使用改变量指向本类对象<strong>private static</strong></li>
+<li>提供一个公共静态的方法获取本类对象。</li>
+</ol>
+</li>
+<li><p>懒汉单例模式：</p>
+<ol>
+<li>私有化构造函数</li>
+<li>声明本类的引用的类型变量，但不要创建对象。</li>
+<li>提供共有静态的方法获取本类对象，获取之前进行判断。<br>推荐使用饿汉单例模式，在线程安全下不能保证一个类在内存中只有一个对象。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 懒汉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingle</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> LazySingle ls;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">LazySingle</span><span class="params">()</span></span>&#123;&#125;<span class="comment">//私有化构造函数</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazySingle <span class="title">getLS</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(ls==<span class="keyword">null</span>)</span><br><span class="line">			ls = <span class="keyword">new</span> LazySingle();</span><br><span class="line">		<span class="keyword">return</span> ls;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 饿汉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungrySingle</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> HungrySingle hs = <span class="keyword">new</span> HungrySingle();</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">HungrySingle</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungrySingle <span class="title">getHs</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> hs;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>静态函数不能直接访问非静态成员，只要存在对象也可以访问。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> String field1;</span><br><span class="line">	<span class="keyword">private</span> String field2;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Demo3 d3 = <span class="keyword">new</span> Demo3();</span><br><span class="line">		String s = d3.field2;</span><br><span class="line">		System.out.println(d3.field2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li>java中方法参数传递方式是按值传递。<br>如果参数是基本类型，传递的是基本类型的字面量值的拷贝。<br>如果参数是引用类型，传递的是该参量所引用的对象在堆中地址值的拷贝。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">3</span>;</span><br><span class="line">	String b = <span class="string">"test"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeCallByValue</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">		a = <span class="number">2</span>;</span><br><span class="line">		System.out.println(a);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeCallByReference</span><span class="params">(String b)</span></span>&#123;</span><br><span class="line">		b = <span class="string">"okToChange"</span>;</span><br><span class="line">		System.out.println(b);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeName</span><span class="params">(Employee e)</span></span>&#123;</span><br><span class="line">		e.setName(<span class="string">"new name"</span>);</span><br><span class="line">		System.out.println(e);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> a = <span class="number">7</span>;</span><br><span class="line">		changeCallByValue(a);</span><br><span class="line">		System.out.println(a);<span class="comment">//还是7，值传递，基本数据类型传的是字面的值</span></span><br><span class="line">		</span><br><span class="line">		String b = <span class="string">"original value"</span>;</span><br><span class="line">		changeCallByReference(b);</span><br><span class="line">		System.out.println(b);<span class="comment">//还是原值，值传递，Stirng为final，不能被改变，在方法内新new了一个</span></span><br><span class="line">		</span><br><span class="line">		Employee e = <span class="keyword">new</span> Employee();</span><br><span class="line">		e.setName(<span class="string">"original name"</span>);</span><br><span class="line">		changeName(e);</span><br><span class="line">		System.out.println(e.getName());<span class="comment">//改变以后的值了，按值传递还是传的是Emp在内存中的地址，两者引用同一对象，要想不相互影响，需要clone</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//结果:</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">7</span></span><br><span class="line"><span class="comment">okToChange</span></span><br><span class="line"><span class="comment">original value</span></span><br><span class="line"><span class="comment">Employee [name=new name, hireDay=null]</span></span><br><span class="line"><span class="comment">new name</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li>多态注意的细节：<ol>
+<li>多态情况下，子父类存在同名的成员变量时，访问的是父类成员。</li>
+<li>多态下，存在同名的非静态成员函数时，访问子类的方法。</li>
+<li>多态下，存在同名的静态成员函数时，访问父类的方法。</li>
+<li>多态情况下，不能访问子类特有的成员。（若要访问，需要进行强制类型转换）</li>
+</ol>
+</li>
+</ul>
+<p>多态情况下，子父类存在同名的成员时，除了非静态的函数，其余都是访问父类。原因：编译看左边，运行不一定看右边。Java编译器在编译的时候，会检查引用类型变量所属的类是否具备所指的成员，如果不具备编译则报错。</p>
+<hr>
+<ul>
+<li><p>异常的处理</p>
+<ul>
+<li>方式1：捕获处理 <ul>
+<li>try-catch</li>
+<li>需要注意的细节：<ol>
+<li>try-catch块里面的的代码除了异常，若经过处理（非throw），try-catch块外面的代码可以正常执行。</li>
+<li>try块中除了异常，其后的代码不会执行了。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>方式2：抛出处理<br>注意：<ol>
+<li>方法抛出异常，调用者就必须要处理。</li>
+<li>方法抛出异常，throw语句后的代码不再执行，一个方法遇到throw关键字，该方法立即停止。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>异常可分为编译时异常和运行时异常。</p>
+<ul>
+<li>运行时异常：RuntimeException以及其子类。抛出该类，方法上可以不声明，调用者可以不处理。运行时异常在编码上可以避免。</li>
+<li>编译时异常：除上类之外的其他异常，抛出改类，须声明和处理。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>字符串String<ul>
+<li>问题：new String（“abc”）创建了几个对象</li>
+<li>答：一个或者两个，如果在字符串常量池中存在“abc”，只在堆内存中创建一个对象；如果不存在，则在常量池和堆内存中同时创建两个对象。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo6</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String str1 = <span class="string">"hello"</span>;</span><br><span class="line">		String str2 = <span class="string">"hello"</span>;</span><br><span class="line">		String str3 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">		String str4 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">		</span><br><span class="line">		System.out.println(str1 == str2);<span class="comment">//true</span></span><br><span class="line">		System.out.println(str2 == str3);<span class="comment">//false</span></span><br><span class="line">		System.out.println(str3 == str4);<span class="comment">//false</span></span><br><span class="line">		System.out.println(str3.equals(str2));<span class="comment">//true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>- String str = &quot;hello&quot;；//的方式创建时，1. 虚拟机检查字符串常量池中是否已经存在改字符串常量，如果存在则不会创建，直接返回改字符串在常量池中的内存地址，若不存在，创建+返回。
+- String str = new String(&quot;hello&quot;);//方式创建时，首先也会检查常量池，然后还会去堆内存中创建一分字符串对象，将常量池中的字符串内容拷贝至内存中，然后返回内存中字符串对象的内存地址。
+</code></pre><ul>
+<li>使用StringBuffer无参的构造函数创建一个对象时，默认的容量是多少？如果长度不够，自动增长多少？<ul>
+<li>StringBuffer底层依赖一个字符数组存储字符数据，默认容量是16，若不够用，自动增长1倍。</li>
+<li><strong>字符串的特点</strong>，字符串是常量；它们的值在创建之后不能更改。其内容一旦改变，那么马上就创建一个新的对象。所以字符串的内容不宜频繁的修改，如果需要频繁修改字符串的内容，建议使用字符缓冲类（StringBuffer）。 </li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>System类：系统类，主要用于获取系统的属性数据。<ul>
+<li>常用方法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">arraycopy</span><span class="params">(Object src,  <span class="keyword">int</span>  srcPos,Object dest, <span class="keyword">int</span> destPos,<span class="keyword">int</span> length)</span></span>;</span><br><span class="line">currentTimeMillis();<span class="comment">//获取当前时间</span></span><br><span class="line">nanoTime();<span class="comment">//更精准的计时。</span></span><br><span class="line">exit();<span class="comment">//退出jvm，若参数为0代表正常退出，否则不正常。</span></span><br><span class="line">gc();<span class="comment">//建议jvm回收垃圾。</span></span><br><span class="line">getenv(Stirng name);<span class="comment">//根据环境变量的名字获取环境变量</span></span><br><span class="line">getProperty(<span class="string">"key"</span>);<span class="comment">//获取系统某个属性</span></span><br><span class="line">getProperties();<span class="comment">//获取系统的所有属性</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>自定义线程的实现方式：<ul>
+<li>方式1：继承Thread<ol>
+<li>自定义一个类继承Thread类。</li>
+<li>重写Thread类的run方法，把自定义线程的任务代码写在run方法上。</li>
+<li>创建Thread的子类对象，并且调用start方法开启线程。<br>注意：不要直接调用run方法。<br>重写run方法的目的：每个线程都有自己的任务代码，jvm创建的主线程的任务代码就是main方法中的代码，自定义线程的任务代码就是run方法中的代码。<br>借用网上的线程生命周期状态图：<br><img src="http://oli0whb3w.bkt.clouddn.com/timfwwef.jpg" alt="enter image description here"></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><ul>
+<li><p>方式2：实现Runnable接口</p>
+<ol>
+<li>自定义一个类实现Runnable接口</li>
+<li>实现Runnable接口的run方法，把自定义线程的任务定义在run方法上。</li>
+<li>创建Runnable实现类对象。</li>
+<li>创建Thread类的对象，并把Runnable的实现类作为实参传递。</li>
+<li>调用Thread对象的start方法开启一个线程。</li>
+</ol>
+</li>
+<li><p>问：Runnable的实现类对象是线程对象吗？</p>
+</li>
+<li>答：不是，只是个Runnable接口的实现类，只有Thread和其子类才是。</li>
+<li>问：为什么把Runnable实现类的对象作为实参传递？其作用是？</li>
+<li>答：作用就是把Runnable实现类对象的run方法作为线程的任务代码去执行。</li>
+</ul>
+</li>
+<li><p>线程的通讯：一个线程完成了自己的任务时，要通知另外一个线程去完成另外一个任务。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wait();<span class="comment">//等待，</span></span><br><span class="line">notify();<span class="comment">//唤醒</span></span><br><span class="line">notifyAll();</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+<ol>
+<li>wait()和notify()方法是属于Object对象的。</li>
+<li>wait()方法与notify()方法必须在同步代码块或同步函数中使用。</li>
+<li>wait方法与notify方法必须由同一个锁对象调用。否则会出现IllegalMonitorStateException。<br>不同的锁对象调用wait方法会建立不同的线程池。线程间通讯就是多个线程在操作同一个资源，但操作动作不同。</li>
+</ol>
+<hr>
+<ul>
+<li>线程常用的方法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Thread(String name);<span class="comment">//constructor</span></span><br><span class="line">getName();</span><br><span class="line">setName(String name);</span><br><span class="line">sleep();</span><br><span class="line">currentThread();</span><br><span class="line"></span><br><span class="line">getPriority();<span class="comment">//优先级</span></span><br><span class="line">setPriotiry();</span><br><span class="line">getId();<span class="comment">//返回线程标识符，线程Id是一个正的long数，唯一终身不变，可回收。</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/SpringMVC学习笔记（一）/" rel="next" title="SpringMVC学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> SpringMVC学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/笔记整理（2）/" rel="prev" title="笔记整理（2）">
+                笔记整理（2） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记整理（1）"><span class="nav-number">1.</span> <span class="nav-text">笔记整理（1）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

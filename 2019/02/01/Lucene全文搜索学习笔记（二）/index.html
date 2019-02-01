@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Lucene,全文搜索,索引,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Lucene全文搜索学习笔记（二）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。 LuceneUtil的编写，主要是对document2bean以及bean2document操作的封装。写的不完善，先学完Lucene再说。 1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+<meta name="keywords" content="Lucene,全文搜索,索引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lucene全文搜索学习笔记（二）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/Lucene全文搜索学习笔记（二）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="Lucene全文搜索学习笔记（二）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。 LuceneUtil的编写，主要是对document2bean以及bean2document操作的封装。写的不完善，先学完Lucene再说。 1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-02-18T12:09:12.076Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lucene全文搜索学习笔记（二）">
+<meta name="twitter:description" content="Lucene全文搜索学习笔记（二）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。 LuceneUtil的编写，主要是对document2bean以及bean2document操作的封装。写的不完善，先学完Lucene再说。 1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/Lucene全文搜索学习笔记（二）/">
+
+
+
+
+
+  <title>Lucene全文搜索学习笔记（二） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/Lucene全文搜索学习笔记（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Lucene全文搜索学习笔记（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/个人博客/" itemprop="url" rel="index">
+                    <span itemprop="name">个人博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Lucene全文搜索学习笔记（二）"><a href="#Lucene全文搜索学习笔记（二）" class="headerlink" title="Lucene全文搜索学习笔记（二）"></a>Lucene全文搜索学习笔记（二）</h1><h2 id="LuceneUtil，分页查询"><a href="#LuceneUtil，分页查询" class="headerlink" title="LuceneUtil，分页查询"></a><strong>LuceneUtil，分页查询</strong></h2><p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<p>LuceneUtil的编写，主要是对document2bean以及bean2document操作的封装。写的不完善，先学完Lucene再说。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LuceneUtil</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Directory directory;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Version version;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Analyzer analyzer;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MaxFieldLength maxFieldLength;  </span><br><span class="line">    <span class="keyword">static</span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            directory = FSDirectory.open(<span class="keyword">new</span> File(<span class="string">"F:/java/practice/luceneDir"</span>));  </span><br><span class="line">            version = Version.LUCENE_30;  </span><br><span class="line">            analyzer = <span class="keyword">new</span> StandardAnalyzer(version);  </span><br><span class="line">            maxFieldLength = MaxFieldLength.LIMITED;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     *  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj 传入的对象，用到反射将Field存入索引库 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> doc对象 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Document <span class="title">bean2document</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> Exception</span>&#123;  </span><br><span class="line">        <span class="comment">/* </span></span><br><span class="line"><span class="comment">         * 思路：document.add(new Field(name,content,Store?,Index?)) </span></span><br><span class="line"><span class="comment">         * 利用反射获取传入的obj中name属性对应的content </span></span><br><span class="line"><span class="comment">         * */</span>  </span><br><span class="line">        Document document = <span class="keyword">new</span> Document();  </span><br><span class="line">        Class clazz = obj.getClass();  </span><br><span class="line">        Field[] fields = clazz.getDeclaredFields();  </span><br><span class="line">        <span class="comment">//对传入的obj每个field遍历，利用get方法取出值并存入索引库  </span></span><br><span class="line">        <span class="keyword">for</span> (Field field : fields) &#123;  </span><br><span class="line">            field.setAccessible(<span class="keyword">true</span>);  </span><br><span class="line">            String getMethodName = <span class="string">"get"</span>+field.getName().substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+field.getName().substring(<span class="number">1</span>);  </span><br><span class="line">            Method method = clazz.getDeclaredMethod(getMethodName, <span class="keyword">null</span>);  </span><br><span class="line">            String fieldValue = <span class="string">""</span>;  </span><br><span class="line">            <span class="keyword">if</span>(method.invoke(obj, <span class="keyword">null</span>)!=<span class="keyword">null</span>)&#123;  </span><br><span class="line">                fieldValue = method.invoke(obj, <span class="keyword">null</span>).toString();<span class="comment">//参数1：执行的对象，参数2：所需的参数  </span></span><br><span class="line">            &#125;  </span><br><span class="line">            document.add(<span class="keyword">new</span> org.apache.lucene.document.Field(field.getName(), fieldValue, Store.YES, Index.ANALYZED));<span class="comment">//两种Field  </span></span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> document;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     *  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> document </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clazz 返回的Class </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">document2bean</span><span class="params">(Document document,Class clazz)</span> <span class="keyword">throws</span> Exception</span>&#123;  </span><br><span class="line">        <span class="comment">/* </span></span><br><span class="line"><span class="comment">         * 思路 :BeanUtils.setProperty(obj,name,value); </span></span><br><span class="line"><span class="comment">         **/</span>  </span><br><span class="line">        Object obj = clazz.newInstance();  </span><br><span class="line">        Field[] fields = clazz.getDeclaredFields();  </span><br><span class="line">        <span class="keyword">for</span> (Field field : fields) &#123;  </span><br><span class="line">            field.setAccessible(<span class="keyword">true</span>);  </span><br><span class="line">            String name = field.getName();  </span><br><span class="line">            BeanUtils.setProperty(obj, name, document.get(name).toString());<span class="comment">//参数1：对象. 参数2：变量名 .参数3：变量值  </span></span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> obj;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Directory <span class="title">getDirectory</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> directory;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Version <span class="title">getVersion</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> version;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Analyzer <span class="title">getAnalyzer</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> analyzer;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MaxFieldLength <span class="title">getMaxFieldLength</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> maxFieldLength;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Lucene的增删改查：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LuceneCRUD</span> </span>&#123;  </span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addIndexDB</span><span class="params">(Object obj)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            Document document = LuceneUtil.bean2document(obj);  </span><br><span class="line">            IndexWriter indexWriter = <span class="keyword">new</span> IndexWriter(LuceneUtil.getDirectory(), LuceneUtil.getAnalyzer(), LuceneUtil.getMaxFieldLength());  </span><br><span class="line">            indexWriter.addDocument(document);  </span><br><span class="line">            indexWriter.close();  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateIndexDB</span><span class="params">(Object obj)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            Document document = LuceneUtil.bean2document(obj);  </span><br><span class="line">            IndexWriter indexWriter = <span class="keyword">new</span> IndexWriter(LuceneUtil.getDirectory(), LuceneUtil.getAnalyzer(), LuceneUtil.getMaxFieldLength());  </span><br><span class="line">            <span class="comment">//Term表示需要更新的document对象。id用户找到该document。在这里先写死。  </span></span><br><span class="line">            indexWriter.updateDocument(<span class="keyword">new</span> Term(<span class="string">"id"</span>,<span class="string">"1"</span>), document);  </span><br><span class="line">            indexWriter.close();  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteAllIndexDB</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            IndexWriter indexWriter = <span class="keyword">new</span> IndexWriter(LuceneUtil.getDirectory(), LuceneUtil.getAnalyzer(), LuceneUtil.getMaxFieldLength());  </span><br><span class="line">            indexWriter.deleteAll();  </span><br><span class="line">            indexWriter.close();  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteIndexDB</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            IndexWriter indexWriter = <span class="keyword">new</span> IndexWriter(LuceneUtil.getDirectory(), LuceneUtil.getAnalyzer(), LuceneUtil.getMaxFieldLength());  </span><br><span class="line">            indexWriter.deleteDocuments(<span class="keyword">new</span> Term(<span class="string">"id"</span>,<span class="string">"1"</span>));<span class="comment">// 删除id为1的doc  </span></span><br><span class="line">            indexWriter.close();  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">searchIndexDB</span><span class="params">(String keyword)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            IndexSearcher indexSearcher = <span class="keyword">new</span> IndexSearcher(LuceneUtil.getDirectory());  </span><br><span class="line">            QueryParser queryParser = <span class="keyword">new</span> QueryParser(Version.LUCENE_30, <span class="string">"content"</span>, LuceneUtil.getAnalyzer());  </span><br><span class="line">            Query query = queryParser.parse(keyword);  </span><br><span class="line">            TopDocs topDocs = indexSearcher.search(query, <span class="number">5</span>);  </span><br><span class="line">            ScoreDoc[] scoreDocs = topDocs.scoreDocs;  </span><br><span class="line">            <span class="keyword">for</span> (ScoreDoc scoreDoc : scoreDocs) &#123;  </span><br><span class="line">                Document doc = indexSearcher.doc(scoreDoc.doc);  </span><br><span class="line">                Article article = (Article) LuceneUtil.document2bean(doc, Article.class);  </span><br><span class="line">                System.out.println(article.getTitle()+<span class="string">":"</span>+article.getContent());  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        addIndexDB(<span class="keyword">new</span> Article(<span class="number">1</span>,<span class="string">"标题"</span>,<span class="string">"内容"</span>));  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        deleteIndexDB();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDeleteAll</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        deleteAllIndexDB();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSearch</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        searchIndexDB(<span class="string">""</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        updateIndexDB(<span class="keyword">new</span> Article(<span class="number">1</span>,<span class="string">"新标题2"</span>,<span class="string">"好！"</span>));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>分页的初步实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LuceneDaoImpl</span> </span>&#123;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Article&gt; <span class="title">selectArticlePage</span><span class="params">(String keyword,<span class="keyword">int</span> pageIndex,<span class="keyword">int</span> pageSize)</span></span>&#123;  </span><br><span class="line">        List&lt;Article&gt; list = <span class="keyword">new</span> ArrayList&lt;Article&gt;();  </span><br><span class="line">        IndexSearcher indexSearcher = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            <span class="keyword">int</span> start = (pageIndex-<span class="number">1</span>)*pageSize;  </span><br><span class="line">            <span class="keyword">int</span> end = pageIndex*pageSize;  </span><br><span class="line">              </span><br><span class="line">            QueryParser queryParser = <span class="keyword">new</span> QueryParser(Version.LUCENE_30,<span class="string">"title"</span>, LuceneUtil.getAnalyzer());  </span><br><span class="line">            Query query = queryParser.parse(keyword);  </span><br><span class="line">            indexSearcher = <span class="keyword">new</span> IndexSearcher(LuceneUtil.getDirectory());  </span><br><span class="line">            TopDocs topDocs = indexSearcher.search(query, end);  </span><br><span class="line">            System.out.println(<span class="string">"总记录数为："</span>+topDocs.totalHits);  </span><br><span class="line">              </span><br><span class="line">            <span class="comment">//总记录数小于end，说明scoreDocs不满end条。即返回的是start--totalHits条。否则返回的是start--end条  </span></span><br><span class="line">            ScoreDoc[] scoreDocs = topDocs.scoreDocs;  </span><br><span class="line">            <span class="keyword">int</span> size = end;  </span><br><span class="line">            <span class="keyword">if</span>(topDocs.totalHits&lt;end) &#123;  </span><br><span class="line">                size = topDocs.totalHits;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">if</span>(topDocs.totalHits&lt;=start)&#123;  </span><br><span class="line">                System.out.println(<span class="string">"没有记录了！"</span>);  </span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = start ;i&lt;size;i++)&#123;  </span><br><span class="line">                Document doc = indexSearcher.doc(scoreDocs[i].doc);  </span><br><span class="line">                Article article = (Article) LuceneUtil.document2bean(doc,Article.class);  </span><br><span class="line">                list.add(article);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;  </span><br><span class="line">            <span class="keyword">try</span> &#123;  </span><br><span class="line">                indexSearcher.close();  </span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">                e.printStackTrace();  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">            <span class="keyword">return</span> list;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSearchPage</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> pageIndex = <span class="number">1</span>;  </span><br><span class="line">        <span class="keyword">int</span> pageSize = <span class="number">19</span>;  </span><br><span class="line">        List&lt;Article&gt; list = selectArticlePage(<span class="string">"标题"</span>, pageIndex, pageSize);  </span><br><span class="line">        <span class="keyword">if</span>(list!=<span class="keyword">null</span>)&#123;  </span><br><span class="line">            System.out.println(list.size());  </span><br><span class="line">            <span class="keyword">for</span> (Article article : list) &#123;  </span><br><span class="line">                System.out.println(article.getTitle()+<span class="string">":"</span>+article.getContent());  </span><br><span class="line">            &#125;  </span><br><span class="line">            System.out.println(<span class="string">"第"</span>+pageIndex+<span class="string">"页"</span>+<span class="string">"每页"</span>+pageSize+<span class="string">"条"</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Lucene/" rel="tag"># Lucene</a>
+          
+            <a href="/tags/全文搜索/" rel="tag"># 全文搜索</a>
+          
+            <a href="/tags/索引/" rel="tag"># 索引</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/Linux学习（2）/" rel="next" title="Linux学习（2）">
+                <i class="fa fa-chevron-left"></i> Linux学习（2）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/Lucene全文搜索学习笔记（三）/" rel="prev" title="Lucene全文搜索学习笔记（三）">
+                Lucene全文搜索学习笔记（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lucene全文搜索学习笔记（二）"><span class="nav-number">1.</span> <span class="nav-text">Lucene全文搜索学习笔记（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LuceneUtil，分页查询"><span class="nav-number">1.1.</span> <span class="nav-text">LuceneUtil，分页查询</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

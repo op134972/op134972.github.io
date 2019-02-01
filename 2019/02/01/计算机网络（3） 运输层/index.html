@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TCP,UDP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算机网络（3） 运输层计算机网络：自顶向下方法（第六版）  3.1.1 运输层和网络层的关系网络层提供主机之间的逻辑通信，而运输层为运行在不同主机上的进程之间提供逻辑通信。 3.2 多路复用和多路分解一个进程有一个或多个套接字，它相当于进程向网络或网络向进程传递数据的门户。 将运输层报文段中的数据交付到正确的套接字的工作称为多路分解。从源主机从不同套接字中收集数据块，并为每个数据块封装上首部信息">
+<meta name="keywords" content="TCP,UDP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络（3） 运输层">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/计算机网络（3） 运输层/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="计算机网络（3） 运输层计算机网络：自顶向下方法（第六版）  3.1.1 运输层和网络层的关系网络层提供主机之间的逻辑通信，而运输层为运行在不同主机上的进程之间提供逻辑通信。 3.2 多路复用和多路分解一个进程有一个或多个套接字，它相当于进程向网络或网络向进程传递数据的门户。 将运输层报文段中的数据交付到正确的套接字的工作称为多路分解。从源主机从不同套接字中收集数据块，并为每个数据块封装上首部信息">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/630445219421868682.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/117729788028694719.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/60267888309806935.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/644913459928759836.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/50331243283228447.jpg">
+<meta property="og:updated_time" content="2017-04-05T11:03:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络（3） 运输层">
+<meta name="twitter:description" content="计算机网络（3） 运输层计算机网络：自顶向下方法（第六版）  3.1.1 运输层和网络层的关系网络层提供主机之间的逻辑通信，而运输层为运行在不同主机上的进程之间提供逻辑通信。 3.2 多路复用和多路分解一个进程有一个或多个套接字，它相当于进程向网络或网络向进程传递数据的门户。 将运输层报文段中的数据交付到正确的套接字的工作称为多路分解。从源主机从不同套接字中收集数据块，并为每个数据块封装上首部信息">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/630445219421868682.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/计算机网络（3） 运输层/">
+
+
+
+
+
+  <title>计算机网络（3） 运输层 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/计算机网络（3） 运输层/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络（3） 运输层</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算机网络（3）-运输层"><a href="#计算机网络（3）-运输层" class="headerlink" title="计算机网络（3） 运输层"></a>计算机网络（3） 运输层</h1><p>计算机网络：自顶向下方法（第六版）</p>
+<hr>
+<h4 id="3-1-1-运输层和网络层的关系"><a href="#3-1-1-运输层和网络层的关系" class="headerlink" title="3.1.1 运输层和网络层的关系"></a>3.1.1 运输层和网络层的关系</h4><p>网络层提供主机之间的逻辑通信，而运输层为运行在不同主机上的进程之间提供逻辑通信。</p>
+<h3 id="3-2-多路复用和多路分解"><a href="#3-2-多路复用和多路分解" class="headerlink" title="3.2 多路复用和多路分解"></a>3.2 多路复用和多路分解</h3><p>一个进程有一个或多个套接字，它相当于进程向网络或网络向进程传递数据的门户。</p>
+<p>将运输层报文段中的数据交付到正确的套接字的工作称为<strong>多路分解</strong>。从源主机从不同套接字中收集数据块，并为每个数据块封装上首部信息（将在以后用于分解）从而生成报文段，然后将报文段传递到网络层，所有这些工作称为<strong>多路复用</strong>。</p>
+<p><strong>1、无连接的多路复用和多路分解</strong><br>UDP的套接字 是一个二元组来标识的，包含目的IP地址和目的端口。</p>
+<p><strong>2、面向连接的多路复用与多路分解</strong><br>TCP的套接字是一个四元组，包括源IP地址、源端口号、目的IP地址、目的端口号。</p>
+<p><strong>3、Web服务器与TCP</strong><br>连接套接字与进程之间并非一一对应，许多高性能的Web服务器通常只是用一个进程，而为每个客户连接创建一个具有新连接套接字的新线程。（线程可以先背理解成一个轻量级的子进程）</p>
+<h3 id="3-3-无连接运输：UDP"><a href="#3-3-无连接运输：UDP" class="headerlink" title="3.3 无连接运输：UDP"></a>3.3 无连接运输：UDP</h3><p>运输层最低要求：提供数据交付（分解/复用）+差错检查的功能。<br>而UDP仅仅做到了这两点，因此使用UDP近似于应用层和网络层直接连接。</p>
+<p>DNS是一个通常使用UDP的应用层协议的例子。</p>
+<h4 id="UDP的优点："><a href="#UDP的优点：" class="headerlink" title="UDP的优点："></a>UDP的优点：</h4><ul>
+<li>更加细粒度，关于何时、发送什么数据的应用层控制更为精细。</li>
+<li>无需建立连接：使得DNS速度更快。</li>
+<li>无连接状态</li>
+<li>分组首部开销小：每个TCP报文段有20字节的首部开销，UDP仅有8字节的首部开销。</li>
+</ul>
+<h4 id="3-3-1-UDP报文结构"><a href="#3-3-1-UDP报文结构" class="headerlink" title="3.3.1 UDP报文结构"></a>3.3.1 UDP报文结构</h4><p>UDP首部包括四个字段：源端口号、目的端口号、长度、检验和。每个字段2个字节，一共8个字节。<br>UDP套接字由一个二元组来全面标识：目的IP、目的端口号。</p>
+<h4 id="3-3-2-UDP检验和"><a href="#3-3-2-UDP检验和" class="headerlink" title="3.3.2 UDP检验和"></a>3.3.2 UDP检验和</h4><p>差错检测，以3个16bit为例：<br>三个相加（溢出要<strong>回卷</strong>）求反得<strong>检验和</strong>，检验和再和三个数据相加（同样要回卷），如果最后得到16位1，则说明没有差错。</p>
+<p>如果端对端之间要提供差错检测，UDP就必须在端对端基础上在运输层提供差错检测。根据端到端原文，尽可能的在较高级别实现端到端的某种功能以降低实现所付出的代价。</p>
+<p>UDP能提供差错检测，但是对差错回复无能为力，只是将受损的报文段交给应用程序并给出警告。</p>
+<h3 id="3-4-可靠数据传输原理"><a href="#3-4-可靠数据传输原理" class="headerlink" title="3.4 可靠数据传输原理"></a>3.4 可靠数据传输原理</h3><p><strong>分组（packet）</strong></p>
+<p>3.4.1 构造可靠数据传输协议</p>
+<p><strong>停等</strong>（stop-and-wait）协议：仅当接受到ACK才能发送下个分组。</p>
+<p>先以停等协议作为简化讨论，当接收端接受到数据时，利用<strong>检验和</strong>（check sum）对数据的正确性进行确认，确认正确返回<strong>ACK</strong>（positive acknowledgement）。否则返回<strong>NAK</strong>（negative acknowledgement）。在停等协议中，发送端只有确认上个分组传输正确才会继续发送。但是对于ACK和NAK本身而言又有错误传输的可能性，因此引入了<strong>序号</strong>（sequence number）的概念。序号的作用是用于接收端比对，如果和之前的分组序号相同，即可确认为重传，否则就是新的分组。停等一次只能发送一个分组，因此序号为模2（即[0,1]）即可。<strong>倒计数定时器</strong>（countdown timer）的作用是在一个已发送分组迟迟不能收到反馈时（可能已经丢失，接收方也不知道已经发送过来），在计时器终点，应重新发送该组数据并重启计时器。计时器是为了实现基于时间的重传机制。</p>
+<p>由于停等协议效率太过低下（实际推入网络在整个分组传输区间所占比重太小），因此出现了<strong>流水线</strong>（pipelining）技术。</p>
+<p>流水线技术：发送方一次可以发送多个分组，而不用等待第一个分组的反馈。它的出现有以下影响：</p>
+<ol>
+<li>必须增加序号的范围，因为每次输出的分组必须要一个唯一的序号，停等：{0，1}。流水线：{0,1…，N-1}（N表示窗口大小）</li>
+<li>协议的发送方和接收方两端<strong>也许</strong>（根据处理错误的方式确定）必须能够缓存多个分组，用于重传和确认。</li>
+<li>所需序号和对缓冲的要求取决于数据传输协议如何处理错误的传输。两种基本方法：<strong>回退N步</strong>（Go-Back-N，GBN）和<strong>选择重传</strong>（Selective Repeat，SR）</li>
+</ol>
+<h4 id="3-4-3-回退N步"><a href="#3-4-3-回退N步" class="headerlink" title="3.4.3 回退N步"></a>3.4.3 回退N步</h4><p>也称<strong>滑动窗口协议</strong>。</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/630445219421868682.jpg" alt="enter image description here"></p>
+<p>GBN发送方必须响应三种类型的事件：</p>
+<ol>
+<li>上层的调用：上层要发送分组，则应该确认当前窗口是否已满，即是否有N个已发送但未被确认的分组。</li>
+<li>收到一个ACK，在GBN中，对序号为n的分组的确认采取<strong>累计确认</strong>（cumulative acknowledgment）的方式，表明接收方已正确收到n及n之前的所有分组。</li>
+<li>超时事件：“回退N步”的名字来源于处理丢失和时延过长分组时发送方的行为。举例：N=4，即窗口大小为4,当第0组正确传输，返回ACK0，此时窗口前进1步到第4组；继续传送第1组，返回ACK1，窗口继续前进到第5组；传送第2组，出现丢失（此时计时器已经在计时了）；继续传送第3组，第4组，第5组，由于序号对不上（<strong>传来分组的序号不等于上次传送成功的序号+1</strong>），因此一直返回的是ACK1（<strong>即最后一次正确传输的分组序号</strong>），此时窗口并不能继续前进了，等到计时器时间到，从第2组重新传输。</li>
+</ol>
+<p>在GBN协议中，接受方丢弃所有失序分组。这种方法的优点是接收缓存简单，即接受方不需要缓存任何失序分组。</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/117729788028694719.jpg" alt="enter image description here"></p>
+<p>GBN中使用到的技术有：使用<strong>序号、累计确认、检验、超时重传操作</strong>。潜在的允许发送方用多个分组<strong>填充流水线</strong>（即窗口前进的机制）。存在的问题：存在过多的不必要的重传，即传输错误之后的分组就算传输正确也不得不被丢弃和重传。选择重传解决了此问题。</p>
+<h4 id="3-4-4-选择重传"><a href="#3-4-4-选择重传" class="headerlink" title="3.4.4 选择重传"></a>3.4.4 选择重传</h4><p>P151起；</p>
+<p>失序之后的分组不会丢弃，而是将其放入缓存之中并返回ACK，等待失序的分组重传之后再依次进行交付。发送方中已经确认收到的分组将不会再被发送。</p>
+<p>定时器再次用于防止丢失分组，每个分组都要有自己的逻辑计数器，因为超时发生后只能发送一个分组。</p>
+<p>在窗口无可发送分组的时候，窗口的第一位一定是丢失的分组，重传改分组会使窗口继续前移。</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/60267888309806935.jpg" alt="enter image description here"></p>
+<p><strong>值得注意的是</strong>，当接受方成功接收分组并返回了ACK后，由于某种原因发送方没有收到ACK，在某个时段之后重传了该分组，则接收方应该<strong>重新发送一个ACK给发送方</strong>，<strong>以使窗口前进</strong>。</p>
+<p><strong>表3-1 可靠数据传输机制及其用途的总结</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">机制</th>
+<th style="text-align:right">用途和说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">检验和</td>
+<td style="text-align:right">检测一个分组传输中的比特错误</td>
+</tr>
+<tr>
+<td style="text-align:left">定时器</td>
+<td style="text-align:right">用于处理分组丢失和ACK丢失的超时事件</td>
+</tr>
+<tr>
+<td style="text-align:left">序号</td>
+<td style="text-align:right">传输的分组按顺序编号。不连续说明有丢失，重复说明有冗余</td>
+</tr>
+<tr>
+<td style="text-align:left">确认</td>
+<td style="text-align:right">传输的一个分组或一组分组（累计确认）被正确的接收到了。确认可以是逐个的或累计的，这取决于协议</td>
+</tr>
+<tr>
+<td style="text-align:left">否定确认</td>
+<td style="text-align:right">未被正确的接受，携带未被正确接受的分组号</td>
+</tr>
+<tr>
+<td style="text-align:left">窗口、流水线</td>
+<td style="text-align:right">发送方也许被限制仅能发送那些序号落在一个指定范围内的分组。停等模式效率低，流水线模式在未反馈的情况下一次发送多个分组。窗口的长度可以根据接收方接受和缓存报文的能力、网络中的拥塞程度或两者情况来进行设置</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h4><p>之间的假设是发送方发送的分组的<strong>相对顺序是不变</strong>的，实际上，多条物理链接传输的过程中，分组是可能被<strong>重新排序</strong>的。对于分组重新排序，信道可被看成基本上是在<strong>缓存分组</strong>，并将在<strong>任意时刻自然</strong>的释放这些分组，由于序号会被循环使用，必须注意不能出现冗余分组的情况，实际中采用的方法是确保一个序号不被重新使用，直到发送方确信任何先前发送的分组都不在信道中为止。具体的做法是假定一个分组在网络中“<strong>存活”的时间不会超过某个设置的最大时间量来做到这一点</strong>。超过这个时间点，基本可以确认信道网络中已经不存在该分组了，所以该分组的序号可以被重新使用了。在高速网络的TCP扩展中，最长的分组寿命被假定为约3分钟。</p>
+<h3 id="3-5-面向连接的运输：TCP"><a href="#3-5-面向连接的运输：TCP" class="headerlink" title="3.5 面向连接的运输：TCP"></a>3.5 面向连接的运输：TCP</h3><p>依赖了：差错检测、重传、累计确认、定时器以及用于序号和确认号的首部字段。</p>
+<h4 id="3-5-1-TCP连接"><a href="#3-5-1-TCP连接" class="headerlink" title="3.5.1 TCP连接"></a>3.5.1 TCP连接</h4><p>握手：连接中间交换某些预备报文段，确保对象是预备态的。</p>
+<p>TCP连接提供全双工的服务（full-duplex service），TCP连接是点对点的，即单个连接方和单个连接方之间连接。</p>
+<p>TCP可从缓存中取出并放入报文段中的数据数量受限于<strong>最大报文段长度</strong>（Maximun Segment Size，MSS）。</p>
+<p>MSS通常根据最初确定的由本机发送主机发送的<strong>最大链路层帧长度</strong>（即所谓的<strong>最大传输单元</strong>（Maximum Transmission Unit，MTU））来设置。</p>
+<p>MSS=MTU（通常1500）-TCP/IP首部长度（<strong>通过40</strong>）=1460</p>
+<p>MSS是指在报文段里应用层数据的最大长度，而不是指包括TCP首部的TCP报文段的最大长度。</p>
+<h4 id="3-5-2-TCP报文段结构"><a href="#3-5-2-TCP报文段结构" class="headerlink" title="3.5.2 TCP报文段结构"></a>3.5.2 TCP报文段结构</h4><p>当TCP发送一个发文件时，通常将改文件划分成长度为MSS的若干块。</p>
+<p>首部报文段结构如图：<br><img src="http://oli0whb3w.bkt.clouddn.com/644913459928759836.jpg" alt="enter image description here"></p>
+<ul>
+<li>源端口和目的端口：各16bit，用于多路分解和复用。</li>
+<li>序号（sequence）和确认号（acknowledgment）字段：各32bit，实现可靠数据传输服务。</li>
+<li>接收窗口字段：16bit，指示接受方愿意接受的字节数量。</li>
+<li>首度长度字段：4bit，指示了首部字段的长度，由于选项字段是可选的，通常为空。因此典型的TCP首部长度为20（4*5）。</li>
+<li>检验和：16bit，和UDP一样，用于数据检验。</li>
+<li>选项字段：可选或变长的。用来协议MSS和加时间戳，一般为空。</li>
+<li>标志字段：6bit，包括：ACK、RST、SYN、FIN、URG、PSH<ul>
+<li>ACK：确认字段中的值是否有效</li>
+<li>RST、SYN、FIN：用于连接的建立和拆除</li>
+<li>PSH：立即向上层交付数据。</li>
+<li>URG：紧急。</li>
+</ul>
+</li>
+</ul>
+<p>可以参考：<br><a href="http://blog.csdn.net/ningxuezhu/article/details/39892091/" target="_blank" rel="noopener">http://blog.csdn.net/ningxuezhu/article/details/39892091/</a><br><a href="http://www.cnblogs.com/xinyuyuanm/archive/2013/04/17/3026279.html" target="_blank" rel="noopener">http://www.cnblogs.com/xinyuyuanm/archive/2013/04/17/3026279.html</a></p>
+<p> <strong>1、序号和确认号</strong><br> TCP把数据看成无结构的、有序的字节流。<br> <strong>报文段的序号是该报文段手字节的字节流编号</strong>，TCP隐式的为每个传输的字节编号。<br> 如序号字段为：1000。表示首字节编号为1000。</p>
+<p><strong>确认号</strong>：主机A发送给主机B的确认号是主机A期望从主机B接受到的下一字节的序号。TCP只确认该流中至第一个丢失的字节为止，所以TCP被称为累计确认（cumulative acknowledgment）。失序到达的报文字段在TCP中有两个选择：丢弃或者保留，实践中一般选择后者。</p>
+<p>Telnet协议中，TCP报文段的数据字段一般为1字节，所以TCP报文段为21字节。当连接上Telnet后，屏幕上敲一个字符，这个字符显示到显示器上已经在网络中传输了一个来回了。</p>
+<h4 id="3-5-4-可靠传输协议"><a href="#3-5-4-可靠传输协议" class="headerlink" title="3.5.4 可靠传输协议"></a>3.5.4 可靠传输协议</h4><p><strong>确认号表示期望收到的下一字节的序号，表示该号之前的所有序号都正确收到</strong>。</p>
+<p><strong>2、超时间隔加倍</strong><br>超时重传时将定时器的时间设为之前的两倍，因此超时可能是因为网络拥塞造成，如果持续重传，将使拥塞更加严重。然而，当定时器在另两个事件（即收到上层应用的数据和收到ACK）中的任意启动时，定时器由<strong>EstimatedRTT</strong>（估计往返时间，指数加权移动平均数）值与<strong>DevRTT</strong>（方差或者偏差）值推算出。</p>
+<p><strong>3、快速重传</strong><br><strong>冗余ACK</strong>的概念：当出现分组丢失时，发送方发送丢失分组之后的分组，接受方则不断的返回丢失的序号，相同的ACK成为冗余ACK。</p>
+<p>当发送方收到相同的ACK三次时，即可确认改序号分组发生了丢失，在<strong>定时器到期之前进行重传的行为</strong>称为快速重传。</p>
+<p><strong>4、是回退N步还是选择重传</strong><br>TCP和GBN一些显著的区别：一些TCP实现实现所谓的选择确认（select acknowledgment）而不是累计确认，它允许TCP接受方有选择的确认失序报文段，而不是累计地确认最后一个正确接受的有序报文段。TCP的差错恢复机制最好被分类为GBN和SR协议的混合混合体。</p>
+<h4 id="3-5-5-流量控制"><a href="#3-5-5-流量控制" class="headerlink" title="3.5.5 流量控制"></a>3.5.5 流量控制</h4><p>一条TCP连接每一侧主机都为该连接设置了接收缓存，当接收到正确、按序的字节后，放入缓存等待应用进程读取，并不是一到达就读取，应用进程也许忙于其他业务，该机制缓解了应用层读取数据的压力。</p>
+<p>当应用层读取数据的速度小于传输到接受缓存速率的时间，可能出现缓存溢出的问题。为了解决缓存溢出的问题，需要控制发送发的发送，TCP首部字段中的<strong>接受窗口</strong>的作用就是用于表示接受方愿意接受的字节数量，其根据缓存容量的剩余大小来确定。以上机制称为<strong>流量控制服务</strong>（flow-control service）。</p>
+<p>而拥塞控制是为了解决IP网络的拥塞而限制TCP发送方的机制。</p>
+<p>值得一提的是，UDP协议中不提供流量控制服务。</p>
+<h4 id="3-5-6-TCP连接管理"><a href="#3-5-6-TCP连接管理" class="headerlink" title="3.5.6 TCP连接管理"></a>3.5.6 TCP连接管理</h4><p><strong>1、三次握手：</strong></p>
+<ul>
+<li>第一步：SYN被置为1，数据字段为空，此特殊报文段称为<strong>SYN报文段</strong>，序号设置为初始序号（client_isn（随机））。封装进一个IP数据报中。{SYN=1，seq=client_isn}</li>
+<li>第二步：收到连接请求，服务器提取SYN报文段，为该连接分配TCP缓存和变量，并返回{SYN=1，seq=server_isn，ack=client_isn+1}，该允许连接的报文段有时被称为<strong>SYNACK报文段</strong>。（SYNACK segment）</li>
+<li>第三步：在收到SYNACK报文段后，客户也要为该连接分配缓存和变量，客户主机则向服务器发送另外一个报文段，该报文段允许封装应用数据。因为连接已经建立，SYN被置位0。{SYN = 0，seq=client_isn+1，ack = server_isn+1}</li>
+</ul>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/50331243283228447.jpg" alt="enter image description here"></p>
+<p><strong>2、关闭连接</strong><br>发送FIN=1的报文段，服务器返回确认报文段，并发送自己的终止报文段FIN=1，客户端对发送过来的终止报文段进行确认，此时，在两台主机之间用于该连接的所有资源都被释放了。</p>
+<p><strong>3、SYN洪范攻击</strong><br>当客户端不进行第三次握手时，半开的连接会断开，服务器才会释放为该连接分配的资源（通常是1min）。这就为SYN洪范攻击提供了入口，<strong>攻击方通过发送大量的连接请求，创建半开的连接从而消耗服务器的资源</strong>。</p>
+<p><strong>解决的办法是</strong>：当服务器首次接收到SYN报文时，<strong>不分配资源</strong>，只有第二次接收到ACK时，与之前的SYN发送方进行比对（通过cookie），如果发送方合法，则<strong>创建全开的连接</strong>并分配资源。否则，不予处理。</p>
+<p><strong>4、目的端口和服务器套接字不匹配的情况：</strong><br>TCP分组：<br>服务器向源发送一个<strong>特殊重置报文段</strong>，将<strong>RST</strong>标志位置位：1。</p>
+<p>UDP分组：<br>发送一个特殊的ICMP数据报。</p>
+<h3 id="3-7-TCP拥塞控制"><a href="#3-7-TCP拥塞控制" class="headerlink" title="3.7 TCP拥塞控制"></a>3.7 TCP拥塞控制</h3><p>TCP协议使用端对端拥塞控制而不是使用网络辅助的拥塞控制，因为IP层不向端系统提供任何显式的网络拥塞反馈。</p>
+<p>TCP通过感知拥塞程度限制其发送流量的速率。</p>
+<p><strong>rwnd</strong>：（receive window，接受窗口），接受方中存储的变量，用于流量控制。<br><strong>cwnd</strong>：（congestion window，拥塞窗口），发送方中存储从变量，对TCP发送方能够向网络发送流量额速率进行了限制。</p>
+<p>窗口大小（未被确认的数据量）不能超过min{rwnd,cwnd}。</p>
+<p>TCP连接的每一端都由一个接收缓存、发送缓存和几个变量组成。</p>
+<p>通过调整cwnd值，发送方可以调整它向连接发送数据的速率。cwnd/RTT  字节/秒。</p>
+<p><strong>问题1：发送方如何感知拥塞？</strong><br>丢包事件：要么出现超时，要么接收到来自发送方的3个冗余ACK。<br>出现拥塞，路由器缓存溢出，引起一个数据报的丢失，出现丢包事件。发送方认为出现了拥塞。</p>
+<p>在无拥塞的情况下，发送端通过接受到的ACK扩大其拥塞窗口的长度，当ACK以高速率到达时，长度增加也快，传输速率增长也快，反之，如果因为高时延或包含一段低带宽链路，则拥塞窗口以相当慢的速率增加。因为TCP使用确认来触发（或计时）增大它的拥塞窗口长度，因此TCP被说成是<strong>自计时</strong>（self-clocking）的。</p>
+<p><strong>问题2：如何确定适当的发送速率？</strong><br>既不会造成拥塞，也不会过于低效。</p>
+<ul>
+<li>利用丢包事件降低速率。</li>
+<li>利用正确的ACK增加速率。</li>
+<li>带宽探测：ACK和丢包事件充当隐式信号，并且每个TCP发送方根据异步于其他TCP发送方的本地信息而行动。</li>
+</ul>
+<h4 id="TCP拥塞控制算法"><a href="#TCP拥塞控制算法" class="headerlink" title="TCP拥塞控制算法"></a>TCP拥塞控制算法</h4><p>广受赞誉的TCP拥塞控制算法（TCP congestion control algorithm）包括：慢启动、拥塞避免、快速恢复</p>
+<p>慢启动和拥塞避免是TCP的强制部分，快速恢复是推荐部分，并非必须的。</p>
+<h5 id="1、慢启动"><a href="#1、慢启动" class="headerlink" title="1、慢启动"></a>1、慢启动</h5><p>当TCP连接开始，cwnd的值通常为一个MSS（1460），此时传输速率很小。cwnd的增加对每个确认报文增加一个MSS，因此增加的数量是：1,2,4,8,16个MSS。如果cwnd为16MSS，说明在一个RTT可以发送16个报文段。</p>
+<p>何时结束这种指数增长呢？<br>方式一：<br>涉及到一个新的变量，<strong>ssthresh</strong>（慢启动阈值）。当出现一个丢包事件（即拥塞），TCP将cwnd设置为1并重新开始慢启动，将ssthresh设置为cwnd/2。</p>
+<p>方式二：<br>当拥塞窗口再次达到ssthresh时，结束慢启动，进入到<strong>拥塞避免模式</strong>。</p>
+<p>方式三：<br>接收到3个冗余ACK时，执行一种快速重传并进入<strong>快速恢复状态</strong>。</p>
+<h5 id="2、拥塞避免模式"><a href="#2、拥塞避免模式" class="headerlink" title="2、拥塞避免模式"></a>2、拥塞避免模式</h5><p>进入拥塞避免模式时，cwnd = ssthresh。增长cwnd的方式是对每个RTT，增加一个MSS（而不是每个ACK），因此是线性增的。</p>
+<p>何时结束这种增长？<br>方式一：<br>出现超时时，cwnd设置为1，ssthresh设置为cwnd/2。<br>方式二：<br>如果接收到3个冗余ACK，反应没有超时那么剧烈，cwnd设置为当前的一半，ssthresh设置为cwnd/2，并进入到快速恢复状态。</p>
+<p>可以总结为，出现丢包事件即修改阈值为当前cwnd的一半。</p>
+<h5 id="3、快速恢复"><a href="#3、快速恢复" class="headerlink" title="3、快速恢复"></a>3、快速恢复</h5><p>对每个冗余ACK，增加一个MSS。直到丢失ACK出现，降低cwnd之后进入<strong>拥塞避免状态</strong>。<br>当丢包事件再次出现时，cwnd的值被设置为一个MSS，ssthresh设置为cwnd的一半，进入<strong>慢启动状态</strong>。</p>
+<h5 id="4、-TCP拥塞控制回顾"><a href="#4、-TCP拥塞控制回顾" class="headerlink" title="4、 TCP拥塞控制回顾"></a>4、 TCP拥塞控制回顾</h5><p>TCP初始连接时，采用慢启动方式，当出现冗余ACK时，TCP的拥塞控制是：每个RTT内cwnd线性增加1MSS，出现冗余ACK时cwnd减半。因此，TCP拥塞控制常常被称为<strong>加性增、乘性减</strong>。  因此是锯齿形的网络图。</p>
+<p>对于TCP拥塞控制具有很多算法，如TCP Tahoe、TCP Reno（Linux支持）、TCP Vegas（Linux支持）、TCP CUBIC（默认支持）、TCP AIMD算法。</p>
+<h5 id="5、对TCP吞吐量的宏观描述"><a href="#5、对TCP吞吐量的宏观描述" class="headerlink" title="5、对TCP吞吐量的宏观描述"></a>5、对TCP吞吐量的宏观描述</h5><p>当前窗口长度为w字节，且当前往返时间是RTT秒时，则TCP的发送速率大约为w/RTT  字节/秒。</p>
+<p>由锯齿状推出，高度简化的模型：<strong>平均吞吐量 = 0.75*(W/RTT)</strong>   （W：拥塞窗口的阈值，即超过此值要丢包，因此降为W/2，再线性增加。）</p>
+<h3 id="TCP和UDP中公平性的讨论"><a href="#TCP和UDP中公平性的讨论" class="headerlink" title="TCP和UDP中公平性的讨论"></a>TCP和UDP中公平性的讨论</h3><p>见P188</p>
+<h3 id="3-8-小结"><a href="#3-8-小结" class="headerlink" title="3.8 小结"></a>3.8 小结</h3><ul>
+<li>UDP仅提供多路复用/分解、数据检验的服务。</li>
+<li>TCP更可靠，提供可靠交付、时延保证和带宽保证。然而运输层协议能够提供的服务经常受下面网络层协议服务模型的限制，如果网络层协议不能提供时延保证和带宽保证，运输层协议也就不能向进程间发送的报文提供时延或带宽保证。</li>
+<li>可靠数据传输在链路层、网络层、运输层或者应用层协议中都可实现，即使用确认、定时器、重传、序号等技术。但很多都已经被淘汰。</li>
+<li>新的运输层协议也在应运而生，<strong>数据报拥塞控制协议</strong>（Datagram Congestion Control Protocol，DCCP）提供了一种低开销、面向报文、类似于UDP的不可靠服务，但是具有应用程序可选择的拥塞控制机制，该机制与TCP兼容。用于创建可靠或半可靠的连接。</li>
+<li><strong>流控制传输协议</strong>（Stream Control Transmission Protocol，SCTP）是一种可靠的、面向报文的协议，该协议允许几个不同的应用层次的“流”复用一个SCTP连接。</li>
+<li><strong>TCP友好速率控制</strong>（Tcp-Friendly Rate Control，TFRC）协议是一种拥有拥塞控制机制但不全面的运输层协议。其目标是平滑在TCP拥塞控制中的“锯齿”行为。同时还维护一种长期的发送速率，改速率合理地接近TCP速率。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TCP/" rel="tag"># TCP</a>
+          
+            <a href="/tags/UDP/" rel="tag"># UDP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/计算机网络（2） 应用层/" rel="next" title="计算机网络（2） 应用层">
+                <i class="fa fa-chevron-left"></i> 计算机网络（2） 应用层
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/计算机网络（4） 网络层/" rel="prev" title="计算机网络（4） 网络层">
+                计算机网络（4） 网络层 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络（3）-运输层"><span class="nav-number">1.</span> <span class="nav-text">计算机网络（3） 运输层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-运输层和网络层的关系"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">3.1.1 运输层和网络层的关系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-多路复用和多路分解"><span class="nav-number">1.0.1.</span> <span class="nav-text">3.2 多路复用和多路分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-无连接运输：UDP"><span class="nav-number">1.0.2.</span> <span class="nav-text">3.3 无连接运输：UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP的优点："><span class="nav-number">1.0.2.1.</span> <span class="nav-text">UDP的优点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-UDP报文结构"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">3.3.1 UDP报文结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-UDP检验和"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3.3.2 UDP检验和</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-可靠数据传输原理"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.4 可靠数据传输原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-3-回退N步"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">3.4.3 回退N步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-4-选择重传"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">3.4.4 选择重传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">Attention</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-面向连接的运输：TCP"><span class="nav-number">1.0.4.</span> <span class="nav-text">3.5 面向连接的运输：TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-1-TCP连接"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">3.5.1 TCP连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-2-TCP报文段结构"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">3.5.2 TCP报文段结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-4-可靠传输协议"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">3.5.4 可靠传输协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-5-流量控制"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">3.5.5 流量控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-6-TCP连接管理"><span class="nav-number">1.0.4.5.</span> <span class="nav-text">3.5.6 TCP连接管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-TCP拥塞控制"><span class="nav-number">1.0.5.</span> <span class="nav-text">3.7 TCP拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP拥塞控制算法"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">TCP拥塞控制算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、慢启动"><span class="nav-number">1.0.5.1.1.</span> <span class="nav-text">1、慢启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、拥塞避免模式"><span class="nav-number">1.0.5.1.2.</span> <span class="nav-text">2、拥塞避免模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、快速恢复"><span class="nav-number">1.0.5.1.3.</span> <span class="nav-text">3、快速恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、-TCP拥塞控制回顾"><span class="nav-number">1.0.5.1.4.</span> <span class="nav-text">4、 TCP拥塞控制回顾</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、对TCP吞吐量的宏观描述"><span class="nav-number">1.0.5.1.5.</span> <span class="nav-text">5、对TCP吞吐量的宏观描述</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP和UDP中公平性的讨论"><span class="nav-number">1.0.6.</span> <span class="nav-text">TCP和UDP中公平性的讨论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-小结"><span class="nav-number">1.0.7.</span> <span class="nav-text">3.8 小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

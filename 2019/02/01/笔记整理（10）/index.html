@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,mysql,Jdbc,连接池,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔记整理（10）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  操作JavaBean标签 构造JavaBean对象&amp;lt;jsp:useBean id=&amp;quot;s&amp;quot; class=&amp;quot;cn.ustb.Demo1&amp;quot;&amp;gt;&amp;lt;/jsp:useBean&amp;gt;id:对象名  class：包名+类名  scope：制定实例对象存储的域区域">
+<meta name="keywords" content="Java,mysql,Jdbc,连接池">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记整理（10）">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/笔记整理（10）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="笔记整理（10）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  操作JavaBean标签 构造JavaBean对象&amp;lt;jsp:useBean id=&amp;quot;s&amp;quot; class=&amp;quot;cn.ustb.Demo1&amp;quot;&amp;gt;&amp;lt;/jsp:useBean&amp;gt;id:对象名  class：包名+类名  scope：制定实例对象存储的域区域">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-03-25T06:10:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔记整理（10）">
+<meta name="twitter:description" content="笔记整理（10）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  操作JavaBean标签 构造JavaBean对象&amp;lt;jsp:useBean id=&amp;quot;s&amp;quot; class=&amp;quot;cn.ustb.Demo1&amp;quot;&amp;gt;&amp;lt;/jsp:useBean&amp;gt;id:对象名  class：包名+类名  scope：制定实例对象存储的域区域">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/笔记整理（10）/">
+
+
+
+
+
+  <title>笔记整理（10） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/笔记整理（10）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">笔记整理（10）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/笔记整理/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记整理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="笔记整理（10）"><a href="#笔记整理（10）" class="headerlink" title="笔记整理（10）"></a>笔记整理（10）</h1><p><em>整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。</em></p>
+<hr>
+<h4 id="操作JavaBean标签"><a href="#操作JavaBean标签" class="headerlink" title="操作JavaBean标签"></a>操作JavaBean标签</h4><ol>
+<li>构造JavaBean对象<br><code>&lt;jsp:useBean id=&quot;s&quot; class=&quot;cn.ustb.Demo1&quot;&gt;&lt;/jsp:useBean&gt;</code><br>id:对象名  class：包名+类名  scope：制定实例对象存储的域区域，paga、request、session、application默认page。</li>
+<li>给JavaBean对象赋值<br><code>&lt;jsp:setProperty name=&quot;&quot; property=&quot;&quot; value=&quot;&quot;/&gt;</code><br>name：赋值的对象名称  property：给对象的哪个属性赋值  value：值</li>
+<li>获取JavaBean的属性<br><code>&lt;jsp:getProperty name=&quot;&quot; property=&quot;&quot;/&gt;</code><br>name：对象名  property：属性名</li>
+</ol>
+<h4 id="MVC模型"><a href="#MVC模型" class="headerlink" title="MVC模型"></a>MVC模型</h4><p>MVC开发模型：Jsp+servlet+Javabean</p>
+<pre><code>- Model：Javabean，封装业务数据。
+- view：jsp，显示数据。
+- Controller：servlet，控制模型和视图的关系。
+</code></pre><h4 id="项目的三层结构"><a href="#项目的三层结构" class="headerlink" title="项目的三层结构"></a>项目的三层结构</h4><ul>
+<li>DAO层：集中编写对实体对象的CRUD方法，面向接口编程。</li>
+<li>SERVICE层：集中编写系统中的业务逻辑方法。</li>
+<li>WEB层：处理用户的请求和视图跳转（servlet+jsp）</li>
+</ul>
+<h3 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h3><h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><ul>
+<li>查看所有数据库：show databases;</li>
+<li>创建数据库：create database XXX default character set utf8;</li>
+<li>删除数据库：drop database XXX;</li>
+<li>修改：alter database XXX default character set gbk;</li>
+</ul>
+<h4 id="管理表"><a href="#管理表" class="headerlink" title="管理表"></a>管理表</h4><ul>
+<li>切换数据库：use XXX;</li>
+<li>查询所有表：show tables;</li>
+<li>创建表：<br><code>create table TTT(
+  id int,
+  name varchar(20);
+  age int
+);</code></li>
+<li>查看表结构：<ul>
+<li>show create table TTT;(以sql格式返回)</li>
+<li>desc TTT(以表格方式)</li>
+</ul>
+</li>
+<li>删除表:drop table TTT;</li>
+<li>修改表：<ul>
+<li>添加字段：alter table TTT add column COLUMNNAME TYPE(LENGTH);多个操作，多个add，逗号隔开<code>alter table TTT add column a int(10), add b int(20);</code></li>
+<li>修改字段类型：alter table TTT modify column COLUMNNAME varchar(100);</li>
+<li>修改字符名称：alter table TTT change column COLUMNNAME NEWNAME 类型；</li>
+<li>删除字段：alter table TTT drop column COLUMNNAME,drop column COLUMNNAME2;</li>
+<li>修改表名：alter table TTT rename to NEWNAME;</li>
+</ul>
+</li>
+</ul>
+<h4 id="管理数据"><a href="#管理数据" class="headerlink" title="管理数据"></a>管理数据</h4><ul>
+<li>查看所有数据：select * from TTT;</li>
+<li>插入数据：insert into TTT values();插入部分和值的顺序和数量要保持一致。<code>insert into person(id,name,gender) values(3,&#39;&#39;mike,&#39;male&#39;);</code></li>
+<li>修改数据：<ul>
+<li>修改所有：update TTT set COLUMN=’new value’;</li>
+<li>修改某一个数据：update TTT set COLUMN=’’ where COLUMN2 = ‘’;</li>
+<li>修改某一条多列：update TTT set COLUMN1=’’,set COLUMN2=’’ where id = 2;</li>
+</ul>
+</li>
+<li>删除数据：<ul>
+<li>全表删除：delete from TTT;</li>
+<li>条件删除：delete from TTT where …;</li>
+<li>truncate删除：truncate table TTT;</li>
+</ul>
+<ol>
+<li>truncate只能全标删除，不能按条件删除；</li>
+<li>delete from删除可以<strong>回滚</strong>，truncate不能回滚。</li>
+<li>truncate会把自增长约束（auto increment）重置，前者不会。</li>
+</ol>
+</li>
+</ul>
+<h4 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h4><ul>
+<li>查询去除重复数据：select distinct COLUMN from TTT;(取出column中的重复数据)</li>
+<li>判空条件查询：=””; isnull; &lt;&gt;””; is not null</li>
+<li>模糊条件：like + %:任意多个字符  _:表示一个字符</li>
+<li><strong>聚合查询</strong>：SUM/AVG/MAX/MIN/COUNT：count(id) better than count(*)</li>
+<li>分页查询：limit 起始行数，查询的行数；<code>select * from TTT limit 10,5;</code></li>
+<li>查询后排序：order by     // desc:降序  asc:升序 <code>select * from TTT order by COLUMN desc,COLUMN2 asc;</code></li>
+<li><strong>分组查询</strong>：group by //<code>select * from TTT group by COLUMN;</code></li>
+<li><strong>分组后筛选</strong>：group by + having (条件)//<code>select * from TTT group by COLUMN having ...;</code></li>
+</ul>
+<h4 id="数据约束"><a href="#数据约束" class="headerlink" title="数据约束"></a>数据约束</h4><ul>
+<li><p>外键约束：约束两张表的数据(foreign key)在副表中定义以下语句：<br><code>constraint employ_dept_fk(外键名称) foreign key (deptId外键字段) references dept主表(id参考字段);</code></p>
+</li>
+<li><p>级联技术（外键的基础上）：修改或者删除主表的数据，同时能影响到副表的数据。</p>
+<ul>
+<li>添加级联修改：on update cascade;</li>
+<li>添加级联删除：on delete cascade;<br><code>constraint employee_dept_fk foreign key  (deptId) references dept(id) on update cascade on delete cascade;</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h4><ol>
+<li>交叉连接查询（笛卡尔积），产生笛卡尔积的原因是没有足够的连接条件。<br>多表查询的步骤：a、查询哪些表。b、查询哪些字段。3、确定哪些条件。</li>
+<li>内连接查询（只有满足链接条件的数据才会显示出来）<br><code>select a.id,b.deptId from table1 a,table2 b where a.id = b.deptId;</code><br><code>select a.id,b.deptId from table1 a inner join table2 b on a.id = b.deptId;</code></li>
+<li>左连接查询（左表完全显示，右表只有满足条件才会显示，否则显示null）<br><code>select a.id,b.deptId from table1 a left outer join table2 b on a.id = b. deptId;</code></li>
+<li>右连接查询<br><code>select a.id,b.deptId from table1 a right outer join table2 b on a.id = b.deptId;</code></li>
+<li>自连接查询：同一表中各字段查询。<br><code>select a.id,b.deptId from table1 a left outer join table2 b on a.id = b.deptId;</code> </li>
+</ol>
+<h4 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h4><p>暂未复习        </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line">什么是存储过程</span><br><span class="line">		存储过程，带有逻辑的sql语句</span><br><span class="line">				之前的sql没有条件判断，没有循环</span><br><span class="line">			存储过程带上流程控制语句（if  while）</span><br><span class="line">		存储过程特点</span><br><span class="line">				1）执行效率非常快！存储过程是在数据库的服务器端执行的！！！</span><br><span class="line">				2）移植性很差！不同数据库的存储过程是不能移植。</span><br><span class="line">				</span><br><span class="line">		存储过程语法</span><br><span class="line"><span class="comment">-- 创建存储过程</span></span><br><span class="line">DELIMITER $       <span class="comment">-- 声明存储过程的结束符</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_test()           <span class="comment">--存储过程名称(参数列表)</span></span><br><span class="line"><span class="keyword">BEGIN</span>             <span class="comment">-- 开始</span></span><br><span class="line">	<span class="comment">-- 可以写多个sql语句;          -- sql语句+流程控制</span></span><br><span class="line">	<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employee;</span><br><span class="line"><span class="keyword">END</span> $            <span class="comment">-- 结束 结束符</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行存储过程</span></span><br><span class="line"><span class="keyword">CALL</span> pro_test();          <span class="comment">-- CALL 存储过程名称(参数);</span></span><br><span class="line"></span><br><span class="line">参数：</span><br><span class="line">IN：   表示输入参数，可以携带数据带存储过程中</span><br><span class="line">OUT： 表示输出参数，可以从存储过程中返回结果</span><br><span class="line">INOUT： 表示输入输出参数，既可以输入功能，也可以输出功能</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line"><span class="comment">-- **************三、存储过程*******************-</span></span><br><span class="line"><span class="comment">-- 声明结束符</span></span><br><span class="line"><span class="comment">-- 创建存储过程</span></span><br><span class="line">DELIMITER $</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_test()</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="comment">-- 可以写多个sql语句;</span></span><br><span class="line">	<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employee;</span><br><span class="line"><span class="keyword">END</span> $</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行存储过程</span></span><br><span class="line"><span class="keyword">CALL</span> pro_test();</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3.1 带有输入参数的存储过程</span></span><br><span class="line"><span class="comment">-- 需求：传入一个员工的id，查询员工信息</span></span><br><span class="line">DELIMITER $</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_findById(<span class="keyword">IN</span> eid <span class="built_in">INT</span>)  <span class="comment">-- IN: 输入参数</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employee <span class="keyword">WHERE</span> <span class="keyword">id</span>=eid;</span><br><span class="line"><span class="keyword">END</span> $ </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 调用</span></span><br><span class="line"><span class="keyword">CALL</span> pro_findById(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3.2 带有输出参数的存储过程</span></span><br><span class="line">DELIMITER $</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_testOut(<span class="keyword">OUT</span> <span class="keyword">str</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>))  <span class="comment">-- OUT：输出参数</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">        <span class="comment">-- 给参数赋值</span></span><br><span class="line">	<span class="keyword">SET</span> <span class="keyword">str</span>=<span class="string">'helljava'</span>;</span><br><span class="line"><span class="keyword">END</span> $</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除存储过程</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> pro_testOut;</span><br><span class="line"><span class="comment">-- 调用</span></span><br><span class="line"><span class="comment">-- 如何接受返回参数的值？？</span></span><br><span class="line"><span class="comment">-- ***mysql的变量******</span></span><br><span class="line"><span class="comment">--  全局变量（内置变量）：mysql数据库内置的变量 （所有连接都起作用）</span></span><br><span class="line">        <span class="comment">-- 查看所有全局变量： show variables</span></span><br><span class="line">        <span class="comment">-- 查看某个全局变量： select @@变量名</span></span><br><span class="line">        <span class="comment">-- 修改全局变量： set 变量名=新值</span></span><br><span class="line">        <span class="comment">-- character_set_client: mysql服务器的接收数据的编码</span></span><br><span class="line">        <span class="comment">-- character_set_results：mysql服务器输出数据的编码</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">--  会话变量： 只存在于当前客户端与数据库服务器端的一次连接当中。如果连接断开，那么会话变量全部丢失！</span></span><br><span class="line">        <span class="comment">-- 定义会话变量: set @变量=值</span></span><br><span class="line">        <span class="comment">-- 查看会话变量： select @变量</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">-- 局部变量： 在存储过程中使用的变量就叫局部变量。只要存储过程执行完毕，局部变量就丢失！！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 1)定义一个会话变量name, 2)使用name会话变量接收存储过程的返回值</span></span><br><span class="line"><span class="keyword">CALL</span> pro_testOut(@<span class="keyword">NAME</span>);</span><br><span class="line"><span class="comment">-- 查看变量值</span></span><br><span class="line"><span class="keyword">SELECT</span> @<span class="keyword">NAME</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3.3 带有输入输出参数的存储过程</span></span><br><span class="line">DELIMITER $</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_testInOut(INOUT n <span class="built_in">INT</span>)  <span class="comment">-- INOUT： 输入输出参数</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">   <span class="comment">-- 查看变量</span></span><br><span class="line">   <span class="keyword">SELECT</span> n;</span><br><span class="line">   <span class="keyword">SET</span> n =<span class="number">500</span>;</span><br><span class="line"><span class="keyword">END</span> $</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 调用</span></span><br><span class="line"><span class="keyword">SET</span> @n=<span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> pro_testInOut(@n);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> @n;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3.4 带有条件判断的存储过程</span></span><br><span class="line"><span class="comment">-- 需求：输入一个整数，如果1，则返回“星期一”,如果2，返回“星期二”,如果3，返回“星期三”。其他数字，返回“错误输入”;</span></span><br><span class="line">DELIMITER $</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_testIf(<span class="keyword">IN</span> <span class="keyword">num</span> <span class="built_in">INT</span>,<span class="keyword">OUT</span> <span class="keyword">str</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>))</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">IF</span> <span class="keyword">num</span>=<span class="number">1</span> <span class="keyword">THEN</span></span><br><span class="line">		<span class="keyword">SET</span> <span class="keyword">str</span>=<span class="string">'星期一'</span>;</span><br><span class="line">	ELSEIF num=2 THEN</span><br><span class="line">		<span class="keyword">SET</span> <span class="keyword">str</span>=<span class="string">'星期二'</span>;</span><br><span class="line">	ELSEIF num=3 THEN</span><br><span class="line">		<span class="keyword">SET</span> <span class="keyword">str</span>=<span class="string">'星期三'</span>;</span><br><span class="line">	ELSE</span><br><span class="line">		<span class="keyword">SET</span> <span class="keyword">str</span>=<span class="string">'输入错误'</span>;</span><br><span class="line">	<span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line"><span class="keyword">END</span> $</span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> pro_testIf(<span class="number">4</span>,@<span class="keyword">str</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">SELECT</span> @<span class="keyword">str</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3.5 带有循环功能的存储过程</span></span><br><span class="line"><span class="comment">-- 需求： 输入一个整数，求和。例如，输入100，统计1-100的和</span></span><br><span class="line">DELIMITER $</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_testWhile(<span class="keyword">IN</span> <span class="keyword">num</span> <span class="built_in">INT</span>,<span class="keyword">OUT</span> <span class="keyword">result</span> <span class="built_in">INT</span>)</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="comment">-- 定义一个局部变量</span></span><br><span class="line">	<span class="keyword">DECLARE</span> i <span class="built_in">INT</span> <span class="keyword">DEFAULT</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">DECLARE</span> vsum <span class="built_in">INT</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>;</span><br><span class="line">	WHILE i&lt;=num DO</span><br><span class="line">	      <span class="keyword">SET</span> vsum = vsum+i;</span><br><span class="line">	      <span class="keyword">SET</span> i=i+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">END</span> <span class="keyword">WHILE</span>;</span><br><span class="line">	<span class="keyword">SET</span> <span class="keyword">result</span>=vsum;</span><br><span class="line"><span class="keyword">END</span> $</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> pro_testWhile;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> pro_testWhile(<span class="number">100</span>,@<span class="keyword">result</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> @<span class="keyword">result</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">USE</span> day16;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 3.6 使用查询的结果赋值给变量（INTO）</span></span><br><span class="line">DELIMITER $</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> pro_findById2(<span class="keyword">IN</span> eid <span class="built_in">INT</span>,<span class="keyword">OUT</span> vname <span class="built_in">VARCHAR</span>(<span class="number">20</span>) )</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">SELECT</span> empName <span class="keyword">INTO</span> vname <span class="keyword">FROM</span> employee <span class="keyword">WHERE</span> <span class="keyword">id</span>=eid;</span><br><span class="line"><span class="keyword">END</span> $</span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> pro_findById2(<span class="number">1</span>,@<span class="keyword">NAME</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> @<span class="keyword">NAME</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h4><p>触发器作用<br>当操作了某张表时，希望同时触发一些动作/行为，可以使用触发器完成！！</p>
+<ul>
+<li>创建触发器(添加)<br>CREATE TRIGGER tri_empAdd AFTER <strong>INSERT</strong> ON employee FOR EACH ROW    – 当往员工表插入一条记录时<br>   INSERT INTO test_log(content) VALUES(‘员工表插入了一条记录’);</li>
+</ul>
+<ul>
+<li>创建触发器(修改)<br>CREATE TRIGGER tri_empUpd AFTER <strong>UPDATE</strong> ON employee FOR EACH ROW    – 当往员工表修改一条记录时<br>   INSERT INTO test_log(content) VALUES(‘员工表修改了一条记录’);</li>
+</ul>
+<ul>
+<li><p>创建触发器(删除)<br>CREATE TRIGGER tri_empDel AFTER <strong>DELETE</strong> ON employee FOR EACH ROW    – 当往员工表删除一条记录时<br>   INSERT INTO test_log(content) VALUES(‘员工表删除了一条记录’);</p>
+</li>
+<li><p>删除触发器<br>DROP TRIGGER trigger_name;</p>
+</li>
+</ul>
+<h5 id="分别修改表和字段编码"><a href="#分别修改表和字段编码" class="headerlink" title="分别修改表和字段编码"></a>分别修改表和字段编码</h5><ul>
+<li><p>修改表的编码方式：ALTER TABLE <code>test</code> DEFAULT CHARACTER SET utf8;该命令用于将表test的编码方式改为utf8； </p>
+</li>
+<li><p>修改字段的编码方式：ALTER TABLE <code>test</code> CHANGE <code>name</code> <code>name</code> VARCHAR(36) CHARACTER SET utf8 NOT NULL; 该命令用于将表test中name字段的编码方式改为utf8</p>
+</li>
+</ul>
+<h4 id="mysql权限问题"><a href="#mysql权限问题" class="headerlink" title="mysql权限问题"></a>mysql权限问题</h4><ul>
+<li>mysql数据库权限问题：root ：拥有所有权限（可以干任何事情）<br>– 权限账户，只拥有部分权限（CURD）例如，只能操作某个数据库的某张表<br>– 如何修改mysql的用户密码？<br>– password: md5加密函数(单向加密)<br>SELECT PASSWORD(‘root’); – *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B</li>
+</ul>
+<hr>
+<ul>
+<li>mysql数据库，用户配置 : user表<br>USE mysql;</li>
+</ul>
+<p>SELECT * FROM USER;</p>
+<ul>
+<li><p>修改密码<br>UPDATE USER SET PASSWORD=PASSWORD(‘123456’) WHERE USER=’root’;</p>
+</li>
+<li><p>分配权限账户<br>GRANT SELECT ON day14.table1 TO ‘user1‘@’localhost’ IDENTIFIED BY ‘123456’;<br>GRANT DELETE ON day14.table1 TO ‘user1‘@’localhost’ IDENTIFIED BY ‘123456’;</p>
+</li>
+</ul>
+<h5 id="如何创建用户？"><a href="#如何创建用户？" class="headerlink" title="如何创建用户？"></a>如何创建用户？</h5><p>create user userName identified by ‘password’;</p>
+<h5 id="如何切换用户？"><a href="#如何切换用户？" class="headerlink" title="如何切换用户？"></a>如何切换用户？</h5><p>先退出当前用户。mysql -u username -p database回车输入密码</p>
+<h5 id="快速构建表结构相同的表？"><a href="#快速构建表结构相同的表？" class="headerlink" title="快速构建表结构相同的表？"></a>快速构建表结构相同的表？</h5><p>create table table2 like table1;</p>
+<h3 id="Jdbc"><a href="#Jdbc" class="headerlink" title="Jdbc"></a>Jdbc</h3><p>Jdbc是Oracle—sun公司设计的专门用于<strong>Java程序操作数据库</strong>的<strong>一套接口</strong>。</p>
+<h4 id="Jdbc的核心API"><a href="#Jdbc的核心API" class="headerlink" title="Jdbc的核心API"></a>Jdbc的核心API</h4><p>导入驱动包 mysql-connector-java-5….-bin.jar<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">|-Driver接口： 数据库驱动程序的接口，所有具体数据库厂商需要的驱动程序需要实现此接口。</span><br><span class="line">			<span class="function">Connection <span class="title">connect</span><span class="params">(String url, Properties info)</span>  用于获取数据库连接</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">		|-Connection接口：与具体的数据库的连接对象。</span></span><br><span class="line"><span class="function">				Statement <span class="title">createStatement</span><span class="params">()</span>    创建一个静态sql语句对象</span></span><br><span class="line"><span class="function">				PreparedStatement <span class="title">prepareStatement</span><span class="params">(String sql)</span>  创建预编译的sql语句对象</span></span><br><span class="line"><span class="function">				CallableStatement <span class="title">prepareCall</span><span class="params">(String sql)</span>   创建存储过程的sql语句对象</span></span><br><span class="line"><span class="function">			</span></span><br><span class="line"><span class="function">		|-Statement接口：用于执行静态 SQL 语句</span></span><br><span class="line"><span class="function">				<span class="keyword">int</span> <span class="title">executeUpdate</span><span class="params">(String sql)</span>  执行更新操作的sql语句（create/alter/drop/insert/update/delete）</span></span><br><span class="line"><span class="function">				ResultSet <span class="title">executeQuery</span><span class="params">(String sql)</span>  执行查询操作的sql语句</span></span><br><span class="line"><span class="function">												<span class="params">(select)</span></span></span><br><span class="line"><span class="function">		</span></span><br><span class="line"><span class="function">				|- PreparedStatement接口：用于执行预编译的 SQL 语句（是Statement的子接口）</span></span><br><span class="line"><span class="function">					<span class="keyword">int</span> <span class="title">executeUpdate</span><span class="params">()</span>  执行更新操作的sql语句</span></span><br><span class="line"><span class="function">					ResultSet <span class="title">executeQuery</span><span class="params">()</span>  执行查询操作的sql语句</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">						|- CallableStatement接口：用于执行 SQL 存储过程的接口（是PreparedStatement的子接口）</span></span><br><span class="line"><span class="function">								ResultSet <span class="title">executeQuery</span><span class="params">()</span>  执行存储过程的sql语句</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">		|- ResultSet接口：结果集对象。 存储所有数据库查询的结果，用该对象进行数据遍历。</span></span><br><span class="line"><span class="function">				<span class="keyword">boolean</span> <span class="title">next</span><span class="params">()</span> ： 把光标移动到下一行。如果下一行有数据，返回<span class="keyword">true</span>，如果没有下一行数据，返回<span class="keyword">false</span>。</span></span><br><span class="line"><span class="function">				getXXX（列索引|列字段名称）： 获取字段的数据</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Jdbc操作步骤"><a href="#Jdbc操作步骤" class="headerlink" title="Jdbc操作步骤"></a>Jdbc操作步骤</h4><ol>
+<li>注册驱动程序 <code>Class.forName(&quot;com.mysql.Jdbc.Driver&quot;);</code></li>
+<li>获取连接对象<ul>
+<li>方式1：直接使用驱动程序链接：<code>driver.connet(url,properties);</code>通过url识别需要连接的数据库。</li>
+<li>方式2：使用驱动管理类DriverManager链接数据库。<code>DriverManager.getConnection(url,properties);</code></li>
+</ul>
+</li>
+<li>创建statement对象<code>conn.createStatement();</code></li>
+<li>执行sql语句<ul>
+<li>DDL+DML：executeUpdate(sql);</li>
+<li>DQL：executeQuery(sql);</li>
+</ul>
+</li>
+<li>返回结果 executeQuery()反馈ResultSet</li>
+</ol>
+<h5 id="URL详解"><a href="#URL详解" class="headerlink" title="URL详解"></a>URL详解</h5><p>Jdbc协议+数据库协议+主机地址+端口+链接的数据库</p>
+<h5 id="关于注册驱动"><a href="#关于注册驱动" class="headerlink" title="关于注册驱动"></a>关于注册驱动</h5><p>Class.forName(“com.mysql.Jdbc.Driver”);在Driver类中的<strong>静态代码块</strong>在类加载的时候<strong>执行了注册</strong>。我们不需要new 对象注册。<br>详解：<a href="https://zhidao.baidu.com/question/495508609917097644.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/495508609917097644.html</a></p>
+<h4 id="关于DDL、DML、DQL"><a href="#关于DDL、DML、DQL" class="headerlink" title="关于DDL、DML、DQL"></a>关于DDL、DML、DQL</h4><p>DDL（data define language）:create\alter\drop<br>DML（data manipulation language）：insert\update\delete\truncate<br>DQL（data query language）：select\show</p>
+<h4 id="关于ResultSet"><a href="#关于ResultSet" class="headerlink" title="关于ResultSet"></a>关于ResultSet</h4><ul>
+<li>next()返回下个是否存在，控制指针下移一位。</li>
+<li>getObject()</li>
+<li>getInt();</li>
+<li>getString();参数可以是index也可以是字段名。index从1开始。</li>
+<li>一行的列数：<code>set.getMetaDate().getColumnCount();</code>元数据封装了返回的ResultSet信息。</li>
+</ul>
+<h4 id="statement与preparestatement-的区别："><a href="#statement与preparestatement-的区别：" class="headerlink" title="statement与preparestatement 的区别："></a>statement与preparestatement 的区别：</h4><p>1、语法不同。静态与动态，？占位符的区别。<br>2、安全性不同。statement可能会被注入！！<br>3、在Oracle中，由于存在sql缓存区，PreparedStatement相同的语句不会重复创建，因此效率更高。</p>
+<p>prepared赋值索引从1开始，没有参数不需赋值。?没有引号。</p>
+<h4 id="使用类路径的方式加载db-properties文件"><a href="#使用类路径的方式加载db-properties文件" class="headerlink" title="使用类路径的方式加载db.properties文件"></a>使用类路径的方式加载db.properties文件</h4><ol>
+<li>获取类对象<br>Class clazz = 类名.class;</li>
+<li>使用类路径读取方法去读取文件<br>clazz.getResourceAsStream(“/db.properties”);</li>
+</ol>
+<h4 id="关于相对路径在Web中"><a href="#关于相对路径在Web中" class="headerlink" title="关于相对路径在Web中"></a>关于相对路径在Web中</h4><p><strong>.</strong>代表相对路径：代表当前目录，本质是<strong>Java命令运行的目录</strong>。<br>java项目中：相对路径代表<strong>项目的根目录</strong>。<br>web项目中：相对路径指的是<strong>tomcat的bin目录</strong>。因此：web项目中<strong>不能使用相对路径</strong>，即不能使用<strong>.</strong><br>在web项目中一般使用：ServletContext.getRealPath()+”/“获取路径。但这种方Java项目中不通用。</p>
+<p>因此使用类路径的方式获取配置文件。</p>
+<p><strong>“/”代表当前项目的类路径的根目录</strong>：</p>
+<ul>
+<li>在Java项目下：类路径的根目录指向项目的<strong>bin</strong>目录。不是src目录哟，但是src下的配置文件也会拷贝到bin目录下。</li>
+<li>在Web项目下：类路径的根目录指向项目的WEB-INF/classes目录。而当把配置文件放置在src的根目录下时，这些文件会自动拷贝到项目的类路径根目录下，即WEB-INF/classes目录，因此通过“/”的方式，是可以找到web项目下的properties文件的。</li>
+</ul>
+<h4 id="Jdbc处理大容量数据"><a href="#Jdbc处理大容量数据" class="headerlink" title="Jdbc处理大容量数据"></a>Jdbc处理大容量数据</h4><ul>
+<li><p>mysql：<br>字符串： <strong>varchar</strong> <strong>char</strong> 16位 65535=2^16-1<br>&lt;字符&gt; 大文本数据：<strong>tinytext</strong>，<strong>longtext</strong>，<strong>text</strong><br>字节：<strong>bit</strong><br>&lt;字节&gt;大字节文件：<strong>tinyblob</strong>(255byte)，<strong>blob</strong>(64kb)，<strong>MEDIUMBLOB</strong>(约16M)，<strong>longBlob</strong>(4GB)</p>
+</li>
+<li><p>oracle<br>字符串： <strong>varcharz</strong> <strong>char</strong> 16位 65535=2^16-1<br>&lt;字符&gt; 大文本数据：<strong>clob</strong><br>字节：<strong>bit</strong><br>&lt;字节&gt;大字节文件：<strong>blob</strong></p>
+</li>
+</ul>
+<p>针对mysql</p>
+<ul>
+<li>text类型，prepareStatement.setCharacterStream(Reader);</li>
+<li>blob类型，prepareStatement.setBlob(InputStream);</li>
+<li>读取<ul>
+<li>ResultSet:getString,getClob,getBlob,getBinaryStream</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Connect3</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Connection conn = DriverManager.getConnection(<span class="string">"Jdbc:mysql:///day14?useUnicode=true&amp;characterEncoding=utf8"</span>,<span class="string">"root"</span>,<span class="string">"root"</span>);</span><br><span class="line">			PreparedStatement ps = conn.prepareStatement(<span class="string">"insert into table5(title,content,video) values(?,?,?)"</span>);</span><br><span class="line">			ps.setString(<span class="number">1</span>, <span class="string">"中文"</span>);</span><br><span class="line">			Reader reader = <span class="keyword">new</span> FileReader(<span class="keyword">new</span> File(<span class="string">"H:/Java核心技术（卷一）（第六章 接口与内部类）.md"</span>));</span><br><span class="line">			ps.setCharacterStream(<span class="number">2</span>, reader);</span><br><span class="line">			InputStream is = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(<span class="string">"f:/CloudMusic/Imagine Dragons - Radioactive (Acoustic).mp3"</span>));</span><br><span class="line">			ps.setBlob(<span class="number">3</span>, is);</span><br><span class="line">			</span><br><span class="line">			ps.execute();</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注：mysql数据库默认情况下，只能存储不超过1m的文件，由于max_allowed_packet变量的限制。可以修改： %mysql%/my.ini文件, 修改或添加max_allowed_packet变量，然后重启mysql即可。</p>
+<h4 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h4><p>多条sql语句一起执行，一起成功一起失败。</p>
+<h5 id="mysql事务操作命令"><a href="#mysql事务操作命令" class="headerlink" title="mysql事务操作命令"></a>mysql事务操作命令</h5><p>set autocommit =0 / 1;            设置是否自动提交事务<br>        – 1： 表示自动提交事务，每执行一条sql语句，自动提交事务。<br>        – 0： 表示关闭自动提交事务。<br>start transaction;    开启事务<br>commit;           提交事务，一旦提交事务不能回滚<br>rollback;           回滚事务。回滚到事务的起始点。</p>
+<h5 id="Jdbc事务操作"><a href="#Jdbc事务操作" class="headerlink" title="Jdbc事务操作"></a>Jdbc事务操作</h5><p>Connection.setAutoCommit(false)  开启事务<br>Connection.commit();  成功执行，最后提交事务<br>Connection.rollback();  一旦遇到错误，回滚事务</p>
+<p>事务4大特性<br>原子性： 要么一起成功过，要么一起失败<br>一致性： 数据库应该从一个一致性的状态到另一个一致性的状态，保持不变<br>隔离性： 多个并发事务直接应该可以相互隔离</p>
+<ul>
+<li>脏读：一个事务读到另一个事务未提交的数据。</li>
+<li>不可重复读：一个事务中读到另一事务已提交的数据，即同一事务中读到的同一字段信息不一样。</li>
+<li>幻读：一个事务中读到另一事务已提交的<strong>新插入</strong>的数据。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">不可重复读的重点是修改:</span><br><span class="line">同样的条件, 你读取过的数据, 再次读取出来发现值不一样了</span><br><span class="line"></span><br><span class="line">幻读的重点在于新增或者删除</span><br><span class="line">同样的条件, 第1次和第2次读出来的记录数不一样</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">								脏读     不可重复读   幻读</span><br><span class="line">			read uncommitted:     否         否         否</span><br><span class="line">			read committed :      是         否         否</span><br><span class="line">			repeatable read:      是         是         否</span><br><span class="line">			serializable：        是         是         是</span><br><span class="line"></span><br><span class="line">	    结论： 隔离性越高，数据库的性能越差。</span><br></pre></td></tr></table></figure>
+<p>持久性： 事务一旦提交，应该永久保持下来。</p>
+<h4 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h4><h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ol>
+<li>提高Connection对象的利用率，提高执行sql的效率。</li>
+<li>控制Java程序使用连接数据库的最大连接数，防止数据库崩溃。</li>
+</ol>
+<h4 id="连接池工具"><a href="#连接池工具" class="headerlink" title="连接池工具"></a>连接池工具</h4><h5 id="DBCP连接池"><a href="#DBCP连接池" class="headerlink" title="DBCP连接池"></a>DBCP连接池</h5><p>DBCP: <strong>DataBase Connection Pool</strong><br><strong>特点：</strong></p>
+<pre><code>1. Apache旗下的软件，开源连接池
+2. Tomcat的服务器的连接池默认实现
+</code></pre><p><strong>使用步骤：</strong></p>
+<pre><code>1. 导入dbcp的jar包
+    commons-dbcp-1.4.jar  核心包
+    commons-pool-1.5.6.jar 辅助包
+2. 创建连接池对象BasicDataSource对象
+3. 设置连接参数（url，user，password，dirverClass）
+4. 设置连接池参数（初始连接数，最大连接数，最大等待时间）
+5. 获取连接对象（getConnection() 方法）
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//1.创建连接池对象</span></span><br><span class="line">			BasicDataSource ds = <span class="keyword">new</span> BasicDataSource();</span><br><span class="line">			<span class="comment">//2.设置连接参数</span></span><br><span class="line">			ds.setUrl(<span class="string">"Jdbc:mysql://localhost:3306/day14"</span>);</span><br><span class="line">			ds.setUsername(<span class="string">"root"</span>);</span><br><span class="line">			ds.setPassword(<span class="string">"root"</span>);</span><br><span class="line">			ds.setDriverClassName(<span class="string">"com.mysql.Jdbc.Driver"</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//3.设置连接池参数</span></span><br><span class="line">			ds.setInitialSize(<span class="number">5</span>);<span class="comment">//初始连接数</span></span><br><span class="line">			ds.setMaxActive(<span class="number">8</span>);<span class="comment">//最大连接数</span></span><br><span class="line">			ds.setMaxWait(<span class="number">3000</span>);<span class="comment">//超过最大连接数时，最大等待时间</span></span><br><span class="line">			ds.setMaxIdle(<span class="number">3000</span>);<span class="comment">//最大空闲时间</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment">//4.获取连接</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">9</span>;i++)&#123;</span><br><span class="line">				Connection conn = ds.getConnection();</span><br><span class="line">				System.out.println(conn.hashCode());</span><br><span class="line">				<span class="keyword">if</span>(i==<span class="number">5</span>)&#123;</span><br><span class="line">					<span class="comment">//释放连接(不是真正的关闭连接对象，而是把连接对象放回连接池)</span></span><br><span class="line">					conn.close();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>使用配置文件加载</strong><br><code>BasicDataSource ds = (BasicDataSource)BasicDataSourceFactory.createDataSource(prop);</code></p>
+<h5 id="C3P0连接池"><a href="#C3P0连接池" class="headerlink" title="C3P0连接池"></a>C3P0连接池</h5><p>特点：<br>    1）开源连接池<br>    2）<strong>Hibernate</strong>框架，默认推荐使用C3P0作为连接池实现</p>
+<p>使用步骤：<br>    1）导入c3p0的jar包<br>        c3p0-0.9.1.2.jar 核心包<br>    2）创建连接池对象ComboPooledDataSource对象<br>    3）设置连接参数（url，user，password，dirverClass）<br>    4）设置连接池参数（初始连接数，最大连接数，最大等待时间）<br>    5）获取连接对象（getConnection() 方法）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">//1.创建连接池对象</span></span><br><span class="line">		ComboPooledDataSource ds = <span class="keyword">new</span> ComboPooledDataSource();</span><br><span class="line">		<span class="comment">//2.设置连接参数</span></span><br><span class="line">		ds.setDriverClass(<span class="string">"com.mysql.Jdbc.Driver"</span>);</span><br><span class="line">		ds.setJdbcUrl(<span class="string">"Jdbc:mysql://localhost:3306/day19"</span>);</span><br><span class="line">		ds.setUser(<span class="string">"root"</span>);</span><br><span class="line">		ds.setPassword(<span class="string">"root"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//3.设置连接池参数</span></span><br><span class="line">		ds.setInitialPoolSize(<span class="number">5</span>);<span class="comment">// 初始化连接数</span></span><br><span class="line">		ds.setMaxPoolSize(<span class="number">8</span>);<span class="comment">//最大连接数</span></span><br><span class="line">		ds.setCheckoutTimeout(<span class="number">3000</span>);<span class="comment">//最大等待时间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>使用配置方式读取参数信息</strong><br>注意： c3p0会默认查询类路径的c3p0-config.xml文件，文件名不能错<br><code>&lt;default-config&gt;</code><br><code>&lt;named-config&gt;调用有参构造方法时需配置</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">//1.创建连接池对象（方式一： 使用默认配置（default-config））</span></span><br><span class="line">		<span class="comment">//ComboPooledDataSource ds = new ComboPooledDataSource();</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//2.创建连接池对象（方式二： 使用命名配置（named-config：mysql_day18））</span></span><br><span class="line">		ComboPooledDataSource ds = <span class="keyword">new</span> ComboPooledDataSource(<span class="string">"mysql_day18"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="BeanUtils工具"><a href="#BeanUtils工具" class="headerlink" title="BeanUtils工具"></a>BeanUtils工具</h4><h5 id="BeanUtils工具的作用"><a href="#BeanUtils工具的作用" class="headerlink" title="BeanUtils工具的作用"></a>BeanUtils工具的作用</h5><pre><code>BeanUtils工具可以方便开发者对象javabean进行操作
+
+JavaBean规范：
+    1）必须有无参的构造方法
+    2）把属性进行私有化
+    3）提供公开的getter和setter方法
+
+使用步骤：
+        1）导入beanutills的jar包
+            commons-beanutils-1.8.3.jar 核心包
+            commons-logging-1.1.3.jar 辅助包
+</code></pre><p>JavaBean操作<br><strong>1）对JavaBean的属性进行赋值</strong><br><code>BeanUtils.copyProperty(bena,name,value);</code></p>
+<ul>
+<li>基本类型自己转换，引用类型需注册转换器ConvertUtils.register(new Converter(),Class);</li>
+<li>若需拷贝的是数组类型，则只拷贝数组的第一个元素。</li>
+</ul>
+<p><strong>2）对JavaBean的对象赋值</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 拷贝整个javabean的对象（所有属性一次性拷贝）</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		Student student = <span class="keyword">new</span> Student();</span><br><span class="line">		student.setId(<span class="number">1</span>);</span><br><span class="line">		student.setName(<span class="string">"eric"</span>);</span><br><span class="line">		student.setGender(<span class="keyword">true</span>);</span><br><span class="line">		student.setScore(<span class="number">79.43</span>);</span><br><span class="line">		student.setBirth(<span class="keyword">new</span> Date());</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//1.使用反射构造对象</span></span><br><span class="line">		Object student2 = Class.forName(<span class="string">"cn.ustb.d_beanutils.Student"</span>).newInstance();</span><br><span class="line">		<span class="comment">//2.把student的属性拷贝到student2中</span></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 参数一： 目标的javabean</span></span><br><span class="line"><span class="comment">		 * 参数二： 拷贝的源javabean</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		BeanUtils.copyProperties(student2, student);</span><br><span class="line">		</span><br><span class="line">		System.out.println(student2);	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>3）把Map数据赋值给JavaBean对象</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 把map集合的数据拷贝到javabean中</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">		map.put(<span class="string">"id"</span>, <span class="number">2</span>);</span><br><span class="line">		map.put(<span class="string">"name"</span>, <span class="string">"rose"</span>);</span><br><span class="line">		map.put(<span class="string">"gender"</span>, <span class="keyword">true</span>);</span><br><span class="line">		map.put(<span class="string">"score"</span>, <span class="number">90.32</span>);</span><br><span class="line">		map.put(<span class="string">"birth"</span>, <span class="keyword">new</span> Date());</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//1.使用反射构造对象</span></span><br><span class="line">		Object student2 = Class.forName(<span class="string">"cn.ustb.d_beanutils.Student"</span>).newInstance();</span><br><span class="line">		<span class="comment">//2.把map数据拷贝到student2中</span></span><br><span class="line">		BeanUtils.copyProperties(student2, map);</span><br><span class="line">		</span><br><span class="line">		System.out.println(student2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="元数据的使用"><a href="#元数据的使用" class="headerlink" title="元数据的使用"></a>元数据的使用</h4><h5 id="什么是元数据？"><a href="#什么是元数据？" class="headerlink" title="什么是元数据？"></a>什么是元数据？</h5><p>希望知道以下：<br>    一、数据库相关的信息：（封装到数据库元对象： DataBaseMetaData）<code>Connection.getMetaData();</code><br>            数据库的版本<br>            驱动程序的版本<br>    二、参数相关的信息：(封装到参数元对象：ParameterMetaData)<code>Statement.getParameterMetaData();</code><br>            参数数量<br>            参数类型<br>    三、结果相关的信息：(封装到结果集元对象： ResultSetMetaData)<code>ResultSet.gerMetaData();</code><br>            列数量<br>            列名称</p>
+<p><strong>使用元数据可以写出更通用的Jdbc代码。</strong></p>
+<h4 id="DBUtils工具"><a href="#DBUtils工具" class="headerlink" title="DBUtils工具"></a>DBUtils工具</h4><p>DBUtils是Apache的工具，是一个对Jdbc的简单封装的工具。提供了一些通用的Jdbc操作方法。</p>
+<h5 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h5><p>1)导入jar包<br>        commons-dbutils-1.2.jar</p>
+<p>2)<strong>QueryRunner</strong> qr = new QueryRunner(<strong>DataSource</strong> ds);<br>DataSource是Jdbc的接口。统一了所有的第三方连接池工具获取链接的方法。子类有ComboPooledDataSource，BasicDataSource等。所以，<strong>用DBUtils还是离不开C3P0或者DBCP</strong>DBUtils只是对Jdbc操作的封装。</p>
+<p>3）使用的API<br><strong>QueryRunner</strong>类： 通过此类可以执行更新操作或者查询操作。<br>        update(…..): 用于更新操作（DDL、DML）<br>        query(…..): 用于查询操作（DQL）<br>        <code>query(String sql,ResultHandler rsh,Object[] params);</code></p>
+<p><strong>ResultSetHandler</strong>接口：用于<strong>封装查询之后的结果</strong>。<br>        Object handle(ResultSet rs)  ： 用于封装数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">常用的实现类：</span><br><span class="line">		ArrayHandler： 把结果集的第一行的数据封装成对象数组。</span><br><span class="line">		ArrayListHandler：把结果集的每一行数据封装对象数组，把这个对象数组放入List中</span><br><span class="line">		BeanHandler： 把结果集的第一行数据封装成javabean</span><br><span class="line">		BeanListHandler: 把结果集的每一行数据封装成javabean，把这个javabean放入List中	</span><br><span class="line">		ScalarHandler： 把结果集的第一行第一列取出。通常用于聚合函数查询。例如count()/max()）</span><br><span class="line"></span><br><span class="line">		qr.query(&quot;select * from student where id = ?&quot;, new ArrayHandler(), new Object[]&#123;1&#125;);</span><br><span class="line">		qr.query(&quot;select * from student&quot;, new ArrayListHandler());</span><br><span class="line">		qr.query(&quot;select * from student where id = ?&quot;, new BeanHandler(Student.class), new Object[]&#123;1&#125;);</span><br><span class="line">		qr.query(&quot;select * from student&quot;, new BeanListHandler(Student.class));</span><br></pre></td></tr></table></figure>
+<p>如果表的字段名称和javabean的属性名称不一致时，需要自定义ResultSetHandler的实现类</p>
+<p><strong>自定义ResultSetHandler</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStudentHandler</span> <span class="keyword">implements</span> <span class="title">ResultSetHandler</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">handle</span><span class="params">(ResultSet rs)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">		List&lt;Student&gt; list = <span class="keyword">new</span> ArrayList&lt;Student&gt;();</span><br><span class="line">		<span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">			Student s = <span class="keyword">new</span> Student();</span><br><span class="line">			s.setId(rs.getInt(<span class="string">"sid"</span>));</span><br><span class="line">			s.setName(rs.getString(<span class="string">"sname"</span>));</span><br><span class="line">			s.setAge(rs.getInt(<span class="string">"sage"</span>));</span><br><span class="line">			s.setAddress(rs.getString(<span class="string">"saddress"</span>));</span><br><span class="line">			list.add(s);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ing(“saddress”));<br>            list.add(s);<br>        }<br>        return list;<br>    }</p>
+<p>}<br><code>`</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/Jdbc/" rel="tag"># Jdbc</a>
+          
+            <a href="/tags/连接池/" rel="tag"># 连接池</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/笔记整理（9）/" rel="next" title="笔记整理（9）">
+                <i class="fa fa-chevron-left"></i> 笔记整理（9）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/笔记整理（11）/" rel="prev" title="笔记整理（11）">
+                笔记整理（11） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tangwenchuan</p>
+              <p class="site-description motion-element" itemprop="description">nothing more</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记整理（10）"><span class="nav-number">1.</span> <span class="nav-text">笔记整理（10）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#操作JavaBean标签"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">操作JavaBean标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVC模型"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">MVC模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目的三层结构"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">项目的三层结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySql"><span class="nav-number">1.0.1.</span> <span class="nav-text">MySql</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#管理表"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">管理表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#管理数据"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">管理数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询语句"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">查询语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据约束"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">数据约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多表查询"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">多表查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储过程"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">存储过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#触发器"><span class="nav-number">1.0.1.8.</span> <span class="nav-text">触发器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分别修改表和字段编码"><span class="nav-number">1.0.1.8.1.</span> <span class="nav-text">分别修改表和字段编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql权限问题"><span class="nav-number">1.0.1.9.</span> <span class="nav-text">mysql权限问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如何创建用户？"><span class="nav-number">1.0.1.9.1.</span> <span class="nav-text">如何创建用户？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何切换用户？"><span class="nav-number">1.0.1.9.2.</span> <span class="nav-text">如何切换用户？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#快速构建表结构相同的表？"><span class="nav-number">1.0.1.9.3.</span> <span class="nav-text">快速构建表结构相同的表？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jdbc"><span class="nav-number">1.0.2.</span> <span class="nav-text">Jdbc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jdbc的核心API"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">Jdbc的核心API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jdbc操作步骤"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">Jdbc操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#URL详解"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">URL详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关于注册驱动"><span class="nav-number">1.0.2.2.2.</span> <span class="nav-text">关于注册驱动</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于DDL、DML、DQL"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">关于DDL、DML、DQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于ResultSet"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">关于ResultSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#statement与preparestatement-的区别："><span class="nav-number">1.0.2.5.</span> <span class="nav-text">statement与preparestatement 的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用类路径的方式加载db-properties文件"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">使用类路径的方式加载db.properties文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于相对路径在Web中"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">关于相对路径在Web中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jdbc处理大容量数据"><span class="nav-number">1.0.2.8.</span> <span class="nav-text">Jdbc处理大容量数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库事务"><span class="nav-number">1.0.2.9.</span> <span class="nav-text">数据库事务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mysql事务操作命令"><span class="nav-number">1.0.2.9.1.</span> <span class="nav-text">mysql事务操作命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Jdbc事务操作"><span class="nav-number">1.0.2.9.2.</span> <span class="nav-text">Jdbc事务操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接池"><span class="nav-number">1.0.2.10.</span> <span class="nav-text">连接池</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#作用"><span class="nav-number">1.0.2.10.1.</span> <span class="nav-text">作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接池工具"><span class="nav-number">1.0.2.11.</span> <span class="nav-text">连接池工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DBCP连接池"><span class="nav-number">1.0.2.11.1.</span> <span class="nav-text">DBCP连接池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C3P0连接池"><span class="nav-number">1.0.2.11.2.</span> <span class="nav-text">C3P0连接池</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanUtils工具"><span class="nav-number">1.0.2.12.</span> <span class="nav-text">BeanUtils工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BeanUtils工具的作用"><span class="nav-number">1.0.2.12.1.</span> <span class="nav-text">BeanUtils工具的作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元数据的使用"><span class="nav-number">1.0.2.13.</span> <span class="nav-text">元数据的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是元数据？"><span class="nav-number">1.0.2.13.1.</span> <span class="nav-text">什么是元数据？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DBUtils工具"><span class="nav-number">1.0.2.14.</span> <span class="nav-text">DBUtils工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用步骤"><span class="nav-number">1.0.2.14.1.</span> <span class="nav-text">使用步骤</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
