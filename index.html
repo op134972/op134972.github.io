@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="nothing more">
+<meta name="description" content="Java后端技术积累">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Wch&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="Wch&#39;s blog">
-<meta property="og:description" content="nothing more">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="Java后端技术积累">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Wch&#39;s blog">
-<meta name="twitter:description" content="nothing more">
+<meta name="twitter:description" content="Java后端技术积累">
 
 
 
@@ -95,7 +95,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -103,13 +103,13 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
       apiKey: '',
       indexName: '',
-      hits: {"per_page":10},
+      hits: {"per_page":50},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
@@ -135,7 +135,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -184,7 +184,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
-            Home
+            首页
           </a>
         </li>
       
@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
-            About
+            关于
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -214,7 +214,27 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
-            Categories
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
           </a>
         </li>
       
@@ -251,10 +271,10 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/图解HTTP（8、9、10） 确认访问用户身份的认证、基于HTTP的功能追加协议、构建Web内容的技术/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/JVM内存分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -270,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/图解HTTP（8、9、10） 确认访问用户身份的认证、基于HTTP的功能追加协议、构建Web内容的技术/" itemprop="url">图解HTTP（8、9、10） 身份的认证、基于HTTP的功能追加协议、构建Web内容的技术</a></h1>
+                <a class="post-title-link" href="/2019/02/14/JVM内存分析/" itemprop="url">问题调试技巧</a></h1>
         
 
         <div class="post-meta">
@@ -280,15 +300,27 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:22:17+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-14T16:21:25+08:00">
+                2019-02-14
+              </time>
             
           </span>
 
@@ -301,7 +333,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
@@ -312,12 +344,12 @@
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/图解HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">图解HTTP</span>
+                  <a href="/categories/学习笔记/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -337,6 +369,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
 
           
 
@@ -355,20 +418,12 @@
       
         
           
-          图解HTTP（8、9、10） 确认访问用户身份的认证、基于HTTP的功能追加协议、构建Web内容的技术
-第八章  确认访问用户身份的认证HTTP认证的方式
-
-BASIC认证（基本认证）
-DIGEST认证（摘要认证）
-SSL认证（客户端认证）
-FORMBASE（基于表单认证）
-
-8.2 BASIC认证
+          JVM内存分析jmap分析内存状态123jmap -heap pid //简单查看整个JVM的内存状态jmap -histo pid //查看JVM堆中每个对象详细占用情况 四列依次表示： num instances bytes classnamejmap -dump:format=b,file=/
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/图解HTTP（8、9、10） 确认访问用户身份的认证、基于HTTP的功能追加协议、构建Web内容的技术/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/JVM内存分析/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -418,10 +473,10 @@ FORMBASE（基于表单认证）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/图解HTTP（6、7） HTTP首部、HTTPS/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Redis学习（1）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -437,7 +492,7 @@ FORMBASE（基于表单认证）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/图解HTTP（6、7） HTTP首部、HTTPS/" itemprop="url">图解HTTP（6、7） HTTP首部、HTTPS</a></h1>
+                <a class="post-title-link" href="/2019/02/14/Redis学习（1）/" itemprop="url">Redis学习（1）</a></h1>
         
 
         <div class="post-meta">
@@ -447,15 +502,27 @@ FORMBASE（基于表单认证）
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-17T18:58:56+08:00">
+                2017-07-17
+              </time>
             
           </span>
 
@@ -468,7 +535,7 @@ FORMBASE（基于表单认证）
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
@@ -479,12 +546,12 @@ FORMBASE（基于表单认证）
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/图解HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">图解HTTP</span>
+                  <a href="/categories/学习笔记/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -504,6 +571,37 @@ FORMBASE（基于表单认证）
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  35
+                </span>
+              
+            </div>
+          
 
           
 
@@ -522,17 +620,22 @@ FORMBASE（基于表单认证）
       
         
           
-          图解HTTP（6、7） HTTP首部、HTTPS
-第六章 HTTP首部首部重复，根据浏览器的解析逻辑而定，或前或后有效。
-6.2.3 四种HTTP首部字段类型
-通用首部字段（General HEader Fields）：请求和响应都用的。
-请求首部字段（Request HEader Fields）
+          Redis学习（1）
+REmote DIctionary Server：远程字典服务器，键值对存储，TCP协议传输。
+1.2.1 存储结构支持的键值对数据类型：
 
+字符串类型
+散列类型
+列表类型
+集合类型
+有序集合类型
+
+不同于MySql的二维表形式存储结构，数据在Redis中的存储形式和程序中存储
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/图解HTTP（6、7） HTTP首部、HTTPS/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/Redis学习（1）/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -582,10 +685,10 @@ FORMBASE（基于表单认证）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/图解HTTP（4、5）  返回结果的HTTP状态码、与HTTP协作的Web服务器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/MyBatis学习笔记（一）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -601,7 +704,7 @@ FORMBASE（基于表单认证）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/图解HTTP（4、5）  返回结果的HTTP状态码、与HTTP协作的Web服务器/" itemprop="url">图解HTTP（4、5） 返回结果的HTTP状态码、与HTTP协作的Web服务器</a></h1>
+                <a class="post-title-link" href="/2019/02/14/MyBatis学习笔记（一）/" itemprop="url">MyBatis学习笔记（一）</a></h1>
         
 
         <div class="post-meta">
@@ -611,15 +714,27 @@ FORMBASE（基于表单认证）
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T15:54:02+08:00">
+                2017-03-19
+              </time>
             
           </span>
 
@@ -632,23 +747,23 @@ FORMBASE（基于表单认证）
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
                   </a>
                 </span>
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/图解HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">图解HTTP</span>
+                  <a href="/categories/实用技术/框架/" itemprop="url" rel="index">
+                    <span itemprop="name">框架</span>
                   </a>
                 </span>
 
@@ -668,6 +783,37 @@ FORMBASE（基于表单认证）
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
 
           
 
@@ -686,15 +832,13 @@ FORMBASE（基于表单认证）
       
         
           
-          图解HTTP（4、5）  返回结果的HTTP状态码、与HTTP协作的Web服务器
-4.1 状态码告知服务器端返回的请求结果4.1 2XX 成功
-200 OK：正常处理了。随状态码一起返回的信息可能因为方法的不同发生改变。如HEAD方法只返回首部，不返回实体。
-204 No Content：返回的响应
+          MyBatis学习笔记（一）mybatis介绍，快速入门个人笔记，如有错误，恳请批评指正。
+1.    Mybatis介绍MyBatis 世界上流行最广泛的基于SQL语句的ORM框架，由Clinton Begin 在2002 年创建，其后，捐献给了Apache基金会，成立了iBatis 项目。MyB
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/图解HTTP（4、5）  返回结果的HTTP状态码、与HTTP协作的Web服务器/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/MyBatis学习笔记（一）/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -744,10 +888,10 @@ FORMBASE（基于表单认证）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/图解HTTP（2） 简单的HTTP协议/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/MyBatis学习笔记（三）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -763,7 +907,7 @@ FORMBASE（基于表单认证）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/图解HTTP（2） 简单的HTTP协议/" itemprop="url">图解HTTP（2） 简单的HTTP协议</a></h1>
+                <a class="post-title-link" href="/2019/02/14/MyBatis学习笔记（三）/" itemprop="url">MyBatis学习笔记（三）</a></h1>
         
 
         <div class="post-meta">
@@ -773,15 +917,27 @@ FORMBASE（基于表单认证）
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T15:53:49+08:00">
+                2017-03-19
+              </time>
             
           </span>
 
@@ -794,23 +950,23 @@ FORMBASE（基于表单认证）
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
                   </a>
                 </span>
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/图解HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">图解HTTP</span>
+                  <a href="/categories/实用技术/框架/" itemprop="url" rel="index">
+                    <span itemprop="name">框架</span>
                   </a>
                 </span>
 
@@ -830,6 +986,37 @@ FORMBASE（基于表单认证）
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
 
           
 
@@ -848,15 +1035,13 @@ FORMBASE（基于表单认证）
       
         
           
-          图解HTTP（2） 简单的HTTP协议整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。
-
-请求头和响应头HTTP是不保存状态的协议重复请求，重复响应，协议本身并不保留之前一切的请求或响应报文的信息。这是为了更好的处理大量事务，确保协议的可伸缩性。
-HTTP1.1虽然是无状
+          MyBatis学习笔记（三）常用批量操作，Spring与myBatis整合，简化配置个人笔记，如有错误，恳请批评指正。
+常用批量操作批量新增部门映射文件定义SQL12345678910111213141516&lt;!-- 批量增加 --&gt;	&lt;!-- insert into dept(d
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/图解HTTP（2） 简单的HTTP协议/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/MyBatis学习笔记（三）/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -906,10 +1091,10 @@ HTTP1.1虽然是无状
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/图解HTTP（1） 了解Web及网络基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/MyBatis学习笔记（二）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -925,7 +1110,7 @@ HTTP1.1虽然是无状
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/图解HTTP（1） 了解Web及网络基础/" itemprop="url">图解HTTP（1） 了解Web及网络基础</a></h1>
+                <a class="post-title-link" href="/2019/02/14/MyBatis学习笔记（二）/" itemprop="url">MyBatis学习笔记（二）</a></h1>
         
 
         <div class="post-meta">
@@ -935,15 +1120,27 @@ HTTP1.1虽然是无状
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T15:53:43+08:00">
+                2017-03-19
+              </time>
             
           </span>
 
@@ -956,23 +1153,23 @@ HTTP1.1虽然是无状
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
                   </a>
                 </span>
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/图解HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">图解HTTP</span>
+                  <a href="/categories/实用技术/框架/" itemprop="url" rel="index">
+                    <span itemprop="name">框架</span>
                   </a>
                 </span>
 
@@ -992,6 +1189,37 @@ HTTP1.1虽然是无状
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
 
           
 
@@ -1010,15 +1238,14 @@ HTTP1.1虽然是无状
       
         
           
-          图解HTTP（1） 了解Web及网络基础整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。
-
-HTTP
-HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，完成从客户端到服务器端等一系列运作流程。协议是指规则的约定，可以说，Web是
+          MyBatis学习笔记（二）动态SQL，关联查询，缓存机制，转义字符个人笔记，如有错误，恳请批评指正。
+动态SQL操作IF语句修改配置文件deptMapper.xml，添加
+12345678910&lt;!-- 动态Sql语句 --&gt;&lt;!-- 根据多个条件生成动态的sql语句，查询信息 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/图解HTTP（1） 了解Web及网络基础/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/MyBatis学习笔记（二）/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1068,10 +1295,10 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第一章）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Lucene全文搜索学习笔记（一）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -1087,7 +1314,7 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第一章）/" itemprop="url">数据结构与算法分析（JAVA描述）（第一章）</a></h1>
+                <a class="post-title-link" href="/2019/02/14/Lucene全文搜索学习笔记（一）/" itemprop="url">Lucene全文搜索学习笔记（一）</a></h1>
         
 
         <div class="post-meta">
@@ -1097,15 +1324,27 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-02-18T20:09:21+08:00">
+                2017-02-18
+              </time>
             
           </span>
 
@@ -1118,23 +1357,23 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
                   </a>
                 </span>
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法分析</span>
+                  <a href="/categories/实用技术/个人博客/" itemprop="url" rel="index">
+                    <span itemprop="name">个人博客</span>
                   </a>
                 </span>
 
@@ -1154,6 +1393,37 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
 
           
 
@@ -1172,17 +1442,13 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
       
         
           
-          数据结构与算法分析（JAVA描述）（第一章）chapter1#引论个人笔记，如有错误，恳请批评指正。
-1.4 实现泛型构件 Pre-Java 5JDK1.5新特性：
-
-泛型（Generics）
-增强的“for”循环（Enhanced For loop）
-自动装箱/ 自动拆箱（Autoboxing/u
+          Lucene全文搜索学习笔记（一）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。
+什么是lucene？Lucene是apache软件基金会发布的一个开放源代码的全文检索引擎工具包，由资深全文检索专家Doug Cutting所撰写,它是一个全文检索引擎的架构，提供了完整的创建索引和查
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第一章）/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/Lucene全文搜索学习笔记（一）/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1232,10 +1498,10 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第五章 散列）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Lucene全文搜索学习笔记（三）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -1251,7 +1517,7 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第五章 散列）/" itemprop="url">数据结构与算法分析（JAVA描述）（第五章 散列）</a></h1>
+                <a class="post-title-link" href="/2019/02/14/Lucene全文搜索学习笔记（三）/" itemprop="url">Lucene全文搜索学习笔记（三）</a></h1>
         
 
         <div class="post-meta">
@@ -1261,15 +1527,27 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-02-18T20:08:23+08:00">
+                2017-02-18
+              </time>
             
           </span>
 
@@ -1282,23 +1560,23 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
                   </a>
                 </span>
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法分析</span>
+                  <a href="/categories/实用技术/个人博客/" itemprop="url" rel="index">
+                    <span itemprop="name">个人博客</span>
                   </a>
                 </span>
 
@@ -1318,6 +1596,37 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
 
           
 
@@ -1336,15 +1645,421 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
       
         
           
-          数据结构与算法分析（JAVA描述）（第五章 散列）
+          Lucene全文搜索学习笔记（三）高亮，多字段查询，分页查询。个人笔记，如有错误，恳请批评指正。
+分页查询，接上若查询第二页，每页5条。查询10条。遍历取回6-10条。需判断总条数与需要条数的关系123456//总记录数小于end，说明scoreDocs不满end条。即返回的是start--tota
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/14/Lucene全文搜索学习笔记（三）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Lucene全文搜索学习笔记（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/14/Lucene全文搜索学习笔记（二）/" itemprop="url">Lucene全文搜索学习笔记（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-02-18T20:09:12+08:00">
+                2017-02-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/个人博客/" itemprop="url" rel="index">
+                    <span itemprop="name">个人博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  953
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Lucene全文搜索学习笔记（二）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。
+LuceneUtil的编写，主要是对document2bean以及bean2document操作的封装。写的不完善，先学完Lucene再说。
+12345678910111213141516171819
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/14/Lucene全文搜索学习笔记（二）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Linux学习（2）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/14/Linux学习（2）/" itemprop="url">Linux学习（2）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T16:01:18+08:00">
+                2017-03-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/系统/" itemprop="url" rel="index">
+                    <span itemprop="name">系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Linux学习（2）
 个人笔记，如有错误，恳请批评指正。
-理想的散列表数据结构只不过是一个包含一些项（item）的具有固定大小的数组。组成：关键字+数据域。表的大小称为tablesize，通常的习惯是让表从0-tablesize-1变化。
-散列表（hash table）
+第三部分：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第五章 散列）/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/Linux学习（2）/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1394,10 +2109,10 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第四章  树）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Linux学习（1）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
+      <meta itemprop="name" content="Wch">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -1413,7 +2128,7 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第四章  树）/" itemprop="url">数据结构与算法分析（JAVA描述）（第四章  树）</a></h1>
+                <a class="post-title-link" href="/2019/02/14/Linux学习（1）/" itemprop="url">Linux学习（1）</a></h1>
         
 
         <div class="post-meta">
@@ -1423,15 +2138,27 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
               </time>
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T16:01:03+08:00">
+                2017-03-19
+              </time>
             
           </span>
 
@@ -1444,7 +2171,7 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
@@ -1455,12 +2182,12 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
 
                 
                 
-                  , 
+                  ， 
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法分析</span>
+                  <a href="/categories/学习笔记/系统/" itemprop="url" rel="index">
+                    <span itemprop="name">系统</span>
                   </a>
                 </span>
 
@@ -1480,166 +2207,36 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
           
 
           
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          数据结构与算法分析（JAVA描述）（第四章  树）二叉查找树BST，AVL树，伸展树，B树个人笔记，如有错误，恳请批评指正。
-二叉查找树（binary search  tree），两中库集合类TreeSet、TreeMap实现的基础。
-4.1 预备知识根（root）边（edge）父（parent）子
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第四章  树）/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第十二章 高级数据结构及其实现）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wch's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+            <div class="post-wordcount">
+              
                 
-                <a class="post-title-link" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第十二章 高级数据结构及其实现）/" itemprop="url">数据结构与算法分析（JAVA描述）（第十二章 高级数据结构及其实现）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
                 </span>
-
                 
+                  <span class="post-meta-item-text">字数统计&#58;</span>
                 
-                  , 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法分析</span>
-                  </a>
+                <span title="字数统计">
+                  5.2k
                 </span>
-
-                
-                
               
-            </span>
-          
 
-          
-            
-          
+              
+                <span class="post-meta-divider">|</span>
+              
 
-          
-          
-
-          
-
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
           
 
           
@@ -1659,175 +2256,16 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
       
         
           
-          数据结构与算法分析（JAVA描述）（第十二章 高级数据结构及其实现）
+          Linux学习（1）
 个人笔记，如有错误，恳请批评指正。
-红黑树红黑树的每个节点上都有存储位表示节点的颜色，颜色是红(Red)或黑(Black)。红黑树的特性:    (1) 每个节点或者是黑色，或者是红色。    (2) 根节点是黑色。    (3)
+一些常识
+操作系统主要用于管理与驱动硬件，因此必须要能够管理内存、管理设备、负责进程管理以及系统调用等。
+UNIX的前身是由Bell实验室的Ken Thompson利用汇编语言写成的，后来在1971-1973年由Dennis Ritchie以
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第十二章 高级数据结构及其实现）/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/数据结构与算法分析（JAVA描述）（第三章 表、栈和队列）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tangwenchuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wch's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第三章 表、栈和队列）/" itemprop="url">数据结构与算法分析（JAVA描述）（第三章 表、栈和队列）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:08:22+08:00">
-                2019-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          数据结构与算法分析（JAVA描述）（第三章 表、栈和队列）表、栈和队列个人笔记，如有错误，恳请批评指正。
-3.1 抽象类型数据抽象数据类型（abstract data type ADT）是带有一组操作的一些对象的集合。诸如表、集合、图以及与他们各自的操作一起形成的这些对象都可以看做是抽象数据类型。
-
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/数据结构与算法分析（JAVA描述）（第三章 表、栈和队列）/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2019/02/14/Linux学习（1）/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1903,8 +2341,8 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">tangwenchuan</p>
-              <p class="site-description motion-element" itemprop="description">nothing more</p>
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -1912,10 +2350,10 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives">
+                <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -1924,10 +2362,10 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
               </div>
             
 
@@ -1935,10 +2373,10 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">66</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -1963,6 +2401,10 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
 
       
 
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
     </div>
   </aside>
 
@@ -1977,13 +2419,22 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">tangwenchuan</span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
   
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -1991,7 +2442,7 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -2090,6 +2541,13 @@ HTTP（HyperText Transfer Protocol），超文本传输协议，一种规范，�
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
 

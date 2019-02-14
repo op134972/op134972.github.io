@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算机网络（5） 链路、接入网和局域网计算机网络：自顶向下方法（第六版）  传输结点将数据报封装在链路层帧中，并将该帧传送到链路层。 5.1.1 链路层可能提供的服务 成帧：即封装数据报成链路层帧。 链路接入：多个结点共享单个广播链路时，媒体访问控制（Medium Access Control，MAC）协调多个结点的帧传输。 可靠交付：本地纠错。 差错检测和纠正：硬件实现，差错检测和纠正。  5.">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络（5） 链路、接入网和局域网">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/计算机网络（5） 链路、接入网和局域网/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="计算机网络（5） 链路、接入网和局域网计算机网络：自顶向下方法（第六版）  传输结点将数据报封装在链路层帧中，并将该帧传送到链路层。 5.1.1 链路层可能提供的服务 成帧：即封装数据报成链路层帧。 链路接入：多个结点共享单个广播链路时，媒体访问控制（Medium Access Control，MAC）协调多个结点的帧传输。 可靠交付：本地纠错。 差错检测和纠正：硬件实现，差错检测和纠正。  5.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/849704823812115385.jpg">
+<meta property="og:updated_time" content="2017-04-09T02:13:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络（5） 链路、接入网和局域网">
+<meta name="twitter:description" content="计算机网络（5） 链路、接入网和局域网计算机网络：自顶向下方法（第六版）  传输结点将数据报封装在链路层帧中，并将该帧传送到链路层。 5.1.1 链路层可能提供的服务 成帧：即封装数据报成链路层帧。 链路接入：多个结点共享单个广播链路时，媒体访问控制（Medium Access Control，MAC）协调多个结点的帧传输。 可靠交付：本地纠错。 差错检测和纠正：硬件实现，差错检测和纠正。  5.">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/849704823812115385.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/计算机网络（5） 链路、接入网和局域网/">
+
+
+
+
+
+  <title>计算机网络（5） 链路、接入网和局域网 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/计算机网络（5） 链路、接入网和局域网/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络（5） 链路、接入网和局域网</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-04-09T10:13:04+08:00">
+                2017-04-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算机网络（5）-链路、接入网和局域网"><a href="#计算机网络（5）-链路、接入网和局域网" class="headerlink" title="计算机网络（5） 链路、接入网和局域网"></a>计算机网络（5） 链路、接入网和局域网</h1><p>计算机网络：自顶向下方法（第六版）</p>
+<hr>
+<p>传输结点将数据报封装在链路层帧中，并将该帧传送到链路层。</p>
+<h4 id="5-1-1-链路层可能提供的服务"><a href="#5-1-1-链路层可能提供的服务" class="headerlink" title="5.1.1 链路层可能提供的服务"></a>5.1.1 链路层可能提供的服务</h4><ul>
+<li>成帧：即封装数据报成链路层帧。</li>
+<li>链路接入：多个结点共享单个广播链路时，<strong>媒体访问控制</strong>（Medium Access Control，MAC）协调多个结点的帧传输。</li>
+<li>可靠交付：本地纠错。</li>
+<li>差错检测和纠正：硬件实现，差错检测和纠正。</li>
+</ul>
+<h4 id="5-1-2-链路层在何处实现"><a href="#5-1-2-链路层在何处实现" class="headerlink" title="5.1.2 链路层在何处实现"></a>5.1.2 链路层在何处实现</h4><p>链路层的主题部分在网络适配器（network adapter）中实现，网络适配器有时也称为网络接口卡（Network Interface Card，NIC）。</p>
+<h3 id="5-2-差错检测和纠正技术"><a href="#5-2-差错检测和纠正技术" class="headerlink" title="5.2 差错检测和纠正技术"></a>5.2 差错检测和纠正技术</h3><p>比特级差错检测和纠正，即对从一个结点到另一个结点链路层帧中的比特损伤进行检测和纠正，它们通常是链路层提供的两种服务。</p>
+<h4 id="5-2-1-奇偶校验"><a href="#5-2-1-奇偶校验" class="headerlink" title="5.2.1 奇偶校验"></a>5.2.1 奇偶校验</h4><p>二维奇偶校验：二维数组，能准确的确定损伤的位置。</p>
+<h4 id="5-2-2-检验和方法"><a href="#5-2-2-检验和方法" class="headerlink" title="5.2.2 检验和方法"></a>5.2.2 检验和方法</h4><p>相对于CRC提供较弱的差错保护。</p>
+<p>为什么运输层使用检验和而链路层使用CRC呢？<br>因为运输层通常使用软件实现，采用简单快速的差错检测机制很重要。链路层的差错检测通常在网络适配器中专用的硬件实现，能够快速的执行更复杂的CRC操作。</p>
+<h4 id="5-2-3-循环冗余检测"><a href="#5-2-3-循环冗余检测" class="headerlink" title="5.2.3 循环冗余检测"></a>5.2.3 循环冗余检测</h4><p><strong>循环冗余检测</strong>（Cyclic Redundancy Cheek，CRC）编码，也称为多项式编码。记住是一种比较可靠的差错检测方案。P295</p>
+<h3 id="5-3-多路访问链路和协议"><a href="#5-3-多路访问链路和协议" class="headerlink" title="5.3 多路访问链路和协议"></a>5.3 多路访问链路和协议</h3><p>两种类型的网络链路：点对点链路和广播链路。</p>
+<p>点对点链路：由链路的一端的单个发送方和链路另一端的单个接受方组成。许多链路层协议都是为点对点链路设计的。如<strong>点对点协议</strong>（ponit-to-point protocol，PPP）和<strong>高级数据链路控制</strong>（high-level data link control，HDLC）。</p>
+<p>广播链路：能够让多个发送和接受节点都连接到相同的、单一的、共享的广播信道上。以太网和无线局域网是广播链路层技术的例子。</p>
+<p>多路访问问题，衍生出多路访问协议。</p>
+<p>多路访问协议的类型：信道划分协议、随机接入协议和轮流协议、</p>
+<h4 id="5-3-1-信道划分协议"><a href="#5-3-1-信道划分协议" class="headerlink" title="5.3.1 信道划分协议"></a>5.3.1 信道划分协议</h4><p><strong>时分多路复用</strong>（TDM），<strong>频分多路复用</strong>（FDM）是两种能够用于在所有共享信道节点之间划分广播信道带宽的技术。</p>
+<p>第三种信道划分协议是<strong>码分多址</strong>（Code Division Multiple Access，CDMA）：CDMA为每个结点分配一种不同的编码。然后每个结点用该编码进行编码传输，如果精心选择这些编码，则不同的结点能够进行同时传输而互不干扰。</p>
+<h4 id="5-3-2-随机接入协议"><a href="#5-3-2-随机接入协议" class="headerlink" title="5.3.2 随机接入协议"></a>5.3.2 随机接入协议</h4><p>检测碰撞，在重发该帧之前等待一个随机时延。</p>
+<h5 id="ALOHA"><a href="#ALOHA" class="headerlink" title="ALOHA"></a>ALOHA</h5><p>一种随机接入协议</p>
+<h5 id="载波侦听多路访问（CSMA）"><a href="#载波侦听多路访问（CSMA）" class="headerlink" title="载波侦听多路访问（CSMA）"></a>载波侦听多路访问（CSMA）</h5><p>载波侦听：结点在传输之前先听信道是否有帧在传输。<br>碰撞检测：自己在传输的同时如果检测到有别的结点在传输帧，则会停止自己的传输。</p>
+<p><strong>信道传播时延</strong>（channel propaagtion delay）是导致在<strong>载波侦听多路访问</strong>（Carrier Sense Multiple Access，CSMA）中发生碰撞的原因。</p>
+<h5 id="具有碰撞检测的载波侦听多路访问（CSMA-CD）"><a href="#具有碰撞检测的载波侦听多路访问（CSMA-CD）" class="headerlink" title="具有碰撞检测的载波侦听多路访问（CSMA/CD）"></a>具有碰撞检测的载波侦听多路访问（CSMA/CD）</h5><p>两个结点在检测到碰撞后的很短时间都放弃了他们的传输。</p>
+<p>重新发送帧的随机时间间隔：当碰撞结点数量较少时，时间间隔较短；当碰撞结点数量较大时，时间间隔较长。采用<strong>二进制指数后退算法</strong>（binary exponential backoff）计算。该算法特性：当几个其他适配器处于指数后退状态时，有可能一个具有新帧的结点能够立即插入一次成功的传输。</p>
+<h4 id="5-3-3-轮流协议"><a href="#5-3-3-轮流协议" class="headerlink" title="5.3.3 轮流协议"></a>5.3.3 轮流协议</h4><p>多路访问的两个理想特性：</p>
+<ol>
+<li>当只有一个结点活跃时，该活跃结点具有最大的吞吐量，即R bps。</li>
+<li>当有M个节点活跃时，每个结点的吞吐量接近R/M bps。</li>
+</ol>
+<p>轮流协议解决了第二个特性。</p>
+<h5 id="轮询协议"><a href="#轮询协议" class="headerlink" title="轮询协议"></a>轮询协议</h5><p>主结点以循环的方式<strong>轮询</strong>（poll）每个结点。</p>
+<h5 id="令牌传递协议"><a href="#令牌传递协议" class="headerlink" title="令牌传递协议"></a>令牌传递协议</h5><p>这种协议中没有主结点，只有一个特殊帧在结点之间按固定的次序传输，称为<strong>令牌</strong>（token）。持有该令牌时，如果需要发送帧，则发发送最大数目的帧数，否则立即向下一个结点转发该令牌。</p>
+<h4 id="5-3-4-DOCSIS：用于电缆因特网接入的链路层协议"><a href="#5-3-4-DOCSIS：用于电缆因特网接入的链路层协议" class="headerlink" title="5.3.4 DOCSIS：用于电缆因特网接入的链路层协议"></a>5.3.4 DOCSIS：用于电缆因特网接入的链路层协议</h4><p>一个电缆因特网通常在电缆网头端将几千个住宅电缆调制解调器与一个<strong>电缆调制解调器端接系统</strong>（Cable Modem Termination System，CMTS）连接。数据经<strong>电缆服务接口</strong>（Date-Over-Cable Service Interface，DOCSIS）规范定义了电缆数据网络体系结构及其协议。</p>
+<p>DOCSIS是一种对于电缆接入因特网的链路层协议，包含了<strong>FDM、TDM、随机接入和集中分配时隙</strong>等技术。</p>
+<h3 id="5-4-交换局域网"><a href="#5-4-交换局域网" class="headerlink" title="5.4 交换局域网"></a>5.4 交换局域网</h3><h4 id="5-4-1-链路层寻址和ARP"><a href="#5-4-1-链路层寻址和ARP" class="headerlink" title="5.4.1 链路层寻址和ARP"></a>5.4.1 链路层寻址和ARP</h4><p>通过交换机的路径，使用的是链路层地址而不是IP地址。</p>
+<p><strong>地址解析协议</strong>（ARP），负责网络地址到链路层地址的转换的机制。</p>
+<h5 id="1、MAC地址"><a href="#1、MAC地址" class="headerlink" title="1、MAC地址"></a>1、MAC地址</h5><p>当某适配器要向某些目的适配器发送一个帧时，将目的MAC地址封装到该帧中并进行广播，收到该广播的适配器进行MAC地址匹配，不匹配则丢弃。匹配则将该数据报沿协议栈向上传递。如果适配器需要让局域网中的所有适配器来接受并处理发送的帧，则使用一个特殊的<strong>MAC广播地址</strong>（broadcast address），如<strong>FF-FF-FF-FF-FF-FF</strong>。类比于IP地址中的广播地址（255.255.255.255）</p>
+<p>不同的层次需要不同的寻址方案以便更加灵活的使用，目前已经接触到了：<strong>应用层的主机名（如域名）、网络层的IP地址以及链路层的MAC地址</strong>。</p>
+<h5 id="2、地址解析协议"><a href="#2、地址解析协议" class="headerlink" title="2、地址解析协议"></a>2、地址解析协议</h5><p>ARP将一个IP地址解析为MAC地址，类比于DNS。但是ARP只为在<strong>同一子网上</strong>的主机和路由器接口解析IP地址。</p>
+<p>每个主机或路由器在其内存中都具有一个ARP表（ARP table），这张表包含IP地址到MAC地址的映射关系。如果当时发送方的ARP表中不存在目的方的IP和MAC地址映射，发送方首先构造一个称为<strong>ARP分组</strong>（ARP packet）的特殊分组。ARP查询分组的目的是询问子网中所有其他主机和路由器，以确定对应于要解析的IP地址的那个MAC地址。ARP分组的发送使用广播地址，即发送方知识适配器应该用MAC广播地址（FF-FF-FF-FF-FF-FF），然后，每个适配器都把该帧的ARP分组向上传递进ARP模块，ARP模块进行判断并返回标准帧，发送方更新ARP表并继续进行发送。</p>
+<p>ARP是链路层协议还是一个网络层协议？<br>一个ARP分组封装在链路层帧上，因此从结构上说位于链路层。然后ARP分组即包含链路层地址也包含网络层地址，因此可以认为ARP是跨越链路层和网路程边界两边的协议。</p>
+<p>局域网中所有主机的ip及MAC地址查看。cmd arp -a</p>
+<h5 id="3、发送数据到子网之外"><a href="#3、发送数据到子网之外" class="headerlink" title="3、发送数据到子网之外"></a>3、发送数据到子网之外</h5><p>一台路由器对他的每个接口都有一个IP地址、一个ARP模块和一个适配器。</p>
+<p>当从子网1的某台主机发送一个数据报到子网2的某台主机？过程如何？<br>该数据报的MAC地址指明为路由接口的MAC地址，路由器接收到帧，<strong>并将其传递给路由器的网络层</strong>，路由器根据转发表将数据报转发到子网2，子网2再根据MAC地址定位到目的主机。</p>
+<h4 id="5-4-2-以太网"><a href="#5-4-2-以太网" class="headerlink" title="5.4.2 以太网"></a>5.4.2 以太网</h4><h5 id="1、以太网帧结构"><a href="#1、以太网帧结构" class="headerlink" title="1、以太网帧结构"></a>1、以太网帧结构</h5><p>以太网帧封装了IP数据报。其结构是：<br><img src="http://oli0whb3w.bkt.clouddn.com/849704823812115385.jpg" alt="enter image description here"></p>
+<p>所有的以太网技术都向网络层提供无连接服务。即，当适配器A要向适配器B发送一个数据报时，适配器A将以太网帧发送到局域网中，并没有与适配器B事先握手。这种第二层的无连接服务类似于IP的第三层数据报服务和UDP的第4层无连接服务。</p>
+<p>以太网技术向网络层提供不可靠的服务。对于传输的帧不发送确认帧或者否定确认帧（直接丢弃出错帧）。</p>
+<h5 id="2、以太网技术"><a href="#2、以太网技术" class="headerlink" title="2、以太网技术"></a>2、以太网技术</h5><p>以太网经过了30多年的发展，变化巨大，速度已经增加了3个数量级。由于现代交换机的应用，协调其传输，在基于交换机的以太局域网中，不会有碰撞，也没有必要使用<strong>MAC协议</strong>（媒体访问控制协议）了。</p>
+<h4 id="5-4-3-链路层交换机"><a href="#5-4-3-链路层交换机" class="headerlink" title="5.4.3 链路层交换机"></a>5.4.3 链路层交换机</h4><p>将接受入链路层帧并将它们转发到出链路。交换机的特性：1、透明的。2、带有缓存。</p>
+<p>交换机功能：</p>
+<h5 id="1、交换机转发和过滤"><a href="#1、交换机转发和过滤" class="headerlink" title="1、交换机转发和过滤"></a>1、交换机转发和过滤</h5><p><strong>过滤</strong>（filter）：决定一个帧是转发到某个接口还是应当将其丢弃。<br><strong>转发</strong>（forwarding）：决定一个帧应该被导向哪个接口，并移动到那些接口。</p>
+<p>过滤和转发依赖于<strong>交换机表</strong>（switch table）</p>
+<p>交换机表项包括：<strong>MAC地址</strong>||<strong>通向该MAC地址的交换机接口</strong>||<strong>表项放置在表中的时间</strong></p>
+<p>交换机工作过程：</p>
+<ol>
+<li>当从接口x接收到目的MAC地址时，将对交换机表进行查找，如果匹配不上，则对所有接口进行广播（谁知道目的MAC怎么走？）</li>
+<li>如果匹配上了但是接口仍是x，说明该请求是从包含目的MAC地址的局域网网段发送过来的，不需要进行转发而是直接将该副本丢弃执行过滤功能。</li>
+<li>如果匹配上了且接口不等于x，说明目的MAC在别的局域网网段，则将帧放在目的接口的输出缓存完成转发功能。</li>
+</ol>
+<h5 id="2、自学习"><a href="#2、自学习" class="headerlink" title="2、自学习"></a>2、自学习</h5><p>交换机表是自动的、动态和自治的建立起来的。即交换机是自学习的。</p>
+<p>表现在：</p>
+<ol>
+<li>初始表为空</li>
+<li>对每个到达帧：1、源MAC地址存储。2、到达接口存储。3、到达时间存储。</li>
+<li>超过老化期，将表项删除。（持续更新）</li>
+</ol>
+<p>交换机是<strong>即插即用设备</strong>（plug-and-play device），即不需配置什么的。交换机还是全双工的，意味着可以同时进行接收和发送。</p>
+<h5 id="3、链路层交换机的性质"><a href="#3、链路层交换机的性质" class="headerlink" title="3、链路层交换机的性质"></a>3、链路层交换机的性质</h5><ol>
+<li>消除了碰撞：交换机存在缓存，不会在网段同时传输多于一个帧。</li>
+<li>异质的链路：交换机将链路彼此隔离，因此不同链路能够以不同速率运行并且能在不同的媒体上运行。</li>
+<li>管理：更加便于管理。</li>
+</ol>
+<h5 id="4、路由器和交换机的比较"><a href="#4、路由器和交换机的比较" class="headerlink" title="4、路由器和交换机的比较"></a>4、路由器和交换机的比较</h5><p>路由器和交换机都是存储转发分组交换机，但他们还是有区别的：</p>
+<ol>
+<li>交换机使用MAC地址转发分组。路由器使用网络地址。</li>
+<li>交换机是第二层的分组交换机，而路由器是第三层的分组交换机。</li>
+</ol>
+<p><strong>各自的优缺点：</strong><br>交换机的优缺点：</p>
+<ol>
+<li>即插即用</li>
+<li>交换机处理高至第二层的帧，相对于路由器的第三层，其过滤和转发速率更快。</li>
+<li>对网络的结构有限制，对广播风暴没有防护，大型网络容易崩溃。</li>
+</ol>
+<p><strong>路由器的优缺点：</strong></p>
+<ol>
+<li>网络寻址不想MAC寻址那样扁平化，而是分层次的，即使存在冗余路径，也不会通过路由器循环。</li>
+<li>没有生成树限制，允许以丰富的拓扑结构构件因特网。</li>
+<li>对广播风暴提供防火墙保护。</li>
+<li>缺点：不是即插即用，需要人为的配置路由器的IP地址，对每个分组的处理时间较交换机更长。</li>
+</ol>
+<p><strong>什么时候使用交换机？什么时候使用路由器？</strong><br>局域网的规模越大越倾向于使用路由器。其提供了更健壮的流量隔离方式和对广播风暴的控制。</p>
+<h4 id="5-4-4-虚拟局域网"><a href="#5-4-4-虚拟局域网" class="headerlink" title="5.4.4 虚拟局域网"></a>5.4.4 虚拟局域网</h4><p>虚拟局域网（Virtula Local Network，VLAN），支持VLAN的交换机允许一个单一的物理局域网基础设施定义多个虚拟局域网。</p>
+<p>在该种交换机中，交换机的端口由管理员划分成组，指定属于每个VLAN的MAC地址的集合并对应正确的端口即可将主机分为不同的局域网络组，无论何时一个设备与一个端口连接时，端口基于设备的MAC地址将其连接进适当的VLAN。</p>
+<p>不同的组之间通过<strong>VLAN干线</strong>（VLAN trunking）连接。跨VLAN的帧通过<strong>VLAN标签</strong>（VLAN tag）找寻目的VLAN，并在目的VLAN将添加进的首部（VLAN标签）剔除。</p>
+<h3 id="5-6-数据中心网络"><a href="#5-6-数据中心网络" class="headerlink" title="5.6 数据中心网络"></a>5.6 数据中心网络</h3><p>P326</p>
+<h3 id="5-7-Web请求页面的流程"><a href="#5-7-Web请求页面的流程" class="headerlink" title="5.7 Web请求页面的流程"></a>5.7 Web请求页面的流程</h3><h4 id="5-7-1-准备：DHCP、UDP、IP和以太网"><a href="#5-7-1-准备：DHCP、UDP、IP和以太网" class="headerlink" title="5.7.1 准备：DHCP、UDP、IP和以太网"></a>5.7.1 准备：DHCP、UDP、IP和以太网</h4><p>步骤：</p>
+<ol>
+<li>生成一个<strong>DHCP请求报文</strong>，并将这个报文放入DHCP服务器的67端口和源端口68（DHCP客户）的UDP报文段，该报文段被置于一个具有广播IP地址（255.255.255.255）和源IP地址（0.0.0.0）的IP数据报中，因为此时的机器还不具备IP地址。</li>
+<li>包含DHCP的IP数据报被放置到<strong>以太网帧</strong>中，该以太网帧具有目的MAC地址（FF:FF:FF:FF:FF:FF），使该帧将广播到交换机所连接的所有设备（目标是DHCP服务器）；该帧的源MAC地址是本机的MAC地址（假设BB:BB:BB:BB:BB:BB）。</li>
+<li>包含DHCP请求的以太网帧是第一个本机发送到以太网交换机的帧，该交换机在所有的出口端广播帧，包括连接到路由器的端口。</li>
+<li>DHCP服务器在它的MAC地址（假设是AA:AA:AA:AA:AA:AA）的接口接受到此以太网帧，该帧中包含DHCP请求，并且从该以太网帧中抽取出IP数据报。该数据报的广播IP地址指示了这个IP数据报应当由在该节点的高层协议处理，因此该数据报的载荷（一个UDP报文段）<strong>被分解</strong>向上到达UDP，DHCP请求报文从此UDP报文段中抽取出来，此时DHCP服务器收到了DHCP请求报文。</li>
+<li>DHCP服务器根据地址快（CIDR）给本机分配了一个IP地址，假设CIDR块为222.28.60.0/24，分配的IP地址为（222.28.60.45）。DHCP服务器生成包含这个IP地址以及<strong>DNS服务器</strong>的IP地址（202.204.48.8）、<strong>默认网关</strong>路由器的IP地址（222.28.60.1）和<strong>子网块</strong>（222.28.60.0/24，等价为“网络掩码”）的一个DHCP ACK报文。该报文被置入一个UDP报文段中，UDP报文段被放置一个IP数据报，IP数据报再被放入一个以太网帧。这个以太网帧的源MAC地址是路由器练到归属网络的接口，目的MAC地址是本机的MAC地址（BB:BB:BB:BB:BB:BB）。</li>
+<li>包含DHCP ACK的以太网帧有路由器发送给交换机，因为交换机是自学习的，并且先前从本机收到以太网帧，所以该交换机能寻址到本机的MAC地址所以仅从通往本机的输出端口转发。</li>
+<li>本机收到包含DHCP ACK的以太网帧，从该以太网帧中抽取IP数据报，从IP数据报中抽取UDP报文段，从UDP报文段中抽取DHCP ACK报文。DHCP客户记录本机的IP地址、本地DNS服务器地址，<strong>且还在IP转发表中安装默认网关的地址</strong>。本机将向该默认网关发送目的地址为其子网222.28.60.0/24以外的所有数据报。此时本机已经初始化好了所有的网络组件。</li>
+</ol>
+<h4 id="5-7-2-仍在准备：DNS和ARP"><a href="#5-7-2-仍在准备：DNS和ARP" class="headerlink" title="5.7.2 仍在准备：DNS和ARP"></a>5.7.2 仍在准备：DNS和ARP</h4><p>当键入一个域名网址时。Web浏览器生成一个TCP套接字开始了该过程。套接字用于想baidu.com发送HTTP请求，为知道baidu.com的IP，需要使用DNS协议将域名转换到IP地址</p>
+<ol start="8">
+<li>本机生成一个<strong>DNS查询报文</strong>，将baidu.com放入DNS报文的问题段中，该报文段放置在一个具有53号目的端口的UDP报文段中，该UDP报文段则被放入具有目的IP地址（DNS服务器：202.204.48.8）和源IP地址（本机IP：222.28.60.45）的IP数据报中。</li>
+<li>将所有的DNS请求放入一个以太网帧中，该帧将在<strong>链路层上寻址</strong>到网关路由器，尽管知道了默认网关服务器的IP地址，但在链路层中需要MAC地址，此时需要使用到ARP协议。</li>
+<li>本机生成一个具有目的IP地址（222.28.60.1）的ARP查询报文，将该ARP查询报文放置在一个<strong>具有广播地址</strong>（FF:FF:FF:FF:FF:FF）的以太网帧中，并向交换机发送该以太网帧，交换机将该帧交付给所有的连接设备，包括网关路由器。</li>
+<li>网关路由器在通往本机网络块的端口接收到包含该ARP查询报文的帧，发现其目的IP地址匹配自己接口的IP地址，因此准备了一个<strong>ARP回答</strong>，指示他的MAC地址（CC:CC:CC:CC:CC:CC）对应IP（222.28.60.1），将回答放入一个以太网帧中，其目的地址是本机（BB:BB:BB:BB:BB:BB），并向交换机发送该帧，再由交换机将帧交付给本机。</li>
+<li>本机接受到包含ARP回答报文的帧，并从ARP回答报文中抽取网关路由器的MAC地址（CC:CC:CC:CC:CC:CC）。</li>
+<li>本机最终能够使包含DNS查询报文的以太网帧寻址到网关服务器的MAC地址。该帧中的IP数据报具有IP目的地址（202.204.48.8，本地DNS服务器），而该帧具有目的地址（CC:CC:CC:CC:CC:CC，网关服务器），本机向交换机发送该帧，交换机将该帧交付给网关路由器。</li>
+</ol>
+<h4 id="5-7-3-仍在准备：域内路由选择到DNS服务器"><a href="#5-7-3-仍在准备：域内路由选择到DNS服务器" class="headerlink" title="5.7.3 仍在准备：域内路由选择到DNS服务器"></a>5.7.3 仍在准备：域内路由选择到DNS服务器</h4><ol start="14">
+<li>网关路由器接受该帧并抽取包含DNS查询的IP数据报，查询目的地址（202.204.48.8），根据转发表将数据报发送到指定输出端口。</li>
+<li>在路由器之间根据路右转发表确定出接口，而转发表已经根据<strong>域内协议</strong>（<strong>RIP、OSPF或IS-IS</strong>）以及<strong>因特网域间协议BGP</strong>所填写。</li>
+<li>最终包含DNS查询的IP数据报到达DNS服务器，在DNS数据库中查找baidu.com，找到包含其IP地址的<strong>DNS源记录</strong>。这种缓存数据来自<strong>权威DNS服务器</strong>。该DNS服务器形成了一个包含baidu.com到IP地址的映射的<strong>DNS回答报文</strong>。该报文放置到UDP报文段，该报文段放置到寻址到本机IP地址的IP数据报中，该数据报将原路返回转发到学校的路由器，并从这里经过以太网交换机到本机。</li>
+<li>本机从DNS报文中抽取出baidu.com的IP地址，并开始准备访问。</li>
+</ol>
+<h4 id="5-7-4-Web客户-服务器交互：TCP和HTTP"><a href="#5-7-4-Web客户-服务器交互：TCP和HTTP" class="headerlink" title="5.7.4 Web客户-服务器交互：TCP和HTTP"></a>5.7.4 Web客户-服务器交互：TCP和HTTP</h4><ol start="18">
+<li>生成<strong>TCP套接字（socket）</strong>，该套接字用于向baidu.com发送<strong>HTTP GET</strong>报文。当生成socket时，必须与baidu.com执行三次握手。因此首先生成一个具有目的端口80（只针对HTTP）的<strong>TCP SYN报文段</strong>，该报文放置到具有目的IP地址（119.75.217.109，百度）的IP数据报中，该数据报又封装到具有目的MAC地址（CC:CC:CC:CC:CC:CC，网关路由器）的帧中，并向交换机发送该帧。</li>
+<li>从学校网络、联通网络、百度网络中的路由器朝着baidu.com转发包含TCP SYN数据报，使用每台路由器的准发表。联通网络、百度网络之间的转发表是通过<strong>域间协议BGP</strong>制定的。</li>
+<li>最终，包含TCP SYN的数据报到达baidu.com服务器，从数据报抽取出TCP SYN报文并分解到与端口80相联系的欢迎套接字。<strong>对于baidu.com和本机之间的连接生成一个连接套接字</strong>，产生一个SYNACK报文段，将其放入向本机寻址的一个数据报中，最后放入链路层帧，该链路适合将baidu.com连接到其第一跳路由器。</li>
+<li>包含TCP SYNACK报文段的数据报通过百度网络、联通网络、学校网路（自治系统），最终到达本机的以太网卡，数据报在操作系统中分解到步骤18生成的TCP套接字，从而进入连接状态。</li>
+<li>借助本机上的套接字（socket），准备向baidu.com发送字节了。浏览器生成包含要获得的URL的HTTP GET报文，HTTP GET报文则写进套接字，其中GET报文成为一个TCP报文段的载荷。该TCP报文段放置进一个数据报中，并交付到baidu.com，如18~20描述的那样。</li>
+<li>目的服务器从TCP套接字读取HTTP GET报文，生成一个HTTP响应报文，将请求的Web页面放入HTTP响应体中，并将报文发送到TCP套接字中。</li>
+<li>包含HTTP响应报文的数据报通过百度网络、联通网络、学校网络转发到达本机，本机的浏览器程序从套接字读取HTTP响应，从HTTP响应体中抽取Web网页的html，并最终显示到浏览器上。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/计算机网络（4） 网络层/" rel="next" title="计算机网络（4） 网络层">
+                <i class="fa fa-chevron-left"></i> 计算机网络（4） 网络层
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/计算机网络（8） 计算机网络中的安全/" rel="prev" title="计算机网络（8） 计算机网络中的安全">
+                计算机网络（8） 计算机网络中的安全 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络（5）-链路、接入网和局域网"><span class="nav-number">1.</span> <span class="nav-text">计算机网络（5） 链路、接入网和局域网</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-1-链路层可能提供的服务"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">5.1.1 链路层可能提供的服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-2-链路层在何处实现"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">5.1.2 链路层在何处实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-差错检测和纠正技术"><span class="nav-number">1.0.1.</span> <span class="nav-text">5.2 差错检测和纠正技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-奇偶校验"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">5.2.1 奇偶校验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-检验和方法"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">5.2.2 检验和方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-3-循环冗余检测"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">5.2.3 循环冗余检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-多路访问链路和协议"><span class="nav-number">1.0.2.</span> <span class="nav-text">5.3 多路访问链路和协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-1-信道划分协议"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">5.3.1 信道划分协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-2-随机接入协议"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">5.3.2 随机接入协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ALOHA"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">ALOHA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#载波侦听多路访问（CSMA）"><span class="nav-number">1.0.2.2.2.</span> <span class="nav-text">载波侦听多路访问（CSMA）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#具有碰撞检测的载波侦听多路访问（CSMA-CD）"><span class="nav-number">1.0.2.2.3.</span> <span class="nav-text">具有碰撞检测的载波侦听多路访问（CSMA/CD）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-轮流协议"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">5.3.3 轮流协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#轮询协议"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">轮询协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#令牌传递协议"><span class="nav-number">1.0.2.3.2.</span> <span class="nav-text">令牌传递协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-4-DOCSIS：用于电缆因特网接入的链路层协议"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">5.3.4 DOCSIS：用于电缆因特网接入的链路层协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-交换局域网"><span class="nav-number">1.0.3.</span> <span class="nav-text">5.4 交换局域网</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-链路层寻址和ARP"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">5.4.1 链路层寻址和ARP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、MAC地址"><span class="nav-number">1.0.3.1.1.</span> <span class="nav-text">1、MAC地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、地址解析协议"><span class="nav-number">1.0.3.1.2.</span> <span class="nav-text">2、地址解析协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、发送数据到子网之外"><span class="nav-number">1.0.3.1.3.</span> <span class="nav-text">3、发送数据到子网之外</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-以太网"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">5.4.2 以太网</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、以太网帧结构"><span class="nav-number">1.0.3.2.1.</span> <span class="nav-text">1、以太网帧结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、以太网技术"><span class="nav-number">1.0.3.2.2.</span> <span class="nav-text">2、以太网技术</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-3-链路层交换机"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">5.4.3 链路层交换机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、交换机转发和过滤"><span class="nav-number">1.0.3.3.1.</span> <span class="nav-text">1、交换机转发和过滤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、自学习"><span class="nav-number">1.0.3.3.2.</span> <span class="nav-text">2、自学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、链路层交换机的性质"><span class="nav-number">1.0.3.3.3.</span> <span class="nav-text">3、链路层交换机的性质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、路由器和交换机的比较"><span class="nav-number">1.0.3.3.4.</span> <span class="nav-text">4、路由器和交换机的比较</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-4-虚拟局域网"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">5.4.4 虚拟局域网</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-数据中心网络"><span class="nav-number">1.0.4.</span> <span class="nav-text">5.6 数据中心网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-Web请求页面的流程"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.7 Web请求页面的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-1-准备：DHCP、UDP、IP和以太网"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">5.7.1 准备：DHCP、UDP、IP和以太网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-2-仍在准备：DNS和ARP"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">5.7.2 仍在准备：DNS和ARP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-3-仍在准备：域内路由选择到DNS服务器"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">5.7.3 仍在准备：域内路由选择到DNS服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-4-Web客户-服务器交互：TCP和HTTP"><span class="nav-number">1.0.5.4.</span> <span class="nav-text">5.7.4 Web客户-服务器交互：TCP和HTTP</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

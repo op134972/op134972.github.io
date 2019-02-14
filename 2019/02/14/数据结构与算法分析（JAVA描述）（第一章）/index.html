@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,算法分析,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法分析（JAVA描述）（第一章）chapter1#引论个人笔记，如有错误，恳请批评指正。 1.4 实现泛型构件 Pre-Java 5JDK1.5新特性：  泛型（Generics） 增强的“for”循环（Enhanced For loop） 自动装箱/ 自动拆箱（Autoboxing/unboxing） 类型安全的枚举（Type safe enums） 静态导入（Static impo">
+<meta name="keywords" content="数据结构,算法分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法分析（JAVA描述）（第一章）">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/数据结构与算法分析（JAVA描述）（第一章）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="数据结构与算法分析（JAVA描述）（第一章）chapter1#引论个人笔记，如有错误，恳请批评指正。 1.4 实现泛型构件 Pre-Java 5JDK1.5新特性：  泛型（Generics） 增强的“for”循环（Enhanced For loop） 自动装箱/ 自动拆箱（Autoboxing/unboxing） 类型安全的枚举（Type safe enums） 静态导入（Static impo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/arraystoreException.JPG">
+<meta property="og:updated_time" content="2017-03-19T07:52:59.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构与算法分析（JAVA描述）（第一章）">
+<meta name="twitter:description" content="数据结构与算法分析（JAVA描述）（第一章）chapter1#引论个人笔记，如有错误，恳请批评指正。 1.4 实现泛型构件 Pre-Java 5JDK1.5新特性：  泛型（Generics） 增强的“for”循环（Enhanced For loop） 自动装箱/ 自动拆箱（Autoboxing/unboxing） 类型安全的枚举（Type safe enums） 静态导入（Static impo">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/arraystoreException.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/数据结构与算法分析（JAVA描述）（第一章）/">
+
+
+
+
+
+  <title>数据结构与算法分析（JAVA描述）（第一章） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/数据结构与算法分析（JAVA描述）（第一章）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构与算法分析（JAVA描述）（第一章）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T15:52:59+08:00">
+                2017-03-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据结构与算法分析（JAVA描述）（第一章）"><a href="#数据结构与算法分析（JAVA描述）（第一章）" class="headerlink" title="数据结构与算法分析（JAVA描述）（第一章）"></a>数据结构与算法分析（JAVA描述）（第一章）</h1><h2 id="chapter1-引论"><a href="#chapter1-引论" class="headerlink" title="chapter1#引论"></a>chapter1#引论</h2><p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h3 id="1-4-实现泛型构件-Pre-Java-5"><a href="#1-4-实现泛型构件-Pre-Java-5" class="headerlink" title="1.4 实现泛型构件 Pre-Java 5"></a>1.4 实现泛型构件 Pre-Java 5</h3><p>JDK1.5新特性：</p>
+<ul>
+<li>泛型（Generics）</li>
+<li>增强的“for”循环（Enhanced For loop）</li>
+<li>自动装箱/ 自动拆箱（Autoboxing/unboxing）</li>
+<li>类型安全的枚举（Type safe enums）</li>
+<li>静态导入（Static import）</li>
+<li>可变参数(Var args)</li>
+</ul>
+<h4 id="1-4-1-使用Object表示泛型"><a href="#1-4-1-使用Object表示泛型" class="headerlink" title="1.4.1 使用Object表示泛型"></a>1.4.1 使用Object表示泛型</h4><p>略</p>
+<h4 id="1-4-2-基本类型的包装"><a href="#1-4-2-基本类型的包装" class="headerlink" title="1.4.2 基本类型的包装"></a>1.4.2 基本类型的包装</h4><p>Java为8总不能和Object相容的基本类型提供包装类，如int为Integer，每一个包装对象不可变（即状态不能被改变）。</p>
+<h4 id="1-4-3-使用接口类型表示泛型"><a href="#1-4-3-使用接口类型表示泛型" class="headerlink" title="1.4.3 使用接口类型表示泛型"></a>1.4.3 使用接口类型表示泛型</h4><ol>
+<li>总的来说就是用接口定义类型，比如Comparable接口，只有实现此接口并在其CompareTo方法中定义了对应的比较方法时，此类才有可比较性。实现了同一接口的类在某种意义上可以视为同一类。</li>
+<li>如果comparable数组总有两个不相容的对象（例如，一个String一个Shape），那么CompareTo方法将抛出ClassCastException的异常。</li>
+<li>如前所示，基本类型不能作为COmparable传递，但是包装类型可以，因为其实现了Comparable接口。</li>
+</ol>
+<h4 id="1-4-4-数组类型的兼容性"><a href="#1-4-4-数组类型的兼容性" class="headerlink" title="1.4.4 数组类型的兼容性"></a>1.4.4 数组类型的兼容性</h4><p>为了避免不同数组之间相互引用产生类型混乱（Employee IS-A Person; Student IS-A Person;Employee IS-NOT Student），最容易的方法是指定这些数组不是数据兼容的。而在Java中，数组是类型兼容的，这叫做<strong>协变数组类型（convariant array type）</strong>，每个数组明确说明其所允许的储存对象的类型，如果将一个不兼容的类型插入到数组，虚拟机将会抛出一个ArrayStoreException的异常。在较早的JDK版本中是需要数组的协变性的。<br><img src="http://oli0whb3w.bkt.clouddn.com/arraystoreException.JPG" alt="enter image description here"></p>
+<h3 id="1-5-利用Java-5-泛型特性实现泛型构件"><a href="#1-5-利用Java-5-泛型特性实现泛型构件" class="headerlink" title="1.5 利用Java 5 泛型特性实现泛型构件"></a>1.5 利用Java 5 泛型特性实现泛型构件</h3><h4 id="1-5-1-简单的泛型类和接口"><a href="#1-5-1-简单的泛型类和接口" class="headerlink" title="1.5.1 简单的泛型类和接口"></a>1.5.1 简单的泛型类和接口</h4><p>泛型类略，Java 5 之前，Comparable接口不是泛型的，而它的Comparable方法需要Object作为参数。于是，传递到COmparaTo方法的任何引用变量类型即使不合理也会编译，运行时报ClassCastException异常。Java 5 中，Comparable接口是泛型的，通过使实现类变成泛型类，以前只有在运行时才能报的异常提前到编译时异常了。</p>
+<h4 id="1-5-2-自动封箱-自动拆箱"><a href="#1-5-2-自动封箱-自动拆箱" class="headerlink" title="1.5.2 自动封箱/自动拆箱"></a>1.5.2 自动封箱/自动拆箱</h4><p>Java 5 中，如果一个int型量被传递到一个需要integer对象的地方，那么编译器将在幕后插入一个对Integer构造方法的调用。此过程叫自动装箱。而如果一个Integer对象被放到需要int型量的地方，编译器将在幕后插入一个intvalue方法的调用，这就叫做自动拆箱，对于其他的包装类型同样会发生类似的情形。</p>
+<h4 id="1-5-3-菱形运算"><a href="#1-5-3-菱形运算" class="headerlink" title="1.5.3 菱形运算"></a>1.5.3 菱形运算</h4><p>Java 7 中添加的新特性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();<span class="comment">//右边的类型声明可以不写</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-5-4-限制通配符"><a href="#1-5-4-限制通配符" class="headerlink" title="1.5.4 限制通配符"></a>1.5.4 限制通配符</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;? extends Shape&gt; arr;<span class="comment">//表示Shape及其子类</span></span><br><span class="line">Collection&lt;? <span class="keyword">super</span> Square&gt;;<span class="comment">//表示Square及其超类</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-5-5-泛型static方法"><a href="#1-5-5-泛型static方法" class="headerlink" title="1.5.5 泛型static方法"></a>1.5.5 泛型static方法</h4><p>泛型方法特别像泛型类，因为类型参数表使用相同的语法。在泛型方法中的类型参数位于返回类型之前。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*判断数组中是否含有指定元素，泛型声明数组类型</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(T[] arr,T x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(T item:arr)&#123;</span><br><span class="line">	    <span class="keyword">if</span>(x.equals(item))<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-6-类型限界"><a href="#1-5-6-类型限界" class="headerlink" title="1.5.6 类型限界"></a>1.5.6 类型限界</h4><p>略</p>
+<h4 id="1-5-7类型擦除"><a href="#1-5-7类型擦除" class="headerlink" title="1.5.7类型擦除"></a>1.5.7类型擦除</h4><p>泛型在很大程度上是Java语言中的成分而不是虚拟机中的结构。泛型类可以由编译器通过所谓的类型擦除（Type erasure）过程而转变成非泛型类。这样，编译器就生成了一种与泛型类同名的原始类（raw class），但是类型参数都被删除了。类型变量由它们的类型限界来代替，当一个具有擦除返回类型的泛型方法被调用的时候，一些特性被自动的插入。如果一个泛型类而不带类型参数，就是原始类。类型擦除的显著优点是：程序员不需要把一些类型转换代码放到代码中，编译器将进行重要的类型检验。</p>
+<h3 id="练习："><a href="#练习：" class="headerlink" title="练习："></a>练习：</h3><p>T1.5 编写一种递归方法，他返回数N的二进制表示中1的个数。利用这样的事实：如果N为奇数，其1的个数为N/2的二进制表示中1的个数加1。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.ustb.chapter1;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 只考虑正数，返回传入数字二进制中1的个数，利用原理：如果N是奇数，那么其1的个数等于N/2的二进制1的个数加1。</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">return1count</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 奇数：迭代 1:1 2:10 3:11 4:100 5:101 6:110 7:111 8:1000</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">if</span> (num == <span class="number">0</span>)<span class="comment">//终止条件</span></span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (num % <span class="number">2</span> != <span class="number">0</span>) &#123;<span class="comment">// 奇数</span></span><br><span class="line">				<span class="keyword">return</span> return1count(num/<span class="number">2</span>) + <span class="number">1</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;<span class="comment">//偶数</span></span><br><span class="line">				<span class="keyword">return</span> return1count(num/<span class="number">2</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> num = <span class="number">100123</span>;</span><br><span class="line">		<span class="keyword">int</span> count = return1count(num);</span><br><span class="line">		System.out.println(num+<span class="string">"二进制中1的个数为："</span>+count);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/算法分析/" rel="tag"># 算法分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/数据结构与算法分析（JAVA描述）（第五章 散列）/" rel="next" title="数据结构与算法分析（JAVA描述）（第五章 散列）">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法分析（JAVA描述）（第五章 散列）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/图解HTTP（1） 了解Web及网络基础/" rel="prev" title="图解HTTP（1） 了解Web及网络基础">
+                图解HTTP（1） 了解Web及网络基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构与算法分析（JAVA描述）（第一章）"><span class="nav-number">1.</span> <span class="nav-text">数据结构与算法分析（JAVA描述）（第一章）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter1-引论"><span class="nav-number">1.1.</span> <span class="nav-text">chapter1#引论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-实现泛型构件-Pre-Java-5"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.4 实现泛型构件 Pre-Java 5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-使用Object表示泛型"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.4.1 使用Object表示泛型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-基本类型的包装"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">1.4.2 基本类型的包装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3-使用接口类型表示泛型"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">1.4.3 使用接口类型表示泛型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-4-数组类型的兼容性"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">1.4.4 数组类型的兼容性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-利用Java-5-泛型特性实现泛型构件"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.5 利用Java 5 泛型特性实现泛型构件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-1-简单的泛型类和接口"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.5.1 简单的泛型类和接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-2-自动封箱-自动拆箱"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">1.5.2 自动封箱/自动拆箱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-3-菱形运算"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">1.5.3 菱形运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-4-限制通配符"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">1.5.4 限制通配符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-5-泛型static方法"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">1.5.5 泛型static方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-6-类型限界"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">1.5.6 类型限界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-7类型擦除"><span class="nav-number">1.1.2.7.</span> <span class="nav-text">1.5.7类型擦除</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习："><span class="nav-number">1.1.3.</span> <span class="nav-text">练习：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

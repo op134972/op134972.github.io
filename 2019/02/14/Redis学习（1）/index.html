@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Redis学习（1） REmote DIctionary Server：远程字典服务器，键值对存储，TCP协议传输。 1.2.1 存储结构支持的键值对数据类型：  字符串类型 散列类型 列表类型 集合类型 有序集合类型  不同于MySql的二维表形式存储结构，数据在Redis中的存储形式和程序中存储方式很接近。 1.2.2 内存存储与持久化同时存储于内存和硬盘中，解决了速度与持久化的问题。 Cha">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习（1）">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/Redis学习（1）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="Redis学习（1） REmote DIctionary Server：远程字典服务器，键值对存储，TCP协议传输。 1.2.1 存储结构支持的键值对数据类型：  字符串类型 散列类型 列表类型 集合类型 有序集合类型  不同于MySql的二维表形式存储结构，数据在Redis中的存储形式和程序中存储方式很接近。 1.2.2 内存存储与持久化同时存储于内存和硬盘中，解决了速度与持久化的问题。 Cha">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/0170716160141.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/_20170716160105.jpg">
+<meta property="og:updated_time" content="2017-07-17T10:58:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis学习（1）">
+<meta name="twitter:description" content="Redis学习（1） REmote DIctionary Server：远程字典服务器，键值对存储，TCP协议传输。 1.2.1 存储结构支持的键值对数据类型：  字符串类型 散列类型 列表类型 集合类型 有序集合类型  不同于MySql的二维表形式存储结构，数据在Redis中的存储形式和程序中存储方式很接近。 1.2.2 内存存储与持久化同时存储于内存和硬盘中，解决了速度与持久化的问题。 Cha">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/0170716160141.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/Redis学习（1）/">
+
+
+
+
+
+  <title>Redis学习（1） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Redis学习（1）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis学习（1）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-07-17T18:58:56+08:00">
+                2017-07-17
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  35
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Redis学习（1）"><a href="#Redis学习（1）" class="headerlink" title="Redis学习（1）"></a>Redis学习（1）</h1><hr>
+<p>REmote DIctionary Server：远程字典服务器，键值对存储，TCP协议传输。</p>
+<h3 id="1-2-1-存储结构"><a href="#1-2-1-存储结构" class="headerlink" title="1.2.1 存储结构"></a>1.2.1 存储结构</h3><p>支持的键值对数据类型：</p>
+<ul>
+<li>字符串类型</li>
+<li>散列类型</li>
+<li>列表类型</li>
+<li>集合类型</li>
+<li>有序集合类型</li>
+</ul>
+<p>不同于MySql的二维表形式存储结构，数据在Redis中的存储形式和程序中存储方式很接近。</p>
+<h3 id="1-2-2-内存存储与持久化"><a href="#1-2-2-内存存储与持久化" class="headerlink" title="1.2.2 内存存储与持久化"></a>1.2.2 内存存储与持久化</h3><p>同时存储于内存和硬盘中，解决了速度与持久化的问题。</p>
+<h2 id="Chapter-2-安装"><a href="#Chapter-2-安装" class="headerlink" title="Chapter 2 安装"></a>Chapter 2 安装</h2><p>偶数版本为稳定版：2.8、3.0</p>
+<p><strong>安装：</strong><br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://download.redis.io/releases/redis-<span class="number">4.0</span>.<span class="number">0</span>.tar.gz</span><br><span class="line">$ tar xzf redis-<span class="number">4.0</span>.<span class="number">0</span>.tar.gz</span><br><span class="line">$ cd redis-<span class="number">4.0</span>.<span class="number">0</span></span><br><span class="line">$ make</span><br></pre></td></tr></table></figure></p>
+<p><strong>make install</strong>：将可运行指令复制到/usr/local/bin目录中，这样就不需要每次运行都进入安装目录了，相当于windows中的配置path路径。此操作需要<strong>sudo</strong>。</p>
+<p>基本操作：</p>
+<ul>
+<li>redis-server：开启服务</li>
+<li>redis-cli：redis自带的命令行客户端</li>
+<li>redis-cli SHUTDOWN：正确的关闭方式</li>
+</ul>
+<p><strong>注：</strong>还可以通过修改配置文件的方式使redis随系统启动自动启动。</p>
+<h3 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h3><p>redis-cli进入命令行环境。<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wch@ubuntu:~/redis-<span class="number">4.0</span>.<span class="number">0</span>/src$ redis-cli</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>表示已经进入到redis的命令环境了。输入相应的命令即可。<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wch@ubuntu:~/redis-<span class="number">4.0</span>.<span class="number">0</span>/src$ redis-cli</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; ping</span><br><span class="line">PONG</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; echo hi</span><br><span class="line"><span class="string">"hi"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据库结构"><a href="#数据库结构" class="headerlink" title="数据库结构"></a>数据库结构</h3><p>首先应该明白，redis实例、数据库、变量的区别。</p>
+<p><strong>redis实例：</strong>每开启一次redis-cli相当于开启了一个redis实例。实例与实例之间相互隔离，redis实例相当轻量，一个redis实例之占1MB左右的内存。不同应用的实例确保保存在不同的redis实例中。</p>
+<p><strong>数据库：</strong>每个redis实例中默认可以支持16个数据库，可以通过配置参数databases修改这个数量。通过SELECT 0、1、2、3。。15来切换不同的数据库。不同的数据库之间并不是完全隔离，比如FLUSHALL指令能够删除统一redis实例中的所有数据库中的数据。<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; config get databases<span class="comment">#查看databases的配置，第一行是key。第二行是value</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"databases"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"16"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; select <span class="number">0</span><span class="comment">#切换到第一个数据库，并set变量foo的值为test1</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; set foo test1</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; get foo</span><br><span class="line"><span class="string">"test1"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; select <span class="number">1</span><span class="comment">#切换了数据库，此时再查看foo变量的值，显示的是nil，既空结果。</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>[<span class="number">1</span>]&gt; get foo</span><br><span class="line">(nil)</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>[<span class="number">1</span>]&gt; </span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>[<span class="number">1</span>]&gt; flushall<span class="comment">#刷新了所有内存中的数据，此操作对所以数据库起作用，但对不同的redis实例不起作用。</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>[<span class="number">1</span>]&gt; get foo</span><br><span class="line">(nil)</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>[<span class="number">1</span>]&gt; select <span class="number">0</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; get foo</span><br><span class="line">(nil)</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>变量：</strong>redis采用的是键值对的存储方式，既key-value对。</p>
+<h2 id="Chapter-3-入门"><a href="#Chapter-3-入门" class="headerlink" title="Chapter 3 入门"></a>Chapter 3 入门</h2><p>之前学习了如何安装以及一些基本的操作，下面将学习<strong>主要的数据类型以及相应的命令</strong>。</p>
+<p>目前redis的应用主要是<strong>缓存和队列</strong>为主，此过程还是不可省略的，首相，通过redis-cli命令开启一个redis实例进行学习。</p>
+<h3 id="3-1-基本指令"><a href="#3-1-基本指令" class="headerlink" title="3.1 基本指令"></a>3.1 基本指令</h3><p>1、    获取符合规则的键名列表</p>
+<ul>
+<li>KEYS pattern：使用glob风格的通配符格式。<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>[<span class="number">1</span>]&gt; keys *<span class="comment">#表示获取该数据库中的的所有数据的key，当前数据库有bar、foo两个数据</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"bar"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"foo"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>[<span class="number">1</span>]&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注：redis中是不区分大小写的。</strong></p>
+<p>2、 判断一个键是否存在<br>存在返回1，不存在返回0<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; exists foo</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; exists faa</span><br><span class="line">(integer) <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>3、删除键<br>可以删除一个或者多个，不支持通配符，**但是可以通过Linux的管道和xargs命令自己实现删除所有符合规则的键。</p>
+<p>返回值是删除的键的个数<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; keys *</span><br><span class="line"><span class="number">1</span>) <span class="string">"bar3"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"bar5"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"bar4"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"foo"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; del bar3 bar4</span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; del bar5</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; del bar5</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; keys *</span><br><span class="line"><span class="number">1</span>) <span class="string">"foo"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>4、 获得键值的数据类型</p>
+<ul>
+<li><strong>TYPE key</strong></li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; set foo <span class="number">1</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; type foo</span><br><span class="line">string</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpush bar <span class="number">1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; type bar</span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+<p>lpush表示向一个<strong>列表类型键</strong>中添加一个元素，如果<strong>键</strong>不存在中则创建它。</p>
+<p>TYPE返回的类型一共有：</p>
+<ul>
+<li>string（字符串）</li>
+<li>hash（散列）</li>
+<li>list（列表）</li>
+<li>set（集合）</li>
+<li>zset（有序集合）</li>
+</ul>
+<h3 id="3-2-字符串类型"><a href="#3-2-字符串类型" class="headerlink" title="3.2    字符串类型"></a>3.2    字符串类型</h3><p>一些特质：</p>
+<ul>
+<li>reids中最基本的数据类型</li>
+<li>存储任何形式的字符串，包括二进制数据，图片</li>
+<li>一个字符串类型键允许存储的数据的最大容量是512M。</li>
+</ul>
+<h4 id="3-2-2-命令"><a href="#3-2-2-命令" class="headerlink" title="3.2.2 命令"></a>3.2.2 命令</h4><p>1、 赋值与取值<br><code>SET KEY value</code><br><code>GET KEY</code></p>
+<p>2、 递增数字<br><code>INCR key</code></p>
+<p>此操作为原子操作（atomic operation）既多个客户端同时操作一个数据时，不会出现错误。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; set foo num</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; incr foo<span class="comment">#foo为string类型，会报错。INCR操作只支持数字形式的字符串。</span></span><br><span class="line">(error) ERR value is not an integer or out of range</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; incr num1<span class="comment">#如果不存在key，则创建一个，初始化为0，因此首次递增之后是1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; incr num2</span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-2-3-应用"><a href="#3-2-3-应用" class="headerlink" title="3.2.3    应用"></a>3.2.3    应用</h4><p>1、 文章访问量统计<br>使用名为<code>post：文章ID：page.view</code>的key来存储文章的访问量，每次访问使用<code>INCR</code>操作增加。</p>
+<blockquote>
+<p>提示：命名没有强制的要求，但规范是用“<strong>对象类型：对象ID：对象属性</strong>”来命名一个键，如使用user:1:freinds来存储ID为1的用户的好友列表。多个单词推荐使用<code>.</code>来分割</p>
+</blockquote>
+<p>2、 生成自增ID<br>3、 存储文章数据</p>
+<p><strong>发布新文章时与redis操作相关的伪代码：</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首先获取新文章的ID</span></span><br><span class="line">$postID = INCR posts:count</span><br><span class="line"><span class="comment">#将博客文章的诸多元素序列化成字符串</span></span><br><span class="line">$serializedPost = serialize($title,$content,$author,$time)<span class="comment">#serialize为PHP中将对象转为字符串的操作。相当于Javascript中的stringify操作。</span></span><br><span class="line"><span class="comment">#把序列化候的字符串存入一个字符串类型键中</span></span><br><span class="line">SET post:$postID:data, $serializedPost</span><br></pre></td></tr></table></figure></p>
+<p><strong>获取文章数据的伪代码如下</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从redis中读取文章数据</span></span><br><span class="line">$serializedPost = GET post:<span class="number">42</span>:data</span><br><span class="line"><span class="comment">#将文章数据反序列化成文章的各个元素</span></span><br><span class="line">$title, $content, $author, $time = unserialize($serializedPost)</span><br><span class="line"><span class="comment">#获取并递增文章的访问数量</span></span><br><span class="line">$count = INCR post:<span class="number">42</span>:page.view</span><br></pre></td></tr></table></figure>
+<p>除了使用序列化函数将文章的多个元素存入一个字符串类型键中外，还可以对每个元素使用一个字符串类型键来存储，这种方法将在<code>3.3.3节</code>中进行学习。</p>
+<h4 id="3-2-4-命令拾遗"><a href="#3-2-4-命令拾遗" class="headerlink" title="3.2.4 命令拾遗"></a>3.2.4 命令拾遗</h4><p>1、 增加指定的整数<br><code>INCRBY key increment</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; get num2</span><br><span class="line"><span class="string">"4"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; incrby num2 <span class="number">5</span><span class="comment">#将num2 = 4再加上5，等于9</span></span><br><span class="line">(integer) <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>2、 减少指定的整数<br><code>DECR key</code><br><code>DECRBY key decrement</code></p>
+<p>3、 增加指定浮点数<br><code>INCRBYFLOAT KEY FLOAT</code><br>4、 向尾部追加值<br><code>APPEND key value</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; set sayHi hello</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; append sayHi <span class="string">" world!"</span></span><br><span class="line">(integer) <span class="number">12</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; get sayHi</span><br><span class="line"><span class="string">"hello world!"</span></span><br></pre></td></tr></table></figure>
+<p>5、 获取字符串的长度<br><code>STRLEN key</code><br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; strlen sayHi</span><br><span class="line">(integer) <span class="number">12</span></span><br></pre></td></tr></table></figure></p>
+<p>6、 同时获取/设置多个键值<br><code>MGET KEY [KEY ...]</code><br><code>MSET key value [key value ...]</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; mset key1 v1 key2 v2 key3 v3</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; get key2</span><br><span class="line"><span class="string">"v2"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; mget key1 key2 key3</span><br><span class="line"><span class="number">1</span>) <span class="string">"v1"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"v2"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"v3"</span></span><br></pre></td></tr></table></figure>
+<p>7、 位操作<br><code>GETBIT key offset</code><br><code>SETBIT key offset value</code><br><code>BITCOUNT key [start] [end]</code>//获取字符串类型键中值是1的二进制位个数<br><code>BITOP operation destkey key [key ...]</code></p>
+<p>比如：foo = “bar”的二进制存储是：01100010 01100001 01110010</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; set foo bar</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">0</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">2</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">3</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">4</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">5</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">6</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; getbit foo <span class="number">7</span></span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; bitcount foo</span><br><span class="line">(integer) <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>BITOP: 位操作，AND、OR、XOR、NOT</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET foo1 bar</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET foo2 aar</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; BITOP OR result foo1 foo2</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; GET result</span><br><span class="line"><span class="string">"car"</span></span><br></pre></td></tr></table></figure>
+<p>BITPOS：redis2.8.7之后引入的操作，获取第一个二进制只0或1的位置。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; GET result</span><br><span class="line"><span class="string">"car"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; BITPOS result <span class="number">1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; BITPOS result <span class="number">0</span></span><br><span class="line">(integer) <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>利用位操作可以非常紧凑地存储布尔值，记录100万个用户的性别只需要占用100kb多的空间，而且由于GETBIT和SETBIT的时间复杂度是O(1)，性能也很好。</strong></p>
+</blockquote>
+<h3 id="3-3-散列类型"><a href="#3-3-散列类型" class="headerlink" title="3.3    散列类型"></a>3.3    散列类型</h3><h4 id="3-3-1-介绍"><a href="#3-3-1-介绍" class="headerlink" title="3.3.1 介绍"></a>3.3.1 介绍</h4><p>散列类型的值又是一种字典结构，存储了字段（field）和字段值的映射。值得注意的是：<strong>字段值只能是字符串</strong>，不支持其他的数据类型，既散列类型不能嵌套其他的类型数据。一个散列类型键可以包含<strong>2^32-1</strong>个字段（属性）。</p>
+<blockquote>
+<p>提示：除了散列类型，Redis的其他数据类型同样不支持数据类型的嵌套。比如集合类型的每个元素<strong>只能是字符串</strong>，<strong>不能是另一个集合或散列表等</strong>。</p>
+</blockquote>
+<p>散列类型的适用于：一个实体，有多重属性，每个属性名和字段对应，每个属性值和字段值对应。<strong>相较于关系型数据库，同一类的实体，其属性结构更加灵活，不存在字段冗余。</strong></p>
+<h4 id="3-3-2-命令"><a href="#3-3-2-命令" class="headerlink" title="3.3.2 命令"></a>3.3.2 命令</h4><p>1、 赋值与取值<br><code>HSET key field value</code><br><code>HGET key field</code><br><code>HMSET key field value　[field value ...]</code><br><code>HMGET key field [field ...]</code><br><code>HGETALL key</code></p>
+<p>需求：car1对象，具有color、price、name属性。car2对象，具有color、price、name、engine属性。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HSET car1 color red price <span class="number">100000</span> name BMW</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HSET car2 color black price <span class="number">200000</span> name BENZ engine turbine</span><br><span class="line">(integer) <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HGETALL car1</span><br><span class="line"><span class="number">1</span>) <span class="string">"color"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"red"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"price"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"100000"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"name"</span></span><br><span class="line"><span class="number">6</span>) <span class="string">"BMW"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HGETALL car2</span><br><span class="line"><span class="number">1</span>) <span class="string">"color"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"black"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"price"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"200000"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"name"</span></span><br><span class="line"><span class="number">6</span>) <span class="string">"BENZ"</span></span><br><span class="line"><span class="number">7</span>) <span class="string">"engine"</span></span><br><span class="line"><span class="number">8</span>) <span class="string">"turbine"</span></span><br></pre></td></tr></table></figure>
+<p>HSET操作不区分插入和更新操作，在返回值上进行区别（插入返1，更新返0）</p>
+<p>2、 判断字段是否存在<br><code>HEXISTS key field</code><br>存在返回1，不存在返回0<br>3、 当字段不存在时赋值<br><code>HSETNX key field value</code><br>原子操作，不必担心竞态条件</p>
+<p>4、 增加数字<br><code>HINCRBY key field increment</code><br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HGET car1 price </span><br><span class="line"><span class="string">"150000"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HINCRBY car1 price <span class="number">100000</span></span><br><span class="line">(integer) <span class="number">250000</span></span><br></pre></td></tr></table></figure></p>
+<p>5、 删除字段<br><code>HDEL key field [field ...]</code><br>删除一个或者多个字段，返回的是被删除的字段个数。</p>
+<h4 id="3-3-3-实践"><a href="#3-3-3-实践" class="headerlink" title="3.3.3 实践"></a>3.3.3 实践</h4><p>1、 存储文章数据<br>散列类型相较于字符串类型来说更加灵活，比如存储一篇文章的数据，如果使用字符串类型，那么整个文章对象作为一个整体，每次获取都需要整个获取。而使用散列类型，将文章中的title、content类型分离为不同的字段，在更新和查询操作时候更加的灵活，减少了竞态条件的发生，以及减少了数据量的产生。<br>当然也可以使用多个字符串存储文章数据，如下。<br><img src="http://oli0whb3w.bkt.clouddn.com/0170716160141.jpg" alt="enter image description here"></p>
+<p><strong>而采用散列结构，其更加直观，也更容易维护。</strong><br><img src="http://oli0whb3w.bkt.clouddn.com/_20170716160105.jpg" alt="enter image description here"></p>
+<p>2、 存储文章缩略名</p>
+<h4 id="3-3-4-命令拾遗"><a href="#3-3-4-命令拾遗" class="headerlink" title="3.3.4 命令拾遗"></a>3.3.4 命令拾遗</h4><p>1、 只获取字段名或者字段值<br><code>HKEYS key</code><br><code>HVALS key</code><br>2、 获取字段数量<br><code>HLEN key</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HKEYS car1</span><br><span class="line"><span class="number">1</span>) <span class="string">"color"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"price"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"name"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HVALS car1</span><br><span class="line"><span class="number">1</span>) <span class="string">"black"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"250000"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"BMW"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HLEN car1</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; HLEN car2</span><br><span class="line">(integer) <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-4-列表类型"><a href="#3-4-列表类型" class="headerlink" title="3.4 列表类型"></a>3.4 列表类型</h3><h4 id="3-4-1-介绍"><a href="#3-4-1-介绍" class="headerlink" title="3.4.1 介绍"></a>3.4.1 介绍</h4><ul>
+<li>有序的字符串列表</li>
+<li>双向链表结构，常用的操作是在头尾添加和删除，或者获取列表某一片段的元素。</li>
+<li>一个列表类型键最多容纳2^32-1个元素。</li>
+</ul>
+<h4 id="3-4-2-命令"><a href="#3-4-2-命令" class="headerlink" title="3.4.2 命令"></a>3.4.2 命令</h4><p>1、 向列表两端增加元素<br><code>LPUSH key value [value ...]</code>向列表左端增加元素<br><code>RPUSH key value [value ...]</code>向列表右端增加元素<br>同时还支持一次性添加多个元素<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LPUSH numbers <span class="number">1</span><span class="comment">#左添加1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LPUSH numbers <span class="number">2</span> <span class="number">3</span><span class="comment">#左添加2,3  先添加2，再左添加3.列表中为3,2</span></span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; RPUSH numbers <span class="number">4</span> <span class="number">5</span><span class="comment">#右添加4,5  先添加4，再右添加5。列表中为4,5</span></span><br><span class="line">(integer) <span class="number">5</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE numbers <span class="number">0</span> <span class="number">8</span><span class="comment">#列表中的元素顺序是：3,2,1,4,5</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"3"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"1"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"5"</span></span><br></pre></td></tr></table></figure></p>
+<p>2、 从列表两端弹出元素<br><code>LPOP key</code><br><code>RPOP key</code><br>POP表示移除并返回，POP之后元素就不存在列表中了、</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LPOP numbers</span><br><span class="line"><span class="string">"3"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LPOP numbers</span><br><span class="line"><span class="string">"2"</span></span><br></pre></td></tr></table></figure>
+<p>3、 获取列表中元素的个数<br><code>LLEN key</code><br>键不存在会返回0，时间复杂度为O(1)。不需要像SELECT COUNT(*)那样遍历整个数据表。<br>4、 获得列表片段<br><code>LRANGE key start stop</code><br>起始从0开始，返回某一段的元素列表。包头<strong>且包尾</strong>。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LLEN numbers</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE numbers <span class="number">0</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"1"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"5"</span></span><br><span class="line"></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE numbers -<span class="number">2</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"5"</span></span><br></pre></td></tr></table></figure>
+<p>也支持<strong>负索引</strong>，负数表示从左边开始计数。-1表示最后一个，-2表示倒数第二个，以此类推。<br><strong>获取整个列表的方法。</strong><br><code>LRANGE key 0 -1</code>，或者stop序列取大于长度的值<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE numbers <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"1"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"5"</span></span><br></pre></td></tr></table></figure></p>
+<p>5、 删除列表中指定的值<br><code>LREM key count　value</code><br>删除列表中前count个值中值为value的元素，返回值是实际删除的元素的个数。根据count的值的不同，LREM的执行方式略有差异：</p>
+<ul>
+<li>count&gt;0时，从左边开始删除。</li>
+<li>count&lt;0时，从右边开始删除</li>
+<li>count=0时，删除整个列表中value的值。</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE nums <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"> <span class="number">1</span>) <span class="string">"0"</span></span><br><span class="line"> <span class="number">2</span>) <span class="string">"1"</span></span><br><span class="line"> <span class="number">3</span>) <span class="string">"1"</span></span><br><span class="line"> <span class="number">4</span>) <span class="string">"1"</span></span><br><span class="line"> <span class="number">5</span>) <span class="string">"1"</span></span><br><span class="line"> <span class="number">6</span>) <span class="string">"1"</span></span><br><span class="line"> <span class="number">7</span>) <span class="string">"2"</span></span><br><span class="line"> <span class="number">8</span>) <span class="string">"2"</span></span><br><span class="line"> <span class="number">9</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">10</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">11</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">12</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LREM nums <span class="number">4</span> <span class="number">1</span><span class="comment">#从左删除5个（从0开始，因此是5个）中值为1的元素，一共有4个为1，因此删除了4个</span></span><br><span class="line">(integer) <span class="number">4</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE nums <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"0"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"1"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">6</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">7</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">8</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LREM nums -<span class="number">5</span> <span class="number">2</span><span class="comment">#从右起删除5个（-1到-5，一共5个）元素中值为2的元素</span></span><br><span class="line">(integer) <span class="number">5</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE nums <span class="number">0</span> -<span class="number">1</span> </span><br><span class="line"><span class="number">1</span>) <span class="string">"0"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"1"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"2"</span></span><br><span class="line"></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE nums <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"1"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LREM nums <span class="number">0</span> <span class="number">1</span><span class="comment">#删除整个列表中值为1 的元素</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; LRANGE nums <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"2"</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-4-3-实践"><a href="#3-4-3-实践" class="headerlink" title="3.4.3 实践"></a>3.4.3 实践</h4><p>1、 存储文章ID列表<br>此做法的好处是，删除文章时，性能更高，可以很轻松的统计出文章的总数。细枝末节在此不一一学习了。<br>2、 存储评论列表</p>
+<h4 id="3-4-4-命令拾遗"><a href="#3-4-4-命令拾遗" class="headerlink" title="3.4.4 命令拾遗"></a>3.4.4 命令拾遗</h4><p>1、 获取/设置指定索引的元素值<br><code>LINDEX key index</code><br><code>LSET key index value</code><br>2、 只保留列表指定片段<br><code>LTRIM key start stop</code><br>如只保存近100条的日志记录，可以：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LPUSH logs <span class="variable">$newLog</span></span><br><span class="line">LTRIM logs <span class="number">0</span> <span class="number">99</span></span><br></pre></td></tr></table></figure>
+<p>3、 向列表中插入元素<br><code>LINSERT key BEFORE|AFTER pivot value</code>//pivot:中心点<br>从左到右查找pivot值的元素，根据BEFORE还是AFTER决定插入value到前还是后。<br>4、 将元素从一个列表转到另一个列表<br><code>RPOPLPUSH source destination</code><br>RPOP+LPUSH。先右弹出元素，在左添加到目标列表。（一次只对一个元素进行操作）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpush source <span class="number">0</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpush source <span class="number">1</span></span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpush source <span class="number">2</span></span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lrange source <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"0"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"1"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpush des <span class="number">3</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpush des <span class="number">4</span></span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpush des <span class="number">5</span></span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lrange des <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"3"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"5"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpoplpush source des<span class="comment">#一次只对一个元素进行了操作，并返回这个元素的值</span></span><br><span class="line"><span class="string">"2"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lrange des <span class="number">0</span> -<span class="number">1</span> </span><br><span class="line"><span class="number">1</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"3"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"5"</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>当source和destination相同时会发生什么？<br>将队尾的元素不断放置到队首。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lrange des <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"3"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"5"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpoplpush des des</span><br><span class="line"><span class="string">"5"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpoplpush des des</span><br><span class="line"><span class="string">"4"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; rpoplpush des des</span><br><span class="line"><span class="string">"3"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lrange des <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"3"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"5"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"2"</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-集合类型"><a href="#3-5-集合类型" class="headerlink" title="3.5 集合类型"></a>3.5 集合类型</h3><p>集合类型：无序，唯一，2^32-1个元素。<br>内部使用了值为空的散列表，既字段值为空，因此添加和删除的复杂度为O(1)。</p>
+<h4 id="3-5-2-命令"><a href="#3-5-2-命令" class="headerlink" title="3.5.2 命令"></a>3.5.2 命令</h4><p>1、 增加/删除元素<br><code>SADD key member [member ...]</code><br><code>SREM key member [member ...]</code><br>返回成功添加或者删除的元素个数</p>
+<p>2、 获得集合中的所有元素<br><code>SMEMBERS key</code></p>
+<p>3、 判断元素是否在集合中<br><code>SISMEMBER</code> key member<br>存在返回1，不存在返回0，复杂度为O(1)</p>
+<p>4、 集合间运算</p>
+<ul>
+<li><code>SDIFF key [key ...]</code><br>差集，<code>SDIFF setA setB</code>表示在A中取出A、B的公共元素。支持同时传入多个键，从从左到右的顺序依次计算。</li>
+<li><code>SINTER key [key ...]</code><br>取交集，<code>SINTER setA setB</code>表示取出A、B的公共元素。支持多个键同时传入。</li>
+<li><code>SUNION key [key ...]</code><br>取并集，支持同时传入多个键。</li>
+</ul>
+<h4 id="3-5-4-命令拾遗"><a href="#3-5-4-命令拾遗" class="headerlink" title="3.5.4 命令拾遗"></a>3.5.4 命令拾遗</h4><p>1、 获取元素个数<br><code>SCARD key</code><br>2、 进行集合运算并将结果存储<br><code>SDIFFSTORE destination key [key ...]</code><br><code>SINTERSTORE destination key [key ...]</code>//insterction<br><code>SUNIONSTORE destination key [key ...]</code></p>
+<p>3、 随机获取元素<br><code>SRANDMEMBER letters</code><br><code>SRANDMEMBER key count</code><br>随机获取元素，count表示元素的数量</p>
+<ul>
+<li>count为正，从集合取count个<strong>不重复</strong>的元素</li>
+<li>count为负，<strong>可能重复</strong>的元素。</li>
+</ul>
+<p>4、 从集合中弹出一个元素<br><code>SPOP key</code><br>弹出后会从集合中去除</p>
+<h3 id="3-6-有序集合类型"><a href="#3-6-有序集合类型" class="headerlink" title="3.6 有序集合类型"></a>3.6 有序集合类型</h3><h4 id="3-6-1-介绍"><a href="#3-6-1-介绍" class="headerlink" title="3.6.1 介绍"></a>3.6.1 介绍</h4><p>有序集合在集合类型的基础上为集合中的每个元素关联了一个分数，按照分数进行排序。</p>
+<p>有序集合在某些方面和列表类型有些相似：<br>（1）二者都是有序的。<br>（2）都可以获得某一范围的元素<br>差异：<br>（1）列表类型通过双线链表实现，获取靠近两端的数据速度极快，<strong>访问中间数据的速度慢</strong>，既增删快，访问慢。更加适合如“新鲜事”或“日志”这样很少访问中间元素的应用。<br>（2）有序集合使用的是<strong>散列表和跳跃表实现</strong>，即时访问中间的数据速度也很快。<br>（3）列表中不能简单的调整某个元素的位置，但是有序集合可以，<strong>只要更改这个元素的分数即可</strong>。<br>（4）<strong>有序集合比列表类型更加消耗内存</strong>。</p>
+<h4 id="3-6-2-命令"><a href="#3-6-2-命令" class="headerlink" title="3.6.2 命令"></a>3.6.2 命令</h4><p>1、 增加元素<br><code>ZADD key score member [score member ...]</code><br>向有序集合中添加一个元素和该元素的分数，如果已经存在该元素，则更新。返回的是添加进集合的元素个数，不包括更新的元素。<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; ZADD zset <span class="number">86</span> mike <span class="number">88</span> peter <span class="number">89</span> jason<span class="comment">#score可以是整数也可以是双精度浮点型，重复添加起到了更新数据的作用。</span></span><br></pre></td></tr></table></figure></p>
+<p>2、 获取元素的分数<br><code>ZSCORE key member</code><br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zscore zset peter</span><br><span class="line"><span class="string">"88"</span></span><br></pre></td></tr></table></figure></p>
+<p>3、 获取排名在某个范围的元素列表<br><code>ZRANGE key start stop [WITHSCORES]</code>//正序<br><code>ZREVRANGE key start stop [WIHSCORES]</code>//逆序<br>如需获取排名的分数。加上withscores参数。</p>
+<p>时间复杂度是O(logN+M)，N为有序集合的元素数，M为返回的元素个数。分数相同按照自然顺序排序，中文按照具体的编码方式。<br>4、 获取指定分数范围的元素<br><code>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrangebyscore zset <span class="number">88</span> <span class="number">89</span>  withscores</span><br><span class="line"><span class="number">1</span>) <span class="string">"peter"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"88"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"jason"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"89"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrangebyscore zset <span class="number">88</span> (<span class="number">89</span>  withscores<span class="comment">#加(表示不包括该分数</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"peter"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"88"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrangebyscore zset (<span class="number">88</span> <span class="number">89</span>  withscores</span><br><span class="line"><span class="number">1</span>) <span class="string">"jason"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"89"</span></span><br></pre></td></tr></table></figure>
+<p>score还支持无穷大，<strong>inf</strong>表示无穷大</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrangebyscore zset -inf +inf<span class="comment">#正无穷到负无穷</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"mike"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"peter"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"jason"</span></span><br></pre></td></tr></table></figure>
+<p>0 -1 表示获取全部的集合元素，LIMIT 1 3表示获取符合条件的第2个（1）元素开始的3（3）个元素。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrange zset <span class="number">0</span> -<span class="number">1</span> </span><br><span class="line"><span class="number">1</span>) <span class="string">"mike"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"peter"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"jason"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrangebyscore zset -inf +inf limit <span class="number">1</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"peter"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"jason"</span></span><br></pre></td></tr></table></figure>
+<p>5、 增加某个元素的分数<br><code>ZINCRBY key increment member</code><br>返回的是更改之后分数<br>负数表示减分。</p>
+<h4 id="3-6-3-实践"><a href="#3-6-3-实践" class="headerlink" title="3.6.3 实践"></a>3.6.3 实践</h4><p>1、 实现按点击量排序<br>2、 改进按时间排序</p>
+<h4 id="3-6-4-命令拾遗"><a href="#3-6-4-命令拾遗" class="headerlink" title="3.6.4 命令拾遗"></a>3.6.4 命令拾遗</h4><p>1、 获取集合中元素的数量<br><code>ZCARD key</code><br>2、 获取指定分数段的元素个数<br><code>ZCOUNT key min max</code><br><strong>“（”</strong>表示不包含，<strong>inf</strong>表示无穷大<br>3、 删除一个或者多个元素<br><code>ZREM key member [member ...]</code><br>4、 按照排名范围删除元素<br><code>ZREMRANGEBYCOUNT key start stop</code><br>排名从0开始。返回到是被删除的元素的个数<br>5、 按照分数范围删除元素<br><code>ZREMRANGEBYSCORE key min max</code><br>6、 获取元素的排名<br><code>ZRANK key member</code><br><code>ZREVRANK key member</code><br>7、 计算有序集合的交集<br><code>ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]</code></p>
+<ul>
+<li>destination：目标有序集合</li>
+<li>numskey：参与运算的键的个数</li>
+<li>key：键名</li>
+<li>WEIGHTS：每个键的权重，既每个集合中的元素在运算中所占的权重</li>
+<li>AGGREGATE：运算方式，默认为SUM求和运算。其次是最小值和最大值</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zadd ss1 <span class="number">1</span> a <span class="number">2</span> b <span class="number">3</span> c</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zadd ss2 <span class="number">10</span> a <span class="number">20</span> b <span class="number">30</span> c</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zinterstore ss3 <span class="number">2</span> ss1 ss2 weight <span class="number">0.1</span> <span class="number">1</span></span><br><span class="line">(error) ERR syntax error</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zinterstore ss3 <span class="number">3</span> ss1 ss2 weight <span class="number">0.1</span> <span class="number">1</span></span><br><span class="line">(error) ERR syntax error</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zinterstore ss3 <span class="number">2</span> ss1 ss2 weights <span class="number">0.1</span> <span class="number">1</span></span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrange <span class="number">0</span> -<span class="number">1</span> ss3</span><br><span class="line">(error) ERR value is not an integer or out of range</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrange ss3 <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"a"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"b"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"c"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrange ss3 <span class="number">0</span> -<span class="number">1</span> withscores</span><br><span class="line"><span class="number">1</span>) <span class="string">"a"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"10.1"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"b"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"20.199999999999999"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"c"</span></span><br><span class="line"><span class="number">6</span>) <span class="string">"30.300000000000001"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zinterstore ss3 <span class="number">2</span> ss1 ss2 weights <span class="number">1</span> <span class="number">0.1</span></span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; zrange ss3 <span class="number">0</span> -<span class="number">1</span> withscores</span><br><span class="line"><span class="number">1</span>) <span class="string">"a"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"2"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"b"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"4"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"c"</span></span><br><span class="line"><span class="number">6</span>) <span class="string">"6"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Chapter-4-进阶"><a href="#Chapter-4-进阶" class="headerlink" title="Chapter 4 进阶"></a>Chapter 4 进阶</h2><h3 id="4-1-事务"><a href="#4-1-事务" class="headerlink" title="4.1 事务"></a>4.1 事务</h3><p>利用Redis解决关注与被关注的伪代码逻辑</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sadd user:<span class="number">1</span>:following <span class="number">2</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sadd user:<span class="number">2</span>:follower <span class="number">1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>如果在执行第一段代码中，程序被终止。则会出现用户1关注了2，但是在2的列表中并没有1的情况发生，解决此类问题的办法就是事务。</p>
+<h4 id="4-1-1-概述"><a href="#4-1-1-概述" class="headerlink" title="4.1.1 概述"></a>4.1.1 概述</h4><p><strong>MULTI</strong>、<strong>EXEC</strong>指令<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; multi<span class="comment">#进入事务</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sadd user:<span class="number">1</span>:following <span class="number">2</span></span><br><span class="line">QUEUED</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sadd user:<span class="number">2</span>:follower <span class="number">1</span></span><br><span class="line">QUEUED</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; exec<span class="comment">#跳出事务</span></span><br><span class="line"><span class="number">1</span>) (integer) <span class="number">0</span></span><br><span class="line"><span class="number">2</span>) (integer) <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>两个操作进入queued队列中等待exec指令之后，依次执行。保证了执行的连续性。</p>
+<p><strong>发生错误怎么办？</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MULTI</span><br><span class="line">sentenceA</span><br><span class="line">sentenceB</span><br><span class="line">sentenceC</span><br><span class="line">EXEC</span><br></pre></td></tr></table></figure>
+<p>1、 <strong>语法错误</strong><br>执行之前会被发现，2.6之后版本，所有的语句将不会被记录<br>2、 <strong>运行错误</strong><br>运行时才发现，<strong>redis不提供回滚机制</strong>（简洁、快速），正确的语句被执行。需要开发人员手动进行纠错。因此在执行事务时候应尽量避免运行错误。</p>
+<h4 id="4-1-3-WATCH命令介绍"><a href="#4-1-3-WATCH命令介绍" class="headerlink" title="4.1.3 WATCH命令介绍"></a>4.1.3 WATCH命令介绍</h4><p><code>WATCH</code>命令可以监控一个或多个键，一旦其中一个键被修改（或删除），之后的事务就不会再执行了。监控一直持续到<code>EXEC</code>命令执行、</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET key <span class="number">1</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; WATCH key<span class="comment">#监控key的值的变化</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET key <span class="number">2</span><span class="comment">#发生修改，之后事务不起作用，直至EXEC指令，结束监控</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; MULTI</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET key <span class="number">3</span></span><br><span class="line">QUEUED</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; EXEC<span class="comment">#事务不起作用，返回空</span></span><br><span class="line">(nil)</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; GET key<span class="comment">#此时key值仍然是2</span></span><br><span class="line"><span class="string">"2"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; MULTI<span class="comment">#事务再次修改，此时已经跳出监控状态，修改成功</span></span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET key <span class="number">3</span></span><br><span class="line">QUEUED</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; EXEC</span><br><span class="line"><span class="number">1</span>) OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; GET key</span><br><span class="line"><span class="string">"3"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示：由于WATCH命令只是当被监控的键值被修改后阻止之后的一个事务的执行，而不能保证其他客户端不修改这一键值，所以我们需要在EXEC执行失败之后重新执行整个函数。既重新进行监控。</p>
+</blockquote>
+<p>如果不需要监控某个键值的值，可以使用<code>UNWATCH</code>指令来保证下一个事务不收到影响。</p>
+<h3 id="4-2-过期时间"><a href="#4-2-过期时间" class="headerlink" title="4.2 过期时间"></a>4.2 过期时间</h3><h4 id="4-2-1-命令介绍"><a href="#4-2-1-命令介绍" class="headerlink" title="4.2.1 命令介绍"></a>4.2.1 命令介绍</h4><p><code>EXPIRE</code>指令设置一个键值的过期时间。到期redis自动删除他。<br><code>EXPIRE key seconds</code>单位是秒，例如如下代码：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET session user</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; EXPIRE session <span class="number">60</span><span class="comment">#设置过期时间60秒，返回1</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; ttl session<span class="comment">#返回剩余生命周期，秒</span></span><br><span class="line">(integer) <span class="number">55</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; ttl session</span><br><span class="line">(integer) <span class="number">51</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; SET session2 user2</span><br><span class="line">OK</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; ttl session2<span class="comment">#返回-1表示，永远不过期</span></span><br><span class="line">(integer) -<span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; ttl session<span class="comment">#已过期，返回-2</span></span><br><span class="line">(integer) -<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p><code>PERSIST</code>表示将键重新设置为永久的，成功返回1，否则返回0（键不存在或者本身就是永久的。）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; persist session</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; persist session2</span><br><span class="line">(integer) <span class="number">0</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; expire session2 <span class="number">20</span></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; persist session2</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; ttl session2</span><br><span class="line">(integer) -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><strong>除了PERSIST外，<code>GET</code>、<code>GETSET</code>指令也能修改过期时间为永久。此外重复的<code>EXPIRE</code>操作也能刷新生命周期。</strong></p>
+<p>其他的键<code>INCR</code>、<code>LPUSH</code>、<code>HSET</code>、<code>ZREM</code>均不会影响到键的生命周期。</p>
+<p><code>PEXPIRE</code>：毫秒单位的生命周期。</p>
+<blockquote>
+<p>提示：生命到期并不会改变WATCH的监视状态。</p>
+</blockquote>
+<h4 id="4-2-2-实现访问频率限制之一"><a href="#4-2-2-实现访问频率限制之一" class="headerlink" title="4.2.2 实现访问频率限制之一"></a>4.2.2 实现访问频率限制之一</h4><p>通过EXPIRE来实现，大概思路是：维护一个访问次数的变量<code>rate：limiting：用户ID</code>    ，第一次访问设置生命周期为60秒，在这60秒内的访问次数不能大于设定的值。</p>
+<h4 id="4-2-4-实现缓存"><a href="#4-2-4-实现缓存" class="headerlink" title="4.2.4 实现缓存"></a>4.2.4 实现缓存</h4><p>redis有不同的缓存策略，可以通过修改配置文件中。<code>maxmemory</code>、<code>maxmemory-policy</code>参数确定删除哪一个键，从而降低内存的消耗。</p>
+<p>Redis的缓存策略有：<code>LRU</code>、<code>RANDOM</code>、<code>TTL</code>、<code>NOEVICTION</code></p>
+<h3 id="4-3-排序"><a href="#4-3-排序" class="headerlink" title="4.3 排序"></a>4.3 排序</h3><h4 id="4-3-1-有序集合的集合操作"><a href="#4-3-1-有序集合的集合操作" class="headerlink" title="4.3.1 有序集合的集合操作"></a>4.3.1 有序集合的集合操作</h4><p>有序集合只有ZINTERSTORE和ZUNIONSTORE，没有ZINTER和ZUNION。</p>
+<p><strong>可以自己实现ZINTER</strong>（既直接返回结果）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MULTI</span><br><span class="line">ZINTERSTORE tempkey ...</span><br><span class="line">ZRANGE tempkey ...</span><br><span class="line">DEL tempkey</span><br><span class="line">EXEC</span><br></pre></td></tr></table></figure>
+<h4 id="4-3-2-SORT命令"><a href="#4-3-2-SORT命令" class="headerlink" title="4.3.2 SORT命令"></a>4.3.2 SORT命令</h4><p><code>SORT</code>命令可以对<strong>列表类型、集合类型、有序集合类型</strong>键进行排序</p>
+<p>对有序集合排序时会忽略元素的分数，而直接对元素的自然顺序进行排序。</p>
+<p>对字符串排序需要加入<code>ALPHA</code>参数</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sort myzset alpha</span><br><span class="line"><span class="number">1</span>) <span class="string">"abandon"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"jaki"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"john"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"kury"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"lucy"</span></span><br><span class="line"><span class="number">6</span>) <span class="string">"mik"</span></span><br><span class="line"><span class="number">7</span>) <span class="string">"miki"</span></span><br><span class="line"><span class="number">8</span>) <span class="string">"shane"</span></span><br><span class="line"><span class="number">9</span>) <span class="string">"tomson"</span></span><br></pre></td></tr></table></figure>
+<p><code>DESC</code>和<code>ASC</code>在此处同样适用，只需要加载语句的最后即可。</p>
+<p><code>LIMIT</code>在此处也同样适用，当需要分页时可以使用。<code>LIMIT n m</code>表示跳过之前的n个数据，取m个数据出来</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sort myzset alpha asc</span><br><span class="line"><span class="number">1</span>) <span class="string">"abandon"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"jaki"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"john"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"kury"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"lucy"</span></span><br><span class="line"><span class="number">6</span>) <span class="string">"mik"</span></span><br><span class="line"><span class="number">7</span>) <span class="string">"miki"</span></span><br><span class="line"><span class="number">8</span>) <span class="string">"shane"</span></span><br><span class="line"><span class="number">9</span>) <span class="string">"tomson"</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; sort myzset alpha asc limit <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"john"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"kury"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"lucy"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"mik"</span></span><br><span class="line"><span class="number">5</span>) <span class="string">"miki"</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-3-3-BY参数"><a href="#4-3-3-BY参数" class="headerlink" title="4.3.3 BY参数"></a>4.3.3 BY参数</h4><p>当需要按照某个指定的属性进行排序时，<code>SORT BY</code>就登场了。</p>
+<p><strong>语法</strong>：BY参考键。参考键可以是字符串类型或者是散列类型键 的某个字段（<strong>表示为键名-&gt;字段名</strong>），如果提供了BY参数键，SORT将不再按照元素自身的值进行排序，<strong>而是对每个元素使用元素的值替换参考键中第一个“*”并获取其值，然后依据该值对元素排序</strong>。</p>
+<blockquote>
+<p>BY参数的语法为“BY参考键”。其中参考键可以是字符串类型键或者是散列类型键的某个字段（表示为键名—&gt;字段名）。如果提供了BY参数，SORT命令将不再依据元素自身的值进行排序，而是对每个元素使用元素的值<strong>替换</strong>参考键中的第一个“*”并获取其值，然后依据该值对元素排序。<br>应该时刻记住，除了hash类型外，<strong>其余类型不支持类型嵌套</strong>。</p>
+</blockquote>
+<h4 id="4-3-4-GET参数"><a href="#4-3-4-GET参数" class="headerlink" title="4.3.4 GET参数"></a>4.3.4 GET参数</h4><p>SORT命令的GET参数，使得排序之后不再返回元素的值，而是可以<code>GET</code>元素的某个属性，GET和BY参数一样，支持字符串类型和散列类型的键，并使用“*”作为占位符。</p>
+<p><strong>记住一句话，*是占位符，排序的时候将被替换掉。</strong></p>
+<p>多个GET还可以叠加使用，就好像<code>select a.name b.name from table1 a, table b sort by a.time</code>一样。</p>
+<p>在设定了GET参数之后还可以通过<code>GET #</code> 表示返回元素本身的值。</p>
+<p><code>SORT tag:ruby:posts BY post:*-&gt;time DESC GET post:*-&gt;title GET post:*-&gt;time GET #</code></p>
+<h4 id="4-3-5-STORE参数"><a href="#4-3-5-STORE参数" class="headerlink" title="4.3.5 STORE参数"></a>4.3.5 STORE参数</h4><p>STORE参数表示将排序结果保存到sort.result中。<br><code>SORT tag:ruby:posts BY post:*-&gt;time DESC GET post:*-&gt;title GET post:*-&gt;time GET # STORE sort.result</code><br>保存后的类型为列表类型</p>
+<h4 id="4-3-6-性能优化"><a href="#4-3-6-性能优化" class="headerlink" title="4.3.6 性能优化"></a>4.3.6 性能优化</h4><p>SOTR的时间复杂度是O（n+mlogm），n：需要排序的元素个数。m：要返回到元素个数。</p>
+<p>1、 尽可能的减少待排序中元素的数量（减小n）<br>2、 使用LIMIT参数只获取需要的数据（减小M）<br>3、 如果要排序的数量较大，尽可能使用STORE参数将结果<strong>缓存</strong>。</p>
+<h3 id="4-4-消息通知"><a href="#4-4-消息通知" class="headerlink" title="4.4 消息通知"></a>4.4 消息通知</h3><h4 id="4-4-1-任务队列"><a href="#4-4-1-任务队列" class="headerlink" title="4.4.1 任务队列"></a>4.4.1 任务队列</h4><p>生产者-消费者模式。<br>任务队列的好处：<br>1、 松耦合</p>
+<p>2、 易于扩展</p>
+<h4 id="4-4-2-使用Redis实现任务队列"><a href="#4-4-2-使用Redis实现任务队列" class="headerlink" title="4.4.2 使用Redis实现任务队列"></a>4.4.2 使用Redis实现任务队列</h4><p>指令：<br><code>BRPOP</code>、<code>BLPOP</code><br><strong>阻塞弹出</strong>，当没有元素时一直阻塞，可以设置阻塞时间。0表示一直阻塞。<br>如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; BLPOP queue <span class="number">5</span><span class="comment">#没有元素，则阻塞5秒后返回</span></span><br><span class="line">(nil)</span><br><span class="line">(<span class="number">5.04</span>s)</span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; BLPOP queue <span class="number">0</span><span class="comment">#一直阻塞的状态，直到另一个redis-cli实例向任务队列添加元素，才会输出。</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"queue"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"hello"</span></span><br><span class="line">(<span class="number">20.21</span>s)</span><br></pre></td></tr></table></figure>
+<h4 id="4-4-3-优先队列"><a href="#4-4-3-优先队列" class="headerlink" title="4.4.3 优先队列"></a>4.4.3 优先队列</h4><p>优先队列用于优先执行某一方面的任务。</p>
+<p><strong>BRPOP</strong>、<strong>BLPOP</strong>可以传多个列表键，根据传入的先后顺序保证优先级。<br>比如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpush queue1 queue1</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; lpush queue2 queue2</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; brpop queue2 queue1 <span class="number">0</span><span class="comment">#先弹出的是queue2的元素，因为它在BRPOP参数的前面。</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"queue2"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"queue2"</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-4-4-发布-订阅模式"><a href="#4-4-4-发布-订阅模式" class="headerlink" title="4.4.4 发布/订阅模式"></a>4.4.4 发布/订阅模式</h4><p><code>SUBSCRIBE</code>和<code>PUBLISH</code></p>
+<p>一个客户端<code>SUBSCRIBE</code>一个频道之后，进入接受消息的状态。一个客户端可同时订阅多个<strong>channel</strong></p>
+<p>另一客户端可以通过<code>PUBLISH</code>向指定的<strong>channel</strong>发送消息，所有订阅该<strong>channel</strong>的客户端会受到该消息。</p>
+<p>使用<code>UNSUBSCRIBE</code>取消订阅。</p>
+<p><strong>客户端1：</strong><br>SUBSCRIBE channel.1</p>
+<p><strong>客户端2：</strong><br>PUBLISH channel.1 hi#向频道发送消息，此时订阅了该频道的客户端会接受到该message类型的消息。</p>
+<p><strong>客户端3：</strong><br>SUBSCRIBE channel.1#此时再订阅之前的消息并不会读取，只有再次有客户端向该频道发送消息时才会显示。<br>UNSUSCRIBE channel.1#取消订阅该频道</p>
+<h4 id="4-4-5-按照规则订阅"><a href="#4-4-5-按照规则订阅" class="headerlink" title="4.4.5 按照规则订阅"></a>4.4.5 按照规则订阅</h4><p>PSUBSCRIBE，订阅指定的规则，规则支持glob风格通配符格式。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span>&gt; psubscribe channel.?*<span class="comment">#该条语句订阅了无数个频道，规则是只要是channel.开头的频道都可以。因此不管向那个符合规则的频道发布消息，都会被接收到。</span></span><br><span class="line">Reading messages..、 (press Ctrl-C to quit)</span><br><span class="line"><span class="number">1</span>) <span class="string">"psubscribe"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"channel.?*"</span></span><br><span class="line"><span class="number">3</span>) (integer) <span class="number">1</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"pmessage"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"channel.?*"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"channel.2"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"hi"</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"pmessage"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"channel.?*"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"channel.233"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"ho"</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"pmessage"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"channel.?*"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"channel.2883738"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"nihao"</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"pmessage"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"channel.?*"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"channel.23738"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"dajiahao"</span></span><br></pre></td></tr></table></figure>
+<p><code>PUNSUBSCRIBE</code>退订指定规则的频道，没有参数会退订所有的频道。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/MyBatis学习笔记（一）/" rel="next" title="MyBatis学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> MyBatis学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/JVM内存分析/" rel="prev" title="问题调试技巧">
+                问题调试技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis学习（1）"><span class="nav-number">1.</span> <span class="nav-text">Redis学习（1）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-存储结构"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.2.1 存储结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-内存存储与持久化"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2.2 内存存储与持久化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-2-安装"><span class="nav-number">1.1.</span> <span class="nav-text">Chapter 2 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始使用"><span class="nav-number">1.1.1.</span> <span class="nav-text">开始使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据库结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3-入门"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 3 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-基本指令"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.1 基本指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-字符串类型"><span class="nav-number">1.2.2.</span> <span class="nav-text">3.2    字符串类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-命令"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">3.2.2 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-应用"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">3.2.3    应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-4-命令拾遗"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3.2.4 命令拾遗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-散列类型"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.3    散列类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-介绍"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">3.3.1 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-命令"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">3.3.2 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-3-实践"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">3.3.3 实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-4-命令拾遗"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">3.3.4 命令拾遗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-列表类型"><span class="nav-number">1.2.4.</span> <span class="nav-text">3.4 列表类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-介绍"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">3.4.1 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-命令"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">3.4.2 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-3-实践"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">3.4.3 实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-4-命令拾遗"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">3.4.4 命令拾遗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-集合类型"><span class="nav-number">1.2.5.</span> <span class="nav-text">3.5 集合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-2-命令"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">3.5.2 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-4-命令拾遗"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">3.5.4 命令拾遗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-有序集合类型"><span class="nav-number">1.2.6.</span> <span class="nav-text">3.6 有序集合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-1-介绍"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">3.6.1 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-2-命令"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">3.6.2 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-3-实践"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">3.6.3 实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-4-命令拾遗"><span class="nav-number">1.2.6.4.</span> <span class="nav-text">3.6.4 命令拾遗</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-4-进阶"><span class="nav-number">1.3.</span> <span class="nav-text">Chapter 4 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-事务"><span class="nav-number">1.3.1.</span> <span class="nav-text">4.1 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-概述"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">4.1.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-WATCH命令介绍"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">4.1.3 WATCH命令介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-过期时间"><span class="nav-number">1.3.2.</span> <span class="nav-text">4.2 过期时间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-命令介绍"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">4.2.1 命令介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-实现访问频率限制之一"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">4.2.2 实现访问频率限制之一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-实现缓存"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">4.2.4 实现缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-排序"><span class="nav-number">1.3.3.</span> <span class="nav-text">4.3 排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-有序集合的集合操作"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">4.3.1 有序集合的集合操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-SORT命令"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">4.3.2 SORT命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-3-BY参数"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">4.3.3 BY参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-4-GET参数"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">4.3.4 GET参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-5-STORE参数"><span class="nav-number">1.3.3.5.</span> <span class="nav-text">4.3.5 STORE参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-6-性能优化"><span class="nav-number">1.3.3.6.</span> <span class="nav-text">4.3.6 性能优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-消息通知"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.4 消息通知</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-任务队列"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">4.4.1 任务队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-使用Redis实现任务队列"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">4.4.2 使用Redis实现任务队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-3-优先队列"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">4.4.3 优先队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-4-发布-订阅模式"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">4.4.4 发布/订阅模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-5-按照规则订阅"><span class="nav-number">1.3.4.5.</span> <span class="nav-text">4.4.5 按照规则订阅</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="myBatis,框架,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MyBatis学习笔记（二）动态SQL，关联查询，缓存机制，转义字符个人笔记，如有错误，恳请批评指正。 动态SQL操作IF语句修改配置文件deptMapper.xml，添加 12345678910&amp;lt;!-- 动态Sql语句 --&amp;gt;&amp;lt;!-- 根据多个条件生成动态的sql语句，查询信息 --&amp;gt;&amp;lt;!-- 弊端：当不存在条件时，会查询所有的数据，改用choose可以解决问题 -">
+<meta name="keywords" content="myBatis,框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis学习笔记（二）">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/MyBatis学习笔记（二）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="MyBatis学习笔记（二）动态SQL，关联查询，缓存机制，转义字符个人笔记，如有错误，恳请批评指正。 动态SQL操作IF语句修改配置文件deptMapper.xml，添加 12345678910&amp;lt;!-- 动态Sql语句 --&amp;gt;&amp;lt;!-- 根据多个条件生成动态的sql语句，查询信息 --&amp;gt;&amp;lt;!-- 弊端：当不存在条件时，会查询所有的数据，改用choose可以解决问题 -">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-03-19T07:53:43.634Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyBatis学习笔记（二）">
+<meta name="twitter:description" content="MyBatis学习笔记（二）动态SQL，关联查询，缓存机制，转义字符个人笔记，如有错误，恳请批评指正。 动态SQL操作IF语句修改配置文件deptMapper.xml，添加 12345678910&amp;lt;!-- 动态Sql语句 --&amp;gt;&amp;lt;!-- 根据多个条件生成动态的sql语句，查询信息 --&amp;gt;&amp;lt;!-- 弊端：当不存在条件时，会查询所有的数据，改用choose可以解决问题 -">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/MyBatis学习笔记（二）/">
+
+
+
+
+
+  <title>MyBatis学习笔记（二） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/MyBatis学习笔记（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MyBatis学习笔记（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T15:53:43+08:00">
+                2017-03-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/框架/" itemprop="url" rel="index">
+                    <span itemprop="name">框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MyBatis学习笔记（二）"><a href="#MyBatis学习笔记（二）" class="headerlink" title="MyBatis学习笔记（二）"></a>MyBatis学习笔记（二）</h1><h2 id="动态SQL，关联查询，缓存机制，转义字符"><a href="#动态SQL，关联查询，缓存机制，转义字符" class="headerlink" title="动态SQL，关联查询，缓存机制，转义字符"></a><strong>动态SQL，关联查询，缓存机制，转义字符</strong></h2><p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h3 id="动态SQL操作"><a href="#动态SQL操作" class="headerlink" title="动态SQL操作"></a>动态SQL操作</h3><h5 id="IF语句"><a href="#IF语句" class="headerlink" title="IF语句"></a>IF语句</h5><p>修改配置文件deptMapper.xml，添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 动态Sql语句 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 根据多个条件生成动态的sql语句，查询信息 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 弊端：当不存在条件时，会查询所有的数据，改用choose可以解决问题 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDeptUseIf"</span> <span class="attr">parameterType</span>=<span class="string">"Dept"</span> <span class="attr">resultMap</span>=<span class="string">"deptResultMap"</span>&gt;</span><span class="comment">&lt;!-- 若字段名与属性名一致可以直接用resultType="Dept" --&gt;</span></span><br><span class="line">	select * from dept where 1=1</span><br><span class="line">	<span class="comment">&lt;!-- 直接写属性，不需要#&#123;&#125;,and不能丢 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptId!=null"</span>&gt;</span>and dept_id = #&#123;deptId&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptAddress!=null"</span>&gt;</span>and dept_address = #&#123;deptAddress&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptName!=null"</span>&gt;</span>and dept_name = #&#123;deptName&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>修改DeptDaoImpl.java，添加selectListUseIf方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据参数使用配置文件的IF语句自动填充查询的过滤条件</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Dept&gt; <span class="title">selectDeptUseIf</span><span class="params">(Dept dept)</span></span>&#123;</span><br><span class="line">		List&lt;Dept&gt; list = <span class="keyword">null</span>; </span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			session = MybatisSessionFactory.getSession();</span><br><span class="line">			list = session.selectList(<span class="string">"cn.ustb.entity.DeptMapper.selectDeptUseIf"</span>, dept);</span><br><span class="line">			session.commit();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			session.rollback();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="WHERE语句"><a href="#WHERE语句" class="headerlink" title="WHERE语句"></a>WHERE语句</h5><p>修改配置文件deptMapper.xml，添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 动态Where条件 ,一般也需要与if结合使用，与纯if比较，省略了where 1=1--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 如果需要去掉1=1，可用where --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDeptUseWhere"</span> <span class="attr">parameterType</span>=<span class="string">"Dept"</span> <span class="attr">resultMap</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">	select * from dept</span><br><span class="line">	<span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptId!=null"</span>&gt;</span>and dept_id = #&#123;deptId&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptAddress!=null"</span>&gt;</span>and dept_address = #&#123;deptAddress&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptName!=null"</span>&gt;</span>and dept_name = #&#123;deptName&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="choose-when-otherwise-语句"><a href="#choose-when-otherwise-语句" class="headerlink" title="choose(when,otherwise)语句"></a>choose(when,otherwise)语句</h5><p>修改配置文件deptMapper.xml，添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- choose  用choose时，前面的条件符合就不再执行之后的条件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDeptUseChoose"</span> <span class="attr">parameterType</span>=<span class="string">"Dept"</span> <span class="attr">resultMap</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">	select * from dept </span><br><span class="line">	<span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"deptId != null"</span>&gt;</span>and dept_id = #&#123;deptId&#125;<span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"deptAddress != null"</span>&gt;</span>and dept_address = #&#123;deptAddress&#125;<span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"deptName != null"</span>&gt;</span>and dept_name = #&#123;deptName&#125;<span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">otherwise</span>&gt;</span>1=2<span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="SET语句"><a href="#SET语句" class="headerlink" title="SET语句"></a>SET语句</h5><p>修改配置文件deptMapper.xml，添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 动态set语句可以用来更新数据 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateDeptUseSet"</span> <span class="attr">parameterType</span>=<span class="string">"Dept"</span>&gt;</span></span><br><span class="line">	update dept </span><br><span class="line">	<span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptAddress!=null"</span>&gt;</span>dept_address = #&#123;deptAddress&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptName!=null"</span>&gt;</span>dept_name = #&#123;deptName&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">	where dept_id = #&#123;deptId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="ForEach语句"><a href="#ForEach语句" class="headerlink" title="ForEach语句"></a>ForEach语句</h5><p>修改配置文件deptMapper.xml，添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 若要查询多个id的数据 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 定义根据多个部门ID查询部门相关部门信息的SQL语句 ,resultMap的值是指集合里元素的类型,parameterType不用指定 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- foreach --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDeptUseForeach"</span> <span class="attr">resultMap</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">	select * from dept where dept_id in (</span><br><span class="line"><span class="comment">&lt;!-- collection＝"array或list",array用来对应参数为数组，list对应参数为 集合 --&gt;</span>		</span><br><span class="line">		<span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"array"</span> <span class="attr">item</span>=<span class="string">"deptId"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">			#&#123;deptId&#125;</span><br><span class="line">		<span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">	)</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="include语句"><a href="#include语句" class="headerlink" title="include语句"></a>include语句</h5><p>修改配置文件deptMapper.xml，添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertDeptUseInclude"</span> <span class="attr">parameterType</span>=<span class="string">"Dept"</span>&gt;</span></span><br><span class="line">	insert into dept</span><br><span class="line">		<span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"key"</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">	values</span><br><span class="line">		<span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"value"</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"key"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">trim</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span> <span class="attr">prefix</span>=<span class="string">"("</span> <span class="attr">suffix</span>=<span class="string">")"</span>&gt;</span> </span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptName!=null"</span>&gt;</span>dept_name,<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptAddress!=null"</span>&gt;</span>dept_address,<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"value"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">trim</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span> <span class="attr">prefix</span>=<span class="string">"("</span> <span class="attr">suffix</span>=<span class="string">")"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptName!=null"</span>&gt;</span>#&#123;deptName&#125;,<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"deptAddress!=null"</span>&gt;</span>#&#123;deptAddress&#125;,<span class="tag">&lt;/<span class="name">if</span>&gt;</span><span class="comment">&lt;!-- #&#123;&#125; necessary --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h3><h5 id="创建数据库及表："><a href="#创建数据库及表：" class="headerlink" title="创建数据库及表："></a>创建数据库及表：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">database</span> <span class="keyword">if</span> <span class="keyword">exists</span> mybatis;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> mybatis <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> UTF8;</span><br><span class="line"><span class="keyword">use</span> mybatis;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dept(</span><br><span class="line">	dept_id <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">	dept_name <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">	dept_address <span class="built_in">varchar</span>(<span class="number">50</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(dept_name,dept_address) <span class="keyword">values</span>(<span class="string">'研发部1部'</span>,<span class="string">'北京'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(dept_name,dept_address) <span class="keyword">values</span>(<span class="string">'研发部2部'</span>,<span class="string">'广州'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(dept_name,dept_address) <span class="keyword">values</span>(<span class="string">'研发部3部'</span>,<span class="string">'深圳'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(</span><br><span class="line">	emp_id <span class="built_in">varchar</span>(<span class="number">20</span>) primary <span class="keyword">key</span>,</span><br><span class="line">	emp_name <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">	emp_age <span class="built_in">int</span>(<span class="number">2</span>),</span><br><span class="line">	emp_gender <span class="built_in">char</span>(<span class="number">1</span>),</span><br><span class="line">	dept_id <span class="built_in">int</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(emp_id,emp_name,emp_age,emp_gender,dept_id) <span class="keyword">values</span>(<span class="string">'430726199210102210'</span>,<span class="string">'张三'</span>,<span class="string">'18'</span>,<span class="string">'男'</span>,<span class="string">'1'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(emp_id,emp_name,emp_age,emp_gender,dept_id) <span class="keyword">values</span>(<span class="string">'430726199210102211'</span>,<span class="string">'李四'</span>,<span class="string">'20'</span>,<span class="string">'女'</span>,<span class="string">'3'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(emp_id,emp_name,emp_age,emp_gender,dept_id) <span class="keyword">values</span>(<span class="string">'430726199210102212'</span>,<span class="string">'王五'</span>,<span class="string">'19'</span>,<span class="string">'男'</span>,<span class="string">'2'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept;</span><br><span class="line"><span class="keyword">select</span> e.*,d.* <span class="keyword">from</span> emp e <span class="keyword">inner</span> <span class="keyword">join</span> dept d <span class="keyword">on</span> e.dept_id = d.dept_id;</span><br></pre></td></tr></table></figure>
+<h4 id="基于association查询（用于多对一或一对一）"><a href="#基于association查询（用于多对一或一对一）" class="headerlink" title="基于association查询（用于多对一或一对一）"></a>基于association查询（用于多对一或一对一）</h4><h5 id="创建存在关联的实体类"><a href="#创建存在关联的实体类" class="headerlink" title="创建存在关联的实体类"></a>创建存在关联的实体类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dept</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String deptAddress;</span><br><span class="line">	<span class="keyword">private</span> String deptName;</span><br><span class="line">	<span class="keyword">private</span> Integer deptId;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Emp</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String empId;</span><br><span class="line">	<span class="keyword">private</span> String empName;</span><br><span class="line">	<span class="keyword">private</span> String empSex;</span><br><span class="line">	<span class="keyword">private</span> Dept dept;</span><br></pre></td></tr></table></figure>
+<h5 id="配置DeptMapper-xml-EmpMapper-xml"><a href="#配置DeptMapper-xml-EmpMapper-xml" class="headerlink" title="配置DeptMapper.xml/EmpMapper.xml"></a>配置DeptMapper.xml/EmpMapper.xml</h5><p>（重点加入级联的查询语句），并映射文件信息到mybatis-config.xml中：<br>DeptMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.ustb.entity.DeptMapper"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Dept"</span> <span class="attr">id</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_name"</span> <span class="attr">property</span>=<span class="string">"deptName"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_address"</span> <span class="attr">property</span>=<span class="string">"deptAddress"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>EmpMapper.xml,配置多对一的关联</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.ustb.entity.EmpMapper"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Emp"</span> <span class="attr">id</span>=<span class="string">"empResultMap"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"emp_id"</span> <span class="attr">property</span>=<span class="string">"empId"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_name"</span> <span class="attr">property</span>=<span class="string">"empName"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_age"</span> <span class="attr">property</span>=<span class="string">"empAge"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_gender"</span> <span class="attr">property</span>=<span class="string">"empGender"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">resultMap</span>=<span class="string">"cn.ustb.entity.DeptMapper.deptResultMap"</span>&gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectEmp"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"empResultMap"</span>&gt;</span></span><br><span class="line">		select e.*,d.* from emp e inner join dept d on e.dept_id = d.dept_id</span><br><span class="line">		where e.emp_name = #&#123;empName&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="配置文件myBatis-config-xml"><a href="#配置文件myBatis-config-xml" class="headerlink" title="配置文件myBatis-config.xml"></a>配置文件myBatis-config.xml</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 通过别名简化对类的使用 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"cn.ustb.entity.Dept"</span> <span class="attr">alias</span>=<span class="string">"Dept"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"cn.ustb.entity.Emp"</span> <span class="attr">alias</span>=<span class="string">"Emp"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line"> …….</span><br><span class="line"><span class="comment">&lt;!--导入SQL映射文件 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"cn/ustb/entity/DeptMapper.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"cn/ustb/entity/EmpMapper.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="编写EmpDaoImpl-java实现查询"><a href="#编写EmpDaoImpl-java实现查询" class="headerlink" title="编写EmpDaoImpl.java实现查询"></a>编写EmpDaoImpl.java实现查询</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmpDaoImpl</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> SqlSession session;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Emp <span class="title">selectEmp</span><span class="params">(String empName)</span></span>&#123;</span><br><span class="line">		Emp emp = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			session = MybatisSessionFactory.getSession();</span><br><span class="line">			emp = session.selectOne(<span class="string">"cn.ustb.entity.EmpMapper.selectEmp"</span>, empName);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> emp;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="基于collection查询（用于一对多或多对多）"><a href="#基于collection查询（用于一对多或多对多）" class="headerlink" title="基于collection查询（用于一对多或多对多）"></a>基于collection查询（用于一对多或多对多）</h4><h5 id="编写-Dept-java-Emp-java实体类"><a href="#编写-Dept-java-Emp-java实体类" class="headerlink" title="编写 Dept.java/Emp.java实体类"></a>编写 Dept.java/Emp.java实体类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Dept.java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dept</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String deptAddress;</span><br><span class="line">	<span class="keyword">private</span> String deptName;</span><br><span class="line">	<span class="keyword">private</span> Integer deptId;</span><br><span class="line"><span class="keyword">private</span> List&lt;Emp&gt; emps;</span><br><span class="line"></span><br><span class="line">Emp.java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Emp</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String empId;</span><br><span class="line">	<span class="keyword">private</span> String empName;</span><br><span class="line">	<span class="keyword">private</span> String empSex;</span><br></pre></td></tr></table></figure>
+<h5 id="配置DeptMapper-xml"><a href="#配置DeptMapper-xml" class="headerlink" title="配置DeptMapper.xml"></a>配置DeptMapper.xml</h5><p>DeptMapper.xml文件，配置resultMap（重点是collection配置）和查询SQL语句：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.ustb.entity.DeptMapper"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Dept"</span> <span class="attr">id</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_name"</span> <span class="attr">property</span>=<span class="string">"deptName"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_address"</span> <span class="attr">property</span>=<span class="string">"deptAddress"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"emps"</span> <span class="attr">resultMap</span>=<span class="string">"cn.ustb.entity.EmpMapper.empResultMap"</span>&gt;</span><span class="tag">&lt;/<span class="name">collection</span>&gt;</span><span class="comment">&lt;!-- 没有column --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDept"</span> <span class="attr">parameterType</span>=<span class="string">"String"</span> <span class="attr">resultMap</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">		select d.*,e.* from dept d inner join emp e on d.dept_id = e.dept_id</span><br><span class="line">		where d.dept_name = #&#123;deptName&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="配置EmpMapper-xml文件"><a href="#配置EmpMapper-xml文件" class="headerlink" title="配置EmpMapper.xml文件"></a>配置EmpMapper.xml文件</h5><p>不用配置对一关联<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.ustb.entity.EmpMapper"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Emp"</span> <span class="attr">id</span>=<span class="string">"empResultMap"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"emp_id"</span> <span class="attr">property</span>=<span class="string">"empId"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_name"</span> <span class="attr">property</span>=<span class="string">"empName"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_age"</span> <span class="attr">property</span>=<span class="string">"empAge"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_gender"</span> <span class="attr">property</span>=<span class="string">"empGender"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="编写数据库操作类DeptDaoImpl-java"><a href="#编写数据库操作类DeptDaoImpl-java" class="headerlink" title="编写数据库操作类DeptDaoImpl.java"></a>编写数据库操作类DeptDaoImpl.java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeptDaoImpl</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> SqlSession session = <span class="keyword">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Dept <span class="title">selectDept</span><span class="params">(String deptName)</span></span>&#123;</span><br><span class="line">		Dept dept = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			session = MybatisSessionFactory.getSession();</span><br><span class="line">			dept = session.selectOne(<span class="string">"cn.ustb.entity.DeptMapper.selectDept"</span>, deptName);</span><br><span class="line">			session.commit();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			session.rollback();</span><br><span class="line">		&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">			MybatisSessionFactory.closeSession();</span><br><span class="line">		&#125;<span class="keyword">return</span> dept;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一对多双向关联查询示例"><a href="#一对多双向关联查询示例" class="headerlink" title="一对多双向关联查询示例"></a>一对多双向关联查询示例</h4><h5 id="编写实体类-Dept-java-Emp-java"><a href="#编写实体类-Dept-java-Emp-java" class="headerlink" title="编写实体类:Dept.java/Emp.java"></a>编写实体类:Dept.java/Emp.java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Dept.java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dept</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String deptAddress;</span><br><span class="line">	<span class="keyword">private</span> String deptName;</span><br><span class="line">	<span class="keyword">private</span> Integer deptId;</span><br><span class="line">	<span class="keyword">private</span> List&lt;Emp&gt; emps;</span><br><span class="line"></span><br><span class="line">Emp.java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Emp</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String empId;</span><br><span class="line">	<span class="keyword">private</span> String empName;</span><br><span class="line">	<span class="keyword">private</span> String empSex;</span><br><span class="line">	<span class="keyword">private</span> Dept dept;</span><br></pre></td></tr></table></figure>
+<h5 id="编写DeptMapper-xml-EmpMapper-xml文件"><a href="#编写DeptMapper-xml-EmpMapper-xml文件" class="headerlink" title="编写DeptMapper.xml/EmpMapper.xml文件"></a>编写DeptMapper.xml/EmpMapper.xml文件</h5><p>DeptMapper.xml<br><strong><strong>值得注意的是，如果在各自的resultMap相互配置了引用，在查询时会导致堆栈溢出的异常。解决的办法是在映射文件中分割resultMap，在查询时查询一方的同时避免迭代。</strong></strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.ustb.entity.DeptMapper"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 缓存的第二级开关，写上即开启 --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 一级默认开启，二级默认关闭，三级默认开启 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">cache</span> <span class="attr">eviction</span>=<span class="string">"LRU"</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">readOnly</span>=<span class="string">"false"</span>&gt;</span><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Dept"</span> <span class="attr">id</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"dept_id"</span> <span class="attr">property</span>=<span class="string">"deptId"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_name"</span> <span class="attr">property</span>=<span class="string">"deptName"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"dept_address"</span> <span class="attr">property</span>=<span class="string">"deptAddress"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Dept"</span> <span class="attr">id</span>=<span class="string">"deptExtResultMap"</span> <span class="attr">extends</span>=<span class="string">"deptResultMap"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"emps"</span> <span class="attr">resultMap</span>=<span class="string">"cn.ustb.entity.EmpMapper.empResultMap"</span>&gt;</span><span class="tag">&lt;/<span class="name">collection</span>&gt;</span><span class="comment">&lt;!-- resultMap是empResultMap而不是empExtResultMap,即没有配置多的属性，避免了相互查询时的内存溢出 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDept"</span> <span class="attr">parameterType</span>=<span class="string">"String"</span> <span class="attr">resultMap</span>=<span class="string">"deptExtResultMap"</span> <span class="attr">useCache</span>=<span class="string">"true"</span>&gt;</span><span class="comment">&lt;!-- 缓存的三级开关 语句级，默认开启 --&gt;</span></span><br><span class="line">		select d.*,e.* from dept d inner join emp e on d.dept_id = e.dept_id</span><br><span class="line">		where d.dept_name = #&#123;deptName&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDeptById"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"deptExtResultMap"</span>&gt;</span></span><br><span class="line">		select d.*,e.* from dept d inner join emp e on d.dept_id = e.dept_id</span><br><span class="line">		where d.dept_id = #&#123;deptId&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>EmpMapper.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.ustb.entity.EmpMapper"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Emp"</span> <span class="attr">id</span>=<span class="string">"empResultMap"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"emp_id"</span> <span class="attr">property</span>=<span class="string">"empId"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_name"</span> <span class="attr">property</span>=<span class="string">"empName"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_age"</span> <span class="attr">property</span>=<span class="string">"empAge"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"emp_gender"</span> <span class="attr">property</span>=<span class="string">"empGender"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Emp"</span> <span class="attr">id</span>=<span class="string">"empExtResultMap"</span> <span class="attr">extends</span>=<span class="string">"empResultMap"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"dept"</span> <span class="attr">column</span>=<span class="string">"dept_id"</span></span></span><br><span class="line"><span class="tag">			<span class="attr">resultMap</span>=<span class="string">"cn.ustb.entity.DeptMapper.deptResultMap"</span>&gt;</span><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 同样，引用的是deprResultMap，没有配置多的属性 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectEmp"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultMap</span>=<span class="string">"empExtResultMap"</span>&gt;</span></span><br><span class="line">		select</span><br><span class="line">		e.*,d.* from emp e inner join dept d on e.dept_id = d.dept_id</span><br><span class="line">		where</span><br><span class="line">		e.emp_name = #&#123;empName&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="编写数据操作类：DeptDaoImpl-java-EmpDaoImpl-java"><a href="#编写数据操作类：DeptDaoImpl-java-EmpDaoImpl-java" class="headerlink" title="编写数据操作类：DeptDaoImpl.java/EmpDaoImpl.java"></a>编写数据操作类：DeptDaoImpl.java/EmpDaoImpl.java</h5><p>DeptDaoImpl.java，查询部门员工信息，返回类型为List<dept>，关键代码：</dept></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Dept&gt; <span class="title">selectDeptEmpList</span><span class="params">(Dept dept)</span></span>&#123;</span><br><span class="line">		SqlSession session=<span class="keyword">null</span>;</span><br><span class="line">		List&lt;Dept&gt; deps=<span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">		session=MyBatisUtil.getSession();</span><br><span class="line">		deps=session.selectList(<span class="string">"cn.ustb.entity.DeptMapper.selectDeptEmpList"</span>,dept);</span><br><span class="line">		session.commit();</span><br><span class="line">		&#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			<span class="comment">// <span class="doctag">TODO:</span> handle exception</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			session.rollback();</span><br><span class="line">		&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">			MyBatisUtil.closeSession();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> deps;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>EmpDaoImpl.java查询员工及其所在部门信息，返回类型为List&lt; Emp &gt;，关键代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Emp&gt; <span class="title">selectEmpDeptList</span><span class="params">(Emp emp)</span></span>&#123;</span><br><span class="line">		SqlSession session=<span class="keyword">null</span>;</span><br><span class="line">		List&lt;Emp&gt; emps=<span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">		session=MyBatisUtil.getSession();</span><br><span class="line">		emps=session.selectList(<span class="string">"cn.ustb.entity.EmpMapper.selectEmpDeptList"</span>,emp);</span><br><span class="line">		session.commit();</span><br><span class="line">		&#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			<span class="comment">// <span class="doctag">TODO:</span> handle exception</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			session.rollback();</span><br><span class="line">		&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">			MyBatisUtil.closeSession();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> emps;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>Mybatis和hibernate一样，也使用缓存；缓存分为一级缓存和二级缓存，一级缓存指在SqlSession内共享数据；二级缓存能被所有的SqlSession共享。</p>
+<h5 id="全局缓存配置（一级缓存）"><a href="#全局缓存配置（一级缓存）" class="headerlink" title="全局缓存配置（一级缓存）"></a>全局缓存配置（一级缓存）</h5><p>在mybatis-config.xml的主配置文件中进行配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" </span></span><br><span class="line"><span class="meta">"http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 默认有启用全局缓存的，禁用可以把value设为false,如果这里设为false，Mapper.xml或SQL语句级的缓存配置不再起作用 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span>		</span><br><span class="line">	<span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!—省略其它配置信息</span> <span class="attr">--</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="Mapper文件级缓存配置（二级缓存）"><a href="#Mapper文件级缓存配置（二级缓存）" class="headerlink" title="Mapper文件级缓存配置（二级缓存）"></a>Mapper文件级缓存配置（二级缓存）</h5><p>使用二级缓存机制：需要开启全局缓存，文件级缓存 ，语句级缓存，才能使用二级缓存。默认情况下文件级缓存<font color="red"><strong>没有开启</strong></font>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 缓存的第二级开关，写上即开启 --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 一级默认开启，二级默认关闭，三级默认开启 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">cache</span> <span class="attr">eviction</span>=<span class="string">"LRU"</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">readOnly</span>=<span class="string">"false"</span>&gt;</span><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关于二级缓存的配置，在使用者手册中有详细说明，摘取如下内容：</p>
+<blockquote>
+<p>可用的回收算法如下：<br>• LRU – 最近最少使用：移出最近最长时间内都没有被使用的对象。<br>• FIFO – 先进先出：移除最先进入缓存的对象。<br>• SOFT – 软引用: 基于垃圾回收机制和软引用规则来移除对象（空间内存不足时才进行回收）。<br>• WEAK – 弱引用: 基于垃圾回收机制和弱引用规则（垃圾回收器扫描到时即进行回收）。<br>默认使用LRU。</p>
+<p>flushInterval ：设置任何正整数，代表一个以毫秒为单位的合理时间。默认是没有设置，因此 没有刷新间隔时间被使用，在语句每次调用时才进行刷新。<br>Size：属性可以设置为一个正整数，您需要留意您要缓存对象的大小和环境中可用的内存空间。 默认是1024。<br>readOnly：属性可以被设置为true 或false。只读缓存将对所有调用者返回同一个实例。因此这些对象都不能被修改，这可以极大的提高性能。可写的缓存将通过序列化来返回一个缓存对象的拷贝。这会比较慢，但是比较安全。所以默认值是false。</p>
+</blockquote>
+<h5 id="缓存配置分析："><a href="#缓存配置分析：" class="headerlink" title="缓存配置分析："></a>缓存配置分析：</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">&lt;cache eviction="FIFO" flushInterval="60000" size="512" readOnly="false"/&gt;</span></span><br><span class="line"><span class="comment">创建了一个 FIFO 缓存,并每隔 60 秒刷新,存数结果对象或列表的 512 个引用,而且返回的对象被认为是只读的,因此在不同线程中的调用者之间修改它们会 导致冲突。可用的收回策略有以下几种, 默认的是 LRU:</span></span><br><span class="line"><span class="comment">1. LRU – 最近最少使用的:移除最长时间不被使用的对象。 </span></span><br><span class="line"><span class="comment">2. FIFO – 先进先出:按对象进入缓存的顺序来移除它们。 </span></span><br><span class="line"><span class="comment">3. SOFT – 软引用:移除基于垃圾回收器状态和软引用规则的对象。 </span></span><br><span class="line"><span class="comment">4. WEAK – 弱引用:更积极地移除基于垃圾收集器状态和弱引用规则的对象。</span></span><br><span class="line"><span class="comment">flushInterval：刷新间隔时间，可以被设置为任意的正整数,单位毫秒。默认情况是不设置,也就是没有刷新间隔,缓存仅仅调用语句时刷新。</span></span><br><span class="line"><span class="comment">size：内存资源数目，可以被设置为任意正整数。默认值是1024。</span></span><br><span class="line"><span class="comment">readOnly(只读)属性可以被设置为 true 或 false。只读的缓存会给所有调用者返回缓 存对象的相同实例。因此这些对象不能被修改。这提供了很重要的性能优势。可读写的缓存 会返回缓存对象的拷贝(通过序列化) 。这会慢一些,但是安全,因此默认是 false。</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">eviction</span>=<span class="string">"LRU"</span> <span class="attr">size</span>=<span class="string">"2"</span> <span class="attr">readOnly</span>=<span class="string">"false"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="SQL语句级缓存配置"><a href="#SQL语句级缓存配置" class="headerlink" title="SQL语句级缓存配置"></a>SQL语句级缓存配置</h5><p>在相关的Mapper.xml文件中配置SQL查询，关键代码如下（示例）：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  useCache默认值为true,设为false时缓存不起作用 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectOne"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span> <span class="attr">resultMap</span>=<span class="string">"deptResultMap"</span> <span class="attr">useCache</span>=<span class="string">"true"</span> &gt;</span></span><br><span class="line">		select * from dept where dept_id=#&#123;id&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="XML-中的特殊字符处理"><a href="#XML-中的特殊字符处理" class="headerlink" title="XML 中的特殊字符处理"></a>XML 中的特殊字符处理</h3><p>如果 MyBatis 使用 XML 配置，那不可避免地会遇到一些对 XML 来说是特殊的字符。如小于号 “&lt;”，因此要进行转义。主要有两个方式：</p>
+<h5 id="使用转义实体"><a href="#使用转义实体" class="headerlink" title="使用转义实体"></a>使用转义实体</h5><p>下面是五个在 XML 文档中预定义好的转义实体:</p>
+<ul>
+<li>&amp;lt；     &lt; 小于号</li>
+<li>&amp;gt；    &gt; 大于号</li>
+<li>&amp;amp；  &amp; </li>
+<li>&amp;apos；  ‘ 单引号</li>
+<li>&amp;quot；   “ 双引号</li>
+<li>小于等于“&lt;=”，其转义为：&amp;lt；=</li>
+<li>大小等于“&gt;=”，转义为：&amp;gt；=<h5 id="使用-CDATA-部件"><a href="#使用-CDATA-部件" class="headerlink" title="使用 CDATA 部件"></a>使用 CDATA 部件</h5>CDATA 部件以”&lt;![CDATA[“ 标记开始，以”]]&gt;”标记结束。在”&lt;![CDATA[“和”]]&gt;”之间 的特殊字符的意义都不起作用，而转变为普通字符串内容。<br>在 MyBatis 的 XML 映射语句配置文件中，如果 SQL 语句有特殊字符，使用CDTA 部件括起来，如：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>= <span class="string">"selectBlog_use_collection"</span> <span class="attr">resultMap</span>= <span class="string">"blogResult"</span> &gt;</span></span><br><span class="line">&lt;![CDATA[ SELECT id , title, author_id as authored FROM BLOG WHERE ID &gt; 0 and ID &lt; 10 ]]&gt; <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code></code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/myBatis/" rel="tag"># myBatis</a>
+          
+            <a href="/tags/框架/" rel="tag"># 框架</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/Lucene全文搜索学习笔记（一）/" rel="next" title="Lucene全文搜索学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> Lucene全文搜索学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/MyBatis学习笔记（三）/" rel="prev" title="MyBatis学习笔记（三）">
+                MyBatis学习笔记（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MyBatis学习笔记（二）"><span class="nav-number">1.</span> <span class="nav-text">MyBatis学习笔记（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态SQL，关联查询，缓存机制，转义字符"><span class="nav-number">1.1.</span> <span class="nav-text">动态SQL，关联查询，缓存机制，转义字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态SQL操作"><span class="nav-number">1.1.1.</span> <span class="nav-text">动态SQL操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IF语句"><span class="nav-number">1.1.1.0.1.</span> <span class="nav-text">IF语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#WHERE语句"><span class="nav-number">1.1.1.0.2.</span> <span class="nav-text">WHERE语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#choose-when-otherwise-语句"><span class="nav-number">1.1.1.0.3.</span> <span class="nav-text">choose(when,otherwise)语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SET语句"><span class="nav-number">1.1.1.0.4.</span> <span class="nav-text">SET语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ForEach语句"><span class="nav-number">1.1.1.0.5.</span> <span class="nav-text">ForEach语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#include语句"><span class="nav-number">1.1.1.0.6.</span> <span class="nav-text">include语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联查询"><span class="nav-number">1.1.2.</span> <span class="nav-text">关联查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建数据库及表："><span class="nav-number">1.1.2.0.1.</span> <span class="nav-text">创建数据库及表：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于association查询（用于多对一或一对一）"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">基于association查询（用于多对一或一对一）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建存在关联的实体类"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">创建存在关联的实体类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置DeptMapper-xml-EmpMapper-xml"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">配置DeptMapper.xml/EmpMapper.xml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置文件myBatis-config-xml"><span class="nav-number">1.1.2.1.3.</span> <span class="nav-text">配置文件myBatis-config.xml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写EmpDaoImpl-java实现查询"><span class="nav-number">1.1.2.1.4.</span> <span class="nav-text">编写EmpDaoImpl.java实现查询</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于collection查询（用于一对多或多对多）"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">基于collection查询（用于一对多或多对多）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#编写-Dept-java-Emp-java实体类"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">编写 Dept.java/Emp.java实体类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置DeptMapper-xml"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">配置DeptMapper.xml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置EmpMapper-xml文件"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">配置EmpMapper.xml文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写数据库操作类DeptDaoImpl-java"><span class="nav-number">1.1.2.2.4.</span> <span class="nav-text">编写数据库操作类DeptDaoImpl.java</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一对多双向关联查询示例"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">一对多双向关联查询示例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#编写实体类-Dept-java-Emp-java"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">编写实体类:Dept.java/Emp.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写DeptMapper-xml-EmpMapper-xml文件"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">编写DeptMapper.xml/EmpMapper.xml文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写数据操作类：DeptDaoImpl-java-EmpDaoImpl-java"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">编写数据操作类：DeptDaoImpl.java/EmpDaoImpl.java</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存"><span class="nav-number">1.1.3.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#全局缓存配置（一级缓存）"><span class="nav-number">1.1.3.0.1.</span> <span class="nav-text">全局缓存配置（一级缓存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mapper文件级缓存配置（二级缓存）"><span class="nav-number">1.1.3.0.2.</span> <span class="nav-text">Mapper文件级缓存配置（二级缓存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存配置分析："><span class="nav-number">1.1.3.0.3.</span> <span class="nav-text">缓存配置分析：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语句级缓存配置"><span class="nav-number">1.1.3.0.4.</span> <span class="nav-text">SQL语句级缓存配置</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#XML-中的特殊字符处理"><span class="nav-number">1.1.4.</span> <span class="nav-text">XML 中的特殊字符处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用转义实体"><span class="nav-number">1.1.4.0.1.</span> <span class="nav-text">使用转义实体</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-CDATA-部件"><span class="nav-number">1.1.4.0.2.</span> <span class="nav-text">使用 CDATA 部件</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

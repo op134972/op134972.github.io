@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算机网络（8） 计算机网络中的安全计算机网络：自顶向下方法（第六版）  8.1 网络安全 机密性：防窃听 报文完整性：防篡改 端点鉴别：防假冒 运行安全性  8.2.1 对称密钥密码体制很有趣的内容，详见P444。对称密钥即共享密钥加密，加密和解密是同一把密钥。 8.2.2 公开密钥加密需要保证：  公钥加密的密文很难被破解。 发送方认证 接收方认证  1、RSA算法公钥加密，私钥解密，具体算法">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络（8） 计算机网络中的安全">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/计算机网络（8） 计算机网络中的安全/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="计算机网络（8） 计算机网络中的安全计算机网络：自顶向下方法（第六版）  8.1 网络安全 机密性：防窃听 报文完整性：防篡改 端点鉴别：防假冒 运行安全性  8.2.1 对称密钥密码体制很有趣的内容，详见P444。对称密钥即共享密钥加密，加密和解密是同一把密钥。 8.2.2 公开密钥加密需要保证：  公钥加密的密文很难被破解。 发送方认证 接收方认证  1、RSA算法公钥加密，私钥解密，具体算法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-04-28T04:59:43.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络（8） 计算机网络中的安全">
+<meta name="twitter:description" content="计算机网络（8） 计算机网络中的安全计算机网络：自顶向下方法（第六版）  8.1 网络安全 机密性：防窃听 报文完整性：防篡改 端点鉴别：防假冒 运行安全性  8.2.1 对称密钥密码体制很有趣的内容，详见P444。对称密钥即共享密钥加密，加密和解密是同一把密钥。 8.2.2 公开密钥加密需要保证：  公钥加密的密文很难被破解。 发送方认证 接收方认证  1、RSA算法公钥加密，私钥解密，具体算法">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/计算机网络（8） 计算机网络中的安全/">
+
+
+
+
+
+  <title>计算机网络（8） 计算机网络中的安全 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/计算机网络（8） 计算机网络中的安全/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络（8） 计算机网络中的安全</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-04-28T12:59:43+08:00">
+                2017-04-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  850
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算机网络（8）-计算机网络中的安全"><a href="#计算机网络（8）-计算机网络中的安全" class="headerlink" title="计算机网络（8） 计算机网络中的安全"></a>计算机网络（8） 计算机网络中的安全</h1><p>计算机网络：自顶向下方法（第六版）</p>
+<hr>
+<h3 id="8-1-网络安全"><a href="#8-1-网络安全" class="headerlink" title="8.1 网络安全"></a>8.1 网络安全</h3><ol>
+<li>机密性：防窃听</li>
+<li>报文完整性：防篡改</li>
+<li>端点鉴别：防假冒</li>
+<li>运行安全性</li>
+</ol>
+<h4 id="8-2-1-对称密钥密码体制"><a href="#8-2-1-对称密钥密码体制" class="headerlink" title="8.2.1 对称密钥密码体制"></a>8.2.1 对称密钥密码体制</h4><p>很有趣的内容，详见P444。<br>对称密钥即共享密钥加密，加密和解密是同一把密钥。</p>
+<h4 id="8-2-2-公开密钥加密"><a href="#8-2-2-公开密钥加密" class="headerlink" title="8.2.2 公开密钥加密"></a>8.2.2 公开密钥加密</h4><p>需要保证：</p>
+<ol>
+<li>公钥加密的密文很难被破解。</li>
+<li>发送方认证</li>
+<li>接收方认证</li>
+</ol>
+<h5 id="1、RSA算法"><a href="#1、RSA算法" class="headerlink" title="1、RSA算法"></a>1、RSA算法</h5><p>公钥加密，私钥解密，具体算法略。</p>
+<h5 id="2、会话密钥"><a href="#2、会话密钥" class="headerlink" title="2、会话密钥"></a>2、会话密钥</h5><p>RSA算法费时，如果用于加密大量数据很慢，通常使用RSA与对称密钥配合使用。利用RSA加密传输共享密钥，在确保共享密钥只有传输双方知道以后，利用共享密钥对数据进行加密传输。</p>
+<h5 id="3、RSA的工作原理"><a href="#3、RSA的工作原理" class="headerlink" title="3、RSA的工作原理"></a>3、RSA的工作原理</h5><p>省略了 P452</p>
+<h3 id="8-3-报文完整性和数字签名"><a href="#8-3-报文完整性和数字签名" class="headerlink" title="8.3 报文完整性和数字签名"></a>8.3 报文完整性和数字签名</h3><h4 id="8-3-3-数字签名"><a href="#8-3-3-数字签名" class="headerlink" title="8.3.3 数字签名"></a>8.3.3 数字签名</h4><p>私钥加密，公钥解密验证真实性。</p>
+<h5 id="公钥认证"><a href="#公钥认证" class="headerlink" title="公钥认证"></a>公钥认证</h5><p>公钥证书，利用权威CA（Certification Authority，认证中心）对公钥进行私钥加密，包装成证书颁发给服务器。服务器发送给客户端，客户端利用权威机构的公钥对其进行解密，若解密成功，既可以确定：1、服务器是合法的。2、公钥是正确的。</p>
+<h3 id="8-4-端点鉴别"><a href="#8-4-端点鉴别" class="headerlink" title="8.4 端点鉴别"></a>8.4 端点鉴别</h3><p>思路：{口令+不重数（nonce）}加密防止playback attack(回放攻击)</p>
+<h3 id="8-6-SSL"><a href="#8-6-SSL" class="headerlink" title="8.6 SSL"></a>8.6 SSL</h3><p><strong>安全套接字层</strong>（Secure Socket Layer，SSL），SSL版本3的一个稍加修改的版本称为<strong>运输层安全性</strong>（Transport Layer Security，TLS），已经由IETF标准化。P468—</p>
+<h3 id="8-6-2-SSL连接过程"><a href="#8-6-2-SSL连接过程" class="headerlink" title="8.6.2 SSL连接过程"></a>8.6.2 SSL连接过程</h3><h4 id="SSL记录格式"><a href="#SSL记录格式" class="headerlink" title="SSL记录格式"></a>SSL记录格式</h4><p>类型||版本||长度||数据||MAC</p>
+<ul>
+<li>类型：1、是握手报文还是数据报文还是关闭连接报文。</li>
+<li>版本：自解释的。</li>
+<li>长度：从TCP字节流中提取记录的开始位置。</li>
+<li>数据和MAC：加密了。MAC包含序号，防颠倒顺序。</li>
+</ul>
+<h3 id="8-9-防火墙"><a href="#8-9-防火墙" class="headerlink" title="8.9 防火墙"></a>8.9 防火墙</h3><p>防火墙是一个硬件和软件的结合体，三个目标：</p>
+<ol>
+<li>从外部到内部的所有流量都通过防火墙。</li>
+<li>仅被授权的流量允许通过。</li>
+<li>防火墙自身免于渗透。</li>
+</ol>
+<p>3类：<strong>传统分组过滤器</strong>（traditional packet filter）、<strong>状态过滤器</strong>（stateful filter）、<strong>应用程序网关</strong>（application gateway）</p>
+<h5 id="1、传统分组过滤器"><a href="#1、传统分组过滤器" class="headerlink" title="1、传统分组过滤器"></a>1、传统分组过滤器</h5><p>在网关路由器处执行分组过滤（packet filtering），过滤标准：</p>
+<ul>
+<li>IP源或目的地址</li>
+<li>在IP数据报中的协议类型字段：TCP、UDP、ICMP（网络层的三个组件之一：分别是：IP协议、路由选择协议、因特网控制报文协议：ICMP）、OSPF</li>
+<li>TCP或UDP的源和目的端口</li>
+<li>TCP标志比特：SYN、ACK等</li>
+<li>ICMP报文类型</li>
+<li>数据报离开和进入网络的不同规则</li>
+<li>对不同路由器接口的不同规则</li>
+</ul>
+<p>通过不同的过滤规则过滤不同方向的访问。</p>
+<h5 id="2、状态分组过滤器"><a href="#2、状态分组过滤器" class="headerlink" title="2、状态分组过滤器"></a>2、状态分组过滤器</h5><p>状态过滤器通过一张<strong>连接表</strong>跟踪了所有用户的连接，并根据<strong>访问控制列表</strong>决定是否对尝试进入或出去的连接进行核对（和连接表进行核对），没有头尾的连接（攻击连接）将会被拒绝。</p>
+<h5 id="3、应用程序网关"><a href="#3、应用程序网关" class="headerlink" title="3、应用程序网关"></a>3、应用程序网关</h5><p>P485</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/计算机网络（5） 链路、接入网和局域网/" rel="next" title="计算机网络（5） 链路、接入网和局域网">
+                <i class="fa fa-chevron-left"></i> 计算机网络（5） 链路、接入网和局域网
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/计算机系统（1-2） 计算机系统漫游、信息的表示和处理/" rel="prev" title="计算机系统（1-2） 计算机系统漫游、信息的表示和处理">
+                计算机系统（1-2） 计算机系统漫游、信息的表示和处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络（8）-计算机网络中的安全"><span class="nav-number">1.</span> <span class="nav-text">计算机网络（8） 计算机网络中的安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-网络安全"><span class="nav-number">1.0.1.</span> <span class="nav-text">8.1 网络安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-1-对称密钥密码体制"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">8.2.1 对称密钥密码体制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-2-公开密钥加密"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">8.2.2 公开密钥加密</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、RSA算法"><span class="nav-number">1.0.1.2.1.</span> <span class="nav-text">1、RSA算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、会话密钥"><span class="nav-number">1.0.1.2.2.</span> <span class="nav-text">2、会话密钥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、RSA的工作原理"><span class="nav-number">1.0.1.2.3.</span> <span class="nav-text">3、RSA的工作原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-报文完整性和数字签名"><span class="nav-number">1.0.2.</span> <span class="nav-text">8.3 报文完整性和数字签名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-3-数字签名"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">8.3.3 数字签名</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#公钥认证"><span class="nav-number">1.0.2.1.1.</span> <span class="nav-text">公钥认证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-端点鉴别"><span class="nav-number">1.0.3.</span> <span class="nav-text">8.4 端点鉴别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-SSL"><span class="nav-number">1.0.4.</span> <span class="nav-text">8.6 SSL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-2-SSL连接过程"><span class="nav-number">1.0.5.</span> <span class="nav-text">8.6.2 SSL连接过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL记录格式"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">SSL记录格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-9-防火墙"><span class="nav-number">1.0.6.</span> <span class="nav-text">8.9 防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、传统分组过滤器"><span class="nav-number">1.0.6.0.1.</span> <span class="nav-text">1、传统分组过滤器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、状态分组过滤器"><span class="nav-number">1.0.6.0.2.</span> <span class="nav-text">2、状态分组过滤器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、应用程序网关"><span class="nav-number">1.0.6.0.3.</span> <span class="nav-text">3、应用程序网关</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

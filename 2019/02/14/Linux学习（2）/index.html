@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linux学习（2） 个人笔记，如有错误，恳请批评指正。 第三部分：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364软件管理	windows:.exe 执行安装	andriod：安装.apk  卸载包名	red">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习（2）">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/Linux学习（2）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="Linux学习（2） 个人笔记，如有错误，恳请批评指正。 第三部分：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364软件管理	windows:.exe 执行安装	andriod：安装.apk  卸载包名	red">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-03-19T08:01:18.463Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习（2）">
+<meta name="twitter:description" content="Linux学习（2） 个人笔记，如有错误，恳请批评指正。 第三部分：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364软件管理	windows:.exe 执行安装	andriod：安装.apk  卸载包名	red">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/Linux学习（2）/">
+
+
+
+
+
+  <title>Linux学习（2） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Linux学习（2）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习（2）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T16:01:18+08:00">
+                2017-03-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/系统/" itemprop="url" rel="index">
+                    <span itemprop="name">系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux学习（2）"><a href="#Linux学习（2）" class="headerlink" title="Linux学习（2）"></a>Linux学习（2）</h1><hr>
+<p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h3 id="第三部分："><a href="#第三部分：" class="headerlink" title="第三部分："></a>第三部分：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">软件管理</span><br><span class="line">	windows:.exe 执行安装</span><br><span class="line">	andriod：安装.apk  卸载包名</span><br><span class="line">	red hat：*.rpm</span><br><span class="line">	ubuntu：对debian的升级   *.deb文件格式安装程序   卸载+包名</span><br><span class="line">	</span><br><span class="line">	1：直接安装.deb包 dpkg软件包</span><br><span class="line">		1：安装以.deb结尾的软件包，需要使用root的权限</span><br><span class="line">			1：sudo dpkg -i 软件包名</span><br><span class="line">		2：卸载</span><br><span class="line">			1：sudo dpkg -r 软件包名</span><br><span class="line">		3：安装tree</span><br><span class="line">			1：进入file文件 cd /home/itcast/Desktop/file</span><br><span class="line">			2：sudo dpkg -i tree_1.5.3-1_i386.deb</span><br><span class="line">		4：看Ubuntu系统已安装所有软件包列表</span><br><span class="line">			1：sudo dpkg -l</span><br><span class="line">		很多情况软件安装:/usr/local之下</span><br><span class="line">	2：使用apt-get管理软件（推荐使用）</span><br><span class="line">		1：前提连接互联网，自动搜素，自动下载自动安装</span><br><span class="line">		2：安装</span><br><span class="line">			1：sudo apt-get install eclipse</span><br><span class="line">			2：sudo apt-get install openjdk-6-jdk</span><br><span class="line">		3：卸载</span><br><span class="line">			1：sudo apt-get remove packagename   </span><br><span class="line">		3：使用广泛，默认下载路径</span><br><span class="line">			1：/var/cache/apt</span><br><span class="line">		同时也可以可以更新和搜索软件</span><br><span class="line">		1.执行“apt-get update”更源列表</span><br><span class="line">		2.执行“apt-cache search 名称”搜索软件	</span><br><span class="line">		ubuntu系统如何查看软件安装的位置？装到哪里去了，可以这样看：</span><br><span class="line">		代码:	</span><br><span class="line">			dpkg -L  软件名</span><br><span class="line">		软件中心下载的软件默认保存路径：/var/cache/apt/archives.</span><br><span class="line">	9：vim编辑器</span><br><span class="line">		vim的安装：</span><br><span class="line">			sudo apt-get install vim</span><br><span class="line"></span><br><span class="line">		安装成功以后的优化：</span><br><span class="line">			sudo vim /etc/vim/vimrc</span><br><span class="line">			编辑配置文件</span><br><span class="line">			endif下面加入：</span><br><span class="line">				set nu                           // 在左侧行号</span><br><span class="line">				set tabstop                  //tab 长度设置为 4</span><br><span class="line">				set nobackup               //覆盖文件时不备份</span><br><span class="line">				set cursorline               //突出显示当前行</span><br><span class="line">				set ruler                       //在右下角显示光标位置的状态行</span><br><span class="line">				set autoindent             //自动缩进</span><br><span class="line">		vim的基本操作：</span><br><span class="line">			VIM的运行模式 &lt;C-F12&gt;</span><br><span class="line">			编辑模式：等待编辑命令输入</span><br><span class="line">			插入模式：编辑模式下，输入 i 进入插入模式，插入文本信息</span><br><span class="line">			命令模式：在编辑模式下，输入 “：” 进行命令模式	</span><br><span class="line">		1：安装</span><br><span class="line">		2：在/home/itcast/目录下建立一个bank.txt文件</span><br><span class="line">			1：cd /home/itcast/familyA/</span><br><span class="line">			2：touch bank.txt</span><br><span class="line">		3：使用vim编辑</span><br><span class="line">		4：ctrl+C 退出插入模式或者敲ESC切换至命令模式</span><br><span class="line">		</span><br><span class="line">		-q: 安全退出，当没有操作该文档，则直接q退出文档。</span><br><span class="line">		-q!：当修改了内容，不想保存直接按q退出vim</span><br><span class="line">		-wq：保存退出</span><br><span class="line">		-set number：显示行号</span><br><span class="line">		-set nonumber：取消行号显示</span><br></pre></td></tr></table></figure>
+<h3 id="第四部分"><a href="#第四部分" class="headerlink" title="第四部分"></a>第四部分</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">	搭建Java服务器并进行远程管理</span><br><span class="line">	查看linux 是否开始SSH 服务(是否安装服务端)</span><br><span class="line">	ssh:secure shell</span><br><span class="line">	加密方式：</span><br><span class="line">		1、对称加密（加密密钥和解密密钥相同）</span><br><span class="line">		des、aes</span><br><span class="line">		2、非对称加密（加密密钥与解密密钥不同）</span><br><span class="line">		RSA：公钥、私钥</span><br><span class="line">		</span><br><span class="line">		数字摘要：md5\sha1</span><br><span class="line">		</span><br><span class="line">	sudo apt-cache policy openssh-client openssh-server</span><br><span class="line">	1：搭建SSH服务器			</span><br><span class="line">		1：在Ubuntu Linux服务器上安装SSH软件</span><br><span class="line">			执行“apt-get install openssh-server”	</span><br><span class="line">			客户端：sudo apt-get install openssh-client		</span><br><span class="line">		2：在Windows客户机上访问SSH服务器</span><br><span class="line">			使用“putty.exe”登录服务器（命令行），可用于在windows执行服务端执行命令。</span><br><span class="line">			使用“winscp.exe”连接服务器，可用于系统间的上传下载文件。</span><br><span class="line">	2：搭建Java环境（JDK6）</span><br><span class="line">		方法一：执行“apt-get install openjdk-6-jdk”	</span><br><span class="line">		注意: 需要联网.</span><br><span class="line">		安装后存入/usr/bin目录中，且PATH中自动配置了环境变量。不用配置CLASSPATH</span><br><span class="line">				</span><br><span class="line">		方法二：</span><br><span class="line">		1.进入opt目录</span><br><span class="line">			cd /opt</span><br><span class="line">		2.在opt目录下建立java安装目录</span><br><span class="line">			sudo mkdir java</span><br><span class="line">		3.将jdk-6u24-linux-i586.bin拷贝到java目录下</span><br><span class="line">			sudo cp /home/itcast/Desktop/file/jdk-6u39-linux-i586.bin /opt/java</span><br><span class="line">		4.安装jdk</span><br><span class="line">			cd /opt/java</span><br><span class="line">			sudo ./jdk-6u39-linux-i586.bin	</span><br><span class="line">		配置JAVA_HOME			</span><br><span class="line">		修改/ect/profile文件</span><br><span class="line">		编辑配置文件</span><br><span class="line">			sudo vim /etc/profile</span><br><span class="line">		添加如下内容：	</span><br><span class="line">			export JAVA_HOME=&quot;/opt/java/jdk1.6.0_39&quot;</span><br><span class="line">			export PATH=&quot;$JAVA_HOME/bin:$PATH&quot;</span><br><span class="line">		重启机器。或者(source /etc/profile)				</span><br><span class="line">		3：验证环境</span><br><span class="line">		查看环境变量</span><br><span class="line">			env</span><br><span class="line">		验证JAVA_HOME是否配好：</span><br><span class="line">		echo $JAVA_HOME</span><br><span class="line">		echo $PATH</span><br><span class="line">		注意： 	</span><br><span class="line">			$是取环境变量的值</span><br><span class="line">			JAVA_HOME是环境变量			</span><br><span class="line">		验证PATH是否配好：</span><br><span class="line">		java -version</span><br><span class="line">	3: 搭建Tomcat服务器</span><br><span class="line">		1，从tomcat官网上下载.tar.gz包，并放到服务器上。</span><br><span class="line">		2，解压tomcat.tar.gz包：“tar -zxvf tomcat6.tar.gz”。</span><br><span class="line">			sudo tar -zxvf 该命令字节进.gz的文件包解压。</span><br><span class="line">		3，执行“/opt/tomcat6/bin/startup.sh”便可启动Tomcat。</span><br><span class="line">		如果启动不了，请尝试</span><br><span class="line">		sudo -i 切换到root用户再重新启动</span><br><span class="line">		sudo ./startup.sh</span><br><span class="line">		关闭 sudo ./shutdown.sh</span><br><span class="line">		测试http:127.0.0.1:8080/</span><br><span class="line"> 		sudo firefox (如果无法正常打开浏览器使用该命令)	</span><br><span class="line">	4: 安装eclipse</span><br><span class="line">		1，从eclipse官网下载eclipse-jee-helios-linux-gtk.tar.gz包，放到服务器上。</span><br><span class="line">		2，解压eclips.tar.gz包：“tar -zxvf 解压eclips.tar.gz”。</span><br><span class="line">		3，执行“/opt/eclipse/eclipse” 便可启动eclipse</span><br><span class="line">		如果eclipse无法正常启动，可以经jre拷贝一份到eclipse目录下（cp -a 拷贝目录)</span><br><span class="line">	5.安装mysql</span><br><span class="line">		查看mysql 安装文档</span><br><span class="line"></span><br><span class="line">一些命令：</span><br><span class="line">	查看软件安装路径：whereis 软件名</span><br><span class="line">	查看运行文件的路径：which 运行程序名</span><br><span class="line">	etc(etcetera)</span><br><span class="line">	-grep: 在指定的文本文件中查找指定的字符串</span><br><span class="line"></span><br><span class="line">tree：以树状图列出目录的内容</span><br><span class="line">	 tree -a：显示所有目录和内容</span><br><span class="line">		  -d：显示目录名称而非内容</span><br><span class="line">		  -f：在每个文件或目录之前，显示完整的相对路径名称</span><br><span class="line">		  -t：按修改时间排序</span><br><span class="line">		详见:http://www.cnblogs.com/leijiangtao/archive/2014/06/08/3776280.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	安装软件包： </span><br><span class="line">	sudo apt-get install packagename   </span><br><span class="line">	</span><br><span class="line">	删除软件包： </span><br><span class="line">	sudo apt-get remove packagename   </span><br><span class="line">	</span><br><span class="line">	获取新的软件包列表： </span><br><span class="line">	sudo apt-get update   </span><br><span class="line">	</span><br><span class="line">	升级有可用更新的系统： </span><br><span class="line">	sudo apt-get upgrade   </span><br><span class="line">	</span><br><span class="line">	列出更多命令和选项： </span><br><span class="line">	apt-get help</span><br><span class="line">	</span><br><span class="line">	搜索包 </span><br><span class="line">	apt-cache search package </span><br><span class="line"></span><br><span class="line">	下载安装程序到你的/var/cache/apt文件夹里面然后进行安装。 </span><br><span class="line">	sudo apt-get install package - - reinstall 重新安装包 </span><br><span class="line">	sudo apt-get -f install 修复安装&quot;-f = ――fix-missing&quot; </span><br><span class="line">	sudo apt-get remove package 删除包 </span><br><span class="line">	sudo apt-get remove package - - purge 删除包，包括删除配置文件等 </span><br><span class="line">	sudo apt-get update 更新源 </span><br><span class="line">	sudo apt-get upgrade 更新已安装的包 </span><br><span class="line">	sudo apt-get dist-upgrade 升级系统 </span><br><span class="line">	sudo apt-get dselect-upgrade 使用 dselect 升级 </span><br><span class="line">	apt-cache depends package 了解使用依赖 </span><br><span class="line">	apt-cache rdepends package 是查看该包被哪些包依赖 </span><br><span class="line">	sudo apt-get build-dep package 安装相关的编译环境 </span><br><span class="line">	apt-get source package 下载该包的源代码 </span><br><span class="line">	sudo apt-get clean &amp;&amp; sudo apt-get autoclean 清理无用的包 </span><br><span class="line">	sudo apt-get check 检查是否有损坏的依赖  /var/cache/apt/archives.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">VIM编辑器的使用</span><br><span class="line">	VIM的运行模式 </span><br><span class="line">	编辑模式：等待编辑命令输入</span><br><span class="line">	插入模式：编辑模式下，输入 i 进入插入模式，插入文本信息</span><br><span class="line">	命令模式：在编辑模式下，输入 “：” 进行命令模式</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">安装时创建的系统用户</span><br><span class="line">   此用户创建时被添加到admin组中，在Ubuntu中，admin组中的用户默认是可以使用sudo命令来执行只有管理员才能执行的命令的。如果不使用sudo就是一个普通用户。</span><br><span class="line"></span><br><span class="line">查看账户系统文件</span><br><span class="line">	1、sudo cat /etc/passwd</span><br><span class="line">	2、sudo cat /etc/shadow 为了增加系统的安全性，用户口令通常用shadow passwords保护。只有root可读。每行包含如下信息： </span><br><span class="line">   用户名：口令：最后一次修改时间：最小时间间隔：最大时间间隔：警告时间：不活动时间：失效时间：标志</span><br><span class="line">    root:$6$Kn.oyu1E$Ig9ygYJSl8YYi37BKQ7W96MdIivd7B7MIfmxHByjQgZJsCLaiKK2Ig010MjJ9cKRsL2VuohOqxHs83QfE0s9f.:17238:0:99999:7:::</span><br><span class="line">    wch:$1$vpZEMeej$AeughttPPFKzqNjL.zicc.:17238:0:99999:7:::</span><br><span class="line">  </span><br><span class="line">	3、sudo cat /etc/group</span><br><span class="line">	用户组的配置文件</span><br><span class="line">	   root:x:0: </span><br><span class="line">		1、用户组名称</span><br><span class="line">		2、	用户组密码</span><br><span class="line">		给用户组管理员使用通常不用。</span><br><span class="line">		3、	GID</span><br><span class="line">		用户组的ID</span><br><span class="line">		4、	此用户支持的账号名称</span><br><span class="line">		一个账号可以加入多个用户组，例如想要itcast 加入root 这个用户组，将该账号填入该字段即可,root:x:0:root,icast将用户进行分组是 Linux对用户进行管理及控制访问权限的一种手段。一个中可以有多个用户，一个用户可以同时属于多个组。该文件对所有用户可读。</span><br><span class="line"> </span><br><span class="line">	 4、sudo cat /etc/gshadow</span><br><span class="line">	该文件用户定义用户组口令，组管理员等信息只有root用户可读。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">使用命令行工具管理账户</span><br><span class="line">	useradd 用户名</span><br><span class="line">	useradd –u（UID号）</span><br><span class="line">	useradd –p（口令）</span><br><span class="line">	useradd –g（分组）</span><br><span class="line">	useradd –s（SHELL）</span><br><span class="line">	useradd –d（用户目录）</span><br><span class="line">	</span><br><span class="line">使用usermod修改用户信息</span><br><span class="line">	usermod –u（新UID）</span><br><span class="line">	usermod –d（用户目录）</span><br><span class="line">	usermod –g（组名）</span><br><span class="line">	usermod –s（SHELL）</span><br><span class="line">	usermod –p（新口令）</span><br><span class="line">	usermod –l（新登录名）</span><br><span class="line">	usermod –L (锁定用户账号密码)</span><br><span class="line">	usermod –U (解锁用户账号)</span><br><span class="line">	userdel 用户名 (删除用户账号)</span><br><span class="line">	userdel –r 删除账号时同时删除目录</span><br><span class="line">	sudo usermod –u 1007 –g group2 –G root thinkpad</span><br><span class="line">	将thinkpad用户uid修改为1007，默认组改为系统中已经存在的group2，并且加入到系统管理员（GID 0）组。</span><br><span class="line">	</span><br><span class="line">组账户维护命令 </span><br><span class="line">	groupadd 组账户名 (创建新组)</span><br><span class="line">	groupadd –g 指定组GID</span><br><span class="line">	groupmod –g 更改组的GID</span><br><span class="line">	groupmod –n 更改组账户名</span><br><span class="line">	groupdel 组账户名 (删除指定组账户)</span><br><span class="line">	</span><br><span class="line">口令维护命令 </span><br><span class="line">	passwd 用户账户名 (设置用户口令)</span><br><span class="line">	passwd –l 用户账户名 (锁定用户账户)</span><br><span class="line">	passwd –u 用户账户名 (解锁用户账户)</span><br><span class="line">	passwd –d 用户账户名 (删除账户口令)</span><br><span class="line">	gpasswd –a 用户账户名 组账户名 (将指定用户添加到指定组)</span><br><span class="line">	gpasswd –d 用户账户名 组账户名 (将用户从指定组中删除)</span><br><span class="line">	gpasswd –A 用户账户名 组账户名 (将用户指定为组的管理员)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">OpenSSH</span><br><span class="line">SSH是芬兰一家公司开发。但是受到版权和加密算法限制，现在很多人都使用OpenSSH。OpenSSH是SSH的替代软件，免费。</span><br><span class="line">OpenSSH由客户端和服务端组成。</span><br><span class="line"></span><br><span class="line">OpenSSH提供两种级别的验证方式。</span><br><span class="line"></span><br><span class="line">（1）基于口令的安全验证：知道服务器的帐号密码即可远程登录，口令和数据在传输过程中都会被加密。</span><br><span class="line"></span><br><span class="line">（2）基于密钥的安全验证：此时需要在创建一对密钥，把公有密钥放到远程服务器上**自己的宿主目录**中，而私有密钥则由自己保存。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/Linux学习（1）/" rel="next" title="Linux学习（1）">
+                <i class="fa fa-chevron-left"></i> Linux学习（1）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/Lucene全文搜索学习笔记（二）/" rel="prev" title="Lucene全文搜索学习笔记（二）">
+                Lucene全文搜索学习笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux学习（2）"><span class="nav-number">1.</span> <span class="nav-text">Linux学习（2）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三部分："><span class="nav-number">1.0.1.</span> <span class="nav-text">第三部分：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四部分"><span class="nav-number">1.0.2.</span> <span class="nav-text">第四部分</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

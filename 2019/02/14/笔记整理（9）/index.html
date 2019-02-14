@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,JSP,EL标签,Jsp标签,JSTL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔记整理（9）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  Jsp基础简介Jsp，全称Java Server Page。Java服务页面，能提供Java服务的页面。Jsp的主要作用是用java语言来开发动态资源的技术。 Jsp  VS html  既可以写html代码，也可以写Java代码。 Jsp页面需要交给tomcat服务器运行。  Jsp运行的目录tomca">
+<meta name="keywords" content="Java,JSP,EL标签,Jsp标签,JSTL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记整理（9）">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/笔记整理（9）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="笔记整理（9）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  Jsp基础简介Jsp，全称Java Server Page。Java服务页面，能提供Java服务的页面。Jsp的主要作用是用java语言来开发动态资源的技术。 Jsp  VS html  既可以写html代码，也可以写Java代码。 Jsp页面需要交给tomcat服务器运行。  Jsp运行的目录tomca">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/ert34feferfefefefe.JPG">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/111111132e232232e232.png">
+<meta property="og:updated_time" content="2017-03-23T14:59:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔记整理（9）">
+<meta name="twitter:description" content="笔记整理（9）整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。  Jsp基础简介Jsp，全称Java Server Page。Java服务页面，能提供Java服务的页面。Jsp的主要作用是用java语言来开发动态资源的技术。 Jsp  VS html  既可以写html代码，也可以写Java代码。 Jsp页面需要交给tomcat服务器运行。  Jsp运行的目录tomca">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/ert34feferfefefefe.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/笔记整理（9）/">
+
+
+
+
+
+  <title>笔记整理（9） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/笔记整理（9）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">笔记整理（9）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-23T22:59:30+08:00">
+                2017-03-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/笔记整理/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记整理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="笔记整理（9）"><a href="#笔记整理（9）" class="headerlink" title="笔记整理（9）"></a>笔记整理（9）</h1><p><em>整理了从开始学习Java以来在纸质本上做的一些笔记，如有错误，恳请批评指正。</em></p>
+<hr>
+<h3 id="Jsp基础"><a href="#Jsp基础" class="headerlink" title="Jsp基础"></a>Jsp基础</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>Jsp，全称Java Server Page。Java服务页面，能提供Java服务的页面。<br>Jsp的主要作用是用java语言来<strong>开发动态资源</strong>的技术。</p>
+<p><strong>Jsp  VS html</strong></p>
+<ol>
+<li>既可以写html代码，也可以写Java代码。</li>
+<li><strong>Jsp页面需要交给tomcat服务器运行</strong>。</li>
+</ol>
+<h4 id="Jsp运行的目录"><a href="#Jsp运行的目录" class="headerlink" title="Jsp运行的目录"></a>Jsp运行的目录</h4><p>tomcat的<code>work</code>目录，这个目录下存放jsp页面运行过程中产生的临时文件。</p>
+<h4 id="jsp文件中的html代码和java代码是如何被执行的？"><a href="#jsp文件中的html代码和java代码是如何被执行的？" class="headerlink" title="jsp文件中的html代码和java代码是如何被执行的？"></a>jsp文件中的html代码和java代码是如何被执行的？</h4><p>html代码： 通过out.write(“内容”); 方法输出到浏览器<br>java代码： 原封不动拷贝到java源文件中被执行</p>
+<h4 id="Jsp页面如何被tomcat服务器运行"><a href="#Jsp页面如何被tomcat服务器运行" class="headerlink" title="Jsp页面如何被tomcat服务器运行"></a>Jsp页面如何被tomcat服务器运行</h4><pre><code>第一次访问jsp：
+                1）tomcat服务器把jsp页面翻译成java源文件。（01.hello.jsp  -》  _01_hello_jsp.java）
+                2）tomcat服务器把java源文件编译成class文件。_01_hello_jsp.java -&gt; _01_hello_jsp.class
+                3）读取class文件，创建类对象。_01_hello_jsp
+                4）执行类中的方法。_01_hello_jsp类的方法
+
+第n次访问jsp：直接走第4个步骤
+                4）执行类中的方法。_01_hello_jsp类的方法
+</code></pre><p><img src="http://oli0whb3w.bkt.clouddn.com/ert34feferfefefefe.JPG" alt="enter image description here"></p>
+<p><strong>注意</strong>：<br>    修改了jsp页面时，重新走翻译和编译的过程。</p>
+<p>问题：运行的class类是什么类？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public final class _01_hello_jsp extends org.apache.jasper.runtime.HttpJspBase</span><br><span class="line"></span><br><span class="line">public abstract class org.apache.jasper.runtime.HttpJspBase extends javax.servlet.http.HttpServlet implements javax.servlet.jsp.HttpJspPage &#123;&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>我们的jsp的源文件是一个servlet！
+结论： jsp就是一个servlet！！！！
+
+servlet的技术可以用在jsp上。
+
+servlet的生命周期：
+    构造方法：
+    init方法：
+    service方法
+    destory方法
+jsp的生命周期
+    翻译（java文件）
+    编译（class文件）
+    构造方法
+    _jspInit方法
+    _jspService方法
+    _jspDestroy方法
+</code></pre><h4 id="Jsp表达式"><a href="#Jsp表达式" class="headerlink" title="Jsp表达式"></a>Jsp表达式</h4><pre><code>语法： &lt;%=变量或表达式%&gt;
+作用： 向浏览器输出变量的值或表达式技术的结构
+注意：            
+    1）原理是使用out.print()方法向浏览器输出内容
+    2）
+</code></pre><h4 id="Jsp脚本"><a href="#Jsp脚本" class="headerlink" title="Jsp脚本"></a>Jsp脚本</h4><pre><code>语法：&lt;% java语句  %&gt;
+作用： 执行java语句
+原理： 脚本就是原封不动地翻译到java文件的_jspServcice方法中执行。
+</code></pre><h4 id="Jsp声明"><a href="#Jsp声明" class="headerlink" title="Jsp声明"></a>Jsp声明</h4><pre><code>语法：&lt;%! 变量或方法   %&gt;
+作用：用于声明变量或方法
+原理： 声明的变量是成员变量，声明的方法是成员方法
+注意：
+    1）不要声明和翻译后的java文件相同的方法名
+    2）jsp脚本不能声明方法
+</code></pre><h4 id="Jsp注释"><a href="#Jsp注释" class="headerlink" title="Jsp注释"></a>Jsp注释</h4><pre><code>语法： &lt;%-- jsp注释 --%&gt;
+作用： 注释jsp页面内容
+注意：
+        html的注释会被翻译和执行，而jsp的注释不会被翻译和执行。
+</code></pre><ul>
+<li>Jsp表达式的作用：向浏览器输出变量或者表达式的内容，2）结尾不能使用分号 </li>
+<li>Jsp脚本的作用：是执行Java代码，其原理是把代码加入到JspService方法中 </li>
+<li>Jsp声明的作用：是声明成员变量和成员方法，方法不能在脚本中定义，只能在Jsp声明中定义；不能声明和翻译之后相同名称的方法</li>
+</ul>
+<p>Jsp脚本和jsp表达式都会被翻译至_JspService方法中,Jsp声明声明的是成员变量和方法，不会被翻译至_jspService方法中，所以：<strong>Jsp脚本和Jsp表达式中都可以用Jsp的内置对象，而Jsp声明中不可以。</strong></p>
+<h4 id="Jsp三大指令"><a href="#Jsp三大指令" class="headerlink" title="Jsp三大指令"></a>Jsp三大指令</h4><p>语法： &lt;%@ 指令  %&gt;</p>
+<h5 id="taglib指令"><a href="#taglib指令" class="headerlink" title="taglib指令"></a>taglib指令</h5><p>taglib指令主要是用于导入jsp的标签库。</p>
+<h5 id="include指令"><a href="#include指令" class="headerlink" title="include指令"></a>include指令</h5><p>作用：用于包含其他页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--包含头部页面 --%&gt;</span><br><span class="line">  &lt;%@ include file=&quot;/common/header.jsp&quot;%&gt;</span><br></pre></td></tr></table></figure>
+<p>原理： </p>
+<pre><code>1. 直接把包含与被包含页面的内容先合并在一起，然后翻译成一个java源文件，最后编译执行。（**先合并再翻译**）
+        （源码包含，也叫做**静态包含**）
+2. 被包含的页面不要使用**全局**的html标签。（html/head/title/body）
+</code></pre><h5 id="page指令"><a href="#page指令" class="headerlink" title="page指令"></a>page指令</h5><p>作用：告诉浏览器如何翻译jsp文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> </span></span><br><span class="line"><span class="tag">		<span class="attr">language</span>=<span class="string">"java"</span>   <span class="attr">--</span>告诉服务器以什么语言来翻译<span class="attr">jsp</span>文件</span></span><br><span class="line"><span class="tag">		<span class="attr">import</span>=<span class="string">"java.util.*"</span> <span class="attr">--</span>导包。多个包用逗号分隔</span></span><br><span class="line"><span class="tag">										<span class="attr">java.util.Date</span>,<span class="attr">java.text.SimleDateFromat</span></span></span><br><span class="line"><span class="tag">		<span class="attr">jsp</span>编码相关的</span></span><br><span class="line"><span class="tag">		<span class="attr">pageEncoding</span>=<span class="string">"utf-8"</span>  <span class="attr">--jsp</span>翻译成<span class="attr">java</span>文件时使用的编码</span></span><br><span class="line"><span class="tag">		<span class="attr">contentType</span>=<span class="string">"text/html; charset=utf-8"</span> <span class="attr">--</span>服务器返回给浏览器的数据类型和编码</span></span><br><span class="line"><span class="tag"></span></span><br><span class="line"><span class="tag">		<span class="attr">jsp</span>中涉及中文编码问题：</span></span><br><span class="line"><span class="tag">				<span class="attr">1</span>）保存<span class="attr">jsp</span>文件时的编码（另存为）</span></span><br><span class="line"><span class="tag">				<span class="attr">2</span>）<span class="attr">jsp</span>翻译成<span class="attr">java</span>文件时的编码（<span class="attr">pageEncoding</span>）</span></span><br><span class="line"><span class="tag">				<span class="attr">3</span>）服务器输出到浏览器的数据编码（<span class="attr">contentType</span>）</span></span><br><span class="line"><span class="tag">		</span></span><br><span class="line"><span class="tag">		注意：</span></span><br><span class="line"><span class="tag">			<span class="attr">1</span>）<span class="attr">contentType</span>属性如果不写，会参考<span class="attr">pageEncoding</span>的编码</span></span><br><span class="line"><span class="tag">			<span class="attr">2</span>）在<span class="attr">ecplise</span>中开发<span class="attr">jsp</span>，保存文件时的编码会参考<span class="attr">pageEncoding</span>编码</span></span><br><span class="line"><span class="tag">			</span></span><br><span class="line"><span class="tag">		结论： </span></span><br><span class="line"><span class="tag">			在<span class="attr">ecplise</span>中开发<span class="attr">jsp</span>文件，只需要在<span class="attr">page</span>指令中设置<span class="attr">pageEncoding</span>的属性即可解决中文乱码问题！！</span></span><br><span class="line"><span class="tag"></span></span><br><span class="line"><span class="tag">	错误页面相关的</span></span><br><span class="line"><span class="tag">		<span class="attr">errorPage</span>=<span class="string">"error.jsp"</span>  <span class="attr">--</span>指定错误页面</span></span><br><span class="line"><span class="tag">		<span class="attr">isErrorPage</span>=<span class="string">"false"</span>    <span class="attr">--</span>指定当前页面是否为错误页面。如果是<span class="attr">true</span>，那么就可以是<span class="attr">exception</span>内置对象，如果<span class="attr">false</span>，则不能使用<span class="attr">exception</span>内置对象。<span class="attr">exception</span>用于得到错误信息。</span></span><br><span class="line"><span class="tag"></span></span><br><span class="line"><span class="tag">		</span></span><br><span class="line"><span class="tag">		<span class="attr">buffer</span>=<span class="string">"8kb"</span>   <span class="attr">--jsp</span>页面的缓存区大小</span></span><br><span class="line"><span class="tag">		<span class="attr">session</span>=<span class="string">"true"</span>  <span class="attr">--</span>是否打开<span class="attr">session</span>功能。是否可以使用<span class="attr">session</span>内置对象</span></span><br><span class="line"><span class="tag">		<span class="attr">isELIgnored</span>=<span class="string">"false"</span>  <span class="attr">--</span>是否忽略<span class="attr">EL</span>表达式。<span class="attr">false</span>，不忽略，可以使用<span class="attr">EL</span>；<span class="attr">true</span>，不											能<span class="attr">EL</span></span></span><br><span class="line"><span class="tag"></span></span><br><span class="line"><span class="tag">%&gt;</span></span><br></pre></td></tr></table></figure>
+<p>全局错误页面配置：<br>            在web.xml文件中设置<br>            通常配置两种错误： 404   500<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">      在web.xml文件中配置：</span><br><span class="line">&lt;!-- 配置全局的错误处理页面 --&gt;</span><br><span class="line">	&lt;error-page&gt;</span><br><span class="line">		&lt;error-code&gt;404&lt;/error-code&gt;</span><br><span class="line">		&lt;location&gt;/common/404.html&lt;/location&gt;</span><br><span class="line">	&lt;/error-page&gt;</span><br><span class="line">	&lt;error-page&gt;</span><br><span class="line">		&lt;error-code&gt;500&lt;/error-code&gt;</span><br><span class="line">		&lt;location&gt;/common/500.jsp&lt;/location&gt;</span><br><span class="line">	&lt;/error-page&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Jsp的最佳实践"><a href="#Jsp的最佳实践" class="headerlink" title="Jsp的最佳实践"></a>Jsp的最佳实践</h4><pre><code>servlet技术： 使用java语言开发动态网页。功能：写java代码，输出html代码
+jsp技术： 使用java语言开发动态网页。功能：写java代码，输出html代码
+
+分工问题：
+    servlet技术： 写java代码（写普通java类）
+    jsp技术： 输出html代码（类似于html页面）
+
+项目中涉及的功能：
+    1）接收参数信息    （servlet做）
+    2）执行业务逻辑（CURD）  ( servlet做 )
+    3）返回结果，输出结果  （jsp做）
+    4）跳转页面            （servlet做）
+</code></pre><h4 id="Jsp的9大内置对象"><a href="#Jsp的9大内置对象" class="headerlink" title="Jsp的9大内置对象"></a>Jsp的9大内置对象</h4><h5 id="什么是Jsp的内置对象？"><a href="#什么是Jsp的内置对象？" class="headerlink" title="什么是Jsp的内置对象？"></a>什么是Jsp的内置对象？</h5><p>在Jsp的开发过程中，开发者会频繁地使用到一些对象，例如Request，Session对象，ServletConfig，ServletContext，如果每次要使用这些对象都要去创建或者调用方法去得到就比较麻烦。Sun公司为了更加方便开发者在jsp文件中直接得到这些对象，直接就帮我们创建或得到好了这些对象，开发者直接使用这些对象即可，这些直接可以使用的对象就叫内置对象！！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">//使用请求对象HttpServletRequest</span><br><span class="line">request.getContentPath();</span><br><span class="line"></span><br><span class="line">//使用HttpSession对象</span><br><span class="line">HttpSession session = requesst.getSession();  --之前的servlet做法</span><br><span class="line"></span><br><span class="line">session.setAttribute(name,object);</span><br><span class="line"></span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="9个内置对象"><a href="#9个内置对象" class="headerlink" title="9个内置对象"></a>9个内置对象</h5><pre><code>对象名      对应的类型                  备注
+request      HttpServletRequest      请求对象，封装请求信息
+response     HttpServletResponse     响应对象，封装响应信息
+config       ServletConfig           servlet配置对象，封装servlet配置信息
+application    ServletContext          servlet的上下文对象，代表整个web应用环境 
+session      HttpSession             会话对象。用于保存会话数据
+exception    Throwable              异常对象，用于封装异常信息
+（需声明@ page isErrorpage=&quot;true&quot;）
+page         Object                代表当前jsp翻译成java类对象
+out         JspWriter               jsp页面缓存对象，相当于带缓存功能的PrintWriter
+pageContext  PageContext            jsp的上下文件对象，代表当前jsp的环境
+</code></pre><h5 id="out对象"><a href="#out对象" class="headerlink" title="out对象"></a>out对象</h5><pre><code>    out对象，类型JspWriter
+        out.wirter(&quot;内容&quot;)
+
+        1）PrintWrite类： 直接往浏览器写出内容
+                out.write（“内容”）;
+
+        2）JspWriter类： 相当于带缓存的PrintWriter
+                out.write(&quot;内容&quot;)： 把内容写入缓存区
+        response.getWriter()返回的是PrintWriter，其write()方法是直接写出。
+
+注意：
+        当JspWriter缓存区满足以下条件，缓存区内容会写入到PrintWriter中。
+        1）缓冲区满了。
+        2）刷新缓冲区（JspWriet.flush()）
+        3）关闭缓冲区 （&lt;%@page buffer=&quot;0kb&quot;%&gt;  buffer属性用于设置Jsp&apos;Writer缓存区大小，默认8KB）
+        4）执行完Jsp页面
+
+        得到当前缓冲区大小： out.getBufferSize()
+        得到当前缓冲区剩余大小： out.getRemaining()
+</code></pre><h5 id="pageContext对象"><a href="#pageContext对象" class="headerlink" title="pageContext对象"></a>pageContext对象</h5><p>pageContext对象，类型PageContext类。</p>
+<ol>
+<li><strong>包含了其他8个内置对象的引用</strong><br>Jsp文件翻译的java类</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public class _02_out_jsp&#123;</span><br><span class="line"></span><br><span class="line">		public void _jspService(HttpServletRequest rquest, HttpServetResponse response)&#123;</span><br><span class="line">			HttpSession session;</span><br><span class="line">			ServletConfig config;</span><br><span class="line">			......</span><br><span class="line">		</span><br><span class="line">			//Sun设计了一个PageContext对象，用于存放其他8个内置对象</span><br><span class="line">			PageContext pageContext;</span><br><span class="line"></span><br><span class="line">			//调用method1</span><br><span class="line">			method1(pageContext)</span><br><span class="line">	</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public void method1(PageContext pageContext)&#123;</span><br><span class="line">			//要使用8个内置对象</span><br><span class="line">			pageContext.getSession();</span><br><span class="line">			pageContext.getRequest();</span><br><span class="line">			pageContext.getResponse();</span><br><span class="line">			......</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">  session.setAttribute(&quot;name&quot;, &quot;jason&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getRequest() == request)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getResponse() == response)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getSession() == session)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getServletContext() == application)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getPage() == page)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getException() == exception)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getServletConfig() == config)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">  out.write(&quot;相等吗？&quot;+(pageContext.getOut() == out)+&quot;&lt;br/&gt;&quot;);</span><br><span class="line">   %&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>以上情况，在自定义标签中频繁使用到！！！</strong></p>
+<ol start="2">
+<li><p><strong>PageContext作为域对象</strong></p>
+<pre><code>作用： **保存**数据和**获取**数据，**清除**数据
+方法：
+</code></pre><ul>
+<li>getAttribute()</li>
+<li>setAttribute()</li>
+<li><p>removeAttribute();</p>
+<p><strong>保存数据</strong>：<br>  <strong>默认情况保存到page域中</strong></p>
+<pre><code>pageContext.setAttribute(name,object);
+</code></pre><p>  可以指定域保存</p>
+<pre><code>pageContext.setAttribute(name,object, **int 域范围**)
+</code></pre><p><code>域范围：PAGE_SCOPE, REQUEST_SCOPE, SESSION_SCOPE , APPLICATION_SCOPE</code></p>
+<p><strong>取出数据</strong>：<br>  默认情况，<strong>从page域取出</strong></p>
+<pre><code>pageContext.getAttribute(name);
+</code></pre><p>  可以指定域取出</p>
+<pre><code>pageContext.getAttribute(name, int 域范围)
+</code></pre><p><code>域范围：PAGE_SCOPE, REQUET_SCOPE, SESSION_SCOPE , APPLICATION_SCOPE</code><br>从四个域中搜索：<br>  pageContext.findAttribute(name);</p>
+<p><code>搜索顺序： page域-&gt; request域 -&gt; session域-&gt; application域</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Jsp的四个域对象"><a href="#Jsp的四个域对象" class="headerlink" title="Jsp的四个域对象"></a>Jsp的四个域对象</h4><h5 id="域对象的作用："><a href="#域对象的作用：" class="headerlink" title="域对象的作用："></a>域对象的作用：</h5><p>用于保存数据，获取数据，在不同资源之间共享数据</p>
+<h5 id="域对象的方法："><a href="#域对象的方法：" class="headerlink" title="域对象的方法："></a>域对象的方法：</h5><p>setAttribute(name,object) ; 保存数据方法<br>getAttribute(name)  获取数据<br>romoveAttribute(name) 清除数据</p>
+<h5 id="域对象作用范围"><a href="#域对象作用范围" class="headerlink" title="域对象作用范围"></a>域对象作用范围</h5><p>page域： 对应域对象<br>request域：处于同一个请求中数据共享是有效的！！（使用转发）<br>session域：处于同一个会话中数据共享是有效的！！（同一个session对象）<br>application域：处于同一个web应用中数据共享是有效的！！</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">域对象名</th>
+<th style="text-align:right">对应类</th>
+<th style="text-align:center">范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">page</td>
+<td style="text-align:right">PageContext</td>
+<td style="text-align:center">页面</td>
+</tr>
+<tr>
+<td style="text-align:left">request</td>
+<td style="text-align:right">HttpServletRequest</td>
+<td style="text-align:center">请求</td>
+</tr>
+<tr>
+<td style="text-align:left">session</td>
+<td style="text-align:right">HttpSession</td>
+<td style="text-align:center">会话</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td style="text-align:right">ServletContext</td>
+<td style="text-align:center">整个项目</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Jsp的最佳实战"><a href="#Jsp的最佳实战" class="headerlink" title="Jsp的最佳实战"></a>Jsp的最佳实战</h4><p><strong>Jsp</strong>就是一个servlet！其被翻译之后就是Servlet，继承了HttpServlet，所以可以用Servlet的功能。而<strong>Servlet</strong>是一个特殊的<strong>Java</strong>类，Jsp和Servlet都用于开发动态的资源。</p>
+<p>Servlet的作用：使用java代码开发动态资源。可以写java代码，输出html代码<br>Jsp的作用： 使用java代码开发动作资源。可以写java代码，也可以输出html代码。</p>
+<p>项目中可以会涉及的工作：<br>    1）接收参数<br>    2）处理业务逻辑<br>    3）跳转其他资源<br>    4）显示数据</p>
+<p>Servlet：擅长写java代码<br>Jsp：擅长显示数据</p>
+<p>最佳实践：<br>        利用servlet来处理java相关的逻辑事务，把需要显示的数据发送给jsp，然后在jsp中显示数据。</p>
+<h3 id="EL表达式"><a href="#EL表达式" class="headerlink" title="EL表达式"></a>EL表达式</h3><p>在jsp显示数据，可以使用jsp表达式向浏览器输出数据。可以使用java脚本来执行业务逻辑。但是在Jsp页面中要尽量减少Java代码的使用量，甚至不用Java代码。</p>
+<p><strong>EL表达式</strong>用于替代jsp页面中的jsp表达式。<br><strong>Jsp标签</strong>用于替代jsp页面中的jsp脚本。</p>
+<h4 id="EL表达式的作用"><a href="#EL表达式的作用" class="headerlink" title="EL表达式的作用"></a>EL表达式的作用</h4><p>向浏览器输出<strong>域对象中</strong>的变量和表达式的计算结果。（EL表达式必须要求数据放在<strong>域对象</strong>中！）</p>
+<h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><p><code>${变量或者表达式}</code></p>
+<h4 id="EL语法"><a href="#EL语法" class="headerlink" title="EL语法"></a>EL语法</h4><ol>
+<li><p>获取数据<br>四个域中获取：<code>${变量}</code>域范围：<code>pageScope--&gt;requestScope--&gt;sessionScope--&gt;applicationScope</code><br>指定域中获取：<code>${域范围.变量}</code></p>
+</li>
+<li><p>EL获取普通对象数据<br><code>${student.name}</code>表示调用getName()方法。</p>
+</li>
+<li><p>EL获取集合数据（List和Map集合）<br><code>${map[‘key’].name}</code><strong>注意</strong>：map[key] 表示调用map对象的get(key)方法获取map的值对象</p>
+</li>
+<li><p>EL可以使用表达式</p>
+<pre><code>算术表达式 ：`${a+b}`
+比较表达式:   `${a&gt;b}`
+逻辑表达式 :  `${true &amp;&amp; true}`
+判空表达式:    `${empty name}` 表示判断name为null或者空字符
+</code></pre></li>
+</ol>
+<h4 id="EL隐含对象"><a href="#EL隐含对象" class="headerlink" title="EL隐含对象"></a>EL隐含对象</h4><p>EL表达式语言中定义了11个隐含对象，使用这些隐含对象可以很方便地获取web开发中的一些常见对象，并读取这些对象的数据。<br>详见：<a href="http://blog.csdn.net/kyi_zhu123/article/details/54381221" target="_blank" rel="noopener">http://blog.csdn.net/kyi_zhu123/article/details/54381221</a></p>
+<pre><code>隐含对象名称    描 述
+pageContext    对应于JSP页面中的pageContext对象（注意：取的是pageContext对象。）
+pageScope    代表page域中用于保存属性的Map对象
+requestScope    代表request域中用于保存属性的Map对象
+sessionScope    代表session域中用于保存属性的Map对象
+applicationScope    代表application域中用于保存属性的Map对象
+param    表示一个保存了所有请求参数的Map对象
+paramValues    表示一个保存了所有请求参数的Map对象，它对于某个请求参数，返回的是一个string[]
+header    表示一个保存了所有http请求头字段的Map对象
+headerValues    同上，返回string[]数组。注意：如果头里面有“-” ，例Accept-Encoding，则要headerValues[“Accept-Encoding”]
+cookie    表示一个保存了所有cookie的Map对象
+initParam    表示一个保存了所有web应用初始化参数的map对象
+</code></pre><h3 id="Jsp标签"><a href="#Jsp标签" class="headerlink" title="Jsp标签"></a>Jsp标签</h3><p>Jsp标签主要在jsp页面执行java代码，用于<strong>替换jsp脚本</strong></p>
+<p><strong>EL表达式局限</strong>：<br>            1）不能保存数据，只能获取数据<br>            2）没有条件判断逻辑<br>            3）没有数据遍历功能</p>
+<h4 id="Jsp标签分类"><a href="#Jsp标签分类" class="headerlink" title="Jsp标签分类"></a>Jsp标签分类</h4><ul>
+<li>Jsp内置标签（动作标签）： 不需要导入标签库</li>
+<li>JSTL标签库：  需要导入标签库</li>
+<li>自定义标签： 需要导入标签库</li>
+</ul>
+<h5 id="Jsp内置标签"><a href="#Jsp内置标签" class="headerlink" title="Jsp内置标签"></a>Jsp内置标签</h5><p><code>&lt;jsp:forward/&gt;</code>  转发标签：用于转发<br><code>&lt;jsp:param/&gt;</code>   参数标签<br><code>&lt;jsp:incude/&gt;</code>  包含标签：用于包含其他页面</p>
+<p>注意：<br>1）其原理是包含与被包含的页面先各自翻译成独立的java源文件，然后再运行时合并再一起。（先翻译再合并），这叫<strong>动态包含</strong></p>
+<pre><code>    ==== 静态包含  vs   动态包含====
+    1）原理不一样
+            a）静态包含（先合并再翻译）     
+            b）动态包含（先翻译再合并）
+    2）语法不一样
+            a）静态包含（ includ指令：  &lt;%@include%&gt; ）
+            b）动态包含 （include标签： &lt;jsp:include /&gt;）
+    3）参数传递不同
+            a）静态包含不能传递参数
+            b）动态包含可以向被包含页面传递参数
+
+&lt;jsp:include page=&quot;./index.jsp&quot;&gt;&lt;/jsp:include&gt;//动态包含
+</code></pre><p>静态包含：先合并再翻译，被包含的页面不能有全局页面。翻译后生成一个Servlet。<br>动态包含：先翻译再合并，如果包含的是Jsp，会生成两个Servlet页面。通过response和request进行通信。<br>具体解析：<a href="http://blog.csdn.net/hackerain/article/details/6766206" target="_blank" rel="noopener">http://blog.csdn.net/hackerain/article/details/6766206</a></p>
+<h4 id="JSTL标签"><a href="#JSTL标签" class="headerlink" title="JSTL标签"></a>JSTL标签</h4><p>jstl ， Java Starardard Tag Libarary  Java标准标签库</p>
+<p>以前： jsp2.0以前jstl不属于java规范。属于第三方的工具。需要导入jar包<br>现在： jsp2.0 jstl纳入javaee规范。不需要导入jar包。</p>
+<pre><code>JSTL标签库分类：
+        1）核心标签库 （core/c  ） 使用最频繁的
+        2）国际化互标签库（fmt）
+        3）EL函数库 （fn）
+        4）数据库标签库（sql）
+        5）Xml标签库（x）
+</code></pre><h5 id="JSTL使用步骤"><a href="#JSTL使用步骤" class="headerlink" title="JSTL使用步骤"></a>JSTL使用步骤</h5><p>1）确保jstl的支持jar包已经导入到项目中<br>2）在jsp页面的顶部导入标签库<br>        &lt;%@taglib uri=”tld文件的路径” prefix=”标签库缩写”%&gt;<br><code>&lt;%@taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot; %&gt;</code><br>tld文件： 标签库的声明文件（每套标签都有一个tld文件）<br>3）使用标签库中的标签<br><code>&lt;c:set&gt;&lt;/c:set&gt;</code></p>
+<h5 id="JSTL核心标签库"><a href="#JSTL核心标签库" class="headerlink" title="JSTL核心标签库"></a>JSTL核心标签库</h5><pre><code>保存数据：
+    &lt;c:set&gt;&lt;/c:set&gt;
+    var:数据名称 value：数据值 scope：域对象&lt;page、request、session、application&gt;
+获取数据
+    &lt;c:out value=&quot;&quot;&gt;&lt;/c:out&gt;
+    value:代表获取域中某个名称的内容，若在域对象中，则必须使用EL标签获取。
+    default:当前获取为null时的替换值。
+    escapeXml:默认情况下为true，out标签会把输出的内容进行转义，若不需要转义，为false即可。
+单条件判断：
+        &lt;c:if test=&quot;&quot;&gt;&lt;/c:if&gt;
+多条件判断
+       &lt;c:choose&gt;&lt;/c:choose&gt;
+        &lt;c:when test=&quot;&quot;&gt;&lt;/c:when&gt;
+        &lt;c:otherwise&gt;&lt;/c:otherwise&gt;  
+数据遍历
+      &lt;c:forEach&gt;&lt;/c:forEach&gt;
+      items:需要遍历的数据，如果是获取域对象数据，必须用EL表达式获取。
+     &lt;c:forTokens items=&quot;&quot; delims=&quot;&quot;&gt;&lt;/c:forTokens&gt;遍历特殊字符串
+     items:需要遍历的字符串 delims:分隔符号 var:每个内容的名称
+重定向标签
+     &lt;c:refirect/&gt;
+     url:定位符
+</code></pre><h4 id="EL函数库"><a href="#EL函数库" class="headerlink" title="EL函数库"></a>EL函数库</h4><p>EL函数库： 主要是用于在jsp页面中操作字符串</p>
+<pre><code>&lt;%
+    String str = &quot;java-net-php&quot;;
+    str.split(&quot;-&quot;);
+    str.substring(0,1);
+%&gt;
+</code></pre><h4 id="自定义标签"><a href="#自定义标签" class="headerlink" title="自定义标签"></a>自定义标签</h4><h5 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h5><ol>
+<li>开发标签处理程序，普通Java类，继承SimpleTagSupport类，覆盖doTag方法。</li>
+<li>在项目的WEB-INF目录下建立一个tld文件，即约束，里面配置了标签名和相应的处理方法。</li>
+<li>在Jsp顶部导入自定义标签库。</li>
+<li>使用标签。</li>
+</ol>
+<h5 id="自定义标签执行步骤："><a href="#自定义标签执行步骤：" class="headerlink" title="自定义标签执行步骤："></a>自定义标签执行步骤：</h5><p> <img src="http://oli0whb3w.bkt.clouddn.com/111111132e232232e232.png" alt="enter image description here"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JSP/" rel="tag"># JSP</a>
+          
+            <a href="/tags/EL标签/" rel="tag"># EL标签</a>
+          
+            <a href="/tags/Jsp标签/" rel="tag"># Jsp标签</a>
+          
+            <a href="/tags/JSTL/" rel="tag"># JSTL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/笔记整理（8）/" rel="next" title="笔记整理（8）">
+                <i class="fa fa-chevron-left"></i> 笔记整理（8）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/笔记整理（10）/" rel="prev" title="笔记整理（10）">
+                笔记整理（10） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记整理（9）"><span class="nav-number">1.</span> <span class="nav-text">笔记整理（9）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jsp基础"><span class="nav-number">1.0.1.</span> <span class="nav-text">Jsp基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp运行的目录"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">Jsp运行的目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jsp文件中的html代码和java代码是如何被执行的？"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">jsp文件中的html代码和java代码是如何被执行的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp页面如何被tomcat服务器运行"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">Jsp页面如何被tomcat服务器运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp表达式"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">Jsp表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp脚本"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">Jsp脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp声明"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">Jsp声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp注释"><span class="nav-number">1.0.1.8.</span> <span class="nav-text">Jsp注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp三大指令"><span class="nav-number">1.0.1.9.</span> <span class="nav-text">Jsp三大指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#taglib指令"><span class="nav-number">1.0.1.9.1.</span> <span class="nav-text">taglib指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#include指令"><span class="nav-number">1.0.1.9.2.</span> <span class="nav-text">include指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#page指令"><span class="nav-number">1.0.1.9.3.</span> <span class="nav-text">page指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp的最佳实践"><span class="nav-number">1.0.1.10.</span> <span class="nav-text">Jsp的最佳实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp的9大内置对象"><span class="nav-number">1.0.1.11.</span> <span class="nav-text">Jsp的9大内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是Jsp的内置对象？"><span class="nav-number">1.0.1.11.1.</span> <span class="nav-text">什么是Jsp的内置对象？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9个内置对象"><span class="nav-number">1.0.1.11.2.</span> <span class="nav-text">9个内置对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#out对象"><span class="nav-number">1.0.1.11.3.</span> <span class="nav-text">out对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pageContext对象"><span class="nav-number">1.0.1.11.4.</span> <span class="nav-text">pageContext对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp的四个域对象"><span class="nav-number">1.0.1.12.</span> <span class="nav-text">Jsp的四个域对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#域对象的作用："><span class="nav-number">1.0.1.12.1.</span> <span class="nav-text">域对象的作用：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#域对象的方法："><span class="nav-number">1.0.1.12.2.</span> <span class="nav-text">域对象的方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#域对象作用范围"><span class="nav-number">1.0.1.12.3.</span> <span class="nav-text">域对象作用范围</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp的最佳实战"><span class="nav-number">1.0.1.13.</span> <span class="nav-text">Jsp的最佳实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EL表达式"><span class="nav-number">1.0.2.</span> <span class="nav-text">EL表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EL表达式的作用"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">EL表达式的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本语法"><span class="nav-number">1.0.2.1.1.</span> <span class="nav-text">基本语法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EL语法"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">EL语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EL隐含对象"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">EL隐含对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jsp标签"><span class="nav-number">1.0.3.</span> <span class="nav-text">Jsp标签</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp标签分类"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">Jsp标签分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Jsp内置标签"><span class="nav-number">1.0.3.1.1.</span> <span class="nav-text">Jsp内置标签</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSTL标签"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">JSTL标签</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JSTL使用步骤"><span class="nav-number">1.0.3.2.1.</span> <span class="nav-text">JSTL使用步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSTL核心标签库"><span class="nav-number">1.0.3.2.2.</span> <span class="nav-text">JSTL核心标签库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EL函数库"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">EL函数库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义标签"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">自定义标签</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#步骤："><span class="nav-number">1.0.3.4.1.</span> <span class="nav-text">步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自定义标签执行步骤："><span class="nav-number">1.0.3.4.2.</span> <span class="nav-text">自定义标签执行步骤：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

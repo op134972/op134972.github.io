@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,算法分析,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法分析（JAVA描述）（第二章 算法分析）chapter2#算法分析个人笔记，如有错误，恳请批评指正。 1.3 递归理论递归的四个基本法则  基准情形 存在某些基准情形，它无需递归就能解出。 不断推进 对于那些需要递归解出的情形，每一次递归都必须要使状况朝向一种基准情形推进。 设计法则 假设所有的递归调用都能运行。 合成效益法则 在求解一个问题的同一实例时，切勿在不同的递归调用中做重复">
+<meta name="keywords" content="数据结构,算法分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法分析（JAVA描述）（第二章 算法分析）">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/数据结构与算法分析（JAVA描述）（第二章 算法分析）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="数据结构与算法分析（JAVA描述）（第二章 算法分析）chapter2#算法分析个人笔记，如有错误，恳请批评指正。 1.3 递归理论递归的四个基本法则  基准情形 存在某些基准情形，它无需递归就能解出。 不断推进 对于那些需要递归解出的情形，每一次递归都必须要使状况朝向一种基准情形推进。 设计法则 假设所有的递归调用都能运行。 合成效益法则 在求解一个问题的同一实例时，切勿在不同的递归调用中做重复">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-03-19T07:52:06.290Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构与算法分析（JAVA描述）（第二章 算法分析）">
+<meta name="twitter:description" content="数据结构与算法分析（JAVA描述）（第二章 算法分析）chapter2#算法分析个人笔记，如有错误，恳请批评指正。 1.3 递归理论递归的四个基本法则  基准情形 存在某些基准情形，它无需递归就能解出。 不断推进 对于那些需要递归解出的情形，每一次递归都必须要使状况朝向一种基准情形推进。 设计法则 假设所有的递归调用都能运行。 合成效益法则 在求解一个问题的同一实例时，切勿在不同的递归调用中做重复">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/数据结构与算法分析（JAVA描述）（第二章 算法分析）/">
+
+
+
+
+
+  <title>数据结构与算法分析（JAVA描述）（第二章 算法分析） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/数据结构与算法分析（JAVA描述）（第二章 算法分析）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构与算法分析（JAVA描述）（第二章 算法分析）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-03-19T15:52:06+08:00">
+                2017-03-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/数据结构与算法分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据结构与算法分析（JAVA描述）（第二章-算法分析）"><a href="#数据结构与算法分析（JAVA描述）（第二章-算法分析）" class="headerlink" title="数据结构与算法分析（JAVA描述）（第二章 算法分析）"></a>数据结构与算法分析（JAVA描述）（第二章 算法分析）</h1><h2 id="chapter2-算法分析"><a href="#chapter2-算法分析" class="headerlink" title="chapter2#算法分析"></a>chapter2#算法分析</h2><p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h3 id="1-3-递归理论"><a href="#1-3-递归理论" class="headerlink" title="1.3 递归理论"></a>1.3 递归理论</h3><p>递归的四个基本法则</p>
+<ol>
+<li>基准情形 存在某些基准情形，它无需递归就能解出。</li>
+<li>不断推进 对于那些需要递归解出的情形，每一次递归都必须要使状况朝向一种基准情形推进。</li>
+<li>设计法则 假设所有的递归调用都能运行。</li>
+<li>合成效益法则 在求解一个问题的同一实例时，切勿在不同的递归调用中做重复性的工作。</li>
+</ol>
+<h3 id="2-1-数学基础"><a href="#2-1-数学基础" class="headerlink" title="2.1 数学基础"></a>2.1 数学基础</h3><h4 id="引入了相对增长率的概念以及数学定义。"><a href="#引入了相对增长率的概念以及数学定义。" class="headerlink" title="引入了相对增长率的概念以及数学定义。"></a>引入了相对增长率的概念以及数学定义。</h4><ul>
+<li>T(N)=O (g(N))：T增长率小于或等于g</li>
+<li>T(N)=Ω (g(N))：T增长率大于或等于g</li>
+<li>T(N)=θ (g(N))：T增长率等于g</li>
+<li>T(N)=o (g(N))：T增长率小于g</li>
+</ul>
+<h4 id="关于增长率引入的四个法则"><a href="#关于增长率引入的四个法则" class="headerlink" title="关于增长率引入的四个法则"></a>关于增长率引入的四个法则</h4><ul>
+<li>如果T=O F 且 T = O G;<ul>
+<li>T1+T2 = O(F+G);</li>
+<li>T1<em>T2 =  O(F</em>G);</li>
+</ul>
+</li>
+<li>阶数相同增长率相同</li>
+<li>对数增长率非常慢（小于一次幂）</li>
+</ul>
+<h3 id="2-4-运行时间估算"><a href="#2-4-运行时间估算" class="headerlink" title="2.4 运行时间估算"></a>2.4 运行时间估算</h3><h4 id="2-4-2-一般法则"><a href="#2-4-2-一般法则" class="headerlink" title="2.4.2 一般法则"></a>2.4.2 一般法则</h4><ol>
+<li>法则一——<strong>for循环</strong><br> 运行时间：每一次循环的时间（包含测试）*迭代的次数</li>
+<li>法则二——<strong>嵌套的for循环</strong><br> 运行时间：每一次循环的时间（包含测试）<em>N1</em>N2</li>
+<li><p>法则三——<strong>顺序语句</strong><br> 将各个语句的运行时间求和即可，其中的最大值就是所得的运行时间，例如，以下代码的花费总量为O(N)；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i++)</span><br><span class="line">    		a[i] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n ;i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; j&lt;n ;i++)</span><br><span class="line">		a[i] += a[j] + i + j;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>法则四——<strong>if/else语句</strong><br>if/else中取较长的运行时间。估多不估少。</p>
+</li>
+</ol>
+<h4 id="2-4-3-最大子序列和问题的求解"><a href="#2-4-3-最大子序列和问题的求解" class="headerlink" title="2.4.3 最大子序列和问题的求解"></a>2.4.3 最大子序列和问题的求解</h4><h5 id="需求：求解数组最大子序列和的算法"><a href="#需求：求解数组最大子序列和的算法" class="headerlink" title="需求：求解数组最大子序列和的算法"></a>需求：求解数组最大子序列和的算法</h5><ul>
+<li>算法1：<br><strong>3层for循环，扫描三次，运算量上界：O(N^3)</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxSubSum1</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> maxSum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; arr.length; j++) &#123;</span><br><span class="line">				<span class="keyword">int</span> thisSum = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &lt;= j; k++) &#123;</span><br><span class="line">					thisSum += arr[k];</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (thisSum &gt; maxSum)</span><br><span class="line">					maxSum = thisSum;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> maxSum;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>算法2：<br><strong>2层for循环，扫描两次，运算量上界：O(N^2)</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxSubSum2</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> maxSum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> thisSum = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; arr.length; j++) &#123;</span><br><span class="line">				thisSum += arr[j];</span><br><span class="line">				<span class="keyword">if</span> (thisSum &gt; maxSum)</span><br><span class="line">					maxSum = thisSum;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> maxSum;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>算法3：</strong><br><strong>分治算法求子序列的最大值，在前部，后部，中部取最大值，运算量上限：O(N *logN)</strong><br>思路：把问题分成两个大致相等的子问题，然后递归的对他们求解，这是“分”部分。“治”阶段将两个子问题的解修补到一起并可能在做些少量的附加工作，最后得到整个问题的解。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxSubSum3</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> maxSumRec(arr, <span class="number">0</span>, arr.length-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span>  <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxSumRec</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(left == right)&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[left]&gt;<span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> a[left];</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> center = (left+right)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> maxLeftSum = maxSumRec(a,left,center);<span class="comment">//迭代</span></span><br><span class="line">		<span class="keyword">int</span> maxRightSum = maxSumRec(a,center+<span class="number">1</span>,right);<span class="comment">//迭代</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 从中心向左扫描，获取最大的子序列和</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">int</span> leftBorderSum = <span class="number">0</span>;<span class="comment">//存储left--center子序列的和</span></span><br><span class="line">		<span class="keyword">int</span> maxLeftBorderSum = <span class="number">0</span>;<span class="comment">//存储left--center子序列的和的最大值</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = center;i&gt;=left;i--)&#123;</span><br><span class="line">			leftBorderSum += a[i];</span><br><span class="line">			<span class="keyword">if</span>(leftBorderSum&gt;maxLeftBorderSum)&#123;</span><br><span class="line">				maxLeftBorderSum = leftBorderSum;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 从中心向右扫描，获取最大的子序列和</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">int</span> rightBorderSum = <span class="number">0</span>;<span class="comment">//存储right--center子序列的和</span></span><br><span class="line">		<span class="keyword">int</span> maxRightBorderSum = <span class="number">0</span>;<span class="comment">//存储right--center子序列的和的最大值</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = center+<span class="number">1</span>;i&lt;=right;i++)&#123;<span class="comment">//center+1</span></span><br><span class="line">			rightBorderSum += a[i];</span><br><span class="line">			<span class="keyword">if</span>(rightBorderSum&gt;maxRightBorderSum)&#123;</span><br><span class="line">				maxRightBorderSum = rightBorderSum;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> getMax(maxLeftSum,maxRightSum,maxLeftBorderSum+maxRightBorderSum);<span class="comment">//返回三个中的最大值作为结果</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getMax</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> bigger = Math.max(a, b);</span><br><span class="line">		<span class="keyword">return</span> Math.max(bigger, c);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>算法4：（perfect!）</p>
+<p><font color="red"><strong>利用原理</strong>：最大子序列两端剩余的序列的和一定为非正！！<strong>运算量：O(N)</strong>。附带的有点：<strong>只需一次读取数据</strong>，在任何时候，算法都能对它已经读入的数据给出正确的结果。具有这种特性的算法叫做<strong>联机算法(ion-line algorithm)</strong>，算法4只需要常量空间并以线性时间运行的联机算法几乎是完美的！</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxSubSum4</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> maxSubsum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> subSum = <span class="number">0</span>;</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 从第一位扫描，每扫一位判断1.大于目前的最大和，则赋值。2.小于但不小于0，继续保留3.小于0，之前扫描累计的和作废，=0</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">			subSum += arr[i];</span><br><span class="line">			<span class="keyword">if</span>(subSum&gt;maxSubsum)</span><br><span class="line">				maxSubsum = subSum;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(subSum&lt;<span class="number">0</span>)</span><br><span class="line">				subSum = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> maxSubsum;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-4-4-运行时间中的对数"><a href="#2-4-4-运行时间中的对数" class="headerlink" title="2.4.4 运行时间中的对数"></a>2.4.4 运行时间中的对数</h4><blockquote>
+<p>分析算法最混乱的方面大概集中在对数上面，我们已经看到，某些分治算法将以O(N*logN)时间运行，此外，对数最常出现的规律可以概括为下列一般的法则：如果一个算法用常数时间（O(1））将问题的大小削减为其一部分（1/2），那么该算法就是O(LogN)，另一方面，如果常数时间只是把问题减少一个常数的数量（如将问题减少1），那么这种算法就是O(N)的。</p>
+</blockquote>
+<p>具有对数特点的例子：</p>
+<ul>
+<li><strong>折半查找</strong><br>需求：查找有序数组指定数的下标<br>若逐个扫描，结果运算量线性的（O(N)）,采用二分法查找即折半查找：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo7</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> num,<span class="keyword">int</span> startIndex,<span class="keyword">int</span> endIndex)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(startIndex&gt;endIndex)</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> midIndex = (startIndex+endIndex)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(num&lt;arr[midIndex])&#123;</span><br><span class="line">			<span class="keyword">return</span> getIndex(arr,num,startIndex,midIndex-<span class="number">1</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span> (num &gt; arr[midIndex])</span><br><span class="line">			<span class="keyword">return</span> getIndex(arr,num,midIndex+<span class="number">1</span>,endIndex);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> midIndex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * while循环实现</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> start = <span class="number">0</span>, end = arr.length-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(start&lt;=end)&#123;</span><br><span class="line">			<span class="keyword">int</span> mid = (start+end)/<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>(num&lt;arr[mid])</span><br><span class="line">				end = mid - <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(num&gt;arr[mid])</span><br><span class="line">				start = mid + <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">return</span> mid;<span class="comment">//找到了</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;<span class="comment">//不存在该元素</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">14</span>,<span class="number">19</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">99</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> num = <span class="number">998</span>;</span><br><span class="line">		<span class="keyword">int</span> index = getIndex(arr, num, <span class="number">0</span>, arr.length-<span class="number">1</span>);</span><br><span class="line">		System.out.println(index);</span><br><span class="line">		<span class="keyword">int</span> index2 = getIndex(arr, num);</span><br><span class="line">		System.out.println(index2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>欧几里得算法</strong><br>需求：求两个数的最大公因数<br>原理：大数除以小数，连续除以余数知道余数为零，最后的非零余数就是最大公因数。<br><strong>在两次迭代之后，余数最多是原始值的一半，这就证明了迭代次数最多是2LogN = O LogN。</strong></li>
+</ul>
+<h5 id="定理2-1-如果M-gt-N，则M-mod-N-lt-M-2"><a href="#定理2-1-如果M-gt-N，则M-mod-N-lt-M-2" class="headerlink" title="定理2.1 如果M&gt;N，则M mod N&lt;M/2"></a>定理2.1 如果M&gt;N，则M mod N&lt;M/2</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 最大公因数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo8</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span></span>&#123;<span class="comment">//欧几里得算法</span></span><br><span class="line">		<span class="keyword">if</span>(a&lt;b)&#123;<span class="comment">//确保a&gt;b</span></span><br><span class="line">			<span class="keyword">long</span> temp = a;</span><br><span class="line">			a = b;</span><br><span class="line">			b = temp;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">long</span> rem = a%b;</span><br><span class="line">			a = b;</span><br><span class="line">			b = rem;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>幂运算</strong><br>需求：求X^N的值。<br>普通做法：做N-1次自乘运算。<strong>递归算法</strong>：N为偶数，=X^N/2+X^N/2；若N是奇数，则X^N = X^(N-1)/2 <em> X^(N-1)/2 </em> X，所需乘法次数为2LogN。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 幂运算</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Wch</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo9</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">miyunsuan</span><span class="params">(<span class="keyword">long</span> x, <span class="keyword">long</span> n)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(n == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(n%<span class="number">2</span> == <span class="number">0</span>)&#123;<span class="comment">//偶数</span></span><br><span class="line">			<span class="keyword">return</span> miyunsuan (x*x,n/<span class="number">2</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> miyunsuan(x*x,n/<span class="number">2</span>)*x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">long</span> result = miyunsuan(<span class="number">2</span>, <span class="number">10</span>);</span><br><span class="line">		System.out.println(result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-5-分析结果的准确性"><a href="#2-4-5-分析结果的准确性" class="headerlink" title="2.4.5 分析结果的准确性"></a>2.4.5 分析结果的准确性</h4><p>对于某些坏的算法，最坏的界通过某些坏的输入是可以达到的，但在实践中它通常是估计过大的。平均情形的分析是极其复杂的，而最坏的情形的界虽然过分悲观，但却是最好的已知解析结果。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/算法分析/" rel="tag"># 算法分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/数据结构与算法分析 排序算法总结/" rel="next" title="数据结构与算法分析 排序算法总结">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法分析 排序算法总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）/" rel="prev" title="数据结构与算法分析（JAVA描述）（第六章 优先队列 堆）">
+                数据结构与算法分析（JAVA描述）（第六章 优先队列 堆） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构与算法分析（JAVA描述）（第二章-算法分析）"><span class="nav-number">1.</span> <span class="nav-text">数据结构与算法分析（JAVA描述）（第二章 算法分析）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter2-算法分析"><span class="nav-number">1.1.</span> <span class="nav-text">chapter2#算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-递归理论"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.3 递归理论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-数学基础"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.1 数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入了相对增长率的概念以及数学定义。"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">引入了相对增长率的概念以及数学定义。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于增长率引入的四个法则"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">关于增长率引入的四个法则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-运行时间估算"><span class="nav-number">1.1.3.</span> <span class="nav-text">2.4 运行时间估算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-一般法则"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">2.4.2 一般法则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3-最大子序列和问题的求解"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2.4.3 最大子序列和问题的求解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求：求解数组最大子序列和的算法"><span class="nav-number">1.1.3.2.1.</span> <span class="nav-text">需求：求解数组最大子序列和的算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-4-运行时间中的对数"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">2.4.4 运行时间中的对数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定理2-1-如果M-gt-N，则M-mod-N-lt-M-2"><span class="nav-number">1.1.3.3.1.</span> <span class="nav-text">定理2.1 如果M&gt;N，则M mod N&lt;M/2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-5-分析结果的准确性"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">2.4.5 分析结果的准确性</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

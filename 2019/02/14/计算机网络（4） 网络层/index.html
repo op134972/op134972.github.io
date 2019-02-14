@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算机网络（4） 网络层计算机网络：自顶向下方法（第六版）  两种用于构造网络层分组交付的方法：数据报模式和虚电路模式。 转发（forwarding）和路由选择(routing)的区别？转发涉及分组在单一的路由器从一条入链路到一条出链路的传送。路由选择涉及一个网络的所有路由器，它们经路由选择协议共同交互，以决定分组从源到目的地节点所采用的路径。 4.1.1 转发和路由选择转发：从入链路到出链路。路">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络（4） 网络层">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/计算机网络（4） 网络层/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="计算机网络（4） 网络层计算机网络：自顶向下方法（第六版）  两种用于构造网络层分组交付的方法：数据报模式和虚电路模式。 转发（forwarding）和路由选择(routing)的区别？转发涉及分组在单一的路由器从一条入链路到一条出链路的传送。路由选择涉及一个网络的所有路由器，它们经路由选择协议共同交互，以决定分组从源到目的地节点所采用的路径。 4.1.1 转发和路由选择转发：从入链路到出链路。路">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/355463701263647440.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/273161640263699015.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/25317689244557029.jpg">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/340278815253435942.jpg">
+<meta property="og:updated_time" content="2017-04-09T02:13:31.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络（4） 网络层">
+<meta name="twitter:description" content="计算机网络（4） 网络层计算机网络：自顶向下方法（第六版）  两种用于构造网络层分组交付的方法：数据报模式和虚电路模式。 转发（forwarding）和路由选择(routing)的区别？转发涉及分组在单一的路由器从一条入链路到一条出链路的传送。路由选择涉及一个网络的所有路由器，它们经路由选择协议共同交互，以决定分组从源到目的地节点所采用的路径。 4.1.1 转发和路由选择转发：从入链路到出链路。路">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/355463701263647440.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/计算机网络（4） 网络层/">
+
+
+
+
+
+  <title>计算机网络（4） 网络层 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/计算机网络（4） 网络层/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络（4） 网络层</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-04-09T10:13:31+08:00">
+                2017-04-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算机网络（4）-网络层"><a href="#计算机网络（4）-网络层" class="headerlink" title="计算机网络（4） 网络层"></a>计算机网络（4） 网络层</h1><p>计算机网络：自顶向下方法（第六版）</p>
+<hr>
+<p>两种用于构造网络层分组交付的方法：数据报模式和虚电路模式。</p>
+<p>转发（forwarding）和路由选择(routing)的区别？<br><strong>转发</strong>涉及分组在单一的路由器从一条入链路到一条出链路的传送。<strong>路由选择</strong>涉及一个网络的所有路由器，它们经路由选择协议共同交互，以决定分组从源到目的地节点所采用的路径。</p>
+<h4 id="4-1-1-转发和路由选择"><a href="#4-1-1-转发和路由选择" class="headerlink" title="4.1.1 转发和路由选择"></a>4.1.1 转发和路由选择</h4><p>转发：从入链路到出链路。<br>路由选择：分组所采用的的路由或路径。</p>
+<p>类比于出行从某地到某地，路由选择相当于之前的路线规划，而立交桥、环岛之类的分差口则相当于路由器，公路相当于链路。</p>
+<h3 id="4-2-虚电路和数据网络报"><a href="#4-2-虚电路和数据网络报" class="headerlink" title="4.2 虚电路和数据网络报"></a>4.2 虚电路和数据网络报</h3><p>网路层也能够在两台主机之间提供无连接服务或连接服务。网络层：提供<strong>主机到主机</strong>的服务。运输层：提供<strong>进程到进程</strong>之间的服务。</p>
+<p>网络层连接服务除了在端系统中，也在位于网络核心的路由器中实现。</p>
+<h4 id="4-2-1-虚电路网络"><a href="#4-2-1-虚电路网络" class="headerlink" title="4.2.1 虚电路网络"></a>4.2.1 虚电路网络</h4><p>组成：</p>
+<ol>
+<li>源和目的主机之间的路径（即一系列链路和路由器）</li>
+<li>VC号，沿着改路径的每段链路的一个号码。</li>
+<li>沿着该路径的每台路由器的转发表表项。</li>
+</ol>
+<p>无论何时跨越一台路由器创建一条新的虚电路，转发表就增加一个新表项；终止则减少。</p>
+<p>对一个虚电路网络层，沿两个端系统之间路径上的路由器都要参与虚电路的建立，且每台路由器都完全知道经过它的所有电路。</p>
+<p>VC号用来表示虚电路中的链路，在虚电路中，该网络中的路由器必须为进行中的连接维持<strong>连接状态信息</strong>（connection state information），即维持实时的转发表。</p>
+<p>端系统向网路发送指示虚电路启动或终止的报文，以及路由器之间用来建立虚电路的报文，被称为<strong>信令报文</strong>，用来交换这些报文的协议成为<strong>信令协议</strong>。</p>
+<h4 id="4-2-2-数据报网络"><a href="#4-2-2-数据报网络" class="headerlink" title="4.2.2 数据报网络"></a>4.2.2 数据报网络</h4><p>数据网络报是无连接的，路由器不维护任何虚电路的状态信息。</p>
+<p>每台路由器有一个将目的地址映射到链路接口的转发表。路由器用分组的目的地址的<strong>前缀</strong>（prefix）与该表中的表项进行匹配，当有多个匹配时，使用<strong>最长前缀匹配</strong>（longest prefix matching rule），路由器不维护连接状态信息，但是维护了转发状态信息。</p>
+<p>转发表由路由选择算法更改和更新，位于软件层，即<strong>管理控制平面</strong>。</p>
+<h3 id="4-3-路由器工作原理"><a href="#4-3-路由器工作原理" class="headerlink" title="4.3 路由器工作原理"></a>4.3 路由器工作原理</h3><p>4个组成部分：</p>
+<ol>
+<li>输入端口：三个功能：1、执行将一条输入物理链路与路由器相连接的物理层功能，即接口。2、执行与入链路远端的数据链路层交互 的数据链路层功能。3、查找功能，通过查找转发表，确定分组转发到哪个输出端口（接口）</li>
+<li>交换结构：后面说。</li>
+<li>输出端口：输出端口存储从交换结构接受的分组，并通过执行必要的链路层功能在输入链路上传输这些分组。</li>
+<li>路由选择处理器：执行路由选择协议，维护路由选择表以及连接的链路状态信息。</li>
+</ol>
+<p>前三个部分是<strong>路由器转发平面</strong>（router forwarding plane），响应快，硬件实现。<br>最后一个是<strong>路由器控制平面</strong>（router control plane），软件实现，毫秒或秒尺度运行。所以1-5min才更新一次转发表。</p>
+<h4 id="4-3-1-输入端口"><a href="#4-3-1-输入端口" class="headerlink" title="4.3.1 输入端口"></a>4.3.1 输入端口</h4><p>输入端口执行的查找功能尤其重要，分组找到输出端口，等待交换。转发表从路由选择处理器经过PCI总线复制到线路卡，在线路卡上进行查找，推入交换结构。</p>
+<h4 id="4-3-2-交换结构"><a href="#4-3-2-交换结构" class="headerlink" title="4.3.2 交换结构"></a>4.3.2 交换结构</h4><ul>
+<li>经内存交换：可理解为小型的CPU。</li>
+<li>经总线交换。</li>
+<li>经互联网络交换。</li>
+</ul>
+<h4 id="4-3-3-输出端口"><a href="#4-3-3-输出端口" class="headerlink" title="4.3.3 输出端口"></a>4.3.3 输出端口</h4><p>输出端口取出存放在输出端口内存中的分组并将其发送到输出链路上。这包括选择和取出排队的分组进行传输，执行所需的链路层和物理层传输功能。</p>
+<h4 id="4-3-4-何时需要排队"><a href="#4-3-4-何时需要排队" class="headerlink" title="4.3.4 何时需要排队"></a>4.3.4 何时需要排队</h4><p>当所有分组去往同一输出端口时，输出端口需要排队。<br>当有过多的</p>
+<p>缓存计算：经验方法，缓存数量（B）应等于平均往返时延乘以链路的容量。250msRTT的10Gbps链路的缓存量：RTT*C = 2.5Gbps。当有大量的TCP流（N）流过一条链路时，缓存量再除以开根号N。</p>
+<p>线路前部阻塞（Head-Of-the-Line，HOL）：无竞争的分组被迫等待交换。</p>
+<h3 id="4-4-网际协议：因特网中的转发和编址"><a href="#4-4-网际协议：因特网中的转发和编址" class="headerlink" title="4.4 网际协议：因特网中的转发和编址"></a>4.4 网际协议：因特网中的转发和编址</h3><p>IPV4和IPV6</p>
+<h4 id="4-4-1-数据报格式"><a href="#4-4-1-数据报格式" class="headerlink" title="4.4.1 数据报格式"></a>4.4.1 数据报格式</h4><p><img src="http://oli0whb3w.bkt.clouddn.com/355463701263647440.jpg" alt="enter image description here"></p>
+<ul>
+<li><strong>版本号</strong>：IPV4 or IPV6？不同版本号使用不同的报文格式。</li>
+<li><strong>首部长度</strong>：由于选项字段可变，因此首部字段的长度可变，需要4比特的首部长度字段确定数据部分实际从哪里开始。如不包含选项字段，IP数据报则只有20字节的首部。</li>
+<li><strong>服务类型</strong>：（TOS）区分不同类型的IP数据报。</li>
+<li><strong>数据报长度</strong>：数据报的总长度，首部加上数据，以字节计算。该字段16bit，因此范围有65535字节，但IP数据报很少超过1500。</li>
+<li><strong>标识、标识、片偏移</strong>：与IP分片有关系，后面将进行介绍。IPV6上面没有。</li>
+<li><strong>寿命</strong>：<strong>寿命</strong>（<strong>Time-To-Live，TTL</strong>）确保数据报刽永远在网络中循环。没经过一台路由器，字段值减1，到0数据报被丢弃。</li>
+<li><strong>协议</strong>：仅在一个数据报到达其最终目的地才会有用。指示了IP数据报的数据部分应交给哪个特定的运输层协议。如：6代表TCP，17代表交给UDP。其和运输层中的端口号字段相似。协议号将网路层与运输层绑定在一起，端口号将运输层和应用层绑定到一起。链路层也由一个特殊字段将链路层和网络层绑定在一起。</li>
+<li><strong>首部检验和</strong>：和UDP的原理一样，但是IP层只检验IP首部的检验和，和TCP/UDP重复检验的原因是两者不一定都必须属于同一个协议栈，原则上TCP能运行在不同的协议上（如ATM），而IP能够携带不一定要传递给TCP、UDP的数据。</li>
+<li><strong>源和目的地址</strong>：很好理解。</li>
+<li><strong>选项</strong>：没什么乱用，IPV6已取出。</li>
+<li><strong>数据</strong>：有效载荷，封装了TCP/UDP报文段，以及其他的数据。如果包含的是TCP报文段，则一个IP数据报共承载了<strong>40字节</strong>的首部（自身的20+TCP的20）以及应用层报文！</li>
+</ul>
+<h4 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h4><p>一个链路层所能承受的最大数据量称为<strong>最大传输单元</strong>（Maximum Transimission Unit，MTU），链路层协议的MTU严格的限制这IP数据报的长度。</p>
+<p>分片：用单路的链路层帧封装小的IP数据报，然后向输出链路发送，每个链路层帧称为<strong>片</strong>（fragment）。</p>
+<p>片到达目的地运输层之前需要重新组装。此时<strong>标识、标志和片偏移</strong>起到了作用。</p>
+<ul>
+<li>标识：相同初始数据报分出来的片具有原始的标识号。</li>
+<li>标志：0表示是最后一个片。</li>
+<li>片偏移：表示片插入的位置。（偏移量*8  字节，偏移量以8字节块为单位）</li>
+</ul>
+<p>分片有开销并且容易被供给，因此IPV6废除了分片。</p>
+<h4 id="4-4-2-IPV4编址"><a href="#4-4-2-IPV4编址" class="headerlink" title="4.4.2 IPV4编址"></a>4.4.2 IPV4编址</h4><p>一台主机通常只有一条链路连接到网络，主机与物理链路之间的边界叫做接口（interface）。</p>
+<p>关于IP地址的知识：<a href="http://blog.csdn.net/bilter/article/details/6999511" target="_blank" rel="noopener">http://blog.csdn.net/bilter/article/details/6999511</a></p>
+<p>以及什么是网关：<a href="http://www.jb51.net/network/299907.html" target="_blank" rel="noopener">http://www.jb51.net/network/299907.html</a></p>
+<blockquote>
+<p>网关的英文名称：gateway，又叫做网间连接器、协议转换器。网关是在采用不同体系结构或协议的网络之间进行互通时，用于提供协议转换、路由选择、数据交换等网络兼容功能的设施。<br>一般来说，路由器的LAN接口的IP地址就是你所在局域网中的网关。当你所在的局域网的计算机需要和其它局域网中的计算机，或者需要访问互联网的时候，你所在局域网的计算机会先把数据包传输到网关（路由器的LAN接口），然后再由网关进行转发。<br>这就是为什么我们在有路由器上网的时候，必须要把计算机中的默认网关地址设置成路由器LAN接口的地址的原因，因为路由器的LAN接口就是你所在网络的网关，你的电脑要上网，数据包必须要经过网关转发出去。目前家用路由器一般使用192.168.1.1和192.168.0.1作为LAN接口的地址，这两个地址也是最常见的网关地址。<br>作为普通的用户，只需要记住，手动配置ip地址的时候，默认网关的地址就是路由器的LAN接口的地址，也就是你路由器的管理页面登陆地址。如果你选择自动获取ip地址，那么就不需要关注默认网关地址了，但路由器的DHCP服务器分配下来的默认网关也一定是路由器的LAN接口的ip地址。</p>
+</blockquote>
+<p>以及神回复：<a href="https://zhidao.baidu.com/question/26545852.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/26545852.html</a></p>
+<blockquote>
+<p>网关是一种充当转换重任的计算机系统或设备。在使用不同的通信协议、数据格式或语言,甚至体系结构完全不同的两种系统之间，网关是一个翻译器。与网桥只是简单地传达信息不同，网关对收到的信息要重新打包，以适应目的系统的需求。同时，网关也可以提供过滤和安全功能。大多数网关运行在OSI 7层协议的顶层–应用层。<br>大家都知道，从一个房间走到另一个房间，必然要经过一扇门。同样，从一个网络向另一个网络发送信息，也必须经过一道“关口”，这道关口就是网关。顾名思义，网关(Gateway)就是一个网络连接到另一个网络的“关口”。<br>按照不同的分类标准，网关也有很多种。TCP/IP协议里的网关是最常用的，在这里我们所讲的“网关”均指TCP/IP协议下的网关。<br>那么网关到底是什么呢？网关实质上是一个网络通向其他网络的IP地址。比如有网络A和网络B，网络A的IP地址范围为“192.168.1.1~192. 168.1.254”，子网掩码为255.255.255.0；网络B的IP地址范围为“192.168.2.1~192.168.2.254”，子网掩码为255.255.255.0。在没有路由器的情况下，两个网络之间是不能进行TCP/IP通信的，即使是两个网络连接在同一台交换机(或集线器)上，TCP/IP协议也会根据子网掩码(255.255.255.0)判定两个网络中的主机处在不同的网络里。而要实现这两个网络之间的通信，则必须通过网关。如果网络A中的主机发现数据包的目的主机不在本地网络中，就把数据包转发给它自己的网关，再由网关转发给网络B的网关，网络B的网关再转发给网络B的某个主机(如附图所示)。网络B向网络A转发数据包的过程。<br>所以说，只有设置好网关的IP地址，TCP/IP协议才能实现不同网络之间的相互通信。那么这个IP地址是哪台机器的IP地址呢？网关的IP地址是具有路由功能的设备的IP地址，具有路由功能的设备有路由器、启用了路由协议的服务器(实质上相当于一台路由器)、代理服务器(也相当于一台路由器)。</p>
+</blockquote>
+<p><strong>子网</strong>：隔离的网络岛。</p>
+<p>223.1.1.0/24表示：前24位为前缀的子网。可以分配2^8个IP地址。</p>
+<p>IP地址255.255.255.255是广播地址，作用之一在获取IP地址时有用。</p>
+<p>IP地址由一权威机构负责分配。</p>
+<h5 id="获取主机地址：动态主机协议配置"><a href="#获取主机地址：动态主机协议配置" class="headerlink" title="获取主机地址：动态主机协议配置"></a>获取主机地址：动态主机协议配置</h5><p>动态主机配置协议（Dynamic Host Configuration Protocol，DHCP），动态的从地址池中分配IP地址的技术。通常由一个DHCP服务器来完成，如果没有DHCP服务器，则需要DHCP中继代理，这代理知道DNCP服务器的地址。</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/273161640263699015.jpg" alt="enter image description here"></p>
+<p>主机获取地址的步骤：</p>
+<ol>
+<li>DHCP服务器发现阶段：DHCP发现报文，向67端口发送改报文，使用广博地址255.255.255.255和本机地址0.0.0.0。</li>
+<li>DHCP服务器提供阶段：收到DHCP发现报文，用一个DHCP提供报文作为响应，仍然使用广播（注意端口是68，和源端口一样）。提供报文信息包括收到的发现报文的ID、向客户端推荐的IP地址、网络掩码以及IP<strong>地址租用期</strong>。</li>
+<li>DHCP请求阶段：发送DHCP请求报文，回显配置参数。</li>
+<li>DHCP ACK：响应。</li>
+</ol>
+<h5 id="网络地址转换"><a href="#网络地址转换" class="headerlink" title="网络地址转换"></a>网络地址转换</h5><p><strong>网络地址转换</strong>（Network Address Translation，NAT），由内网转换到外网。</p>
+<p>NAT转换表（NAT Transmission Table），即内网的IP端口对应外网的IP端口。</p>
+<p>NAT可以用来缓解IPV4地址不够用的问题，但是却妨碍了P2P程序的运行，因为处于不同内网的用户很难直接建立TCP连接。</p>
+<h5 id="UPnP"><a href="#UPnP" class="headerlink" title="UPnP"></a>UPnP</h5><p>UPnP通用即插即用，允许外部主机使用TCP或UDP向NAT化的主机发起通信会话。</p>
+<h4 id="4-4-3-因特网控制报文协议"><a href="#4-4-3-因特网控制报文协议" class="headerlink" title="4.4.3 因特网控制报文协议"></a>4.4.3 因特网控制报文协议</h4><p><strong>P236</strong><br>网络层3个主要组件：1、IP协议。2、因特网路由选择协议。3、因特网控制报文协议（<strong>ICMP</strong>）。</p>
+<p>ICMP被主机和路由器用来彼此沟通网络层的信息。</p>
+<p>ICMP报文被认为IP的一部分，作为有效载荷被承载在IP数据报中（和TCP报文段一样）。</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/25317689244557029.jpg" alt="enter image description here"></p>
+<h4 id="4-4-4-IPV6"><a href="#4-4-4-IPV6" class="headerlink" title="4.4.4 IPV6"></a>4.4.4 IPV6</h4><p>数据报格式</p>
+<p><img src="http://oli0whb3w.bkt.clouddn.com/340278815253435942.jpg" alt="enter image description here"></p>
+<p>重要变化：</p>
+<ol>
+<li>扩大的地址容量，32bit到128bit。</li>
+<li>简化高效的40字节首部</li>
+<li>流标签和优先级</li>
+</ol>
+<p>字段：</p>
+<ul>
+<li><strong>版本</strong>：6bit的字段。IPV4为4bit。</li>
+<li><strong>流量类型</strong>：8bit，可以规定某个流的优先级，相当于IPV4的TOS。</li>
+<li><strong>流标签</strong>：标识一条数据报的流。</li>
+<li><strong>有效载荷长度</strong>：数据报中跟在40字节首部之后的字节数量。</li>
+<li><strong>下一个首部</strong>：和IPV4的上层协议相同，代表交付给哪个运输层协议。</li>
+<li><strong>跳限制</strong>：和IPV4的TTL相同，没经过一个路由器减一，为零时，该数据报将被丢弃。</li>
+<li><strong>源地址和目的地址</strong>：IPV6地址。</li>
+<li><strong>数据</strong>：有效载荷部分。</li>
+</ul>
+<p>IPV6<strong>丢弃了</strong>IPV4中的一些字段：</p>
+<ul>
+<li>分片/重新组装：IPV6不允许在路由器上进行分片和重新组装。这种操作只能在源和目的地上执行，路由器如果收到太大的数据报文，则只需要丢弃并返回“分组太大”的ICMP报文。发送方则使用较小长度的IP数据报重发数据。<strong>分片与重新组装是一个耗时的操作，将该功能从路由器中删除并放到端系统中，大大加快了网络中的IP转发速度</strong>。</li>
+<li>首部检验和：IPV4对首部字段进行检验和检验，由于TTL的缘故，没经过一个路由器需要重新计算，此过程费事耗力，IPV6将其去之。</li>
+<li>选项字段。</li>
+</ul>
+<h5 id="IPV4到IPV6的转换"><a href="#IPV4到IPV6的转换" class="headerlink" title="IPV4到IPV6的转换"></a>IPV4到IPV6的转换</h5><p><strong>双栈</strong>（dual-stack）的方法：</p>
+<ol>
+<li>两种报文在不同路由器之间进行转换。缺点：IPV6转到IPV4时，V4上不存在的字段可能会出现丢失。</li>
+<li>建隧道（tunneling）的方式，两个IPV6节点中的IPV4集合称为隧道，在隧道发送端，将整个IPV6数据报封装到IPV4的有效载荷中，改IPV4指向该隧道的接收端，到接收端时进行取出IPV6数据报继续进行传输。</li>
+</ol>
+<h3 id="4-5-路由选择算法"><a href="#4-5-路由选择算法" class="headerlink" title="4.5 路由选择算法"></a>4.5 路由选择算法</h3><p>分类方式：<br>1、全局式or分散式<br><strong>全局式路由选择算法</strong>：链路状态（Link state，LS）算法。<br><strong>分散式路由选择算法</strong>：距离向量（Distance-Vector，DV）算法。</p>
+<p>具体实现：<strong>P245</strong><br><strong>总目标</strong>：找出最短带权路径，即费用最低的路径。</p>
+<p>2、静态的or动态的。<br>3、负载敏感or负载不敏感</p>
+<h4 id="4-5-3-层次路由选择"><a href="#4-5-3-层次路由选择" class="headerlink" title="4.5.3 层次路由选择"></a>4.5.3 层次路由选择</h4><p>运行统一路由算法的路由器集合可以成为一个层次。</p>
+<p>组织需要按照自己的意愿运行路由器（如运行其选择的某种路由选择算法），或对外隐藏其网络的内部组织。可以通过<strong>自治系统</strong>（Autonomous System，AS）。</p>
+<h5 id="自治系统内部路由选择协议"><a href="#自治系统内部路由选择协议" class="headerlink" title="自治系统内部路由选择协议"></a>自治系统内部路由选择协议</h5><p>一个自治系统内部运行的路由选择算法叫做<strong>自治系统内部路由选择协议</strong>（intra-autonomous system routing protocol）。将AS互联的路由器称为<strong>网关路由器</strong>（gateway router）。</p>
+<h5 id="自治系统间路由选择协议"><a href="#自治系统间路由选择协议" class="headerlink" title="自治系统间路由选择协议"></a>自治系统间路由选择协议</h5><p><strong>自治系统间路由选择协议</strong>（inter-autonomous system routing protocol）：从相邻AS获取可达性信息和向该AS中的所有路由器传播可达性信息。AS间路由选择协议：通用BGP4。</p>
+<p><strong>因此，每个路由器转发表接受AS内部路由选择协议和一个AS间路由选择协议的信息，并使用来自这两个协议的信息配置它的转发表。</strong></p>
+<p><strong>CIDR</strong>（无类别域间路由选择，Classless Interdomain Routing）。P227</p>
+<p><strong>在路由器的转发表中增加一个AS之外的目的地的步骤：</strong></p>
+<ol>
+<li>从AS间协议知道经过多个网关可以到达子网x</li>
+<li>使用来自AS内部协议的路由选择信息，以决定到每个网关的最低费用路径的费用。</li>
+<li>热土豆路由选择（hot potato routing）：当具有多条AS间路径时，选择具有最小的最低费用的网关路径。</li>
+<li>从转发表确定通向最低费用网关的接口<em>I</em>，将（x，I）项添加到转发表中。</li>
+</ol>
+<h3 id="4-6-因特网中的路由选择"><a href="#4-6-因特网中的路由选择" class="headerlink" title="4.6 因特网中的路由选择"></a>4.6 因特网中的路由选择</h3><h4 id="4-6-1-自治系统内部的路由选择：RIP"><a href="#4-6-1-自治系统内部的路由选择：RIP" class="headerlink" title="4.6.1 自治系统内部的路由选择：RIP"></a>4.6.1 自治系统内部的路由选择：RIP</h4><p>AS内部路由选择协议又称为内部网关协议（inner gateway protocol）。</p>
+<p>包括：<strong>路由选择信息协议</strong>（Routing Information Protocol，RIP）与<strong>开放最短优先</strong>（Open Shortest Path First，OSPF）。</p>
+<p>跳：沿着从源路由器到目的子网的最短路径所经过的子网数量，每个路由器中维护一张称为<strong>路由选择表</strong>的RIP表，邻居之间通过使用一种<strong>RIP响应报文</strong>（RIP response message）交换信息，大约30s更新一次路由选择表。</p>
+<p>当路由器在180s后没有收到更新，则主动发送<strong>RIP请求报文</strong>请求更新。</p>
+<p><strong>路由器在UDP上使用端口520相互发送RIP请求与响应报文，并封装在标准IP数据报中的UDP报文段在路由器之间传输。简而言之，RIP使用一个位于网络层协议（IP）之上的运输层协议（UDP）来实现网络层功能（一种路由选择算法），而RIP本身是一个运行在UDP上的应用层协议</strong>。</p>
+<h4 id="4-6-2-因特网中自治系统内部的路由选择：OSPF"><a href="#4-6-2-因特网中自治系统内部的路由选择：OSPF" class="headerlink" title="4.6.2 因特网中自治系统内部的路由选择：OSPF"></a>4.6.2 因特网中自治系统内部的路由选择：OSPF</h4><p>OSPF具有很多先进特性，核心之一就是使用洪泛链路状态信息的链路状态协议和一个Dijkstra最低费用的路径算法。</p>
+<p>使用OSPF时，路由器向自治系统内所有其他路由器广播路由选择信息，而不仅仅是向其相邻路由器广播。每一条链路的状态发生变化，路由器就会广播链路状态信息。</p>
+<p>OSPF的优点：</p>
+<ol>
+<li>安全：能够鉴别OSPF路由器之间的交换。能够配置简单模式和MD5模式。</li>
+<li>多态相同费用的路径：允许使用多条相同费用的路径。</li>
+<li>对单播和多播路由选择的综合支持。</li>
+<li>支持在单个路由选择域内的层次结构。即在AS内部再次分层次。</li>
+</ol>
+<p>一个OSPF自治系统可以配置成多个区域，每个区域都运行自己的OSPF链路状态路由选择算法，一个区域内的每台路由器都向该区域内的所有其他路由器广播其链路状态。而主干区域（一个OSPF自治系统只有一个）负责区域之间的路由选择。</p>
+<p>关于RIP和OSPF的区别：<a href="http://blog.chinaunix.net/uid-26275986-id-4107596.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-26275986-id-4107596.html</a></p>
+<h4 id="4-6-3-自治系统间的路由选择：BGP"><a href="#4-6-3-自治系统间的路由选择：BGP" class="headerlink" title="4.6.3 自治系统间的路由选择：BGP"></a>4.6.3 自治系统间的路由选择：BGP</h4><p>边际网关协议（Broder Gateway Protocol，BGP）：决定了分组在自治系统的网关路由器之间如何传输。</p>
+<p>步骤：</p>
+<ol>
+<li>从相邻AS处获得子网可达性信息。</li>
+<li>向本AS内部的所有路由器传播这些可达性信息。</li>
+<li>基于可达性信息和AS策略，决定到达子网的“好”路由。</li>
+</ol>
+<p>BGP使得每个子网向因特网的其余部分通告它的存在，起到了广而告之的作用。</p>
+<h3 id="4-7-广播和多播路由选择"><a href="#4-7-广播和多播路由选择" class="headerlink" title="4.7 广播和多播路由选择"></a>4.7 广播和多播路由选择</h3><p>先放一放</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/计算机网络（3） 运输层/" rel="next" title="计算机网络（3） 运输层">
+                <i class="fa fa-chevron-left"></i> 计算机网络（3） 运输层
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/计算机网络（5） 链路、接入网和局域网/" rel="prev" title="计算机网络（5） 链路、接入网和局域网">
+                计算机网络（5） 链路、接入网和局域网 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络（4）-网络层"><span class="nav-number">1.</span> <span class="nav-text">计算机网络（4） 网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-转发和路由选择"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">4.1.1 转发和路由选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-虚电路和数据网络报"><span class="nav-number">1.0.1.</span> <span class="nav-text">4.2 虚电路和数据网络报</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-虚电路网络"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">4.2.1 虚电路网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-数据报网络"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">4.2.2 数据报网络</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-路由器工作原理"><span class="nav-number">1.0.2.</span> <span class="nav-text">4.3 路由器工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-输入端口"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">4.3.1 输入端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-交换结构"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">4.3.2 交换结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-3-输出端口"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">4.3.3 输出端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-4-何时需要排队"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4.3.4 何时需要排队</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-网际协议：因特网中的转发和编址"><span class="nav-number">1.0.3.</span> <span class="nav-text">4.4 网际协议：因特网中的转发和编址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-数据报格式"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">4.4.1 数据报格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP数据报分片"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">IP数据报分片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-IPV4编址"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">4.4.2 IPV4编址</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取主机地址：动态主机协议配置"><span class="nav-number">1.0.3.3.1.</span> <span class="nav-text">获取主机地址：动态主机协议配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络地址转换"><span class="nav-number">1.0.3.3.2.</span> <span class="nav-text">网络地址转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UPnP"><span class="nav-number">1.0.3.3.3.</span> <span class="nav-text">UPnP</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-3-因特网控制报文协议"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">4.4.3 因特网控制报文协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-4-IPV6"><span class="nav-number">1.0.3.5.</span> <span class="nav-text">4.4.4 IPV6</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IPV4到IPV6的转换"><span class="nav-number">1.0.3.5.1.</span> <span class="nav-text">IPV4到IPV6的转换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-路由选择算法"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.5 路由选择算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-3-层次路由选择"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">4.5.3 层次路由选择</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自治系统内部路由选择协议"><span class="nav-number">1.0.4.1.1.</span> <span class="nav-text">自治系统内部路由选择协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自治系统间路由选择协议"><span class="nav-number">1.0.4.1.2.</span> <span class="nav-text">自治系统间路由选择协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-因特网中的路由选择"><span class="nav-number">1.0.5.</span> <span class="nav-text">4.6 因特网中的路由选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-自治系统内部的路由选择：RIP"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">4.6.1 自治系统内部的路由选择：RIP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-2-因特网中自治系统内部的路由选择：OSPF"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">4.6.2 因特网中自治系统内部的路由选择：OSPF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-3-自治系统间的路由选择：BGP"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">4.6.3 自治系统间的路由选择：BGP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-广播和多播路由选择"><span class="nav-number">1.0.6.</span> <span class="nav-text">4.7 广播和多播路由选择</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

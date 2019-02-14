@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="操作系统精髓与设计原理操作系统精髓与设计原理（第七版）  存储器地址寄存器（Memory Address Register，MAR）存储器缓存寄存器（Memory Buffer Register，MBR）输入输出地址寄存器（I/O Address Register，I/O AR或IO地址寄存器）输入输出缓冲寄存器（I/O Buffer Register，I/O BR或I/O缓冲寄存器） 程序计数器">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统精髓与设计原理">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/操作系统精髓与设计原理/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="操作系统精髓与设计原理操作系统精髓与设计原理（第七版）  存储器地址寄存器（Memory Address Register，MAR）存储器缓存寄存器（Memory Buffer Register，MBR）输入输出地址寄存器（I/O Address Register，I/O AR或IO地址寄存器）输入输出缓冲寄存器（I/O Buffer Register，I/O BR或I/O缓冲寄存器） 程序计数器">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-04-23T13:34:35.465Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统精髓与设计原理">
+<meta name="twitter:description" content="操作系统精髓与设计原理操作系统精髓与设计原理（第七版）  存储器地址寄存器（Memory Address Register，MAR）存储器缓存寄存器（Memory Buffer Register，MBR）输入输出地址寄存器（I/O Address Register，I/O AR或IO地址寄存器）输入输出缓冲寄存器（I/O Buffer Register，I/O BR或I/O缓冲寄存器） 程序计数器">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/操作系统精髓与设计原理/">
+
+
+
+
+
+  <title>操作系统精髓与设计原理 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/操作系统精髓与设计原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作系统精髓与设计原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:48+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-04-23T21:34:35+08:00">
+                2017-04-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/操作系统精髓与设计原理/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统精髓与设计原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  28
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="操作系统精髓与设计原理"><a href="#操作系统精髓与设计原理" class="headerlink" title="操作系统精髓与设计原理"></a>操作系统精髓与设计原理</h1><p>操作系统精髓与设计原理（第七版）</p>
+<hr>
+<p>存储器地址寄存器（Memory Address Register，MAR）<br>存储器缓存寄存器（Memory Buffer Register，MBR）<br>输入输出地址寄存器（I/O Address Register，I/O AR或IO地址寄存器）<br>输入输出缓冲寄存器（I/O Buffer Register，I/O BR或I/O缓冲寄存器）</p>
+<p>程序计数器（Program Counter，PC）<br>指令寄存器（Instruction Register，IR）</p>
+<p>中断（interrupt），提高处理器效率的一种手段。</p>
+<p>存储器的层次结构（memmory hierarchy）<br>命中率(hit ratio)<br>二级存储器（secondary memory）或者辅助存储器（auxiliary memory）</p>
+<p>局部性原理（principle of locality）</p>
+<p>块（blocks）<br>存储槽（slots）</p>
+<p>映射函数（mapping function）<br>置换算法（raplacement algorithm）<br>写策略（write policy）</p>
+<h3 id="chapter-3-进程"><a href="#chapter-3-进程" class="headerlink" title="chapter 3 进程"></a>chapter 3 进程</h3><p>把进程视为由一组元素组成的实体，进程的两个基本元素是程序代码（program code，可能被执行相同程序的其他进程共享）和代码相关的数据集（set of data）。假设处理器开始执行这个进程，在进程执行时，任意给定一个时刻，进程都可以唯一的表征为以下元素：</p>
+<ul>
+<li>标识符：进程的唯一标识符。</li>
+<li>状态：运行态、阻塞态等。</li>
+<li>优先级：</li>
+<li><strong>程序计数器</strong>：程序中将被执行的下一条指令的地址。</li>
+<li>内存指针：包括程序代码和进程相关数据的指针，还有和其他进程共享内存块的指针。</li>
+<li><strong>上下文数据</strong>：进程执行时处理器的寄存器中的数据。</li>
+<li>I/O状态信息：包括显式的I/O请求、分配给进程的I/O设备和被进程使用的文件列表等。</li>
+<li>记账信息：可能包括处理器时间总和、使用的时钟数总和、时间限制、记账号。</li>
+</ul>
+<p>进程控制块包含了以上的信息，使得进程之间可以进行切换。因此可以说，进程是由<strong>程序代码</strong>和<strong>相关数据</strong>还有<strong>进程控制块</strong>组成。</p>
+<p>进程的轨迹（trace）<br>分派器（dispatcher）<br>进程派生（process spawning）父进程、子进程</p>
+<p>交换（swapping）：一个I/O操作、<br>挂起队列（suspend queue）</p>
+<p>调度（schedule）分派（dispatch）</p>
+<p>内存表（memory table）<br>I/O表（I/O table）<br>文件表（file table）<br>进程表（process table）</p>
+<p>进程映像（process image）：程序、数据、栈和进程控制块中定义的属性的集合。<br>进程控制块（process control block，PCB）</p>
+<p>进程标识符（process identification）<br>处理器状态信息（processor state  information）</p>
+<p>用户态（user mode）<br>系统态（system mode）、控制态（control mode）、内核态（kernel mode）</p>
+<p>上下文切换（context switch）：也称环境切换或者进程切换。需要改变并且保存进程控制块，是的来回切换时能迅速定位到进程。</p>
+<p>进程切换的具体步骤：</p>
+<ol>
+<li>保存处理器<strong>上下文环境，包括程序计数器和其他寄存器</strong>。</li>
+<li>更新当前运行态进程的<strong>进程控制块</strong>，包括将进程的状态改变到另一状态，还必须更新其他相关域。</li>
+<li>将进程的进程控制块移到相应的队列。</li>
+<li>选择另一个进程执行。</li>
+<li>更新所选择的进程的<strong>进程控制块</strong>，包括将进程的状态改为运行态。</li>
+<li>更新内存管理的数据结构（后续将会讲到）</li>
+<li>恢复处理器在被选择的进程最近一次切换出运行状态的上下文环境，这可以通过载入<strong>程序计数器和其他寄存器</strong>以前的值来实线。</li>
+</ol>
+<h3 id="chapter-4-线程"><a href="#chapter-4-线程" class="headerlink" title="chapter 4 线程"></a>chapter 4 线程</h3><p>进程：拥有资源所有权，可被操作系统调度和分派的实体。</p>
+<p>分派的最小单位成为线程或轻量级进程（Light Weight Process，LWP），而拥有资源所有权的单位通常仍称为进程或任务（task）。</p>
+<p>进程涉及资源的所有权，线程涉及程序的运行。在多线程系统中，可以在一个进程内定义多个并发线程。这可以通过使用用户级线程或内核级线程来完成。用户级线程对操作系统是未知的，他们由一个在进程的用户空间中运行的线程库创建并管理。用户级线程是非常高效的，因为切换线程不需要状态转换，但是一个进程中一次只有一个用户级线程可以运行，如果线程发生阻塞，整个进程都会被阻塞。内核级线程由内核维护，同一个进程中的多个线程可以在多个处理器上并行执行，一个线程的阻塞不会阻塞整个进程，但当从一个线程切换到另一个线程时需要模式转换。</p>
+<h3 id="chapter-5-并发性：互斥和同步"><a href="#chapter-5-并发性：互斥和同步" class="headerlink" title="chapter 5 并发性：互斥和同步"></a>chapter 5 并发性：互斥和同步</h3><p>临界资源（critical resource）：只允许一个进程访问的资源。<br>临界区（critical section）<br>死锁（deadlock）<br>饥饿（starvation）</p>
+<p>entercritical<br>exitcritical</p>
+<p>互斥的要求：</p>
+<ol>
+<li>必须强制实施互斥</li>
+<li>一个在非临界区停止的进程不能干涉其他的进程。</li>
+<li>决不允许出现需要访问临界区的进程被无限延迟的情况，即不会出现死锁和饥饿、</li>
+<li>当没有进程在临界区时，任何需要进入临界区的进程必须能够进入。</li>
+<li>对相关进程的执行速度和处理器的数目没有任何的要求和限制。</li>
+<li>一个进程驻留在临界区中的时间必须是有限的。</li>
+</ol>
+<p>互斥：硬件的支持</p>
+<ul>
+<li>禁用中断：对单处理系统管用，多处理系统不管用。</li>
+<li>专用机器指令：  比较和交换指令</li>
+</ul>
+<p>互斥机器指令：<strong>比较和交换指令</strong>(compare and swap instruction)或（compare and exchange instruction）原子操作，不接受中断。</p>
+<h4 id="5-3-信号量（semaphore）"><a href="#5-3-信号量（semaphore）" class="headerlink" title="5.3 信号量（semaphore）"></a>5.3 信号量（semaphore）</h4><p>信号量是1965荷兰Dijkstra为了解决并发进程问题而提出的一个重要操作系统的思想。进程间进行通信的一种媒介之一。</p>
+<p>其基本思想：</p>
+<p>两个或多个进程可以通过简单的信号进行合作，一个进程可以被迫在某个位置停止，直到它接收到一个特定的信号。任何复杂的合作需求都可以通过适当的信号结构得到满足。为了发信号，需要使用一个称为信号量的特殊变量。为通过信号量s发送信号，进程可执行原语semSignal（s），即V操作；为了通过信号量s接收信号，进程可执行原语semWait（s），即P操作；如果相应的信号还没有发送，则进程将被挂起，直至发送为止。</p>
+<p>信号量可被看做死一个具有整数型的变量，有三个操作：</p>
+<ol>
+<li><p>一个信号量可以初始化成非负数，一般资源数就是信号量的初始值</p>
+</li>
+<li><p>semWait操作，即P操作，使得信号量减1，如果值变成负数（s &lt;0) 则执行semWait的进程被阻塞，否则进程继续执行</p>
+</li>
+<li><p>semSignal操作，即V操作，使得信号量加1，如果值小于或等于零，则被semWait操作阻塞的进程被解除阻塞</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line">  </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">semaphore</span>&#123;</span>  </span><br><span class="line">    <span class="keyword">int</span> count;  </span><br><span class="line">    queueType queque;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">semWait</span><span class="params">(semaphore s)</span></span>&#123;<span class="comment">//P操作  </span></span><br><span class="line">    s.count--;  </span><br><span class="line">    <span class="keyword">if</span>(s.count&lt;<span class="number">0</span>)&#123;  </span><br><span class="line">        place <span class="keyword">this</span> process in s.<span class="built_in">queue</span>;  </span><br><span class="line">        block <span class="keyword">this</span> process;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">semSignal</span><span class="params">(semaphore s)</span></span>&#123;<span class="comment">//V操作  </span></span><br><span class="line">    s.count++;  </span><br><span class="line">    <span class="keyword">if</span>(s.count&lt;=<span class="number">0</span>)&#123;  </span><br><span class="line">        remove a process P from s.queque;  </span><br><span class="line">        place process P on ready <span class="built_in">list</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开始时，信号量的值为零或正数，如果该值为正数，则该值等于发出semWait操作之后还能继续执行的进程数，如果该值为零，则发生semWait操作后的下一个进程就将会被阻塞。此时该信号量的值变为负。此后每一个semSignal操作都会为处于阻塞状态的一个进程解除阻塞。</p>
+<h4 id="二元信号量（binary-semaphore）"><a href="#二元信号量（binary-semaphore）" class="headerlink" title="二元信号量（binary semaphore）"></a>二元信号量（binary semaphore）</h4><p>一个二元信号量可以初始化成0或1。</p>
+<p>非二元信号量被称为<strong>计数信号量</strong>或<strong>一般信号量</strong>。 </p>
+<h4 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量"></a>互斥量</h4><p>为互斥量加锁（设置为1）的进程和为互斥量解锁（设置0）的进程必须是同一个，相比之下，二元信号量没有限制是同一个进程。</p>
+<p>强信号量（strong semaphore）：阻塞最久最先释放<br>弱信号量（weak semaphore）：不是队列移除</p>
+<h4 id="5-4-管程"><a href="#5-4-管程" class="headerlink" title="5.4 管程"></a>5.4 管程</h4><p>管程是一个程序设计语言结构，它提供了与信号量同样的功能，但更易于控制。</p>
+<p>管程是由一个或多个过程、一个初始化序列和局部数据组成的软件模块。主要特点：</p>
+<ol>
+<li>局部数据变量只能被管程的过程访问，任何外部过程都不能访问。</li>
+<li>一个进程通过调用管程的一个过程进入管程。</li>
+<li>在任何时候，只能有一个进程在管程中执行，调用管程的任何其他进程都被阻塞，以等待管程可用。</li>
+</ol>
+<p>对于管程而言，它构造自己的互斥机制。但是同步还是需要程序员在程序上自己实现。<br>而对于信号量，执行互斥和同步都需要程序员去实现。</p>
+<p>管程优于信号量之处在于，所有的同步机制都被限制在管程内部，因此，不但易于验证同步的正确性，而且易于检测出错误。此外，如果一个管程被正确地编写，则所有进程对受保护资源的访问都是正确的；而对于信号量，只有当所有访问资源的进程都被正确地编写时，资源访问才是正确的。</p>
+<h4 id="5-5-消息传递"><a href="#5-5-消息传递" class="headerlink" title="5.5 消息传递"></a>5.5 消息传递</h4><p>send、receive</p>
+<p>发送者和接受者都可以阻塞和不阻塞。特定的系统实现不同的组合：</p>
+<ul>
+<li>阻塞send、阻塞receive：</li>
+<li>无阻塞send、阻塞recieve：发送者尽快的发送，接受者必须接受到消息。</li>
+<li>无阻塞send、无阻塞receive</li>
+</ul>
+<h5 id="寻址"><a href="#寻址" class="headerlink" title="寻址"></a>寻址</h5><p>直接寻址和间接寻址</p>
+<p>间接寻址：消息不是直接从发送者发送到接受者，而是发送一个共享数据结构，成为信箱（mailBox）。</p>
+<p>一对一、多对一、一对多或多对多寻址。多对一的信箱又可称为端口（port）。</p>
+<h4 id="5-6-读者-写者问题"><a href="#5-6-读者-写者问题" class="headerlink" title="5.6 读者/写者问题"></a>5.6 读者/写者问题</h4><ol>
+<li>任意多的读进程可以同时读这个文件。</li>
+<li>一次只有一个写进程可以写文件。</li>
+<li>如果一个写进程正在写文件，那么禁止任何读进程读文件。</li>
+</ol>
+<h3 id="chapter-6-并发：死锁和饥饿"><a href="#chapter-6-并发：死锁和饥饿" class="headerlink" title="chapter 6 并发：死锁和饥饿"></a>chapter 6 并发：死锁和饥饿</h3><p>死锁的条件：<br><strong>三个必要条件</strong></p>
+<ol>
+<li>互斥：一次只有一个进程可以访问一个资源。</li>
+<li>占有且等待：当一个进程等待其他进程时，继续占有已经分配的资源。</li>
+<li>不可抢占：不能强行抢占进程已占有的资源。</li>
+</ol>
+<p><strong>充分条件：</strong></p>
+<ol start="4">
+<li>循环等待：存在一个封闭的进程链，使得每个进程至少占有下个进程所需要的一个资源。</li>
+</ol>
+<h4 id="6-2-死锁的预防"><a href="#6-2-死锁的预防" class="headerlink" title="6.2 死锁的预防"></a>6.2 死锁的预防</h4><p>prevention。从4个充要条件下手。P190</p>
+<h4 id="6-3-死锁的避免"><a href="#6-3-死锁的避免" class="headerlink" title="6.3 死锁的避免"></a>6.3 死锁的避免</h4><p>允许三个必要条件，通过明智的选择，确保永远不会到达死锁点，因此<strong>死锁避免</strong>（deadlock avoidance）比死锁预防允许更多的并发。</p>
+<p>两种避免死锁的方法：</p>
+<ul>
+<li>如果一个进程的请求会导致死锁，则不会启动此进程。</li>
+<li>如果一个进程增加的资源请求会导致死锁，则不允许此分配。</li>
+</ul>
+<h5 id="进程启动拒绝"><a href="#进程启动拒绝" class="headerlink" title="进程启动拒绝"></a>进程启动拒绝</h5><p>只有所有当前进程的最大请求量家还是那个新的进程请求可以满足时，才会启动该进程。</p>
+<h5 id="资源分配拒绝"><a href="#资源分配拒绝" class="headerlink" title="资源分配拒绝"></a>资源分配拒绝</h5><p>资源分配拒绝策略又称银行家算法</p>
+<p>新概念：安全状态：至少有一个资源分配序列不会导致死锁。即剩余的资源至少可以满足一个进程的资源需求。具体见P192</p>
+<h4 id="6-4-死锁的检测"><a href="#6-4-死锁的检测" class="headerlink" title="6.4 死锁的检测"></a>6.4 死锁的检测</h4><h4 id="6-6-哲学家就餐"><a href="#6-6-哲学家就餐" class="headerlink" title="6.6 哲学家就餐"></a>6.6 哲学家就餐</h4><blockquote>
+<p>哲学家就餐问题可以这样表述，假设有五位哲学家围坐在一张圆形餐桌旁，做以下两件事情之一：吃饭，或者思考。吃东西的时候，他们就停止思考，思考的时候也停止吃东西。餐桌中间有一大碗意大利面，每两个哲学家之间有一只餐叉。因为用一只餐叉很难吃到意大利面，所以假设哲学家必须用两只餐叉吃东西。他们只能使用自己左右手边的那两只餐叉。哲学家就餐问题有时也用米饭和筷子而不是意大利面和餐叉来描述，因为很明显，吃米饭必须用两根筷子。<br>哲学家从来不交谈，这就很危险，可能产生死锁，每个哲学家都拿着左手的餐叉，永远都在等右边的餐叉（或者相反）。即使没有死锁，也有可能发生资源耗尽。例如，假设规定当哲学家等待另一只餐叉超过五分钟后就放下自己手里的那一只餐叉，并且再等五分钟后进行下一次尝试。这个策略消除了死锁（系统总会进入到下一个状态），但仍然有可能发生“活锁”。如果五位哲学家在完全相同的时刻进入餐厅，并同时拿起左边的餐叉，那么这些哲学家就会等待五分钟，同时放下手中的餐叉，再等五分钟，又同时拿起这些餐叉。<br>在实际的计算机问题中，缺乏餐叉可以类比为缺乏共享资源。一种常用的计算机技术是资源加锁，用来保证在某个时刻，资源只能被一个程序或一段代码访问。当一个程序想要使用的资源已经被另一个程序锁定，它就等待资源解锁。当多个程序涉及到加锁的资源时，在某些情况下就有可能发生死锁。例如，某个程序需要访问两个文件，当两个这样的程序各锁了一个文件，那它们都在等待对方解锁另一个文件，而这永远不会发生。</p>
+</blockquote>
+<p>协调处理共享资源</p>
+<h5 id="6-6-1-基于信号量解决方案"><a href="#6-6-1-基于信号量解决方案" class="headerlink" title="6.6.1 基于信号量解决方案"></a>6.6.1 基于信号量解决方案</h5><h5 id="6-6-2-基于管程的解决方案"><a href="#6-6-2-基于管程的解决方案" class="headerlink" title="6.6.2 基于管程的解决方案"></a>6.6.2 基于管程的解决方案</h5><h4 id="6-7-UNIX的并发机制"><a href="#6-7-UNIX的并发机制" class="headerlink" title="6.7 UNIX的并发机制"></a>6.7 UNIX的并发机制</h4><p>UNIX中进程之间的通信和同步机制：</p>
+<ul>
+<li>管道</li>
+<li>消息</li>
+<li>共享内存</li>
+<li>信号量</li>
+<li>信号</li>
+</ul>
+<p>管道、消息、共享内存提供进程之间传递数据的方法，信号量、信号用于出发其他进程的行为。</p>
+<h4 id="6-11-小结"><a href="#6-11-小结" class="headerlink" title="6.11 小结"></a>6.11 小结</h4><p>死锁指一组争用系统资源或相互通信的进程被阻塞的现象，这种阻塞是永久的，除非操作系统采取某些非常的行动，如杀死一个进程，或者强迫多个一个或者多个进程进行回滚。死锁可能涉及可重用资源部或可消耗资源。可重用资源是指不会因为使用而被耗尽或销毁的资源，如I/O通道或一块内存区域。可消耗资源是指当被一个进程获得时就销毁了的资源，这类资源的例子有消息和I/O缓冲区中的信息。<br>处理死锁通常有三种方法：<strong>预防、检测和避免</strong>。死锁预防通过确保死锁的一个必要条件不会满足，保证不会发生死锁。如果操作系统总是同意资源请求，则需要进行死锁检测，操作系统必须周期性的检查死锁，并采取行动打破死锁。死锁避免设计分析新的资源请求，以确定他是否会导致死锁，并且只有当不可能发生死锁时才同意该请求。</p>
+<h3 id="chapter-7-内存管理"><a href="#chapter-7-内存管理" class="headerlink" title="chapter 7 内存管理"></a>chapter 7 内存管理</h3><blockquote>
+<p>二级存储：计算机主存储器或内存之外的所有可访问数据存储器。外部存储以及辅助存储是其同义词。</p>
+</blockquote>
+<h4 id="7-1-内存管理的需求"><a href="#7-1-内存管理的需求" class="headerlink" title="7.1 内存管理的需求"></a>7.1 内存管理的需求</h4><ul>
+<li>重定位：挂起的进程重新进入到内存时需要重定位到内存的不同区域。</li>
+<li>保护：防止本进程以外的其他进程中的程序未经允许访问该进程的内存单元。因此，在进程中必须检查进程所访问的所有内存地址，以确保它们只访问了分配给改进程的内存空间。由处理器处理违法内存访问比操作系统处理更加快速高效。</li>
+<li>共享：保护机制必须具备一定的灵活性，以确保能够访问共享内存区域，而不会损害基本的保护。</li>
+<li>逻辑组织：大多数程序在结构上被组织成模块，这种逻辑上的结构如何在内存中被处理衍生出了很多的技术。</li>
+<li>物理组织：内存和外存之间信息流的组织和传递，<strong>存储管理</strong>的本质。</li>
+</ul>
+<h4 id="7-2-内存分区"><a href="#7-2-内存分区" class="headerlink" title="7.2 内存分区"></a>7.2 内存分区</h4><h5 id="7-2-1-固定分区"><a href="#7-2-1-固定分区" class="headerlink" title="7.2.1 固定分区"></a>7.2.1 固定分区</h5><ul>
+<li>大小相等的分区：大小有限；利用率低，会产生<strong>内部碎片</strong>（internal fragmentation）。</li>
+<li>大小不等的分区：缓解以上的问题。也有别的问题存在。P222.目前很少有系统采取这种分区方式。</li>
+</ul>
+<h5 id="7-2-2-动态分区"><a href="#7-2-2-动态分区" class="headerlink" title="7.2.2 动态分区"></a>7.2.2 动态分区</h5><p>内存分配个进程的大小是按需分配，不多不少，在多次进行进程的挂起运行之后会在内存中出现很多“洞”。称为<strong>外部碎片</strong>（external fragmentation）：只在所有分区外的存储空间变成越来越多的碎片，这与前面内部碎片刚好相对应。</p>
+<p><strong>解决外部碎片</strong></p>
+<ul>
+<li>压缩：由处理器移动进程，腾出空余的连续的内存空间，缺点是浪费处理器资源，并且要支持动态重定位。</li>
+<li>放置算法：当碎片累计到一定量时，需要将进程放入到碎片内存中来减少内存，放置的算法有：最佳适配、首次适配、下次适配。P224</li>
+<li>置换算法：涉及到将内存中处于阻塞状态的进程置换出内存以给新进程或者就绪/挂起态进程腾出空间的操作，涉及到虚拟内存。</li>
+</ul>
+<h5 id="7-2-3-伙伴系统"><a href="#7-2-3-伙伴系统" class="headerlink" title="7.2.3 伙伴系统"></a>7.2.3 伙伴系统</h5><p>固定分区和动态分区都不好，这种方案是伙伴系统。</p>
+<p>伙伴系统：需要分配空间时， 采用<strong>除以2</strong>的方式确定需要分配的空间大小，从同一空间分割出来的子空间称为伙伴空间，相同大小的伙伴空间之间具有合并的趋势。（即不存在两个都为空的伙伴空间）</p>
+<p><strong>在现代系统中，基于分页和分段机制的虚拟内存方案更加先进，因此上述的三种方案在现在已经很少用到了。</strong></p>
+<h5 id="7-2-4-重定位"><a href="#7-2-4-重定位" class="headerlink" title="7.2.4 重定位"></a>7.2.4 重定位</h5><p>当进程在内存中移动时，指令和数据单元的位置会发生改变，需要区分几种地址类型：</p>
+<ul>
+<li>逻辑地址（logic address）：指与物理地址无关的访问地址，在执行对内存的访问之前必须将其转换成物理地址。</li>
+<li>相对地址（relative address）：是逻辑地址的一个特例，相对于某个已知地质点的存储单元。</li>
+<li>物理地址（physical address）：内存中的实际位置。</li>
+</ul>
+<p><strong>基址寄存器</strong>，保存着程序的起始地址，<strong>界限寄存器</strong>指明程序的终止位置。负责将相对地址安全地转换为物理地址，因此处理器负责转化成物理地址。</p>
+<h4 id="7-3-分页"><a href="#7-3-分页" class="headerlink" title="7.3 分页"></a>7.3 分页</h4><p>将内存分为<strong>页框或者帧</strong>（frame）的内存块，将进程分为<strong>页</strong>（page）的块。</p>
+<p>每个进程中维护了一个<strong>页表</strong>（page table），维护了每一个页对应的页框的位置。</p>
+<p>程序中，<strong>逻辑地址是一个页号和在该页中的偏移量</strong>。处理器使用页表产生物理地址。采用分页技术的分区相当小，一个程序可以占据多个分区，并且这些分区不需要是连续的。</p>
+<p>采用简单分页技术，内存被分成许多大小相等且很小的页框，每个进程被划分成同样大小的页；较小的进程需要较少的页，较大的进程需要较多的页；当一个进程被装入时，它的所有页都被装入到可用页框中，并且建立一个页表，用于处理器由逻辑地址索引到物理地址。这种技术解决了分区技术中存在的很多问题。</p>
+<h4 id="7-4-分段"><a href="#7-4-分段" class="headerlink" title="7.4 分段"></a>7.4 分段</h4><p>把程序和其相关的数据划分到几个<strong>段</strong>（segment）中。</p>
+<p>分段技术逻辑地址：段号和偏移量。</p>
+<p>采用简单分段技术，进程被分为很多段，段的大小不需要相等；当一个进程被调入时，它的所有段都被装入内存的可用区域中，并建立一个段表。段表维护相应段号在内存中的起始位置，并指明了该段的长度。寄存器由逻辑地址提取段号和最大段长度，与段表中的段号索引，找到内存中的位置。</p>
+<h3 id="chapter-8-虚拟内存"><a href="#chapter-8-虚拟内存" class="headerlink" title="chapter 8 虚拟内存"></a>chapter 8 虚拟内存</h3><blockquote>
+<p>你需要一艘更大的船。——《大白鲨》</p>
+</blockquote>
+<h4 id="8-1-硬件和控制结构"><a href="#8-1-硬件和控制结构" class="headerlink" title="8.1 硬件和控制结构"></a>8.1 硬件和控制结构</h4><p>突破口：</p>
+<ol>
+<li>进程中的所有内存访问都是逻辑地址，这些逻辑地址在运行时动态的被转换成物理地址，这意味着一个进程可以被换入或换出内存，使得进程可以在执行过程中的不同时刻占据内存中的不同区域。</li>
+<li>一个进程可以划分成许多块（页和段），在执行过程中，这些块不需要连续的位于内存中。动态运行时地址转换和页表或段表的使用使这一点成为可能。</li>
+</ol>
+<p><strong>常驻集</strong>（resident set）：进程执行中的任何时刻都在内存中的部分称为进程常驻集。将<strong>页或者段成为进程块</strong>。</p>
+<p>当请求的逻辑地址不在内存中时，则产生一个中断，将中断的进程置为阻塞，并将包含引发访问故障的逻辑地址的进程读入内存，再讲该进程置为就绪态。</p>
+<p>常驻集带来的好处：</p>
+<ol>
+<li><strong>在内存中保留更多的进程</strong>：对于每个进程仅仅保留了必要的部分（常驻集），因此有足够的空间保留更多的进程，保证在任何时刻都有处于就绪态的进程，使得处理器的效率更高。</li>
+<li>进程可以比内存的全部空间还大：因为内存中只保存了进程的常驻集。</li>
+</ol>
+<p>实存（real memory）、虚存（virtual memory）</p>
+<p><strong>系统抖动</strong>（thrashing）：当系统在读取一块时，移除了另一块B，若B块即将执行，即又不得不再读回来，这种现象称为系统抖动，处理器的大部分时间都用于交换块，而不是执行块。如果减少系统抖动出现了很多复杂且高效的算法。大多基于<strong>局部性理论</strong>（principle of locality）：<strong>局部性理论描述了一个进程中程序和数据的聚簇倾向</strong>。</p>
+<h5 id="8-1-2-分页"><a href="#8-1-2-分页" class="headerlink" title="8.1.2 分页"></a>8.1.2 分页</h5><p>当一个进程中的所有页都读入到内存时，在内存中针对每一页的维护一个<strong>页表项</strong>（Page Table Entry，PTE），存储页和页框（帧）的对应信息。</p>
+<p>页表结构：每一个进程中有唯一的页表，用于维护每一页对应的相关信息。页表中保存有虚拟地址（逻辑地址）包括页号和偏移量，物理地址则有帧号和偏移量组成。根据虚拟地址的页号索引页表找到相应的帧号，再根据虚拟地址的偏移量结合帧号得出物理地址。</p>
+<p>由于一个进程可能存在很多个页，因此页表中可能会出现多个页表项，保存在实存中将会占用巨大的空间，<strong>通常将页表保存在虚拟内存中</strong>。因此，页表和部分页都存储在虚拟内存中，即服从分页管理。当一个进程正在运行时，它的页表至少有一部分必须在内存中，这一部分包括正在运行的页的页表项。</p>
+<p>根页表：用于映射页表<br>用户页表：用于映射虚拟地址空间。</p>
+<p>根页表—–&gt;用户页表——&gt;虚拟内存地址</p>
+<p><strong>两级结构</strong>能有效减少信息存储量。详见P247</p>
+<p>针对32位虚拟地址，前10位用于检索根页表，得用户页表（假设不用中断），再10位检索得到的用户页表，得页表项，后12位用于寻址到内存（实存）。</p>
+<p><strong>倒排页表</strong>：使用散列技术将页号均匀分布给页框。</p>
+<p>每个虚存访问可能引起两次物理内存访问：一次取对应的页表项，一个取需要的数据。因此，简单的虚拟内存方案会导致内存访问时间加倍。<br>解决办法：为页表项使用一个特殊的高速缓存，通常称为<strong>转换检测缓冲区</strong>（Translation Lookaside Buffer，<strong>TLB</strong>），这个高速缓存的功能和高速缓冲存储器相似，包含了最近用过的页表项。<br>当访问一个虚拟地址时，经过的步骤为：</p>
+<ol>
+<li>给定一个虚拟地址，<strong>处理器首先检查TLB</strong>，如果需要的页表项在其中（TLB命中），则检索帧号并形成实地址。</li>
+<li>否则，<strong>处理器用页号检索进程页表</strong>，如果存在，则处理检索出的帧号形成实地址。处理器同时更新TLB，使其包含新的页表项。</li>
+<li>如果进程页表中不存在该页号，则产生一次<strong>内存访问故障</strong>，称为缺页（pagefault）中断。此时离开硬件作用的范围，调用操作系统，由操作系统负责装入所需要的页，并更新页表。</li>
+</ol>
+<p>由于TLB表仅包含了整个页表中的部分表项，因此处理器中的硬件机制允许同时查询许多TLB页，以确定是否存在匹配的页号。</p>
+<p>虚拟机制还与内存中的高速缓存（不是TLB）进行了交互。当获取到实地址时，会与高速缓存进行检索，查到该块直接交给CPU，否则再从内存中查找。</p>
+<p>一次内存访问中涉及到CPU硬件的复杂性。虚拟地址被转换为实地址，这涉及访问页表项，而页表项可能在TLB中，也可能在内存中或磁盘中，被访问的块可能在高速缓存中、内存中或磁盘中。如果被访问的字只在磁盘中，则包含改字的页必须装入内存，并且它所在的块装入到高速缓存中。此外，包含改字的页对应的页表项必须被更新。</p>
+<h5 id="8-1-3-分段"><a href="#8-1-3-分段" class="headerlink" title="8.1.3 分段"></a>8.1.3 分段</h5><p>简单分段时：每个进程有自己的段表，当它的所有段都装入内存时，为该进程创建一个段表并装入内存。每个段表项包含相对应段在内存中的起始位置和段的长度。</p>
+<p>虚拟内存分段：每个进程也有自己的唯一段表。段表项变得更复杂而已。</p>
+<h5 id="8-1-4-段页式"><a href="#8-1-4-段页式" class="headerlink" title="8.1.4 段页式"></a>8.1.4 段页式</h5><p>分页对程序员是透明的，它消除了外部碎片，因而可以更有效的利用内存。<br>分段对程序员是可见的，它具有处理不断增长的数据结构的能力以及支持共享和保护的能力。</p>
+<p>段页式的系统中，用户的地址空间被程序员划分为许多段，<strong>每个段一次划分为许多固定大小的页，页的长度等于内存中的帧的大小</strong>。从程序员的角度看，逻辑地址仍然是由段号和段偏移量组成；从系统的角度看，段偏移量可视为指定段中的一个页号和页偏移量。</p>
+<p> 段页式的工作过程：<br> 每个进程使用一个段表和一些页表，并且每个进程段中使用一个页表。当一个特定的进程运行时，使用一个<strong>寄存器</strong>记录该进程表的起始地址。对每一个虚拟地址，<strong>处理器</strong>使用<strong>段号部分</strong>来检索<strong>进程段表</strong>以寻找<strong>该段的页表</strong>，然后<strong>虚拟地址的页号部分</strong>用于检索页表中的<strong>帧号</strong>，再结合虚拟地址的偏移量来产生需要的实地址。</p>
+<h4 id="8-2-操作系统软件"><a href="#8-2-操作系统软件" class="headerlink" title="8.2 操作系统软件"></a>8.2 操作系统软件</h4><p>操作系统的内存管理设计取决于三个基本方面的选择：</p>
+<ul>
+<li>是否使用了虚存技术</li>
+<li>是使用分页还是使用分段，或者是两者的结合</li>
+<li>为各种存储管理特征采用的算法</li>
+</ul>
+<p>前两个是硬件相关，第三个是操作系统相关</p>
+<h5 id="8-2-1-读取策略"><a href="#8-2-1-读取策略" class="headerlink" title="8.2.1 读取策略"></a>8.2.1 读取策略</h5><ul>
+<li>请求分页（demand paging）：当访问到某页中的一个单元时才将该页取入内存，当进程第一次启动时，讲出现大量的缺页中断。</li>
+<li>预先分页（prepaging）：读取的页并不是缺页中断请求的页。读取连续的页或一定间隔的页。</li>
+</ul>
+<h5 id="8-2-3-置换策略"><a href="#8-2-3-置换策略" class="headerlink" title="8.2.3 置换策略"></a>8.2.3 置换策略</h5><p>基本算法：</p>
+<ul>
+<li>最佳（Optimal，OPT）：置换下次访问距当前时间最长的那些项。</li>
+<li>最近最少使用（Least Recently Used，LRU）：置换内存中上次使用距当前最远的页</li>
+<li>先进先出（First In First Out，FIFO）：循环缓冲区，实现简单，但是性能低，将导致更多的缺页中断。</li>
+<li>时钟（Clock）：以较小的开销接近LRU性能的一种算法。</li>
+</ul>
+<p>驻留集的大小：</p>
+<ul>
+<li>固定分配策略：固定大小</li>
+<li>可变分配策略：可调的，动态变化的。</li>
+</ul>
+<p>置换范围：</p>
+<ul>
+<li>局部置换策略（local replacement policy）：产生这次缺页的同一进程的驻留页中选择。</li>
+<li>全局置换策略（global replacement policy）：所有未锁定的页做为置换页的候选。</li>
+</ul>
+<p>置换范围和驻留级的大小有一定的联系：固定驻留级意味着页框的大小不变，因此采取局部置换策略。可变分配策略采取全局置换策略。此外：可变分配+局部置换也是可行的。</p>
+<h5 id="8-2-5清除策略"><a href="#8-2-5清除策略" class="headerlink" title="8.2.5清除策略"></a>8.2.5清除策略</h5><p>清除策略和读取策略相反，它用于何时将一个修改过的页写回辅存。</p>
+<ul>
+<li>请求式清除：只有当一页被选择用于置换时才被写回辅存。</li>
+<li>预约式清除：将这些被修改的多个页在需要用到他们所占据的页框之前成批的写回辅存。</li>
+</ul>
+<h4 id="8-6-小结"><a href="#8-6-小结" class="headerlink" title="8.6 小结"></a>8.6 小结</h4><p>使用虚拟内存技术的原因：为了有效地使用处理器和I/O设备，希望能在内存中保留尽可能多的进程。此外，还希望能解除程序开发时对程序所使用的内存大小的限制。</p>
+<p>虚拟内存技术，所有的访问都是逻辑地址访问，在运行时转换为实地址。允许一个进程位于内存中的任何地址，并且可以随着时间而变化。</p>
+<p>允许一个进程被划分成块，这些块在内存中不需要是连续的，并且在运行中，不需要进程所有的块都在内存中。</p>
+<p>分页技术：每个进程划分成相对比较小且大小固定等于页框大小的页。<br>分段技术：进程被划分为大小可变的块。 分页和分段技术可以组合到同一个内存管理方案中。</p>
+<p>与操作系统对内存管理的支持相关的设计问题有：</p>
+<ul>
+<li>读取策略：</li>
+<li>放置策略：</li>
+<li>置换策略：</li>
+<li>驻留集策略：</li>
+<li>清除策略：</li>
+<li>加载控制：</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/笔记整理（11）/" rel="next" title="笔记整理（11）">
+                <i class="fa fa-chevron-left"></i> 笔记整理（11）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/计算机网络（1） 计算机网络和因特网/" rel="prev" title="计算机网络（1） 计算机网络和因特网">
+                计算机网络（1） 计算机网络和因特网 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统精髓与设计原理"><span class="nav-number">1.</span> <span class="nav-text">操作系统精髓与设计原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#chapter-3-进程"><span class="nav-number">1.0.1.</span> <span class="nav-text">chapter 3 进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chapter-4-线程"><span class="nav-number">1.0.2.</span> <span class="nav-text">chapter 4 线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chapter-5-并发性：互斥和同步"><span class="nav-number">1.0.3.</span> <span class="nav-text">chapter 5 并发性：互斥和同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-信号量（semaphore）"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">5.3 信号量（semaphore）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二元信号量（binary-semaphore）"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">二元信号量（binary semaphore）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#互斥量"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">互斥量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-管程"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">5.4 管程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-消息传递"><span class="nav-number">1.0.3.5.</span> <span class="nav-text">5.5 消息传递</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#寻址"><span class="nav-number">1.0.3.5.1.</span> <span class="nav-text">寻址</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-读者-写者问题"><span class="nav-number">1.0.3.6.</span> <span class="nav-text">5.6 读者/写者问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chapter-6-并发：死锁和饥饿"><span class="nav-number">1.0.4.</span> <span class="nav-text">chapter 6 并发：死锁和饥饿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-死锁的预防"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">6.2 死锁的预防</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-死锁的避免"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">6.3 死锁的避免</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程启动拒绝"><span class="nav-number">1.0.4.2.1.</span> <span class="nav-text">进程启动拒绝</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#资源分配拒绝"><span class="nav-number">1.0.4.2.2.</span> <span class="nav-text">资源分配拒绝</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-死锁的检测"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">6.4 死锁的检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-6-哲学家就餐"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">6.6 哲学家就餐</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-1-基于信号量解决方案"><span class="nav-number">1.0.4.4.1.</span> <span class="nav-text">6.6.1 基于信号量解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-2-基于管程的解决方案"><span class="nav-number">1.0.4.4.2.</span> <span class="nav-text">6.6.2 基于管程的解决方案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-7-UNIX的并发机制"><span class="nav-number">1.0.4.5.</span> <span class="nav-text">6.7 UNIX的并发机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-11-小结"><span class="nav-number">1.0.4.6.</span> <span class="nav-text">6.11 小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chapter-7-内存管理"><span class="nav-number">1.0.5.</span> <span class="nav-text">chapter 7 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-内存管理的需求"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">7.1 内存管理的需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-内存分区"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">7.2 内存分区</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-1-固定分区"><span class="nav-number">1.0.5.2.1.</span> <span class="nav-text">7.2.1 固定分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-2-动态分区"><span class="nav-number">1.0.5.2.2.</span> <span class="nav-text">7.2.2 动态分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-3-伙伴系统"><span class="nav-number">1.0.5.2.3.</span> <span class="nav-text">7.2.3 伙伴系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-4-重定位"><span class="nav-number">1.0.5.2.4.</span> <span class="nav-text">7.2.4 重定位</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-分页"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">7.3 分页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-分段"><span class="nav-number">1.0.5.4.</span> <span class="nav-text">7.4 分段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chapter-8-虚拟内存"><span class="nav-number">1.0.6.</span> <span class="nav-text">chapter 8 虚拟内存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-硬件和控制结构"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">8.1 硬件和控制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1-2-分页"><span class="nav-number">1.0.6.1.1.</span> <span class="nav-text">8.1.2 分页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1-3-分段"><span class="nav-number">1.0.6.1.2.</span> <span class="nav-text">8.1.3 分段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1-4-段页式"><span class="nav-number">1.0.6.1.3.</span> <span class="nav-text">8.1.4 段页式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-操作系统软件"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">8.2 操作系统软件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-2-1-读取策略"><span class="nav-number">1.0.6.2.1.</span> <span class="nav-text">8.2.1 读取策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-2-3-置换策略"><span class="nav-number">1.0.6.2.2.</span> <span class="nav-text">8.2.3 置换策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-2-5清除策略"><span class="nav-number">1.0.6.2.3.</span> <span class="nav-text">8.2.5清除策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-6-小结"><span class="nav-number">1.0.6.3.</span> <span class="nav-text">8.6 小结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

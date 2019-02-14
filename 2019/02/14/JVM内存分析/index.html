@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JVM内存分析jmap分析内存状态123jmap -heap pid //简单查看整个JVM的内存状态jmap -histo pid //查看JVM堆中每个对象详细占用情况 四列依次表示： num instances bytes classnamejmap -dump:format=b,file=/data/filename pid //dump文件进行分析 -heap12345678910111">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="问题调试技巧">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/JVM内存分析/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="JVM内存分析jmap分析内存状态123jmap -heap pid //简单查看整个JVM的内存状态jmap -histo pid //查看JVM堆中每个对象详细占用情况 四列依次表示： num instances bytes classnamejmap -dump:format=b,file=/data/filename pid //dump文件进行分析 -heap12345678910111">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oli0whb3w.bkt.clouddn.com/fasdasfsdafasfasfasfa.png">
+<meta property="og:updated_time" content="2019-02-14T08:21:25.837Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="问题调试技巧">
+<meta name="twitter:description" content="JVM内存分析jmap分析内存状态123jmap -heap pid //简单查看整个JVM的内存状态jmap -histo pid //查看JVM堆中每个对象详细占用情况 四列依次表示： num instances bytes classnamejmap -dump:format=b,file=/data/filename pid //dump文件进行分析 -heap12345678910111">
+<meta name="twitter:image" content="http://oli0whb3w.bkt.clouddn.com/fasdasfsdafasfasfasfa.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/JVM内存分析/">
+
+
+
+
+
+  <title>问题调试技巧 | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/JVM内存分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">问题调试技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:22:17+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-14T16:21:25+08:00">
+                2019-02-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JVM内存分析"><a href="#JVM内存分析" class="headerlink" title="JVM内存分析"></a>JVM内存分析</h2><h3 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a>jmap</h3><p>分析内存状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jmap -heap pid //简单查看整个JVM的内存状态</span><br><span class="line">jmap -histo pid //查看JVM堆中每个对象详细占用情况 四列依次表示： num instances bytes classname</span><br><span class="line">jmap -dump:format=b,file=/data/filename pid //dump文件进行分析</span><br></pre></td></tr></table></figure></p>
+<h4 id="heap"><a href="#heap" class="headerlink" title="-heap"></a>-heap</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">root@wchpc:/data# /opt/jdk1.7.0_79/bin/jmap -heap 4231</span><br><span class="line">Attaching to process ID 4231, please wait...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 24.79-b02</span><br><span class="line"></span><br><span class="line">using thread-local object allocation.</span><br><span class="line">Parallel GC with 4 thread(s)</span><br><span class="line"></span><br><span class="line">Heap Configuration:</span><br><span class="line">   MinHeapFreeRatio = 0</span><br><span class="line">   MaxHeapFreeRatio = 100</span><br><span class="line">   MaxHeapSize      = 805306368 (768.0MB)</span><br><span class="line">   NewSize          = 1310720 (1.25MB)</span><br><span class="line">   MaxNewSize       = 17592186044415 MB</span><br><span class="line">   OldSize          = 5439488 (5.1875MB)</span><br><span class="line">   NewRatio         = 2</span><br><span class="line">   SurvivorRatio    = 8</span><br><span class="line">   PermSize         = 21757952 (20.75MB)</span><br><span class="line">   MaxPermSize      = 85983232 (82.0MB)</span><br><span class="line">   G1HeapRegionSize = 0 (0.0MB)</span><br><span class="line"></span><br><span class="line">Heap Usage:</span><br><span class="line">PS Young Generation</span><br><span class="line">Eden Space:</span><br><span class="line">   capacity = 254279680 (242.5MB)</span><br><span class="line">   used     = 81008 (0.0772552490234375MB)</span><br><span class="line">   free     = 254198672 (242.42274475097656MB)</span><br><span class="line">   0.031857834648840205% used</span><br><span class="line">From Space:</span><br><span class="line">   capacity = 7340032 (7.0MB)</span><br><span class="line">   used     = 0 (0.0MB)</span><br><span class="line">   free     = 7340032 (7.0MB)</span><br><span class="line">   0.0% used</span><br><span class="line">To Space:</span><br><span class="line">   capacity = 6815744 (6.5MB)</span><br><span class="line">   used     = 0 (0.0MB)</span><br><span class="line">   free     = 6815744 (6.5MB)</span><br><span class="line">   0.0% used</span><br><span class="line">PS Old Generation</span><br><span class="line">   capacity = 174063616 (166.0MB)</span><br><span class="line">   used     = 24795152 (23.646499633789062MB)</span><br><span class="line">   free     = 149268464 (142.35350036621094MB)</span><br><span class="line">   14.24487929746329% used</span><br><span class="line">PS Perm Generation</span><br><span class="line">   capacity = 26214400 (25.0MB)</span><br><span class="line">   used     = 25681496 (24.491783142089844MB)</span><br><span class="line">   free     = 532904 (0.5082168579101562MB)</span><br><span class="line">   97.96713256835938% used</span><br><span class="line"></span><br><span class="line">9444 interned Strings occupying 813664 bytes.</span><br></pre></td></tr></table></figure>
+<h4 id="histo"><a href="#histo" class="headerlink" title="-histo"></a>-histo</h4><p>每个对象所占堆内存大小</p>
+<p>问题：<br>1、无法heap，报<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Attaching to process ID 4231, please wait...</span><br><span class="line">Error attaching to process: sun.jvm.hotspot.debugger.DebuggerException: Can&apos;t attach to the process</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>确保jmap的jdk和pid的jdk是同一个</li>
+<li>确保用户有权限执行</li>
+</ul>
+<p>2、无法dump</p>
+<ul>
+<li>确保pid文件存在</li>
+<li>确保pid文件有权限执行</li>
+<li>确保运行jdk用户和dump用户是同一个</li>
+</ul>
+<blockquote>
+<p>由此问题进一步引申开来就会发现以下几点容易出问题的地方：<br>1：没有生成 hsperfdata_xxx目录报错<br>2：生成 hsperfdata_xxx目录但是没有pid文件<br>3：没权限生成，例如指定的/tmp或者其他目录不可 写，包括2种情况，一是没权限，而是空间不够<br>4：文件不可读，例如2个不同的用户来操作这个文件，一般是A用户启动java  B用户来运行jvmstat等等<br>5：java生成的目录 和 jvmstat 使用的目录文件不是同一个，这个可以见上面jdk update引起的bug导致</p>
+</blockquote>
+<p>jhat<br>java自带的分析dump的工具，eclipse的mat插件更好用</p>
+<h3 id="jstack"><a href="#jstack" class="headerlink" title="jstack"></a>jstack</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">jstack 是sun JDK 自带的工具，通过该工具可以看到JVM 中线程的运行状况，包括锁等待，线程是否在运行</span><br><span class="line">执行 jstack [pid] ,线程的所有堆栈信息</span><br><span class="line"></span><br><span class="line">&quot;http-8080-10&quot; daemon prio=10 tid=x0a949bb60 nid=0x884  waiting for monitor entry [...]</span><br><span class="line"></span><br><span class="line">&quot;http-8080-10&quot; 这个线程处于等待状态。 waiting for monitor entry 如果在连续几次输出线程堆栈信息都存在于同一个或多个线程上时，则说明系统中有锁竞争激烈，死锁，或锁饿死的现象。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">“http-8080-11” daemon prio=10 tix=xxx nid=xxx in object.wait() [...]</span><br><span class="line"> java.lang.Thread.State:waiting (on object monitor)</span><br><span class="line">该表示http-8080-11的线程处于对象的Wait 上，等待其他线程的唤醒，这也是线程池的常见用法。</span><br><span class="line"></span><br><span class="line">“Low Memory Detector”daemon prio=10 tix=xx nid=xxx runnable [...] java.lang.Thread.State:runnable</span><br><span class="line">表示“Low Memory Detector” 的线程处于Runable状态，等待获取ＣＰＵ的使用权.</span><br></pre></td></tr></table></figure>
+<p>查看线程状态</p>
+<p>一般用法<br>jstack pid &gt; /data/pid.stack   //导出到文件</p>
+<p>一般常见的几个关键字</p>
+<blockquote>
+<p>RUNNABLE：运行中状态。locked字眼表明该线程获得锁<br>TIMED_WAITING：有时限的等待，wait（timeout）<br>WAITING：无限期等待，wait（）或者park（）<br>BLOCKED：阻塞，被sychronized（）block住了</p>
+</blockquote>
+<p>关键语句：</p>
+<blockquote>
+<p>locked&lt;地址&gt;目标：拥有锁<br>waiting on lock&lt;地址&gt;目标：等待锁<br>waiting on：获取锁 ，wait()弃锁<br>parking to wait for：基本的线程阻塞原语,不通过监视器在对象上阻塞。随concurrent包会出现的新的机制,不synchronized体系不同。</p>
+</blockquote>
+<p>线程状态：</p>
+<blockquote>
+<p>runnable：RUNNABLE状态<br>in Object.wait():等待区等待,状态为WAITING或TIMED_WAITING。<br>waiting for monitor entry:进入区等待,状态为BLOCKED。<br>waiting on condition:等待区等待、被park。<br>sleeping:休眠的线程,调用了Thread.sleep()。</p>
+</blockquote>
+<p>线程状态图：<br><img src="http://oli0whb3w.bkt.clouddn.com/fasdasfsdafasfasfasfa.png" alt="enter image description here"></p>
+<h3 id="jstat"><a href="#jstat" class="headerlink" title="jstat"></a>jstat</h3><p>ref:<br><a href="https://blog.csdn.net/zhaozheng7758/article/details/8623549" target="_blank" rel="noopener">https://blog.csdn.net/zhaozheng7758/article/details/8623549</a></p>
+<h2 id="使用jstack之内的工具调试的一般步骤："><a href="#使用jstack之内的工具调试的一般步骤：" class="headerlink" title="使用jstack之内的工具调试的一般步骤："></a>使用jstack之内的工具调试的一般步骤：</h2><p>1、跑一个死循环while(true){Thread.sleep(500)}，模拟故障程序段。<br>2、top查看cpu，快速定位进程。或者使用jps查看程序使用的进程。<br>3、找到该进程，shift+h找到该进程中cpu最高的线程nid，<br>4、jstack pid &gt; file 输出当前时刻的信息到文件<br>5、<strong>将nid转为16进制</strong><code>echo &quot;obase=16;4003&quot;|bc</code>，在导出的文件中查找线程信息 4003 –&gt; fa3</p>
+<h3 id="cpu的us-sy各自代表的意义："><a href="#cpu的us-sy各自代表的意义：" class="headerlink" title="cpu的us sy各自代表的意义："></a>cpu的us sy各自代表的意义：</h3><p>us用户空间消耗cpu，指应用层。<br>sy内核空间消耗cpu。</p>
+<p><strong>us高</strong>：应用消耗大量的CPU。java应用造成us高的原因主要是线程一直处于可运行（Runnable）状态，通常这些线程在执行无阻塞、循环、正则或纯粹的计算等任务造成的；另外一个可能也会造成us高的原因是频繁GC。<br><strong>sy高</strong>：表示linux花费了更多的时间在进行java线程切换。java应用造成这种现象的主要原因是启动的线程比较多，且这些线程多数处于不断的阻塞（例如锁等待，IO等待状态）和执行状态的变化过程中，这就导致了操作系统要不断地切换执行的线程，产生大量的线程上下文切换。</p>
+<p><strong>如果us高，sy低，则可以判断原因不是线程等待或者阻塞。sy高us低，可能是系统进行大量的线程调度，这个时候可以适当的降低线程数。在刚开始洗数据时线程数过多会出现这个问题。</strong></p>
+<p>参考:<a href="https://blog.csdn.net/axman/article/details/7104819" target="_blank" rel="noopener">一个load飙高的过程分析，非常有价值</a></p>
+<h2 id="JDK大礼包"><a href="#JDK大礼包" class="headerlink" title="JDK大礼包"></a>JDK大礼包</h2><p>一些常见的问题：</p>
+<ol>
+<li>内存不足oom</li>
+<li>内存泄露</li>
+<li>线程死锁</li>
+<li>锁争用</li>
+<li>Java线程消耗cpu过高</li>
+<li>…</li>
+</ol>
+<p>jps：jvm中运行的进程状态信息<br>jstack：某个Java进程的线程堆栈信息<br>jstat：JVM统计监测工具 jvm内存使用情况<br>jinfo：指定pid的jvm信息<br>jmap：dump 配合jhat ，eclipse mat分析堆栈信息<br>jvisualvm：图形化工具</p>
+<p>参考：<a href="https://blog.csdn.net/xiaofengnh/article/details/51900787" target="_blank" rel="noopener">https://blog.csdn.net/xiaofengnh/article/details/51900787</a></p>
+<hr>
+<h2 id="mysql死锁"><a href="#mysql死锁" class="headerlink" title="mysql死锁"></a>mysql死锁</h2><p>INFORMATION_SCHEMA库<br>innodb_trx ## 当前运行的所有事务<br>innodb_locks ## 当前出现的锁<br>innodb_lock_waits ## 锁等待的对应关系</p>
+<p>当数据库操作中出现死锁时可以查看该表找到死锁语句。</p>
+<hr>
+<h2 id="cyclicBarrier使用陷阱"><a href="#cyclicBarrier使用陷阱" class="headerlink" title="cyclicBarrier使用陷阱"></a>cyclicBarrier使用陷阱</h2><p>洗数据中使用了该类，经常抛一些不可预知的BrokenBarrierException，总结一下几点注意事项：</p>
+<p>cyclicBarrier相当于可重复使用的countDOwnLatch，需要注意以下几点：<br>1、构造方法，第一种cyclicBarrier(int patties),cyclicBarrier(int parties,Runnable runnable)，第三种（parties,runnable,timeout）<br>2、第一种单纯的定义批次线程数，第二种还定义了统一触发的操作，其由最后一个到达的线程执行。<br>3、parties中的线程要么全部执行，要么全部失败。因此，在以下几种情况下，会抛出BrokenBarrierException:</p>
+<ul>
+<li>cyclicBarrier(Runnable)的Runnable任务中如果有对barrier的reset操作，会抛出BrokenBarrierException异常</li>
+<li>任何一个线程在await()的过程中被中断，或任何一个线程抛出异常，抛出BrokenBarrierException异常，barrier置位破坏状态</li>
+<li>调用一个坏的barrier，抛出BrokenBarrierException异常</li>
+</ul>
+<p>洗数据过程中，10min开始抛出BrokenBarrierException异常。<br>【原因】：线程在await过程中，被系统强制中断，导致barrier损坏，而后又重复调用坏的barrier，导致重复抛出BrokenBarrierException异常/分析该使用场景并不适合cyclicBarrier，最后舍弃。</p>
+<p>【总结】：CyclicBarrier的等待线程不能有经常被中断的风险，如果有，就要做好重建机制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>()&#123;</span><br><span class="line">  <span class="keyword">if</span>(barrier.isBroken())&#123;</span><br><span class="line">    rebuild(barrier);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终洗数据的优化思路：<br><code>BATCH_TASK_GENERATOR</code> query 5000 datas each time, the 5000 datas will be splited into 10 500 size batch tasks, while the first batch task done, BATCH_TASK_GENERATOR will generate the next 5000 datas and repeat the pre task split steps.</p>
+<hr>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p>第一行：<br>当前时间 | 运行总时间 | 当前系统用户数 | 1、5、15min负载　　<em>**</em><br>第二行：<br>进程数 总共 | running | sleeping | stopped |　僵尸<br>第三行：<br>ＣＰＵ使用　用户使用（us）　｜　内核占用（sys） | 改变过优先级的线程所占CPU（ni） |　空闲cpu（id） | io等待占比（wa） | 硬中断 | 软中断</p>
+<p>注意：window和linux的cpu占用概念不一样，用户空间和内核空间。</p>
+<p>第四行：<br>内存状态<br>total | used | free空闲 | buffers 缓存内存<br>第五行：<br>swap交换空间<br>total | used | free | cached</p>
+<p>不能只看free，第四行中used指内核控制的内存数，不一定都在正真的使用，还包括过去使用的现在可以重复利用的一部分内存。free是真正未使用过的内存，使用过的不会重新计入free，所以free会越来越少，一般不用担心。</p>
+<p>经验计算公式：<br>第四行free+第四行buffers+第五行cached==目前可用内存。</p>
+<p><strong>真正需要注意的是第五行的交换分区的used，如果经常变动，说明内核在不断的进行内存和swap的数据交换，此时内存不够用</strong></p>
+<p>第七行：<br>一些参数<br>进程id | 用户 |　优先级　｜　… | cpu | 物理内存　｜　进程名</p>
+<p>【排序】：有时候需要对ＣＰＵ排序或者排序，这么做。<br>１、top<br>２、b、x打开高亮<br>3、<code>shift+&gt;</code>或者<code>shift+&lt;</code>改变排序序列</p>
+<p>注意：<code>shift+h</code>会显示线程视图</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/Redis学习（1）/" rel="next" title="Redis学习（1）">
+                <i class="fa fa-chevron-left"></i> Redis学习（1）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM内存分析"><span class="nav-number">1.</span> <span class="nav-text">JVM内存分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jmap"><span class="nav-number">1.1.</span> <span class="nav-text">jmap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#heap"><span class="nav-number">1.1.1.</span> <span class="nav-text">-heap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#histo"><span class="nav-number">1.1.2.</span> <span class="nav-text">-histo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jstack"><span class="nav-number">1.2.</span> <span class="nav-text">jstack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jstat"><span class="nav-number">1.3.</span> <span class="nav-text">jstat</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用jstack之内的工具调试的一般步骤："><span class="nav-number">2.</span> <span class="nav-text">使用jstack之内的工具调试的一般步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu的us-sy各自代表的意义："><span class="nav-number">2.1.</span> <span class="nav-text">cpu的us sy各自代表的意义：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK大礼包"><span class="nav-number">3.</span> <span class="nav-text">JDK大礼包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql死锁"><span class="nav-number">4.</span> <span class="nav-text">mysql死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cyclicBarrier使用陷阱"><span class="nav-number">5.</span> <span class="nav-text">cyclicBarrier使用陷阱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#top"><span class="nav-number">6.</span> <span class="nav-text">top</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

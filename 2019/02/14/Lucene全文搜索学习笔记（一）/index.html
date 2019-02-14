@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Lucene,全文搜索,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Lucene全文搜索学习笔记（一）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。 什么是lucene？Lucene是apache软件基金会发布的一个开放源代码的全文检索引擎工具包，由资深全文检索专家Doug Cutting所撰写,它是一个全文检索引擎的架构，提供了完整的创建索引和查询索引，以及部分文本分析的引擎，Lucene的目的是为软件开发人员提供一个简单易用的工具包，以方便在">
+<meta name="keywords" content="Lucene,全文搜索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lucene全文搜索学习笔记（一）">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/Lucene全文搜索学习笔记（一）/index.html">
+<meta property="og:site_name" content="Wch&#39;s blog">
+<meta property="og:description" content="Lucene全文搜索学习笔记（一）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。 什么是lucene？Lucene是apache软件基金会发布的一个开放源代码的全文检索引擎工具包，由资深全文检索专家Doug Cutting所撰写,它是一个全文检索引擎的架构，提供了完整的创建索引和查询索引，以及部分文本分析的引擎，Lucene的目的是为软件开发人员提供一个简单易用的工具包，以方便在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-02-18T12:09:21.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lucene全文搜索学习笔记（一）">
+<meta name="twitter:description" content="Lucene全文搜索学习笔记（一）LuceneUtil，分页查询个人笔记，如有错误，恳请批评指正。 什么是lucene？Lucene是apache软件基金会发布的一个开放源代码的全文检索引擎工具包，由资深全文检索专家Doug Cutting所撰写,它是一个全文检索引擎的架构，提供了完整的创建索引和查询索引，以及部分文本分析的引擎，Lucene的目的是为软件开发人员提供一个简单易用的工具包，以方便在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":50},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/Lucene全文搜索学习笔记（一）/">
+
+
+
+
+
+  <title>Lucene全文搜索学习笔记（一） | Wch's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wch's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">勿忘初心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Lucene全文搜索学习笔记（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wch's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Lucene全文搜索学习笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T16:16:49+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-02-18T20:09:21+08:00">
+                2017-02-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/" itemprop="url" rel="index">
+                    <span itemprop="name">实用技术</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/实用技术/个人博客/" itemprop="url" rel="index">
+                    <span itemprop="name">个人博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Lucene全文搜索学习笔记（一）"><a href="#Lucene全文搜索学习笔记（一）" class="headerlink" title="Lucene全文搜索学习笔记（一）"></a>Lucene全文搜索学习笔记（一）</h1><h2 id="LuceneUtil，分页查询"><a href="#LuceneUtil，分页查询" class="headerlink" title="LuceneUtil，分页查询"></a><strong>LuceneUtil，分页查询</strong></h2><p><em>个人笔记，如有错误，恳请批评指正。</em></p>
+<h4 id="什么是lucene？"><a href="#什么是lucene？" class="headerlink" title="什么是lucene？"></a>什么是lucene？</h4><p>Lucene是<em><a href="http://www.apache.org/" target="_blank" rel="noopener">apache</a></em>软件基金会发布的一个开放源代码的全文检索引擎工具包，由资深全文检索专家Doug Cutting所撰写,它是一个全文检索引擎的架构，提供了完整的创建索引和查询索引，以及部分文本分析的引擎，Lucene的目的是为软件开发人员提供一个简单易用的工具包，以方便在目标系统中实现全文检索的功能，或者是以此为基础建立起完整的全文检索引擎，Lucene在全文检索领域是一个经典的祖先，现在很多检索引擎都是在其基础上创建的，思想是相通的。<br>即：Lucene是根据关健字来搜索的文本搜索工具，只能在某个网站内部搜索文本内容，不能跨网站搜索。</p>
+<h4 id="Lucene通常用在什么地方？"><a href="#Lucene通常用在什么地方？" class="headerlink" title="Lucene通常用在什么地方？"></a>Lucene通常用在什么地方？</h4><p>Lucene不能用在互联网搜索（即像百度那样），只能用在网站内部的文本搜索（即只能在CRM，RAX，ERP内部使用），但思想是相通的。</p>
+<p>为什么网站内部有些地方要用Lucene来索搜，而不全用SQL来搜索？</p>
+<ol>
+<li>SQL只能针对数据库表搜索，不能直接针对硬盘上的文本搜索</li>
+<li>SQL没有相关度排名</li>
+<li>SQL搜索结果没有关健字高亮显示</li>
+<li>SQL需要数据库的支持，数据库本身需要内存开销较大，例如：Oracle</li>
+<li>SQL搜索有时较慢，尤其是数据库不在本地时，超慢，例如：Oracle</li>
+</ol>
+<h4 id="使用Lucene的流程图？"><a href="#使用Lucene的流程图？" class="headerlink" title="使用Lucene的流程图？"></a>使用Lucene的流程图？</h4><ul>
+<li>创建索引库：</li>
+</ul>
+<ol>
+<li>创建JavaBean对象</li>
+<li>创建Docment对象</li>
+<li>将JavaBean对象所有的属性值，均放到Document对象中去，属性名可以和JavaBean相同或不同</li>
+<li>创建IndexWriter对象</li>
+<li>将Document对象通过IndexWriter对象写入索引库中</li>
+<li>关闭IndexWriter对象</li>
+</ol>
+<ul>
+<li>根据关键字查询索引库中的内容：</li>
+</ul>
+<ol>
+<li>创建IndexSearcher对象</li>
+<li>创建QueryParser对象</li>
+<li>创建Query对象来封装关键字</li>
+<li>用IndexSearcher对象去索引库中查询符合条件的前100条记录，不足100条记录的以实际为准</li>
+<li>获取符合条件的编号</li>
+<li>用indexSearcher对象去索引库中查询编号对应的Document对象</li>
+<li>将Document对象中的所有属性取出，再封装回JavaBean对象中去，并加入到集合中保存，以备将之用。</li>
+</ol>
+<h4 id="Lucene快速入门"><a href="#Lucene快速入门" class="headerlink" title="Lucene快速入门"></a>Lucene快速入门</h4><ul>
+<li>导入Lucene相关的jar包<ul>
+<li>lucene-core-3.0.2.jar【Lucene核心】</li>
+<li>lucene-analyzers-3.0.2.jar【分词器】</li>
+<li>lucene-highlighter-3.0.2.jar【Lucene会将搜索出来的字，高亮显示，提示用户】</li>
+<li>lucene-memory-3.0.2.jar【索引库优化策略】</li>
+</ul>
+</li>
+<li>编写代码：<ul>
+<li>虚拟Article bean对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Article</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Integer id;  </span><br><span class="line">    <span class="keyword">private</span> String  title;  </span><br><span class="line">    <span class="keyword">private</span> String content;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> id;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.id = id;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> title;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.title = title;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> content;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContent</span><span class="params">(String content)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.content = content;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Article</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Article</span><span class="params">(Integer id, String title, String content)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">        <span class="keyword">this</span>.id = id;  </span><br><span class="line">        <span class="keyword">this</span>.title = title;  </span><br><span class="line">        <span class="keyword">this</span>.content = content;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>LuceneApp：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstLucene</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createIndexDB</span><span class="params">(Article article)</span></span>&#123;  </span><br><span class="line">        <span class="comment">//document  </span></span><br><span class="line">        Document document = <span class="keyword">new</span> Document();  </span><br><span class="line">        <span class="comment">//创建lucene文档对象，并添加字段  </span></span><br><span class="line">        <span class="comment">/*FIELD：：</span></span><br><span class="line"><span class="comment">         * Store.YES表示把当前字段存到文档中，Store.NO表示 不把当前字段存到文档中</span></span><br><span class="line"><span class="comment">         * Index：</span></span><br><span class="line"><span class="comment">         * ANALYZED，表示当前字段建立索引，并且进行分词，产生多个term</span></span><br><span class="line"><span class="comment">         * NOT_ANALYZED，表示当前字段建立索引，但不进行分词，整个字段值作为一个整体，产生一个term</span></span><br><span class="line"><span class="comment">         * NO,不创建索引，以后不能用此字段查询</span></span><br><span class="line"><span class="comment">         */</span>  </span><br><span class="line">        document.add(<span class="keyword">new</span> Field(<span class="string">"id"</span>, article.getId().toString(), Store.YES, Index.NOT_ANALYZED));  </span><br><span class="line">        document.add(<span class="keyword">new</span> Field(<span class="string">"title"</span>,article.getTitle(),Store.YES,Index.ANALYZED));  </span><br><span class="line">        document.add(<span class="keyword">new</span> Field(<span class="string">"content"</span>,article.getContent(),Store.YES,Index.ANALYZED));  </span><br><span class="line"></span><br><span class="line">        Directory directory = <span class="keyword">null</span>;  </span><br><span class="line">        Analyzer analyzer = <span class="keyword">null</span>;  </span><br><span class="line">        IndexWriter indexWriter = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            <span class="comment">//指定索引库目录  </span></span><br><span class="line">            directory = FSDirectory.open(<span class="keyword">new</span> File(<span class="string">"F:/java/practice/luceneDir"</span>));  </span><br><span class="line">            <span class="comment">//指定分词器 版本一般用最高版本  </span></span><br><span class="line">            analyzer = <span class="keyword">new</span> StandardAnalyzer(Version.LUCENE_30);  </span><br><span class="line">            <span class="comment">//创建索引库管理对象  </span></span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">            *创建索引库管理对象（主要用来增删改索引库信息）</span></span><br><span class="line"><span class="comment">            * MaxFieldLength，用于限制Field的大小。这个变量可以让用户有计划地</span></span><br><span class="line"><span class="comment">            *对大文档Field进行截取。假如取值为10000，就只索引每个Field的前</span></span><br><span class="line"><span class="comment">            *10000个Term（关键字）。其它的部分都不会被Lucene索引，也不能被搜索到。</span></span><br><span class="line"><span class="comment">            */</span>  </span><br><span class="line">            indexWriter = <span class="keyword">new</span> IndexWriter(directory, analyzer, MaxFieldLength.LIMITED);  </span><br><span class="line">            <span class="comment">//添加文档对象到索引库管理对象  </span></span><br><span class="line">            indexWriter.addDocument(document);  </span><br><span class="line">            <span class="comment">//提交到索引库  </span></span><br><span class="line">            indexWriter.commit();  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//关闭  </span></span><br><span class="line">        <span class="keyword">finally</span>&#123;  </span><br><span class="line">            <span class="keyword">if</span>(indexWriter!=<span class="keyword">null</span>)&#123;  </span><br><span class="line">                <span class="keyword">try</span> &#123;  </span><br><span class="line">                    indexWriter.close();  </span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">                    e.printStackTrace();  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findIndexDB</span><span class="params">(String keyWords)</span></span>&#123;  </span><br><span class="line">        List&lt;Article&gt; articleList = <span class="keyword">new</span> ArrayList&lt;Article&gt;();  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            FSDirectory directory = FSDirectory.open(<span class="keyword">new</span> File(<span class="string">"F:/java/practice/luceneDir"</span>));  </span><br><span class="line">            <span class="comment">//分词器 ：和存入时要一致  </span></span><br><span class="line">            Analyzer analyzer = <span class="keyword">new</span> StandardAnalyzer(Version.LUCENE_30);  </span><br><span class="line">            <span class="comment">//索引库搜索者  </span></span><br><span class="line">            IndexSearcher indexSearcher = <span class="keyword">new</span> IndexSearcher(directory);  </span><br><span class="line">            <span class="comment">//指定查询解析器//参数一：版本号，一般选择最高，参数二：字段名，参数三：分词器  </span></span><br><span class="line">            QueryParser queryParser = <span class="keyword">new</span> QueryParser(Version.LUCENE_30, <span class="string">"title"</span>, analyzer);  </span><br><span class="line">            <span class="comment">//把查询关键字交给查询解析器，如果由多个单词组成，将匹配多个term 关键字，只要能匹配上任意一个单词都可以返回  </span></span><br><span class="line">            Query query = queryParser.parse(keyWords);  </span><br><span class="line">            <span class="comment">//查询解析库//参数1：指定的查询解析器，参数二：指定返回记录条数  </span></span><br><span class="line">            TopDocs topDocs = indexSearcher.search(query, <span class="number">5</span>);  </span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"实际索引库中匹配到的总条数为："</span>+topDocs.totalHits);  </span><br><span class="line">            System.out.println(<span class="string">"返回的记录(ID)条数为："</span>+topDocs.scoreDocs.length);  </span><br><span class="line">            ScoreDoc[] scoreDocs = topDocs.scoreDocs;  </span><br><span class="line">            <span class="keyword">for</span> (ScoreDoc scoreDoc : scoreDocs) &#123;  </span><br><span class="line">                System.out.println(<span class="string">"当前的文档积分是："</span>+scoreDoc.score);  </span><br><span class="line">                System.out.println(<span class="string">"当前的文档编号是："</span>+scoreDoc.doc);  </span><br><span class="line"></span><br><span class="line">                <span class="comment">//根据文档查看真正的文档对象  </span></span><br><span class="line">                Document document = indexSearcher.doc(scoreDoc.doc);  </span><br><span class="line">                System.out.println(<span class="string">"真正文档的内容是：id:"</span>+document.get(<span class="string">"id"</span>)+<span class="string">";title:"</span>+document.get(<span class="string">"title"</span>)+<span class="string">";content："</span>+document.get(<span class="string">"content"</span>));  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testIn</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        Article article = <span class="keyword">new</span> Article(<span class="number">1</span>, <span class="string">"挖掘机修理哪家强？"</span>, <span class="string">"山东济南找蓝翔"</span>);  </span><br><span class="line">        createIndexDB(article);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="meta">@Test</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOut</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        String keyword = <span class="string">"挖掘机"</span>;  </span><br><span class="line">        findIndexDB(keyword);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>新增操作说明</strong><br>关键步骤：</p>
+<pre><code>1. 构建索引库
+         `Directory directory = FSDirectory.open(new File(&quot;索引库目录&quot;));`
+2. 指定分词器，版本一般指定为最高
+      `Analyzer analyzer = newStandardAnalyzer(Version.LUCENE_30);`
+3. 创建文档对象，并添加相关字段值
+      `Document doc = new Document();
+      doc.add(new Field(&quot;Id&quot;,goods.getGoodsId().toString(),Store.YES,Index.NOT_ANALYZED));`
+4. 创建增删改索引库的操作对象，添加文档并提交
+       `IndexWriter indexWriter =new IndexWriter(directory,analyzer, MaxFieldLength.LIMITED);
+       indexWriter.addDocument(doc);
+       indexWriter.commit();`
+5. 关闭操作对象
+</code></pre><p><strong>查询操作说明</strong><br>关键步骤：</p>
+<pre><code>1. 打开索引库
+        `directory= FSDirectory.open(new File(&quot;索引库目录&quot;));`
+2. 创建查询分词器，版本号与写入文档的查询分词器一样
+         `Analyzer analyzer = newStandardAnalyzer(Version.LUCENE_30);`
+3. 创建查询解析器，参数为版本号，查询字段名，分词器
+         `QueryParser parser = new QueryParser(Version.LUCENE_30,&quot;content&quot;,analyzer);`
+4. 构建查询信息对象
+        ` Query query = parser.parse(keyWord);`
+5. 构建查询工具
+        `searcher = new IndexSearcher(directory);`
+6. 通过查询工具执行查询。参数1，查询信息对象；参数2。返回记录数；TopDocs包括总记录数、文档重要信息（编号）的列表等
+       `TopDocs topDocx=searcher.search(query,20);`
+7. 根据文档编号遍历真正的文档
+       `  ScoreDoc sd[] = topDocx.scoreDocs;
+         for(ScoreDoc scoreDoc:sd){
+               ...
+            Document doc =searcher.doc(scoreDoc.doc);`
+8. 转为Java对象  setter(doc.get(&quot;param&quot;));              
+9. 关闭查询操作对象
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Lucene/" rel="tag"># Lucene</a>
+          
+            <a href="/tags/全文搜索/" rel="tag"># 全文搜索</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/Lucene全文搜索学习笔记（三）/" rel="next" title="Lucene全文搜索学习笔记（三）">
+                <i class="fa fa-chevron-left"></i> Lucene全文搜索学习笔记（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/MyBatis学习笔记（二）/" rel="prev" title="MyBatis学习笔记（二）">
+                MyBatis学习笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wch</p>
+              <p class="site-description motion-element" itemprop="description">Java后端技术积累</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lucene全文搜索学习笔记（一）"><span class="nav-number">1.</span> <span class="nav-text">Lucene全文搜索学习笔记（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LuceneUtil，分页查询"><span class="nav-number">1.1.</span> <span class="nav-text">LuceneUtil，分页查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是lucene？"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">什么是lucene？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lucene通常用在什么地方？"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Lucene通常用在什么地方？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Lucene的流程图？"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">使用Lucene的流程图？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lucene快速入门"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Lucene快速入门</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+     <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=386829&auto=0&height=32"></iframe>
+     </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wch</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">170.2k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
